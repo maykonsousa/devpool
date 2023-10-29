@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Container, Message } from './HomePage.styles'
 import Image from 'next/image'
