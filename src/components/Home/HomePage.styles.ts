@@ -12,4 +12,5 @@ export const Container = styled(Box)`
 export const Message = styled(Typography)`
   font-size: ${({ theme }) => theme.typography.h4.fontSize};
   font-weight: 500;
+  color: ${({ theme }) => theme.palette.primary.main};
 `;
