@@ -1,13 +1,16 @@
-import { Adb, Menu as MenuIcon } from '@mui/icons-material';
+'use client';
+
+import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography,
 } from '@mui/material';
+import Image from 'next/image';
 import * as React from 'react';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Comunidade', 'Buscar Perfis', 'Vagas'];
+const settings = ['Perfil', 'Rede', 'Minhas vagas', 'Sair'];
 
-function ResponsiveAppBar() {
+export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -27,27 +30,12 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: 'inherit' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Adb sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}>
+            <Image src="/logo.svg" alt="logo" width={200} height={50} />
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -85,31 +73,28 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <Adb sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
+          <Box sx={{
+            display: { xs: 'flex', md: 'none' }, width: '100%', alignItems: 'center', justifyContent: 'center',
+          }}
           >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Image src="/logo.svg" alt="logo" width={200} height={50} />
+          </Box>
+
+          <Box sx={{
+            width: '100%',
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 2,
+          }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                variant="text"
+                color="inherit"
+
               >
                 {page}
               </Button>
@@ -117,9 +102,9 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Maykon Sousa">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="https://avatars.githubusercontent.com/u/53588064?v=4" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -150,4 +135,3 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
