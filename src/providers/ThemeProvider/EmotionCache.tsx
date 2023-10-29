@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+
 'use client';
+
 import * as React from 'react';
 import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
@@ -67,7 +70,7 @@ export function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProv
     });
 
     return (
-      <React.Fragment>
+      <>
         {globals.map(({ name, style }) => (
           <style
             key={name}
@@ -83,7 +86,7 @@ export function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProv
             dangerouslySetInnerHTML={{ __html: styles }}
           />
         )}
-      </React.Fragment>
+      </>
     );
   });
 

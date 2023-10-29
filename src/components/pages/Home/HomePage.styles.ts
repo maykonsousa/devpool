@@ -1,5 +1,6 @@
 'use client';
-import { Box, Typography, styled } from "@mui/material";
+
+import { Box, Typography, styled } from '@mui/material';
 
 export const Container = styled(Box)`
   display: flex;
