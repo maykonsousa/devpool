@@ -1,8 +1,8 @@
 'use client';
 
-import { ThemeProvider } from '@/providers'
+import { ThemeProvider } from '@/providers';
+import React from 'react';
 import { PageContainer } from './layout.styles';
-
 
 export default function RootLayout({
   children,
@@ -12,11 +12,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <ThemeProvider>
-
-      <PageContainer>
-        {children}
-      </PageContainer>
+        <body>
+          <PageContainer>
+            {children}
+          </PageContainer>
+        </body>
       </ThemeProvider>
     </html>
-  )
+  );
 }
