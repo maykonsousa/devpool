@@ -12,6 +12,10 @@ padding-top: ${({ theme }) => theme.spacing(2.5)};
   flex: 1;
   width: 100%;
 
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
 `;
 
 export const Sidebar = styled(Box)`

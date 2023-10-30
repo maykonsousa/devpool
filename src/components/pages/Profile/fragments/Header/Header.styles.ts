@@ -26,4 +26,10 @@ export const HeaderAvatar = styled(Box)`
   margin-top: -60px;
   z-index: 1;
 
+
+  @media (max-width: 900px) {
+    margin-top: 0;
+  }
+
+
 `;

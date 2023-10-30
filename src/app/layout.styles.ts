@@ -6,4 +6,8 @@ export const PageContainer = styled(Box)`
   width: 100%;
   max-width: 1440px;
   height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 0 ${({ theme }) => theme.spacing(2.5)};
+  }
 `;
