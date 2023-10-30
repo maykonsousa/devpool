@@ -1,15 +1,105 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import React from 'react';
+import { Box, Tab, Tabs } from '@mui/material';
+import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
+import { Cover, Header, TabProfile } from './fragments';
+import { ProfilePageContainer } from './ProfilePage.styles';
+
+interface TabPanelProps {
+  label: string;
+  value: string;
+  iconPosition: 'start' | 'end';
+  icon: React.ReactElement;
+  component: React.ReactNode;
+}
+
+const INITIALTAB:TabPanelProps = {
+  label: 'Perfil',
+  value: 'perfil',
+  iconPosition: 'start',
+  icon: <Person />,
+  component: <TabProfile />,
+};
 
 interface ProfilePageProps {
-  profileName: string
+  profileName?: string;
 }
 
 export function ProfilePage({ profileName }:ProfilePageProps) {
-// get profile data from api
+  const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
+
+  const tabs:TabPanelProps[] = [
+    {
+      label: 'Perfil',
+      value: 'perfil',
+      iconPosition: 'start',
+      icon: <Person />,
+      component: <TabProfile />,
+    },
+    {
+      label: 'Projetos',
+      value: 'projetos',
+      iconPosition: 'start',
+      icon: <IntegrationInstructions />,
+      component: <div>Projetos</div>,
+    },
+    {
+      label: 'Experiência',
+      value: 'experiencia',
+      iconPosition: 'start',
+      icon: <Build />,
+      component: <div>Experiência</div>,
+    },
+    {
+      label: 'Contatos',
+      value: 'contatos',
+      iconPosition: 'start',
+      icon: <Person />,
+      component: <div>Contatos</div>,
+    },
+  ];
+
+  const handleChangeTab = (value:string) => {
+    const newTab = tabs.find((tab) => tab.value === value);
+    if (newTab) setCurrentTab(newTab);
+  };
 
   return (
-    <div>{profileName}</div>
+    <ProfilePageContainer>
+      <Cover />
+      <Header />
+      <Box sx={{
+        display: 'flex',
+        width: '100%',
+        marginTop: '20px',
+      }}
+      >
+        <Tabs
+          onChange={(event, value) => handleChangeTab(value)}
+          value={currentTab.value}
+          sx={{
+            display: 'flex',
+            width: '100%',
+          }}
+        >
+          {tabs.map((tab) => (
+            <Tab
+              key={tab.value}
+              label={tab.label}
+              value={tab.value}
+              icon={tab.icon}
+              iconPosition="start"
+
+            />
+          ))}
+        </Tabs>
+      </Box>
+      {currentTab.component}
+
+    </ProfilePageContainer>
   );
 }
