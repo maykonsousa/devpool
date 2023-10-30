@@ -39,6 +39,7 @@ export function Card({
         justifyContent: direction === 'column' ? 'center' : 'flex-start',
         gap: 1,
         flexWrap: 'wrap',
+        width: '100%',
       }}
       >
         {children}

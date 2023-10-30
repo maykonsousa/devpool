@@ -1,10 +1,13 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { Computer, EqualizerSharp, LocationOn } from '@mui/icons-material';
 import { HeaderAvatar, HeaderContainer } from './Header.styles';
 
 export function Header() {
+  const theme = useTheme();
   return (
     <HeaderContainer>
       <HeaderAvatar>
@@ -28,6 +31,9 @@ export function Header() {
           alignItems: 'flex-start',
           justifyContent: 'center',
           width: '100%',
+          [theme.breakpoints.down('md')]: {
+            alignItems: 'center',
+          },
         }}
       >
         <Typography variant="h4">Maykon Sousa</Typography>
@@ -42,6 +48,10 @@ export function Header() {
             display: 'flex',
             gap: 1,
             alignItems: 'center',
+            [theme.breakpoints.down('md')]: {
+              flexDirection: 'column',
+              alignItems: 'center',
+            },
           }}
           >
             <Computer />
@@ -52,6 +62,10 @@ export function Header() {
             display: 'flex',
             gap: 1,
             alignItems: 'center',
+            [theme.breakpoints.down('md')]: {
+              flexDirection: 'column',
+              alignItems: 'center',
+            },
           }}
           >
             <EqualizerSharp />
@@ -62,6 +76,10 @@ export function Header() {
             display: 'flex',
             gap: 1,
             alignItems: 'center',
+            [theme.breakpoints.down('md')]: {
+              flexDirection: 'column',
+              alignItems: 'center',
+            },
           }}
           >
             <LocationOn />

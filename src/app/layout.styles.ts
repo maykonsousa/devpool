@@ -5,9 +5,9 @@ export const PageContainer = styled(Box)`
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  height: 100vh;
+  height: 100%;
 
   @media (max-width: 768px) {
-    padding: 0 ${({ theme }) => theme.spacing(2.5)};
+    padding: 0 8px;
   }
 `;

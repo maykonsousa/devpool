@@ -38,6 +38,8 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
     <Tooltip title={SocialEnum[type].label} placement="top">
       <Link
         href={url}
+        target="_blank"
+        rel="noopener noreferrer"
         sx={{
           color: 'text.primary',
           border: `2px solid ${theme.palette.text.primary}`,

@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  Box, Chip, Typography, useTheme,
+  Box, Chip, Typography, useTheme, LinearProgress, Tooltip,
 } from '@mui/material';
 import {
   Computer, EqualizerSharp, LocationOn, Person,
 } from '@mui/icons-material';
 import { Card } from '@/components/Card';
 import { SocialIcon } from '@/components/SocialIcon';
+import { GridTable } from '@/components/GridTable';
 import {
   Container, Content, Sidebar,
 } from './TabProfile.styles';
@@ -16,6 +17,33 @@ interface InfoRowProps {
   label: string;
   value?: string;
 }
+
+interface ICourse {
+  title: string;
+  description?: string;
+  type: 'course' | 'graduate';
+  school: string;
+  progress?: number;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+const courses:ICourse[] = [
+  {
+    title: 'Análise e Desenvolvimento de Sistemas',
+    type: 'graduate',
+    school: 'Faculdade Maurício de Nassau',
+    progress: 80,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros vitae nisl aliquam aliquet. Sed vitae eros vitae nisl aliquam aliquet.',
+  },
+  {
+    title: 'React Avançado',
+    type: 'course',
+    school: 'Udemy',
+    progress: 100,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros vitae nisl aliquam aliquet. Sed vitae eros vitae nisl aliquam aliquet.',
+  },
+
+];
 
 function InFormationRow({ label, icon, value }:InfoRowProps) {
   const theme = useTheme();
@@ -81,10 +109,10 @@ export function TabProfile() {
 
         <Card title="social" direction="row">
           <SocialIcon type="facebook" url="http://facebook.com/maykonsousa" />
-          <SocialIcon type="instagram" url="http://facebook.com/maykonsousa" />
-          <SocialIcon type="linkedin" url="http://facebook.com/maykonsousa" />
-          <SocialIcon type="github" url="http://facebook.com/maykonsousa" />
-          <SocialIcon type="whatsapp" url="http://facebook.com/maykonsousa" />
+          <SocialIcon type="instagram" url="https://www.instagram.com/mykesousa/" />
+          <SocialIcon type="linkedin" url="https://www.linkedin.com/in/maykonsousa/" />
+          <SocialIcon type="github" url="https://github.com/maykonsousa" />
+          <SocialIcon type="whatsapp" url="https://wa.me/5561992943297" />
 
         </Card>
       </Sidebar>
@@ -101,9 +129,43 @@ export function TabProfile() {
         </Card>
 
         <Card title="Cursos" sx={{ flex: 1 }}>
-          <Typography variant="body1">
-            Aqui vai uma tabela com os cursos que eu o dev fez
-          </Typography>
+          <GridTable
+            columns={[
+              {
+                field: 'title',
+                headerName: 'Título',
+                minWidth: 100,
+                flex: 1,
+              },
+              {
+                field: 'school', headerName: 'Instituição', minWidth: 100, flex: 1,
+              },
+              {
+                field: 'progress',
+                headerName: 'Progresso',
+                minWidth: 50,
+                flex: 1,
+                renderCell: ({ row }) => (
+                  <Tooltip title={`${row.progress}%`}>
+                    <LinearProgress
+                      sx={{ width: '100%', height: '10px' }}
+                      color="primary"
+                      variant="determinate"
+                      value={row.progress}
+                      content="teste"
+                    />
+                  </Tooltip>
+                ),
+              },
+            ]}
+            rows={courses.map((course) => ({
+              id: course.title,
+              title: course.title,
+              school: course.school,
+              progress: course.progress,
+            }))}
+          />
+
         </Card>
       </Content>
     </Container>

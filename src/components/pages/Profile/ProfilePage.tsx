@@ -4,7 +4,9 @@
 'use client';
 
 import React from 'react';
-import { Box, Tab, Tabs } from '@mui/material';
+import {
+  Box, Tab, Tabs, useMediaQuery, useTheme, TabScrollButton,
+} from '@mui/material';
 import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
 import { Cover, Header, TabProfile } from './fragments';
 import { ProfilePageContainer } from './ProfilePage.styles';
@@ -31,6 +33,8 @@ interface ProfilePageProps {
 
 export function ProfilePage({ profileName }:ProfilePageProps) {
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const tabs:TabPanelProps[] = [
     {
@@ -80,6 +84,10 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
       >
         <Tabs
           onChange={(event, value) => handleChangeTab(value)}
+          scrollButtons
+          allowScrollButtonsMobile
+          ScrollButtonComponent={TabScrollButton}
+          variant={isMobile ? 'scrollable' : 'standard'}
           value={currentTab.value}
           sx={{
             display: 'flex',
@@ -92,7 +100,13 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
               label={tab.label}
               value={tab.value}
               icon={tab.icon}
-              iconPosition="start"
+              sx={{
+
+                [theme.breakpoints.down('md')]: {
+                  width: '100%',
+                },
+              }}
+              iconPosition={isMobile ? 'top' : 'start'}
 
             />
           ))}
