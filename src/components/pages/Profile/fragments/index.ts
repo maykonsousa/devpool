@@ -1,4 +1,5 @@
 export { Cover } from './Cover/Cover';
 export { Header } from './Header/Header';
-export { Main } from './Main/Main';
 export { TabProfile } from './TabProfile/TabProfile';
+export { TabProjects } from './TabProjects/TabProjects';
+export { TabExperiences } from './TabExperiences/TabExperiences';
