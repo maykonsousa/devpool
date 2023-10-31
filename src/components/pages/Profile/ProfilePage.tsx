@@ -8,7 +8,9 @@ import {
   Box, Tab, Tabs, useMediaQuery, useTheme, TabScrollButton,
 } from '@mui/material';
 import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
-import { Cover, Header, TabProfile } from './fragments';
+import {
+  Cover, Header, TabExperiences, TabProfile, TabProjects,
+} from './fragments';
 import { ProfilePageContainer } from './ProfilePage.styles';
 
 interface TabPanelProps {
@@ -49,14 +51,14 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
       value: 'projetos',
       iconPosition: 'start',
       icon: <IntegrationInstructions />,
-      component: <div>Projetos</div>,
+      component: <TabProjects />,
     },
     {
       label: 'Experiência',
       value: 'experiencia',
       iconPosition: 'start',
       icon: <Build />,
-      component: <div>Experiência</div>,
+      component: <TabExperiences />,
     },
     {
       label: 'Contatos',
