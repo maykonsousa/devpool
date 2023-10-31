@@ -1,16 +1,8 @@
-import { Handyman } from '@mui/icons-material';
 import {
-  Timeline,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineItem,
-  TimelineSeparator,
-} from '@mui/lab';
-import {
-  Box, Chip, Divider, Paper, Typography,
+  Box, Typography,
 } from '@mui/material';
 import React from 'react';
+import { ExperienceCard } from './ExperienceCard';
 
 export function TabExperiences() {
   return (
@@ -18,7 +10,7 @@ export function TabExperiences() {
       display: 'flex',
       flexDirection: 'column',
       overflow: 'auto',
-      padding: '1rem 0',
+      padding: '1.5rem',
       width: '100%',
 
     }}
@@ -26,171 +18,10 @@ export function TabExperiences() {
       <Typography variant="h4" component="h2" gutterBottom>
         Experiências
       </Typography>
+      <ExperienceCard />
+      <ExperienceCard />
+      <ExperienceCard />
 
-      <Timeline position="right">
-        <TimelineItem>
-
-          <TimelineSeparator>
-            <TimelineDot color="primary">
-              <Handyman />
-            </TimelineDot>
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>
-            <Paper elevation={3} sx={{ padding: '1rem', gap: 1 }}>
-              <Typography variant="h6" fontWeight="bold">Nome da Empresa</Typography>
-              <Typography variant="body1" color="textSecondary">Cargo</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Soluta nobis labore
-                facere modi molestiae commodi sit suscipit numquam, aspernatur
-                iusto temporibus sapiente repellat voluptatibus aliquid.
-              </Typography>
-              <Divider sx={{
-                marginTop: '1rem',
-                marginBottom: '1rem',
-
-              }}
-              />
-              <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '1rem',
-                gap: '8px',
-                flexWrap: 'wrap',
-
-              }}
-              >
-                {['React', 'Node', 'TypeScript', 'JavaScript', 'HTML', 'CSS'].map((item) => (
-                  <Chip label={item} key={item} />
-                ))}
-              </Box>
-
-            </Paper>
-          </TimelineContent>
-        </TimelineItem>
-        <TimelineItem>
-
-          <TimelineSeparator>
-            <TimelineDot color="primary">
-              2022
-            </TimelineDot>
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>
-            <Paper elevation={3} sx={{ padding: '1rem', gap: 1 }}>
-              <Typography variant="h6" fontWeight="bold">Nome da Empresa</Typography>
-              <Typography variant="body1" color="textSecondary">Cargo</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Soluta nobis labore
-                facere modi molestiae commodi sit suscipit numquam, aspernatur
-                iusto temporibus sapiente repellat voluptatibus aliquid.
-              </Typography>
-              <Divider sx={{
-                marginTop: '1rem',
-                marginBottom: '1rem',
-
-              }}
-              />
-              <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '1rem',
-                gap: '8px',
-                flexWrap: 'wrap',
-
-              }}
-              >
-                {['React', 'Node', 'TypeScript', 'JavaScript', 'HTML', 'CSS'].map((item) => (
-                  <Chip label={item} key={item} />
-                ))}
-              </Box>
-
-            </Paper>
-          </TimelineContent>
-        </TimelineItem>
-        <TimelineItem>
-
-          <TimelineSeparator>
-            <TimelineDot color="primary">
-              <Handyman />
-            </TimelineDot>
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>
-            <Paper elevation={3} sx={{ padding: '1rem', gap: 1 }}>
-              <Typography variant="h6" fontWeight="bold">Nome da Empresa</Typography>
-              <Typography variant="body1" color="textSecondary">Cargo</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Soluta nobis labore
-                facere modi molestiae commodi sit suscipit numquam, aspernatur
-                iusto temporibus sapiente repellat voluptatibus aliquid.
-              </Typography>
-              <Divider sx={{
-                marginTop: '1rem',
-                marginBottom: '1rem',
-
-              }}
-              />
-              <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '1rem',
-                gap: '8px',
-                flexWrap: 'wrap',
-              }}
-              >
-                {['React', 'Node', 'TypeScript', 'JavaScript', 'HTML', 'CSS'].map((item) => (
-                  <Chip label={item} key={item} />
-                ))}
-              </Box>
-
-            </Paper>
-          </TimelineContent>
-        </TimelineItem>
-        <TimelineItem>
-
-          <TimelineSeparator>
-            <TimelineDot color="primary">
-              <Handyman />
-            </TimelineDot>
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>
-            <Paper elevation={3} sx={{ padding: '1rem', gap: 1 }}>
-              <Typography variant="h6" fontWeight="bold">Nome da Empresa</Typography>
-              <Typography variant="body1" color="textSecondary">Cargo</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Soluta nobis labore
-                facere modi molestiae commodi sit suscipit numquam, aspernatur
-                iusto temporibus sapiente repellat voluptatibus aliquid.
-              </Typography>
-              <Divider sx={{
-                marginTop: '1rem',
-                marginBottom: '1rem',
-
-              }}
-              />
-              <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '1rem',
-                gap: '8px',
-                flexWrap: 'wrap',
-              }}
-              >
-                {['React', 'Node', 'TypeScript', 'JavaScript', 'HTML', 'CSS'].map((item) => (
-                  <Chip label={item} key={item} />
-                ))}
-              </Box>
-
-            </Paper>
-          </TimelineContent>
-        </TimelineItem>
-      </Timeline>
     </Box>
   );
 }
