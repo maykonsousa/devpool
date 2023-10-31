@@ -16,7 +16,6 @@ export function TabProjects() {
           padding: '1rem',
           alignContent: 'center',
           justifyContent: 'center',
-          border: '1px solid #ccc',
         },
       }}
     >
