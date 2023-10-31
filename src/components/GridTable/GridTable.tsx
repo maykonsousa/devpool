@@ -10,7 +10,6 @@ interface GridTableProps extends DataGridProps {
 }
 
 export function GridTable({ columns, rows }:GridTableProps) {
-  // swt background header
   const theme = useTheme();
   const headerBackgroundColor = theme.palette.background.paper;
 
@@ -40,7 +39,6 @@ export function GridTable({ columns, rows }:GridTableProps) {
             backgroundColor: headerBackgroundColor,
             fontWeight: 'bold',
           },
-          // color label header
           '& .MuiDataGrid-columnHeaderTitle': {
             color: theme.palette.primary.contrastText,
             fontWeight: 'bold',
