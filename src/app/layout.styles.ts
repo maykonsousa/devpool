@@ -5,7 +5,7 @@ export const PageContainer = styled(Box)`
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  height: 100%;
+  height: 100vh;
 
   @media (max-width: 768px) {
     padding: 0 8px;

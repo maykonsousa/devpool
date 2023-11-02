@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.7",
     "@apollo/server": "^4.9.5",
     "@as-integrations/next": "^2.0.2",
     "@emotion/react": "^11.11.1",
