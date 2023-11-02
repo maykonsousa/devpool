@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from '@/providers';
 import React from 'react';
+import { AuthProvider } from '@/providers/AuthProvider';
 import { PageContainer } from './layout.styles';
 
 export default function RootLayout({
@@ -11,13 +12,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <ThemeProvider>
-        <body>
-          <PageContainer>
-            {children}
-          </PageContainer>
-        </body>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <body>
+            <PageContainer>
+              {children}
+            </PageContainer>
+          </body>
+        </ThemeProvider>
+      </AuthProvider>
     </html>
   );
 }

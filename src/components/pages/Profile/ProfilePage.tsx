@@ -8,6 +8,7 @@ import {
   Box, Tab, Tabs, useMediaQuery, useTheme, TabScrollButton,
 } from '@mui/material';
 import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
+import { useSession } from 'next-auth/react';
 import {
   Cover, Header, TabExperiences, TabProfile, TabProjects,
 } from './fragments';
@@ -35,6 +36,8 @@ interface ProfilePageProps {
 
 export function ProfilePage({ profileName }:ProfilePageProps) {
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
+  const { data } = useSession();
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
