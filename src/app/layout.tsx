@@ -1,8 +1,8 @@
 'use client';
 
-import { ThemeProvider } from '@/providers';
+import { ThemeProvider, AuthProvider, ApolloProvider } from '@/providers';
 import React from 'react';
-import { AuthProvider } from '@/providers/AuthProvider';
+
 import { PageContainer } from './layout.styles';
 
 export default function RootLayout({
@@ -13,13 +13,15 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <AuthProvider>
-        <ThemeProvider>
-          <body>
-            <PageContainer>
-              {children}
-            </PageContainer>
-          </body>
-        </ThemeProvider>
+        <ApolloProvider>
+          <ThemeProvider>
+            <body>
+              <PageContainer>
+                {children}
+              </PageContainer>
+            </body>
+          </ThemeProvider>
+        </ApolloProvider>
       </AuthProvider>
     </html>
   );

@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.7",
+    "@apollo/server": "^4.9.5",
+    "@as-integrations/next": "^2.0.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.15",
     "@mui/lab": "^5.0.0-alpha.150",
     "@mui/material": "^5.14.15",
     "@mui/x-data-grid": "^6.17.0",
+    "@prisma/client": "^5.5.2",
+    "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.0",
     "next-auth": "^4.24.4",
@@ -35,6 +40,7 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.1",
+    "prisma": "^5.5.2",
     "typescript": "^5"
   }
 }
