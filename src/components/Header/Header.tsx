@@ -4,15 +4,39 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography,
 } from '@mui/material';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
-
-const pages = ['Comunidade', 'Buscar Perfis', 'Vagas'];
-const settings = ['Perfil', 'Rede', 'Minhas vagas', 'Sair'];
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const router = useRouter();
+  const { data, status } = useSession();
+
+  if (status === 'unauthenticated') {
+    router.push('/auth/signin');
+  }
+
+  const userMenu = [{
+    label: 'Meu perfil',
+    onClick: () => router.push(`/profile/${data?.user?.name}`),
+  }, {
+    label: 'Sair',
+    onClick: () => signOut(),
+  }];
+
+  const pages = [{
+    label: 'Comunidade',
+    onClick: () => router.push('/community'),
+  }, {
+    label: 'Buscar Perfis',
+    onClick: () => router.push('/search'),
+  }, {
+    label: 'Vagas',
+    onClick: () => router.push('/jobs'),
+  }];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -67,8 +91,14 @@ export function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page.label}
+                  onClick={() => {
+                    page.onClick();
+                    handleCloseNavMenu();
+                  }}
+                >
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -90,13 +120,16 @@ export function Header() {
           >
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.label}
+                onClick={() => {
+                  page.onClick();
+                  handleCloseNavMenu();
+                }}
                 variant="text"
                 color="inherit"
 
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
@@ -123,9 +156,15 @@ export function Header() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {userMenu.map((item) => (
+                <MenuItem
+                  key={item.label}
+                  onClick={() => {
+                    item.onClick();
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center">{item.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
