@@ -11,19 +11,29 @@ datasource db {
 }
 
 model User {
+  id         String   @id @default(uuid())
+  type       String   @default("developer")
+  email      String   @unique
+  name       String?
+  password   String
+  username   String   @unique
+  bio        String?  @db.VarChar(4000)
+  avatar_url String?
+  cover_url  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Social     Social[]
+}
+
+model Social {
   id               String   @id @default(uuid())
-  email            String   @unique
-  name             String?
-  password         String
-  github_username  String   @unique
-  bio              String?
-  avatar_url       String?
-  github_url       String?
-  cover_url        String?
-  personal_website String?
-  linkedin_url     String?
-  instagram_url    String?
-  cel_phone        String?
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  linkedin_url     String
+  instagram_url    String
+  github_url       String
+  personal_website String
+  cell_phone       String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
