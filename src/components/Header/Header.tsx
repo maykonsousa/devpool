@@ -65,7 +65,14 @@ export function Header() {
     <AppBar position="static" sx={{ backgroundColor: 'inherit' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexGrow: 1,
+              cursor: 'pointer',
+            }}
+            onClick={() => { router.push('/'); }}
+          >
             <Image src="/logo.svg" alt="logo" width={200} height={50} />
           </Box>
 
@@ -111,9 +118,16 @@ export function Header() {
               ))}
             </Menu>
           </Box>
-          <Box sx={{
-            display: { xs: 'flex', md: 'none' }, width: '100%', alignItems: 'center', justifyContent: 'center',
-          }}
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+
+            }}
+            onClick={() => { router.push('/'); }}
           >
             <Image src="/logo.svg" alt="logo" width={200} height={50} />
           </Box>

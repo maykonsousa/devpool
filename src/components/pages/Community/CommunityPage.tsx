@@ -11,7 +11,7 @@ export function CommunityPage() {
 
   useEffect(() => {
     if (status !== 'authenticated') {
-      router.push('/auth/signin');
+      router.push('/auth/login');
     }
   }, [status, router]);
   return (
