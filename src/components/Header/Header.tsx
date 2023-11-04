@@ -58,7 +58,7 @@ export function Header() {
   };
 
   const onLoginRedirect = () => {
-    router.push(`/auth/signin?callbackUrl=${pathName}`);
+    router.push(`/auth/login?callbackUrl=${pathName}`);
   };
 
   return (

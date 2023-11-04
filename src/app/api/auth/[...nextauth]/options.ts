@@ -39,7 +39,7 @@ export const options: NextAuthOptions = {
   ],
 
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/auth/login',
     error: '/auth/error',
     verifyRequest: '/auth/verify-request',
     newUser: '/auth/new-user',
