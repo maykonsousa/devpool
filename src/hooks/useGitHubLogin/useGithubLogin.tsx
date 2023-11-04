@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { gql, useQuery } from '@apollo/client';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 import { useFeedback } from '../useFeedBack';
 
@@ -28,10 +28,7 @@ const GET_USER_BY_EMAIL = gql`
 export const useGithubLogin = () => {
   const { data, status } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { showMessage } = useFeedback();
-  const { get } = searchParams;
-  const callbackUrl = get('callbackUrl');
   const isAuthLoading = status === 'loading';
   const isGithubAuthenticated = status === 'authenticated' && data?.user?.email;
 
@@ -50,16 +47,9 @@ export const useGithubLogin = () => {
   console.log('user', user);
   console.log('data', data);
 
-  const urlGitLogin = useMemo(() => {
-    if (callbackUrl) {
-      return `/auth/signin?callbackUrl=${callbackUrl}`;
-    }
-    return '/auth/signin';
-  }, [callbackUrl]);
-
   useEffect(() => {
     if (user) {
-      router.push(callbackUrl || '/community');
+      router.push('/community');
       showMessage({
         message: `Bem vindo(a) ${user.name}`,
         type: 'success',
@@ -72,10 +62,10 @@ export const useGithubLogin = () => {
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, router, callbackUrl, isAuthLoading, loading, data]);
+  }, [user, router, isAuthLoading, loading, data]);
 
   const handleLogin = async () => {
-    await signIn('github', { callbackUrl: urlGitLogin });
+    await signIn('github');
   };
 
   return {
