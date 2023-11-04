@@ -1,3 +1,5 @@
+'use client';
+
 import { gql, useMutation } from '@apollo/client';
 import { useSession } from 'next-auth/react';
 
