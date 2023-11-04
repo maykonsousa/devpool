@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { gql, useQuery } from '@apollo/client';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
