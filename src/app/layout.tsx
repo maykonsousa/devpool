@@ -1,8 +1,11 @@
 'use client';
 
-import { ThemeProvider, AuthProvider, ApolloProvider } from '@/providers';
+import {
+  ThemeProvider, AuthProvider, ApolloProvider, AppProvider,
+} from '@/providers';
 import React from 'react';
 
+import { Snackbar } from '@components/Snackbar';
 import { PageContainer } from './layout.styles';
 
 export default function RootLayout({
@@ -16,9 +19,12 @@ export default function RootLayout({
         <ApolloProvider>
           <ThemeProvider>
             <body>
-              <PageContainer>
-                {children}
-              </PageContainer>
+              <AppProvider>
+                <PageContainer>
+                  <Snackbar />
+                  {children}
+                </PageContainer>
+              </AppProvider>
             </body>
           </ThemeProvider>
         </ApolloProvider>

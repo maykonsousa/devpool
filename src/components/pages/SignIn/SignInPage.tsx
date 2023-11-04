@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+
 'use client';
 
 import React from 'react';
@@ -7,9 +9,12 @@ import { TextInput } from '@/components/TextInput';
 import { PassInput } from '@/components/PassInput';
 import { Box, Typography } from '@mui/material';
 import { LoginButton } from '@/components/LoginButton';
+import { useGithubLogin } from '@/hooks';
 import { SignInFormContainer, SignInPageContainer } from './SignIn.styles';
 
 export function SignInPage() {
+  const { handleLogin, loading } = useGithubLogin();
+
   return (
     <SignInPageContainer>
       <SignInFormContainer>
@@ -24,7 +29,7 @@ export function SignInPage() {
           placeholder="Digite sua senha"
         />
 
-        <LoginButton type="credentials" />
+        <LoginButton typeCall="credentials" onClick={() => {}} />
 
         <Box sx={{
           display: 'flex',
@@ -49,7 +54,7 @@ export function SignInPage() {
           />
         </Box>
 
-        <LoginButton type="github" />
+        <LoginButton typeCall="github" onClick={handleLogin} isLoading={loading} />
 
       </SignInFormContainer>
 

@@ -10,6 +10,11 @@ export const typeDefs = `#graphql
     
   }
 
+  enum Status {
+    success
+    error
+  }
+
   type User {
     id: String
     name: String
@@ -21,7 +26,21 @@ export const typeDefs = `#graphql
     password: String
     createdAt: String
     updatedAt: String
+  }
+  input GetUserByEmailInput {
+    email: String!
+  }
 
+  type GetUserByEmailPayload {
+    user: User
+    status: String!
+    message: String! 
+  }
+
+  type getAllUsersPayload {
+    users: [User!]
+    status: Status!
+    message: String!
   }
 
   input UserInput {
@@ -42,7 +61,8 @@ export const typeDefs = `#graphql
 
   type Query {
     hello: HelloPayload!
-    getAllUsers: [User!]
+    getAllUsers: getAllUsersPayload!
+    getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
   }
   type Mutation {
     createUser(input: UserInput): CreateUserPayload!

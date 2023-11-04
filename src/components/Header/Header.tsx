@@ -6,25 +6,29 @@ import {
 } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import * as React from 'react';
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const router = useRouter();
-  const { data, status } = useSession();
 
-  if (status === 'unauthenticated') {
-    router.push('/auth/signin');
-  }
+  const router = useRouter();
+  const { status } = useSession();
+  const pathName = usePathname();
+
+  const isAuth = status === 'authenticated';
 
   const userMenu = [{
     label: 'Meu perfil',
-    onClick: () => router.push(`/profile/${data?.user?.name}`),
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onClick: () => {},
   }, {
     label: 'Sair',
-    onClick: () => signOut(),
+    onClick: async () => {
+      await signOut();
+      router.push('/auth/signin');
+    },
   }];
 
   const pages = [{
@@ -51,6 +55,10 @@ export function Header() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const onLoginRedirect = () => {
+    router.push(`/auth/signin?callbackUrl=${pathName}`);
   };
 
   return (
@@ -135,11 +143,31 @@ export function Header() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Maykon Sousa">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="https://avatars.githubusercontent.com/u/53588064?v=4" />
-              </IconButton>
-            </Tooltip>
+            {isAuth ? (
+              <Tooltip title="Maykon Sousa">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="https://avatars.githubusercontent.com/u/53588064?v=4" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  width: '100%',
+                  borderRadius: '10px',
+                  backgroundColor: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'primary.dark',
+                  },
+                  color: 'white',
+                  fontWeight: 'bold',
+                  gap: '10px',
+                }}
+                onClick={onLoginRedirect}
+              >
+                Login
+              </Button>
+            )}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
