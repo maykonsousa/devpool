@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
+
+'use client';
+
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';

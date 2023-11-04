@@ -1,21 +1,21 @@
-'use client';
-
 import {
-  ThemeProvider, AuthProvider, ApolloProvider, AppProvider,
+  ThemeProvider, ApolloProvider, AppProvider, SessionProvider,
 } from '@/providers';
 import React from 'react';
 
 import { Snackbar } from '@components/Snackbar';
+import { getServerSession } from 'next-auth';
 import { PageContainer } from './layout.styles';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await getServerSession();
   return (
     <html lang="pt-BR">
-      <AuthProvider>
+      <SessionProvider session={session}>
         <ApolloProvider>
           <ThemeProvider>
             <body>
@@ -28,7 +28,7 @@ export default function RootLayout({
             </body>
           </ThemeProvider>
         </ApolloProvider>
-      </AuthProvider>
+      </SessionProvider>
     </html>
   );
 }

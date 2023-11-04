@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useContext } from 'react';
 import { Alert, Snackbar as MuiSnackbar } from '@mui/material';
 import { appContext } from '@/contexts/AppContext';
