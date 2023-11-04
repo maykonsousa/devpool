@@ -1,3 +1,4 @@
-export { HomePage } from './Home/HomePage';
-export { SignInPage } from './SignIn/SignInPage';
-export { ProfilePage } from './Profile/ProfilePage';
+export { HomePage } from './Home';
+export { SignInPage } from './SignIn';
+export { ProfilePage } from './Profile';
+export { RegisterPage } from './Register';
