@@ -32,6 +32,7 @@ export const useGithubLogin = () => {
   const { get } = searchParams;
   const callbackUrl = get('callbackUrl');
   const isAuthLoading = status === 'loading';
+  console.log('data session', data);
 
   const variables = useMemo(() => ({
     input: {
