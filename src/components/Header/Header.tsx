@@ -27,7 +27,7 @@ export function Header() {
     label: 'Sair',
     onClick: async () => {
       await signOut();
-      router.push('/auth/signin');
+      router.push('/auth/login');
     },
   }];
 
