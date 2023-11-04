@@ -39,6 +39,7 @@ export const useGithubLogin = () => {
         email: data?.user?.email,
       },
     },
+    fetchPolicy: 'no-cache',
   });
 
   const user = useMemo(() => getUserData?.getUserByEmail?.user, [getUserData]);
