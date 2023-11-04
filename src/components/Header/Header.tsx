@@ -22,7 +22,7 @@ export function Header() {
   const userMenu = [{
     label: 'Meu perfil',
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onClick: () => {},
+    onClick: () => { router.push('/profile/maykonsousa'); },
   }, {
     label: 'Sair',
     onClick: async () => {
