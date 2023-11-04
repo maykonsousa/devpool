@@ -12,3 +12,9 @@ export interface IUserInput {
 export interface IcreateUserInput {
   input: IUserInput;
 }
+
+export interface IGetUserByEmailInput {
+  input:{
+    email: string;
+  }
+}
