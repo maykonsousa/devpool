@@ -1,3 +1,3 @@
 export { useCreateUser } from './useCreateUser';
-export { useGithubLogin } from './useGitHubLogin';
 export { useFeedback } from './useFeedBack';
+export { useGithubLogin } from './useGitHubLogin';

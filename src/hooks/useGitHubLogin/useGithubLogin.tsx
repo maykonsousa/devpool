@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
-import { useFeedback } from '..';
+import { useFeedback } from '../useFeedBack';
 
 const GET_USER_BY_EMAIL = gql`
   query GetUserByEmail($input: GetUserByEmailInput!) {
