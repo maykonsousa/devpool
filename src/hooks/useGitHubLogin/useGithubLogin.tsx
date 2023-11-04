@@ -33,12 +33,14 @@ export const useGithubLogin = () => {
   const callbackUrl = get('callbackUrl');
   const isAuthLoading = status === 'loading';
 
-  const { data: getUserData, loading, error } = useQuery(GET_USER_BY_EMAIL, {
-    variables: {
-      input: {
-        email: data?.user?.email,
-      },
+  const variables = useMemo(() => ({
+    input: {
+      email: data?.user?.email,
     },
+  }), [data]);
+
+  const { data: getUserData, loading, error } = useQuery(GET_USER_BY_EMAIL, {
+    variables,
     fetchPolicy: 'no-cache',
   });
 
