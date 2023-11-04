@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { gql, useQuery } from '@apollo/client';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -32,6 +33,7 @@ export const useGithubLogin = () => {
   const { get } = searchParams;
   const callbackUrl = get('callbackUrl');
   const isAuthLoading = status === 'loading';
+  console.log('data session', data);
 
   const variables = useMemo(() => ({
     input: {
