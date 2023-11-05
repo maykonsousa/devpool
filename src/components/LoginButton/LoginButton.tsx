@@ -14,7 +14,6 @@ export function LoginButton({ typeCall, isLoading, ...rest }:LoginButtonProps) {
       variant="contained"
       sx={{
         height: '56px',
-        width: '100%',
         borderRadius: '10px',
         backgroundColor: typeCall === 'github' ? 'black' : 'primary.main',
         '&:hover': {

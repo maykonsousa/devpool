@@ -9,4 +9,16 @@ export const PageContainer = styled(Box)`
   flex-direction: column;
   width: 100%;
   flex: 1;
+  padding-top: 10rem;
+  gap: 4rem;
+`;
+
+export const StepList = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 2;
+  flex: 1;
 `;

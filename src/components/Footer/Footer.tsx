@@ -12,6 +12,8 @@ export function Footer() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      width: '100%',
+      maxWidth: '1440px',
       padding: `${theme.spacing(2)} 0`,
       [theme.breakpoints.down('md')]: {
         flexDirection: 'column',

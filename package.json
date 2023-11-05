@@ -26,7 +26,8 @@
     "next-auth": "^4.24.4",
     "nookies": "^2.5.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.48.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.0",

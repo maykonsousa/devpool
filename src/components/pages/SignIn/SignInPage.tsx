@@ -54,7 +54,7 @@ export function SignInPage() {
           />
         </Box>
 
-        <LoginButton typeCall="github" onClick={handleLogin} isLoading={loading} />
+        <LoginButton fullWidth typeCall="github" onClick={handleLogin} isLoading={loading} />
 
       </SignInFormContainer>
 
