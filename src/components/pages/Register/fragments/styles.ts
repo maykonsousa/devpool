@@ -15,7 +15,6 @@ export const StepContainer = styled(Box)`
 export const StepTitle = styled(Typography)`
   font-size: ${({ theme }) => theme.typography.h5.fontSize};
   font-weight: bold;
-  margin-bottom: 1rem;
 `;
 
 export const ActionsContainer = styled(Box)`
@@ -24,9 +23,11 @@ export const ActionsContainer = styled(Box)`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   gap: 2rem;
+
+
 `;
 
 export const StepContent = styled(Box)`
@@ -40,5 +41,4 @@ export const StepContent = styled(Box)`
 export const StepSubtitle = styled(Typography)`
   font-size: ${({ theme }) => theme.typography.body1.fontSize};
   font-weight: bold;
-  margin-bottom: 1rem;
 `;

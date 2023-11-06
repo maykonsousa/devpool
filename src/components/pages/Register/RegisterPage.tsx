@@ -9,7 +9,7 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import nookies from 'nookies';
+import { parseCookies, setCookie } from 'nookies';
 import { Footer } from '@/components/Footer';
 import { PageContainer, StepList } from './RegisterPage.styles';
 import {
@@ -91,9 +91,9 @@ export function RegisterPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   // get cookie typeUser
-  const { typeUser: cookieTypeUser } = nookies.get(null, 'typeUser');
-  const isDeveloper = cookieTypeUser === 'developer' || typeUser === 'developer';
-  const isRecruiter = cookieTypeUser === 'recruiter' || typeUser === 'recruiter';
+  const cookies = parseCookies();
+  const isDeveloper = cookies.typeUser === 'developer';
+  const isRecruiter = cookies.typeUser === 'recruiter';
 
   const handleNextStep = () => {
     const nextStep = steps.find((step) => step?.sequence === activeStep?.sequence + 1);
@@ -111,23 +111,22 @@ export function RegisterPage() {
 
   const onSelectedTypeUser = (type:string) => {
     setTypeUser(type);
-
-    nookies.set(null, 'typeUser', type, {
+    setCookie(null, 'typeUser', type, {
       maxAge: 30 * 24 * 60 * 60,
       path: '/',
     });
   };
 
   useEffect(() => {
-    if (isDeveloper) {
+    if (isDeveloper || typeUser === 'developer') {
       setSteps(developerSteps);
       setActiveStep(developerSteps[0]);
     }
-    if (isRecruiter) {
+    if (isRecruiter || typeUser === 'recruiter') {
       setSteps(recruiterSteps);
       setActiveStep(recruiterSteps[0]);
     }
-  }, [isDeveloper, isRecruiter]);
+  }, [isDeveloper, isRecruiter, typeUser]);
 
   return (
     <PageContainer>
@@ -136,17 +135,25 @@ export function RegisterPage() {
       <ActionsContainer>
         <Button
           fullWidth
-          variant={isDeveloper ? 'contained' : 'outlined'}
-          color="primary"
+          sx={{
+            backgroundColor: typeUser === 'developer' ? 'primary.main' : 'transparent',
+            color: typeUser === 'developer' ? 'white' : 'primary.main',
+            border: '1px solid',
+            borderColor: 'primary.main',
+          }}
           onClick={() => onSelectedTypeUser('developer')}
         >
           Sou dev
         </Button>
         <Button
           fullWidth
-          variant={isRecruiter ? 'contained' : 'outlined'}
           onClick={() => onSelectedTypeUser('recruiter')}
-          color="primary"
+          sx={{
+            backgroundColor: typeUser === 'recruiter' ? 'primary.main' : 'transparent',
+            color: typeUser === 'recruiter' ? 'white' : 'primary.main',
+            border: '1px solid',
+            borderColor: 'primary.main',
+          }}
         >
           Sou Recruiter
         </Button>

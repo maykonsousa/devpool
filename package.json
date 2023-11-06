@@ -20,6 +20,7 @@
     "@mui/x-data-grid": "^6.17.0",
     "@prisma/client": "^5.5.2",
     "bcrypt": "^5.1.1",
+    "firebase": "^10.5.2",
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.0",
@@ -27,7 +28,8 @@
     "nookies": "^2.5.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.48.1"
+    "react-hook-form": "^7.48.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.0",
@@ -35,6 +37,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.6",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",

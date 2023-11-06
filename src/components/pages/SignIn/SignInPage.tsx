@@ -7,18 +7,29 @@ import Image from 'next/image';
 
 import { TextInput } from '@/components/TextInput';
 import { PassInput } from '@/components/PassInput';
-import { Box, Typography } from '@mui/material';
+import {
+  Box, Typography, useMediaQuery, useTheme,
+} from '@mui/material';
 import { LoginButton } from '@/components/LoginButton';
 import { useGithubLogin } from '@/hooks';
+import { useUpload } from '@/hooks/useUpload';
 import { SignInFormContainer, SignInPageContainer } from './SignIn.styles';
 
 export function SignInPage() {
   const { handleLogin, loading } = useGithubLogin();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { openUpload } = useUpload();
 
   return (
     <SignInPageContainer>
       <SignInFormContainer>
-        <Image src="/logo.svg" alt="logo" width="400" height="200" />
+        <Image
+          src="/logo.svg"
+          alt="logo"
+          width={isMobile ? 200 : 400}
+          height={isMobile ? 100 : 200}
+        />
 
         <TextInput
           label="Nome de usuário"
@@ -29,7 +40,7 @@ export function SignInPage() {
           placeholder="Digite sua senha"
         />
 
-        <LoginButton typeCall="credentials" onClick={() => {}} />
+        <LoginButton fullWidth typeCall="credentials" onClick={openUpload} />
 
         <Box sx={{
           display: 'flex',
