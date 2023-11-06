@@ -5,6 +5,7 @@ import React from 'react';
 
 import { Snackbar } from '@components/Snackbar';
 import { getServerSession } from 'next-auth';
+import { UploadDialog } from '@components/UploadDialog';
 import { PageContainer } from './layout.styles';
 
 export default async function RootLayout({
@@ -22,6 +23,7 @@ export default async function RootLayout({
               <AppProvider>
                 <PageContainer>
                   <Snackbar />
+                  <UploadDialog />
                   {children}
                 </PageContainer>
               </AppProvider>

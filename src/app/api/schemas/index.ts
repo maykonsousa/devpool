@@ -54,7 +54,7 @@ export const typeDefs = `#graphql
   }
 
   type CreateUserPayload {
-    status: String!
+    status: Status!
     message: String!
     
   }

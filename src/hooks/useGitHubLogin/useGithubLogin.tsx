@@ -44,8 +44,6 @@ export const useGithubLogin = () => {
   });
 
   const user = useMemo(() => getUserData?.getUserByEmail?.user, [getUserData]);
-  console.log('user', user);
-  console.log('data', data);
 
   useEffect(() => {
     if (user) {

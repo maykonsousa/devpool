@@ -1,7 +1,6 @@
 'use client';
 
 import { gql, useMutation } from '@apollo/client';
-import { useSession } from 'next-auth/react';
 
 const CREATE_USER = gql`
   mutation CreateUser($input: UserInput!) {
@@ -28,22 +27,18 @@ interface Ivariables {
 
 }
 
-export const useCreateUser = (variables:Ivariables) => {
-  const { data: session } = useSession();
-  const name = session?.user?.name;
-  const email = session?.user?.email;
+type Status = 'success' | 'error'
 
-  const newVariables = {
-    ...variables,
-    input: {
-      ...variables.input,
-      name,
-      email,
-    },
+interface IResponse {
+  createUser: {
+    status: Status;
+    message: string;
   };
+}
 
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER, {
-    variables: newVariables,
+export const useCreateUser = (variables:Ivariables) => {
+  const [createUser, { data, loading, error }] = useMutation<IResponse, Ivariables>(CREATE_USER, {
+    variables,
   });
 
   return {
