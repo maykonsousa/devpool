@@ -25,7 +25,7 @@ const GET_USER_BY_EMAIL = gql`
   }
 `;
 
-export const useGithubLogin = () => {
+export const useLogin = () => {
   const { data, status } = useSession();
   const router = useRouter();
   const { showMessage } = useFeedback();
@@ -40,7 +40,7 @@ export const useGithubLogin = () => {
 
   const { data: getUserData, loading, error } = useQuery(GET_USER_BY_EMAIL, {
     variables,
-    fetchPolicy: 'no-cache',
+    skip: !isGithubAuthenticated,
   });
 
   const user = useMemo(() => getUserData?.getUserByEmail?.user, [getUserData]);
@@ -62,12 +62,23 @@ export const useGithubLogin = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, router, isAuthLoading, loading, data]);
 
-  const handleLogin = async () => {
+  const handleGithubLogin = async () => {
     await signIn('github');
   };
 
+  const handleCredentialsLogin = async (
+    { username, password }:{username:string, password:string},
+  ) => {
+    await signIn('credentials', {
+      username,
+      password,
+
+    });
+  };
+
   return {
-    handleLogin,
+    handleGithubLogin,
+    handleCredentialsLogin,
     loading,
     error,
   };

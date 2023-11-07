@@ -56,7 +56,6 @@ export const useGetUserByEmail = (email:string) => {
 
   const { data, loading, error } = useQuery<IResult, IVariables>(GET_USER_BY_EMAIL, {
     variables,
-    fetchPolicy: 'no-cache',
   });
 
   return {

@@ -1,5 +1,6 @@
 'use client';
 
+import { useGetUserByEmail } from '@/hooks/useGetUserByEmail';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography,
@@ -14,15 +15,18 @@ export function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const router = useRouter();
-  const { status } = useSession();
+  const { data, status } = useSession();
   const pathName = usePathname();
+
+  const email = React.useMemo(() => `${data?.user?.email}`, [data?.user?.email]) as string;
+  const { data: userData } = useGetUserByEmail(email);
 
   const isAuth = status === 'authenticated';
 
   const userMenu = [{
     label: 'Meu perfil',
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onClick: () => { router.push('/profile/maykonsousa'); },
+    onClick: () => { router.push('/my'); },
   }, {
     label: 'Sair',
     onClick: async () => {
@@ -158,9 +162,9 @@ export function Header() {
 
           <Box sx={{ flexGrow: 0 }}>
             {isAuth ? (
-              <Tooltip title="Maykon Sousa">
+              <Tooltip title={`${userData?.name}`}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="https://avatars.githubusercontent.com/u/53588064?v=4" />
+                  <Avatar alt={`${userData?.name}`} src={`${userData?.avatar_url}`} />
                 </IconButton>
               </Tooltip>
             ) : (
