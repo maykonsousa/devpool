@@ -9,11 +9,10 @@ interface TextInputProps extends StandardTextFieldProps {
   errorMessage?: string;
 }
 
-export function TextInput({
-  name, errorMessage, helperText, ...props
-}: TextInputProps) {
-  const { control } = useFormContext();
-
+export function TextInput({ name, ...props }: TextInputProps) {
+  const { control, formState } = useFormContext();
+  const isError = !!formState.errors[name];
+  const errorMessage = formState.errors[name]?.message as string || '';
   return (
     <FormControl fullWidth>
       <Controller
@@ -23,8 +22,8 @@ export function TextInput({
         render={({ field }) => (
           <TextField
             color="info"
-            error={!!errorMessage}
-            helperText={errorMessage || helperText}
+            error={isError}
+            helperText={errorMessage}
             {...field}
             {...props}
           />

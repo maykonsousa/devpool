@@ -10,10 +10,13 @@ interface PassInputProps extends StandardTextFieldProps {
   errorMessage?: string;
 }
 
-export function PassInput({ name, errorMessage, ...props }: PassInputProps) {
-  const { control } = useFormContext();
+export function PassInput({ name, ...props }: PassInputProps) {
+  const { control, formState } = useFormContext();
 
   const [showPassword, setShowPassword] = React.useState(false);
+
+  const isError = !!formState.errors[name];
+  const errorMessage = formState.errors[name]?.message as string || '';
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -29,7 +32,7 @@ export function PassInput({ name, errorMessage, ...props }: PassInputProps) {
           <TextField
             color="info"
             type={showPassword ? 'text' : 'password'}
-            error={!!errorMessage}
+            error={isError}
             helperText={errorMessage}
             InputProps={{
               ...field,

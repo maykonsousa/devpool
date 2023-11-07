@@ -40,24 +40,30 @@ export const useLogin = () => {
 
   const { data: getUserData, loading, error } = useQuery(GET_USER_BY_EMAIL, {
     variables,
-    skip: !isGithubAuthenticated,
   });
 
   const user = useMemo(() => getUserData?.getUserByEmail?.user, [getUserData]);
+  const statusUser = useMemo(() => getUserData?.getUserByEmail?.status, [getUserData]);
 
   useEffect(() => {
-    if (user) {
-      router.push('/community');
+    if (statusUser === 'error') {
       showMessage({
-        message: `Bem vindo(a) ${user.name}`,
-        type: 'success',
-      });
-    } else if (!user && data && !isAuthLoading && !loading) {
-      showMessage({
-        message: 'Usuário GitHub não cadastrado na plataforma. Faça o seu cadatro e tente novamente',
+        message: 'Erro ao buscar usuário. Verifique as credenciais e tente novamente',
         type: 'error',
       });
-    }
+    } else
+      if (user) {
+        router.push('/community');
+        showMessage({
+          message: `Bem vindo(a) ${user.name}`,
+          type: 'success',
+        });
+      } else if (!user && data && !isAuthLoading && !loading) {
+        showMessage({
+          message: 'Usuário GitHub não cadastrado na plataforma. Faça o seu cadatro e tente novamente',
+          type: 'error',
+        });
+      }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, router, isAuthLoading, loading, data]);

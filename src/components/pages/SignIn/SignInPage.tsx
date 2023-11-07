@@ -4,16 +4,18 @@
 
 import React from 'react';
 import Image from 'next/image';
-
-import { TextInput } from '@/components/TextInput';
-import { PassInput } from '@/components/PassInput';
+import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
 import {
   Box, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TextInput } from '@/components/TextInput';
+import { PassInput } from '@/components/PassInput';
+
+import { Loading } from '@/components/Loading';
 import { LoginButton } from '@/components/LoginButton';
 import { useLogin } from '@/hooks';
-import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
-import { Loading } from '@/components/Loading';
+import { loginFormValidations } from '@/validations/formValidations';
 import { SignInFormContainer, SignInPageContainer } from './SignIn.styles';
 
 interface IFormData {
@@ -25,12 +27,12 @@ export function SignInPage() {
   const { handleCredentialsLogin, handleGithubLogin, loading } = useLogin();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const methods = useForm<IFormData>();
-  const { handleSubmit } = methods;
+  const methods = useForm<IFormData>({ resolver: zodResolver(loginFormValidations) });
 
   const submitWithCredentials:SubmitHandler<IFormData> = async (data) => {
     await handleCredentialsLogin(data);
   };
+  const handleSubmit = methods.handleSubmit(submitWithCredentials);
 
   return (
     <SignInPageContainer>
@@ -52,14 +54,13 @@ export function SignInPage() {
               name="password"
               label="Senha"
               placeholder="Digite sua senha"
+
             />
 
             <LoginButton
               fullWidth
               typeCall="credentials"
-              onClick={
-          handleSubmit(submitWithCredentials)
-        }
+              onClick={handleSubmit}
             />
 
             <Box sx={{
