@@ -25,7 +25,7 @@ const GET_USER_BY_EMAIL = gql`
   }
 `;
 
-export const useGithubLogin = () => {
+export const useLogin = () => {
   const { data, status } = useSession();
   const router = useRouter();
   const { showMessage } = useFeedback();
@@ -40,34 +40,51 @@ export const useGithubLogin = () => {
 
   const { data: getUserData, loading, error } = useQuery(GET_USER_BY_EMAIL, {
     variables,
-    fetchPolicy: 'no-cache',
   });
 
   const user = useMemo(() => getUserData?.getUserByEmail?.user, [getUserData]);
+  const statusUser = useMemo(() => getUserData?.getUserByEmail?.status, [getUserData]);
 
   useEffect(() => {
-    if (user) {
-      router.push('/community');
+    if (statusUser === 'error') {
       showMessage({
-        message: `Bem vindo(a) ${user.name}`,
-        type: 'success',
-      });
-    } else if (!user && data && !isAuthLoading && !loading) {
-      showMessage({
-        message: 'Usuário GitHub não cadastrado na plataforma. Faça o seu cadatro e tente novamente',
+        message: 'Erro ao buscar usuário. Verifique as credenciais e tente novamente',
         type: 'error',
       });
-    }
+    } else
+      if (user) {
+        router.push('/community');
+        showMessage({
+          message: `Bem vindo(a) ${user.name}`,
+          type: 'success',
+        });
+      } else if (!user && data && !isAuthLoading && !loading) {
+        showMessage({
+          message: 'Usuário GitHub não cadastrado na plataforma. Faça o seu cadatro e tente novamente',
+          type: 'error',
+        });
+      }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, router, isAuthLoading, loading, data]);
 
-  const handleLogin = async () => {
+  const handleGithubLogin = async () => {
     await signIn('github');
   };
 
+  const handleCredentialsLogin = async (
+    { username, password }:{username:string, password:string},
+  ) => {
+    await signIn('credentials', {
+      username,
+      password,
+
+    });
+  };
+
   return {
-    handleLogin,
+    handleGithubLogin,
+    handleCredentialsLogin,
     loading,
     error,
   };
