@@ -4,8 +4,6 @@
 
 'use client';
 
-import { getGitHubUserByToken, IGitHubUser } from '@services/getGitHubUserByToken.service';
-import { useSearchParams } from 'next/navigation';
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
@@ -26,7 +24,6 @@ interface ISnackbarOptions {
 
 }
 interface IAppContext {
-  githubUser: IGitHubUser | null;
   snackbarOptions: ISnackbarOptions;
   avatarUploadOptions: IAvatarUploadOptions;
   openSnackbar: ({ message, type }:{message:string, type:SnackbarType }) => void;
@@ -48,7 +45,6 @@ const INITIAL_AVATAR_UPLOAD_OPTIONS: IAvatarUploadOptions = {
 } as IAvatarUploadOptions;
 
 const INITIAL_APP_CONTEXT: IAppContext = {
-  githubUser: null,
   snackbarOptions: INITIAL_SNACKBAR_OPTIONS,
   avatarUploadOptions: INITIAL_AVATAR_UPLOAD_OPTIONS,
   openSnackbar: ({ message, type }:{message:string, type:SnackbarType }) => {},
@@ -62,18 +58,6 @@ export const appContext = React.createContext<IAppContext>(INITIAL_APP_CONTEXT);
 export function AppProvider({ children }:{children: React.ReactNode}) {
   const [snackbarOptions, setSnackbarOptions] = useState(INITIAL_SNACKBAR_OPTIONS);
   const [avatarUploadOptions, setAvatarUploadOptions] = useState(INITIAL_AVATAR_UPLOAD_OPTIONS);
-  const [githubUser, setGithubUser] = useState<IGitHubUser | null>(null);
-
-  const params = useSearchParams();
-
-  const acessToken = useMemo(() => params.get('access_token') as string | null, [params]);
-
-  const getGitHubUser = useCallback(async () => {
-    if (acessToken) {
-      const githubUserData = await getGitHubUserByToken(acessToken);
-      setGithubUser(githubUserData);
-    }
-  }, [acessToken]);
 
   const openSnackbar = useCallback(({ message, type }:{message:string, type:SnackbarType }) => {
     setSnackbarOptions({
@@ -103,7 +87,6 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     avatarUploadOptions,
     onChangeAtavarOptions,
     handleOpenUploadDialog,
-    githubUser,
   }), [
     snackbarOptions,
     openSnackbar,
@@ -111,12 +94,8 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     avatarUploadOptions,
     onChangeAtavarOptions,
     handleOpenUploadDialog,
-    githubUser,
   ]);
 
-  useEffect(() => {
-    getGitHubUser();
-  }, [getGitHubUser]);
   return (
     <appContext.Provider value={values}>
       {children}

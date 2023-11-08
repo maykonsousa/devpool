@@ -1,18 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { Footer } from '@/components/Footer';
 import {
   Button, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
 
+import { useSearchParams } from 'next/navigation';
+import { setCookie } from 'nookies';
 import {
   AsideContainer, ContentContainer, MainContainer, PageContainer,
 } from './ErrorGithubLoginPage.styles';
 
 export function ErrorGithubLoginPage() {
   const theme = useTheme();
+  const params = useSearchParams();
+
+  const accessToken = params.get('access_token');
+
+  useEffect(() => {
+    if (accessToken) {
+      setCookie(null, 'accessToken', accessToken, {
+        maxAge: 15 * 60,
+        path: '/',
+      });
+    }
+  }, [accessToken]);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (

@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { Box, Button } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { TextInput } from '@components/TextInput';
-import { Controller, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { PassInput } from '@components/PassInput';
 import { useCreateUser, useFeedback } from '@/hooks';
@@ -11,6 +11,8 @@ import { Loading } from '@components/Loading';
 import { EmptyState } from '@/components/EmptyState';
 import Image from 'next/image';
 import { useUpload } from '@/hooks/useUpload';
+import { getGitHubUserByToken } from '@services/getGitHubUserByToken.service';
+import { parseCookies } from 'nookies';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer, StepContainer, StepContent, StepTitle,
@@ -47,39 +49,44 @@ const INITIAL_VALUES:IFormValues = {
 };
 
 export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
-  const {
-    setValue, watch, formState: { errors }, handleSubmit, control,
-  } = useForm<IFormValues>({ defaultValues: INITIAL_VALUES });
+  const methods = useForm<IFormValues>({ defaultValues: INITIAL_VALUES });
+  const avatar_url = methods.watch('avatar_url');
+
+  const acessToken = parseCookies().accessToken;
+
+  const getGitHubUser = useCallback(async () => {
+    if (acessToken) {
+      const user = await getGitHubUserByToken(acessToken);
+      methods.setValue('name', user?.name || '');
+      methods.setValue('username', user?.login || '');
+      methods.setValue('email', user?.email || '');
+      methods.setValue('avatar_url', user?.avatar_url || '');
+    }
+    return null;
+  }, [acessToken, methods]);
+
   const { data: session } = useSession();
   const { data: userData, loading: getUserLoading } = useGetUserByEmail(session?.user?.email || '');
   const { showMessage } = useFeedback();
 
-  const username = watch('username');
-  const email = watch('email');
-  const name = watch('name');
-  const type = watch('type');
-  const avatar_url = watch('avatar_url');
-  const cover_url = watch('cover_url');
-  const password = watch('password');
-
-  const { createUser, data: createUserData, loading: createuserLoading } = useCreateUser({
+  const { createUser, loading: createuserLoading } = useCreateUser({
     input: {
-      name,
-      email,
-      type,
-      username,
-      avatar_url,
-      cover_url,
-      password,
+      name: methods.watch('name'),
+      email: methods.watch('email'),
+      type: 'developer',
+      username: methods.watch('username'),
+      avatar_url: methods.watch('avatar_url'),
+      cover_url: methods.watch('cover_url'),
+      password: methods.watch('password'),
     },
   });
   const { url, openUpload } = useUpload();
 
   const isLoading = getUserLoading || createuserLoading;
 
-  const onSubmit = handleSubmit(async () => {
-    await createUser();
-    if (createUserData?.createUser.status === 'success') {
+  const onSubmit = methods.handleSubmit(async () => {
+    const { data: createUserData } = await createUser();
+    if (createUserData?.createUser?.status === 'success') {
       showMessage({
         message: 'Usuário criado com sucesso!',
         type: 'success',
@@ -97,22 +104,13 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
 
   React.useEffect(() => {
     if (url) {
-      setValue('avatar_url', url);
+      methods.setValue('avatar_url', url);
     }
-  }, [url, setValue]);
+  }, [url, methods]);
 
   React.useEffect(() => {
-    if (session?.user) {
-      fetch(`https://api.github.com/users/${session.user.name}`)
-        .then((response) => response.json()).then((gitData) => {
-          setValue('name', gitData.name);
-        });
-      setValue('username', session?.user?.name || '');
-      setValue('email', session.user.email || '');
-      setValue('avatar_url', session.user.image || '');
-      setValue('type', 'developer');
-    }
-  }, [session, setValue]);
+    getGitHubUser();
+  }, [getGitHubUser]);
 
   return isVisible ? (
     <StepContainer>
@@ -128,92 +126,55 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
             width: '100%',
           }}
           >
-
-            <FormContainer>
-              <AvatarContainer>
-                <Image
-                  src={avatar_url || '/avatar.svg'}
-                  width={120}
-                  height={120}
-                  alt="avatar"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                  }}
-                  onClick={openUpload}
-                />
-              </AvatarContainer>
-              <GridContainer>
-                <Controller<IFormValues>
-                  control={control}
-                  name="name"
-                  render={({ field }) => (
-                    <TextInput
-                      label="Nome"
-                      error={!!errors.name}
-                      errorMessage={errors.name?.message}
-                      {...field}
-                    />
-                  )}
-                />
-
-                <Controller<IFormValues>
-                  control={control}
-                  name="username"
-                  render={({ field }) => (
-                    <TextInput
-                      label="Username"
-                      disabled
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller<IFormValues>
-                  control={control}
-                  rules={{
-                    validate: (value) => !!value || 'Campo obrigatório',
-                  }}
-                  name="password"
-                  render={({ field }) => (
-                    <PassInput
-                      label="Senha"
-                      error={!!errors.password}
-                      errorMessage={errors.password?.message}
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller<IFormValues>
-                  control={control}
-                  name="confirmPassword"
-                  rules={{
-                    validate: (value) => value === watch('password') || 'As senhas devem ser iguais',
-                  }}
-                  render={({ field }) => (
-                    <PassInput
-                      label="Confirmar senha"
-                      error={!!errors.confirmPassword}
-                      errorMessage={errors.confirmPassword?.message}
-                      {...field}
-                    />
-                  )}
-                />
-              </GridContainer>
-              <Controller<IFormValues>
-                control={control}
-                name="email"
-                render={({ field }) => (
-                  <TextInput
-                    label="E-mail"
-                    disabled
-                    {...field}
+            <FormProvider {...methods}>
+              <FormContainer>
+                <AvatarContainer>
+                  <Image
+                    src={avatar_url || '/avatar.svg'}
+                    width={120}
+                    height={120}
+                    alt="avatar"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                    }}
+                    onClick={openUpload}
                   />
-                )}
-              />
+                </AvatarContainer>
+                <GridContainer>
+                  <TextInput
+                    name="name"
+                    label="Nome"
+                  />
 
-            </FormContainer>
+                  <TextInput
+                    name="username"
+                    label="Username"
+                    disabled
+                  />
+
+                  <PassInput
+                    name="password"
+                    label="Senha"
+                  />
+
+                  <PassInput
+                    label="Confirmar senha"
+                    name="confirmPassword"
+                  />
+
+                </GridContainer>
+
+                <TextInput
+                  name="email"
+                  label="E-mail"
+                  disabled
+                />
+
+              </FormContainer>
+            </FormProvider>
           </Box>
         )}
         {!isLoading && userData && (
