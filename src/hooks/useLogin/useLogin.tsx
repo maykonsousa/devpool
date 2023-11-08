@@ -1,9 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
 import { gql, useQuery } from '@apollo/client';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
-import { useFeedback } from '../useFeedBack';
+import { useMemo } from 'react';
 
 const GET_USER_BY_EMAIL = gql`
   query GetUserByEmail($input: GetUserByEmailInput!) {
@@ -27,9 +26,6 @@ const GET_USER_BY_EMAIL = gql`
 
 export const useLogin = () => {
   const { data, status } = useSession();
-  const router = useRouter();
-  const { showMessage } = useFeedback();
-  const isAuthLoading = status === 'loading';
   const isGithubAuthenticated = status === 'authenticated' && data?.user?.email;
 
   const variables = useMemo(() => ({
@@ -38,35 +34,9 @@ export const useLogin = () => {
     },
   }), [data, isGithubAuthenticated]);
 
-  const { data: getUserData, loading, error } = useQuery(GET_USER_BY_EMAIL, {
+  const { loading, error } = useQuery(GET_USER_BY_EMAIL, {
     variables,
   });
-
-  const user = useMemo(() => getUserData?.getUserByEmail?.user, [getUserData]);
-  const statusUser = useMemo(() => getUserData?.getUserByEmail?.status, [getUserData]);
-
-  useEffect(() => {
-    if (statusUser === 'error') {
-      showMessage({
-        message: 'Erro ao buscar usuário. Verifique as credenciais e tente novamente',
-        type: 'error',
-      });
-    } else
-      if (user) {
-        router.push('/community');
-        showMessage({
-          message: `Bem vindo(a) ${user.name}`,
-          type: 'success',
-        });
-      } else if (!user && data && !isAuthLoading && !loading) {
-        showMessage({
-          message: 'Usuário GitHub não cadastrado na plataforma. Faça o seu cadatro e tente novamente',
-          type: 'error',
-        });
-      }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, router, isAuthLoading, loading, data]);
 
   const handleGithubLogin = async () => {
     await signIn('github');

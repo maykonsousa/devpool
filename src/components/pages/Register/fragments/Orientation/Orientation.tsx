@@ -1,9 +1,10 @@
 import { Button, useMediaQuery, useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { LoginButton } from '@components/LoginButton';
 import { useGetUserByEmail } from '@hooks/useGetUserByEmail';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
+import { appContext } from '@/contexts/AppContext';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer, StepContainer, StepContent, StepSubtitle, StepTitle,
@@ -15,6 +16,7 @@ interface IOrientationProps extends IStepsBaseProps {
 
 export function Orientation({ isVisible, onNext }:IOrientationProps) {
   const { data, status } = useSession();
+  const { githubUser } = useContext(appContext);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -35,23 +37,23 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
   const { data: userData } = useGetUserByEmail(email);
 
   const message = useMemo(() => {
-    if (name && userData) {
+    if (githubUser && userData) {
       return `Bem vindo de volta, ${userData.name}! Você já se encontra cadastrado na plataforma. Mas ainda pode usar essa tela 
        para completar o seu perfil
       `;
     }
-    if (name) {
-      return `Obrigado, ${name}! Agora basta clicar em Continuar para prosseguir com o cadastro`;
+    if (githubUser && !data) {
+      return `Obrigado, ${githubUser.name}! Agora basta clicar em Continuar para prosseguir com o cadastro`;
     }
 
-    return 'Para começar, vamos confirmar a sua identidade no Github';
-  }, [name, userData]);
+    return 'Para começar, verificar se já não temos um cadastro seu em nossa plataforma. Para isso, basta clicar no botão abaixo e fazer login com sua conta do GitHub';
+  }, [userData, data, githubUser]);
 
   return isVisible ? (
     <StepContainer>
       <StepTitle>Seja bem-vindo(a)!</StepTitle>
       <StepSubtitle>{message}</StepSubtitle>
-      {!name && <LoginButton typeCall="github" isLoading={isAuthLoading} onClick={() => signIn('github')} />}
+      {!githubUser && <LoginButton typeCall="github" isLoading={isAuthLoading} onClick={() => signIn('github', { redirect: true })} />}
       <StepContent />
       <ActionsContainer>
         <Button

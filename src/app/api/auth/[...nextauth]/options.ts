@@ -5,8 +5,9 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider, { CredentialInput } from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
-import error from 'next/error';
+import { setCookie } from 'nookies';
 import { authenticateService } from '../../services/authenticate.service';
+import { getUserByEmail } from '../../services/getUserByEmail.service';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -48,6 +49,25 @@ export const options: NextAuthOptions = {
     }),
 
   ],
+  callbacks: {
+    async signIn({
+      user, account,
+    }) {
+      if (account?.provider === 'github') {
+        const email = user?.email as string;
+        const { status } = await getUserByEmail(email);
+        if (status === 'success') {
+          return true;
+        }
+
+        return `/auth/error?access_token=${account?.access_token}`;
+      }
+
+      return true;
+    },
+
+  },
+
   pages: {
     signIn: '/auth/login',
     error: '/auth/error',

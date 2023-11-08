@@ -9,8 +9,8 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { parseCookies, setCookie } from 'nookies';
 import { Footer } from '@/components/Footer';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { PageContainer, StepList } from './RegisterPage.styles';
 import {
   AccountForm,
@@ -86,14 +86,15 @@ const recruiterSteps:ISteps[] = [
 export function RegisterPage() {
   const [steps, setSteps] = React.useState<ISteps[]>([] as ISteps[]);
   const [activeStep, setActiveStep] = React.useState<ISteps>(steps[0]);
-  const [typeUser, setTypeUser] = React.useState<string>('');
+  const params = useSearchParams();
+  const router = useRouter();
+
+  const typeUser = params.get('userType');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
+  const isDeveloper = typeUser === 'developer';
+  const isRecruiter = typeUser === 'recruiter';
   // get cookie typeUser
-  const cookies = parseCookies();
-  const isDeveloper = cookies.typeUser === 'developer';
-  const isRecruiter = cookies.typeUser === 'recruiter';
 
   const handleNextStep = () => {
     const nextStep = steps.find((step) => step?.sequence === activeStep?.sequence + 1);
@@ -110,19 +111,15 @@ export function RegisterPage() {
   };
 
   const onSelectedTypeUser = (type:string) => {
-    setTypeUser(type);
-    setCookie(null, 'typeUser', type, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    });
+    router.push(`/auth/register?userType=${type}`);
   };
 
   useEffect(() => {
-    if (isDeveloper || typeUser === 'developer') {
+    if (isDeveloper) {
       setSteps(developerSteps);
       setActiveStep(developerSteps[0]);
     }
-    if (isRecruiter || typeUser === 'recruiter') {
+    if (isRecruiter) {
       setSteps(recruiterSteps);
       setActiveStep(recruiterSteps[0]);
     }
