@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useSession } from '@/hooks/useSession';
 import { PageContainer } from './CommunityPage.styles';
 
 export function CommunityPage() {
@@ -10,10 +10,11 @@ export function CommunityPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (status !== 'authenticated') {
+    if (status === 'unauthenticated') {
       router.push('/auth/login');
     }
   }, [status, router]);
+
   return (
     <PageContainer>CommunityPage</PageContainer>
   );

@@ -22,6 +22,8 @@ interface Ivariables {
     avatar_url: string
     cover_url: string
     password: string
+    role: string
+    bio: string
 
   };
 

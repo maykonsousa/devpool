@@ -39,7 +39,7 @@ const developerSteps:ISteps[] = [
   },
   {
     sequence: 1,
-    label: 'Inforções de usuário',
+    label: 'Informações da conta',
     name: 'account',
   },
   {

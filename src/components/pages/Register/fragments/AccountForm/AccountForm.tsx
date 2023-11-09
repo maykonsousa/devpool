@@ -3,16 +3,17 @@ import { Box, Button } from '@mui/material';
 import React, { useCallback } from 'react';
 import { TextInput } from '@components/TextInput';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
 import { PassInput } from '@components/PassInput';
 import { useCreateUser, useFeedback } from '@/hooks';
-import { useGetUserByEmail } from '@/hooks/useGetUserByEmail';
 import { Loading } from '@components/Loading';
-import { EmptyState } from '@/components/EmptyState';
+import { EmptyState } from '@components/EmptyState';
 import Image from 'next/image';
-import { useUpload } from '@/hooks/useUpload';
+import { useUpload } from '@hooks/useUpload';
 import { getGitHubUserByToken } from '@services/getGitHubUserByToken.service';
 import { parseCookies } from 'nookies';
+import { Select } from '@components/Select';
+import { useGetRoles } from '@hooks/useGetRoles';
+import { useSession } from '@hooks/useSession';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer, StepContainer, StepContent, StepTitle,
@@ -31,6 +32,8 @@ interface IFormValues {
     email: string;
     type: UserType
     username: string
+    bio: string
+    role: string
     avatar_url: string
     cover_url: string
     password: string
@@ -42,14 +45,17 @@ const INITIAL_VALUES:IFormValues = {
   email: '',
   type: 'developer',
   username: '',
+  bio: '',
   avatar_url: '',
   cover_url: '',
   password: '',
+  role: '',
   confirmPassword: '',
 };
 
 export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
   const methods = useForm<IFormValues>({ defaultValues: INITIAL_VALUES });
+
   const avatar_url = methods.watch('avatar_url');
 
   const acessToken = parseCookies().accessToken;
@@ -61,13 +67,19 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
       methods.setValue('username', user?.login || '');
       methods.setValue('email', user?.email || '');
       methods.setValue('avatar_url', user?.avatar_url || '');
+      methods.setValue('bio', user?.bio || '');
     }
     return null;
   }, [acessToken, methods]);
 
-  const { data: session } = useSession();
-  const { data: userData, loading: getUserLoading } = useGetUserByEmail(session?.user?.email || '');
+  const { user, status } = useSession();
   const { showMessage } = useFeedback();
+  const { data: roles } = useGetRoles();
+
+  const mapedRoles = roles?.map((role) => ({
+    value: role.name,
+    label: role.name,
+  }));
 
   const { createUser, loading: createuserLoading } = useCreateUser({
     input: {
@@ -78,11 +90,13 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
       avatar_url: methods.watch('avatar_url'),
       cover_url: methods.watch('cover_url'),
       password: methods.watch('password'),
+      role: methods.watch('role'),
+      bio: methods.watch('bio'),
     },
   });
   const { url, openUpload } = useUpload();
 
-  const isLoading = getUserLoading || createuserLoading;
+  const isLoading = createuserLoading || status === 'loading';
 
   const onSubmit = methods.handleSubmit(async () => {
     const { data: createUserData } = await createUser();
@@ -118,7 +132,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
 
       <StepContent>
         {isLoading && <Loading />}
-        {!isLoading && !userData && (
+        {!isLoading && !user && (
           <Box sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -147,37 +161,53 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                   <TextInput
                     name="name"
                     label="Nome"
+                    required
                   />
 
                   <TextInput
                     name="username"
                     label="Username"
                     disabled
+                    required
                   />
 
                   <PassInput
                     name="password"
                     label="Senha"
+                    required
                   />
 
                   <PassInput
                     label="Confirmar senha"
                     name="confirmPassword"
                   />
+                  <TextInput
+                    name="email"
+                    label="E-mail"
+                    disabled
+                  />
+                  <Select
+                    name="role"
+                    label="Area de Atuação"
+                    placeholder="Área de atuação"
+                    options={mapedRoles || []}
+                  />
 
                 </GridContainer>
 
                 <TextInput
-                  name="email"
-                  label="E-mail"
-                  disabled
+                  name="bio"
+                  label="Sobre você"
+                  placeholder="Fale um pouco sobre você e o seu trabalho."
+                  multiline
+                  rows={4}
                 />
 
               </FormContainer>
             </FormProvider>
           </Box>
         )}
-        {!isLoading && userData && (
+        {!isLoading && user && (
           <EmptyState
             type="success"
             message="Etapa concluída. Continue para prosseguir com o cadastro"
@@ -200,7 +230,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
           variant="contained"
           color="primary"
           onClick={() => {
-            if (!userData) {
+            if (!user) {
               onSubmit();
             } else {
               onNext();

@@ -12,6 +12,7 @@ const GET_USER_BY_EMAIL = gql`
       type
       name
       id
+      bio
       email
       createdAt
       cover_url
@@ -29,19 +30,22 @@ interface IVariables {
   };
 }
 
+interface IUser {
+  username: string;
+  updatedAt: string;
+  type: 'developer' | 'recruiter';
+  name: string;
+  id: string;
+  bio: string;
+  email: string;
+  createdAt: string;
+  cover_url: string;
+  avatar_url: string;
+}
+
 interface IResult {
   getUserByEmail: {
-    user: {
-      username: string;
-      updatedAt: string;
-      type: string;
-      name: string;
-      id: string;
-      email: string;
-      createdAt: string;
-      cover_url: string;
-      avatar_url: string;
-    };
+    user: IUser;
     status: string;
     message: string;
   };
@@ -59,7 +63,7 @@ export const useGetUserByEmail = (email:string) => {
   });
 
   return {
-    data: data?.getUserByEmail?.user,
+    data: data?.getUserByEmail?.user || null,
     loading,
     error,
   };

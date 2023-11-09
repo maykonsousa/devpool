@@ -2,7 +2,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
 import {
@@ -16,6 +16,8 @@ import { Loading } from '@/components/Loading';
 import { LoginButton } from '@/components/LoginButton';
 import { useLogin } from '@/hooks';
 import { loginFormValidations } from '@/validations/formValidations';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { SignInFormContainer, SignInPageContainer } from './SignIn.styles';
 
 interface IFormData {
@@ -26,14 +28,20 @@ interface IFormData {
 export function SignInPage() {
   const { handleCredentialsLogin, handleGithubLogin, loading } = useLogin();
   const theme = useTheme();
+  const { data: session } = useSession();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const methods = useForm<IFormData>({ resolver: zodResolver(loginFormValidations) });
+  const router = useRouter();
 
   const submitWithCredentials:SubmitHandler<IFormData> = async (data) => {
     await handleCredentialsLogin(data);
   };
   const handleSubmit = methods.handleSubmit(submitWithCredentials);
-
+  useEffect(() => {
+    if (session) {
+      router.push('/community');
+    }
+  }, [session, router]);
   return (
     <SignInPageContainer>
       <SignInFormContainer>

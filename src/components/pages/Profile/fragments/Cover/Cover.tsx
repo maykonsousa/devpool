@@ -3,6 +3,7 @@ import React from 'react';
 
 export function Cover() {
   const theme = useTheme();
+
   return (
     <Box
       width="100%"

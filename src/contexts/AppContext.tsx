@@ -4,11 +4,35 @@
 
 'use client';
 
+import { useGetUserByEmail } from '@/hooks/useGetUserByEmail';
+import { useSession } from 'next-auth/react';
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useMemo, useState,
 } from 'react';
 
 type SnackbarType = 'success' | 'error' | 'warning' | 'info';
+type TSessionStatus = 'authenticated' | 'loading' | 'unauthenticated' | null;
+
+interface ISessionData {
+  user: {
+    email: string;
+    name: string;
+    image: string;
+  };
+}
+
+interface IUserData{
+  username: string;
+  updatedAt: string;
+  type: 'developer' | 'recruiter';
+  name: string;
+  id: string;
+  email: string;
+  createdAt: string;
+  cover_url: string;
+  avatar_url: string;
+
+}
 
 interface IAvatarUploadOptions {
   avatarUrl: string;
@@ -24,9 +48,12 @@ interface ISnackbarOptions {
 
 }
 interface IAppContext {
+  sessionStatus?: TSessionStatus;
   snackbarOptions: ISnackbarOptions;
   avatarUploadOptions: IAvatarUploadOptions;
   openSnackbar: ({ message, type }:{message:string, type:SnackbarType }) => void;
+  sessionData: ISessionData | null;
+  userData: IUserData | null;
   closeSnackbar: () => void;
   onChangeAtavarOptions: (options: Partial<IAvatarUploadOptions>) => void;
   handleOpenUploadDialog: () => void;
@@ -44,7 +71,13 @@ const INITIAL_AVATAR_UPLOAD_OPTIONS: IAvatarUploadOptions = {
   isVisible: false,
 } as IAvatarUploadOptions;
 
+const INITIAL_USER_DATA = null;
+const INITIAL_SESSION_DATA = null;
+
 const INITIAL_APP_CONTEXT: IAppContext = {
+  sessionData: INITIAL_SESSION_DATA,
+  sessionStatus: null,
+  userData: INITIAL_USER_DATA,
   snackbarOptions: INITIAL_SNACKBAR_OPTIONS,
   avatarUploadOptions: INITIAL_AVATAR_UPLOAD_OPTIONS,
   openSnackbar: ({ message, type }:{message:string, type:SnackbarType }) => {},
@@ -58,6 +91,10 @@ export const appContext = React.createContext<IAppContext>(INITIAL_APP_CONTEXT);
 export function AppProvider({ children }:{children: React.ReactNode}) {
   const [snackbarOptions, setSnackbarOptions] = useState(INITIAL_SNACKBAR_OPTIONS);
   const [avatarUploadOptions, setAvatarUploadOptions] = useState(INITIAL_AVATAR_UPLOAD_OPTIONS);
+  const { data: sessionData, status: sessionStatus } = useSession();
+  const email = useMemo(() => sessionData?.user?.email, [sessionData]);
+
+  const { data: userData } = useGetUserByEmail(email) || null;
 
   const openSnackbar = useCallback(({ message, type }:{message:string, type:SnackbarType }) => {
     setSnackbarOptions({
@@ -87,6 +124,9 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     avatarUploadOptions,
     onChangeAtavarOptions,
     handleOpenUploadDialog,
+    sessionData,
+    userData,
+    sessionStatus,
   }), [
     snackbarOptions,
     openSnackbar,
@@ -94,6 +134,9 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     avatarUploadOptions,
     onChangeAtavarOptions,
     handleOpenUploadDialog,
+    sessionData,
+    userData,
+    sessionStatus,
   ]);
 
   return (

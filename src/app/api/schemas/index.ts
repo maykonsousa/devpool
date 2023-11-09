@@ -15,11 +15,19 @@ export const typeDefs = `#graphql
     error
   }
 
+  type Role {
+    id: String
+    name: String
+    
+  }
+
   type User {
     id: String
     name: String
     email: String
     type: UserType
+    role: String
+    bio: String
     username: String
     avatar_url: String
     cover_url: String
@@ -51,6 +59,14 @@ export const typeDefs = `#graphql
     avatar_url: String
     cover_url: String
     password: String
+    bio: String
+    role: String
+  }
+
+  type RolePayload {
+    roles: [Role!]
+    status: Status!
+    message: String!
   }
 
   type CreateUserPayload {
@@ -63,6 +79,7 @@ export const typeDefs = `#graphql
     hello: HelloPayload!
     getAllUsers: getAllUsersPayload!
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
+    getRoles: RolePayload!
   }
   type Mutation {
     createUser(input: UserInput): CreateUserPayload!

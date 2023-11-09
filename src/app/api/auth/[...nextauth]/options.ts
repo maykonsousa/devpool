@@ -3,9 +3,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider, { CredentialInput } from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
-import { setCookie } from 'nookies';
 import { authenticateService } from '../../services/authenticate.service';
 import { getUserByEmail } from '../../services/getUserByEmail.service';
 

@@ -18,6 +18,7 @@ model User {
   password   String
   username   String   @unique
   bio        String?  @db.VarChar(4000)
+  role       String?
   avatar_url String?
   cover_url  String?
   createdAt  DateTime @default(now())
@@ -36,4 +37,11 @@ model Social {
   cell_phone       String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+}
+
+model Roles {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -10,6 +10,7 @@ export const PageContainer = styled(Box)`
   width: 100%;
   flex: 1;
   padding-top: 10rem;
+  overflow: auto;
   gap: 4rem;
 `;
 
