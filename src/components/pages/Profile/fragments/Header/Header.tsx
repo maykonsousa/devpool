@@ -8,6 +8,7 @@ import { HeaderAvatar, HeaderContainer } from './Header.styles';
 
 export function Header() {
   const theme = useTheme();
+
   return (
     <HeaderContainer>
       <HeaderAvatar>

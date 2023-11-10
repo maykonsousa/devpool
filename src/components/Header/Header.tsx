@@ -1,39 +1,44 @@
 'use client';
 
-import { useGetUserByEmail } from '@/hooks/useGetUserByEmail';
+import { useSession } from '@/hooks';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography,
 } from '@mui/material';
-import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import * as React from 'react';
+import { signOut } from 'next-auth/react';
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const router = useRouter();
-  const { data, status } = useSession();
+  const { user, status } = useSession();
   const pathName = usePathname();
 
-  const email = React.useMemo(() => `${data?.user?.email}`, [data?.user?.email]) as string;
-  const { data: userData } = useGetUserByEmail(email);
+  const logout = React.useCallback(async () => {
+    await signOut();
+    router.push('/auth/login');
+  }, [router]);
 
   const isAuth = status === 'authenticated';
 
-  const userMenu = [{
-    label: 'Meu perfil',
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onClick: () => { router.push('/my'); },
-  }, {
-    label: 'Sair',
-    onClick: async () => {
-      await signOut();
-      router.push('/auth/login');
+  const userMenu = [
+    {
+      label: 'Ver Perfil',
+      onClick: () => { router.push(`/profile/${user?.username}`); },
     },
-  }];
+    {
+      label: 'Editar Perfil',
+      onClick: () => { router.push('/my'); },
+    },
+    {
+      label: 'Sair',
+      onClick: logout,
+    },
+  ];
 
   const pages = [{
     label: 'Comunidade',
@@ -162,9 +167,9 @@ export function Header() {
 
           <Box sx={{ flexGrow: 0 }}>
             {isAuth ? (
-              <Tooltip title={`${userData?.name}`}>
+              <Tooltip title={`${user?.name}`}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={`${userData?.name}`} src={`${userData?.avatar_url}`} />
+                  <Avatar alt={`${user?.name}`} src={`${user?.avatar_url}`} />
                 </IconButton>
               </Tooltip>
             ) : (
