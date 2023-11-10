@@ -7,7 +7,6 @@ const CREATE_USER = gql`
     createUser(input: $input) {
       status
       message
-      userId
     }
   }
 `;
@@ -36,7 +35,6 @@ interface IResponse {
   createUser: {
     status: Status;
     message: string;
-    userId: string;
   };
 }
 

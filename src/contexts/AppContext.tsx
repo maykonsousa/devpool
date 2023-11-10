@@ -26,6 +26,8 @@ interface IUserData{
   updatedAt: string;
   type: 'developer' | 'recruiter';
   name: string;
+  bio: string;
+  role: string;
   id: string;
   email: string;
   createdAt: string;

@@ -54,10 +54,15 @@ export const typeDefs = `#graphql
     bio: String
     role: String
   }
+
+  input UpdateUserInput {
+    id: String!
+    data: UserInput!
+  }
+
   type CreateUserPayload {
     status: Status!
     message: String!
-    userId: String
     
   }
 
@@ -147,9 +152,11 @@ export const typeDefs = `#graphql
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
     getRoles: RolePayload!
     getTechnoligies: TechnologyPayload!
+
   }
   type Mutation {
     createUser(input: UserInput): CreateUserPayload!
     createProject(input:CreateProjectInput): CreateProjectPayload!
+    updateUser(input: UpdateUserInput): CreateUserPayload!
   }
 `;

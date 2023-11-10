@@ -17,7 +17,7 @@ export const createUserService = async (user:IUserInput) => {
 
     const encriptedPassword = await hash(user.password, 8);
 
-    const createdUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         ...user,
         password: encriptedPassword,
@@ -26,20 +26,17 @@ export const createUserService = async (user:IUserInput) => {
     });
 
     return {
-      userId: createdUser.id,
       status: 'success',
       message: 'User created successfully',
     };
   } catch (error) {
     if (error instanceof AppError) {
       return {
-        userId: null,
         status: 'error',
         message: error.message,
       };
     }
     return {
-      userId: null,
       status: 'error',
       message: 'Internal server error',
     };

@@ -9,6 +9,7 @@ export function Loading() {
       alignItems: 'center',
       width: '100%',
       padding: '2rem',
+      flex: 1,
     }}
     >
       <CircularProgress color="primary" size={96} />

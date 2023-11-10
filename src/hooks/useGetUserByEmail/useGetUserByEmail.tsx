@@ -13,6 +13,7 @@ const GET_USER_BY_EMAIL = gql`
       name
       id
       bio
+      role
       email
       createdAt
       cover_url
