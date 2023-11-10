@@ -59,7 +59,6 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
   const avatar_url = methods.watch('avatar_url');
 
   const acessToken = parseCookies().accessToken;
-  const { userId } = parseCookies();
 
   const getGitHubUser = useCallback(async () => {
     if (acessToken) {
@@ -233,11 +232,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
           variant="contained"
           color="primary"
           onClick={() => {
-            if (!userId) {
-              onSubmit();
-            } else {
-              onNext();
-            }
+            onSubmit();
           }}
         >
           Continuar

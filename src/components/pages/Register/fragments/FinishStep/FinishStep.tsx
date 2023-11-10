@@ -6,16 +6,26 @@ import {
 } from '../styles';
 
 type IProjectsFormProps = IStepsBaseProps
-export function FinishStep({ isVisible, onNext, onPrevious }:IProjectsFormProps) {
+export function FinishStep({ isVisible }:IProjectsFormProps) {
   return isVisible ? (
     <StepContainer>
       <StepTitle>Parabéns</StepTitle>
       <StepSubtitle>Agora você faz parte da nossa comunidade de desenvolvedores</StepSubtitle>
 
-      <StepContent />
+      <StepContent>
+        <StepSubtitle>
+          Para uma melhor experiência, ao acessar a plataforma, clique na sua
+          foto e em seguida, editar meu perfil para adicionar informações como tecnologias que atua,
+          cursos, experiências, projetos e contatos.
+        </StepSubtitle>
+        <StepSubtitle>
+          Quanto mais completo for o seu perfil, maiores as chances de ser convidado(a)
+          para processos seletivos
+
+        </StepSubtitle>
+      </StepContent>
       <ActionsContainer>
-        <Button fullWidth variant="outlined" onClick={onPrevious} color="primary">Voltar</Button>
-        <Button fullWidth variant="contained" color="primary" onClick={onNext}>Continuar</Button>
+        <Button fullWidth variant="contained" color="primary" href="/community">Acessar plataforma</Button>
       </ActionsContainer>
     </StepContainer>
   ) : null;

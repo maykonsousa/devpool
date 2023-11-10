@@ -16,6 +16,7 @@ import {
   DialogTitle,
   IconButton,
   Input,
+  LinearProgress,
   Slide,
   SlideProps,
   Typography,
@@ -23,7 +24,7 @@ import {
 } from '@mui/material';
 import { ref as fireBaseRef, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import Image from 'next/image';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useFeedback } from '@/hooks';
 
 const Transition = React.forwardRef((
@@ -32,9 +33,14 @@ const Transition = React.forwardRef((
 ) => <Slide direction="up" ref={ref} {...props} />);
 
 export function UploadDialog() {
-  const { avatarUploadOptions, onChangeAtavarOptions } = useContext(appContext);
+  const {
+    avatarUploadOptions,
+    onChangeAtavarOptions,
+    onResetAtavarOptions,
+  } = useContext(appContext);
   const [image, setImage] = React.useState('https://firebasestorage.googleapis.com/v0/b/devpool-110a7.appspot.com/o/image%201.png?alt=media&token=8dc348ff-1eae-43b0-a4c5-6d2ed3cf2238&_gl=1*1uoht8v*_ga*MjA5NjU0OTE3MC4xNjk4NjgyNTA0*_ga_CW55HF8NVT*MTY5OTIzMzA0NC40LjEuMTY5OTIzMzQ4Ny40OS4wLjA.');
-  const [file, setFile] = React.useState<Blob | Uint8Array | ArrayBuffer | null>(null);
+  const [file, setFile] = useState<Blob | Uint8Array | ArrayBuffer | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const theme = useTheme();
   const { showMessage } = useFeedback();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,21 +51,29 @@ export function UploadDialog() {
   };
 
   const handleClose = () => {
-    onChangeAtavarOptions({ isVisible: false });
+    onResetAtavarOptions();
   };
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const fileUploaded = e?.target?.files?.[0];
-    if (fileUploaded) {
-      setFile(fileUploaded);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(`${reader.result}`);
-      };
-      reader.readAsDataURL(fileUploaded);
+    if (!fileUploaded || !fileUploaded.type.startsWith('image/')) {
+      setErrorMessage('Selecione um arquivo válido');
+      return;
     }
+    // image size validation > 2mb
+    if (fileUploaded.size > 2 * 1024 * 1024) {
+      setErrorMessage('A imagem deve ter no máximo 2mb');
+      return;
+    }
+    setErrorMessage('');
+    setFile(fileUploaded);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage(`${reader.result}`);
+    };
+    reader.readAsDataURL(fileUploaded);
   };
 
   const handleUpload = () => {
@@ -152,6 +166,17 @@ export function UploadDialog() {
           sx={{ display: 'none' }}
           onChange={handleFileChange}
         />
+        {avatarUploadOptions.avatarImageProgress > 0 && (
+          <LinearProgress
+            variant="determinate"
+            color="success"
+            value={avatarUploadOptions.avatarImageProgress}
+            sx={{ width: '100%' }}
+          />
+        )}
+        {errorMessage && (
+          <Typography color="error" variant="caption">{errorMessage}</Typography>
+        )}
 
         <DialogActions sx={{ justifyContent: 'center', width: '100%' }}>
           <Button
@@ -164,7 +189,18 @@ export function UploadDialog() {
             cancelar
 
           </Button>
-          <Button fullWidth variant="contained" color="primary" onClick={handleUpload}>Salvar</Button>
+          <Button
+            fullWidth
+            disabled={
+            !!errorMessage || !file
+            }
+            variant="contained"
+            color="primary"
+            onClick={handleUpload}
+          >
+            Salvar
+
+          </Button>
         </DialogActions>
       </DialogContent>
 

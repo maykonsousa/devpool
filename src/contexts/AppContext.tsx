@@ -54,8 +54,10 @@ interface IAppContext {
   openSnackbar: ({ message, type }:{message:string, type:SnackbarType }) => void;
   sessionData: ISessionData | null;
   userData: IUserData | null;
+  loadingSession: boolean;
   closeSnackbar: () => void;
   onChangeAtavarOptions: (options: Partial<IAvatarUploadOptions>) => void;
+  onResetAtavarOptions: () => void;
   handleOpenUploadDialog: () => void;
 }
 const INITIAL_SNACKBAR_OPTIONS: ISnackbarOptions = {
@@ -77,6 +79,7 @@ const INITIAL_SESSION_DATA = null;
 const INITIAL_APP_CONTEXT: IAppContext = {
   sessionData: INITIAL_SESSION_DATA,
   sessionStatus: null,
+  loadingSession: false,
   userData: INITIAL_USER_DATA,
   snackbarOptions: INITIAL_SNACKBAR_OPTIONS,
   avatarUploadOptions: INITIAL_AVATAR_UPLOAD_OPTIONS,
@@ -84,6 +87,7 @@ const INITIAL_APP_CONTEXT: IAppContext = {
   closeSnackbar: () => {},
   onChangeAtavarOptions: (options: Partial<IAvatarUploadOptions>) => {},
   handleOpenUploadDialog: () => {},
+  onResetAtavarOptions: () => {},
 };
 
 export const appContext = React.createContext<IAppContext>(INITIAL_APP_CONTEXT);
@@ -94,7 +98,8 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
   const { data: sessionData, status: sessionStatus } = useSession();
   const email = useMemo(() => sessionData?.user?.email, [sessionData]);
 
-  const { data: userData } = useGetUserByEmail(email) || null;
+  const { data: userData, loading: userLoading } = useGetUserByEmail(email) || null;
+  const loadingSession = useMemo(() => sessionStatus === 'loading' || userLoading, [sessionStatus, userLoading]);
 
   const openSnackbar = useCallback(({ message, type }:{message:string, type:SnackbarType }) => {
     setSnackbarOptions({
@@ -113,6 +118,10 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     setAvatarUploadOptions({ ...avatarUploadOptions, ...options });
   }, [avatarUploadOptions]);
 
+  const onResetAtavarOptions = useCallback(() => {
+    setAvatarUploadOptions(INITIAL_AVATAR_UPLOAD_OPTIONS);
+  }, []);
+
   const handleOpenUploadDialog = useCallback(() => {
     setAvatarUploadOptions({ ...avatarUploadOptions, isVisible: true });
   }, [avatarUploadOptions]);
@@ -127,6 +136,8 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     sessionData,
     userData,
     sessionStatus,
+    onResetAtavarOptions,
+    loadingSession,
   }), [
     snackbarOptions,
     openSnackbar,
@@ -137,6 +148,8 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     sessionData,
     userData,
     sessionStatus,
+    onResetAtavarOptions,
+    loadingSession,
   ]);
 
   return (
