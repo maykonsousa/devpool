@@ -163,7 +163,7 @@ export function RegisterPage() {
         />
 
         <FinishStep
-          isVisible={activeStep?.name === 'projects'}
+          isVisible={activeStep?.name === 'finishStep'}
           onNext={handleNextStep}
           onPrevious={handleBackStep}
         />

@@ -10,6 +10,7 @@ export const StepContainer = styled(Box)`
   padding: 1rem;
   width: 100%;
   max-width: 600px;
+  gap: 1rem;
   flex: 1;
 `;
 
@@ -36,6 +37,8 @@ export const StepContent = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
   width: 100%;
   flex:1;
 `;

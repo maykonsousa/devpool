@@ -36,7 +36,7 @@ interface ProfilePageProps {
 
 export function ProfilePage({ profileName }:ProfilePageProps) {
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
-  const { data } = useSession();
+  const { status } = useSession();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
