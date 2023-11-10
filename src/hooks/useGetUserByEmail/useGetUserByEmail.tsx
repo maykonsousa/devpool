@@ -38,6 +38,7 @@ interface IUser {
   name: string;
   id: string;
   bio: string;
+  role: string;
   email: string;
   createdAt: string;
   cover_url: string;
