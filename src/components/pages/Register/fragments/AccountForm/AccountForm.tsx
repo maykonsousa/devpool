@@ -59,6 +59,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
   const avatar_url = methods.watch('avatar_url');
 
   const acessToken = parseCookies().accessToken;
+  const { userId } = parseCookies();
 
   const getGitHubUser = useCallback(async () => {
     if (acessToken) {
@@ -72,9 +73,11 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
     return null;
   }, [acessToken, methods]);
 
-  const { user, status } = useSession();
+  const { status } = useSession();
   const { showMessage } = useFeedback();
   const { data: roles } = useGetRoles();
+
+  const isLogged = status === 'authenticated';
 
   const mapedRoles = roles?.map((role) => ({
     value: role.name,
@@ -132,7 +135,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
 
       <StepContent>
         {isLoading && <Loading />}
-        {!isLoading && !user && (
+        {!isLoading && !isLogged && (
           <Box sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -207,7 +210,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
             </FormProvider>
           </Box>
         )}
-        {!isLoading && user && (
+        {!isLoading && isLogged && (
           <EmptyState
             type="success"
             message="Etapa concluída. Continue para prosseguir com o cadastro"
@@ -230,7 +233,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
           variant="contained"
           color="primary"
           onClick={() => {
-            if (!user) {
+            if (!userId) {
               onSubmit();
             } else {
               onNext();

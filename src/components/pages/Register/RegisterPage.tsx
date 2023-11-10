@@ -15,8 +15,8 @@ import { PageContainer, StepList } from './RegisterPage.styles';
 import {
   AccountForm,
   ExperiencesForm,
+  FinishStep,
   Orientation,
-  ProjectsForm,
   RecruiterAccountForm,
   RecruiterOrientation,
   RecruiterSocialForm,
@@ -44,25 +44,10 @@ const developerSteps:ISteps[] = [
   },
   {
     sequence: 2,
-    label: 'Projetos',
-    name: 'projects',
-  },
-  {
-    sequence: 3,
-    label: 'Experiências',
-    name: 'experiences',
+    label: 'Confirmação',
+    name: 'finishStep',
   },
 
-  {
-    sequence: 4,
-    label: 'Habilidades',
-    name: 'skills',
-  },
-  {
-    sequence: 5,
-    label: 'Contatos',
-    name: 'contacts',
-  },
 ];
 
 const recruiterSteps:ISteps[] = [
@@ -94,7 +79,6 @@ export function RegisterPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isDeveloper = typeUser === 'developer';
   const isRecruiter = typeUser === 'recruiter';
-  // get cookie typeUser
 
   const handleNextStep = () => {
     const nextStep = steps.find((step) => step?.sequence === activeStep?.sequence + 1);
@@ -178,7 +162,7 @@ export function RegisterPage() {
           onPrevious={handleBackStep}
         />
 
-        <ProjectsForm
+        <FinishStep
           isVisible={activeStep?.name === 'projects'}
           onNext={handleNextStep}
           onPrevious={handleBackStep}

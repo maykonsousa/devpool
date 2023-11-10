@@ -1,23 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { createProjectService } from '../services/createProject.service';
 import { createUserService } from '../services/createUser.service';
+import { getAllTechnologies } from '../services/getAllTechnologies.service';
 import { getAllUsersService } from '../services/getAllUsers.service';
+import { getProjectsByUser } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
 import { getUserByEmail } from '../services/getUserByEmail.service';
+import { ICreateProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
 import { IGetUserByEmailInput, IcreateUserInput } from '../types/UsersTypes';
 
 export const resolvers = {
 
   Query: {
-    hello: async () => ({ message: 'Hello World!' }),
     getAllUsers: async () => getAllUsersService(),
     getUserByEmail: async (_:any, args: IGetUserByEmailInput) => getUserByEmail(args.input.email),
     getRoles: async () => getRolesService(),
+    getTechnoligies: async () => getAllTechnologies(),
+    getProjectsByUser: async (
+      _:any,
+      args: IGetProjectsByUserInput,
+    ) => getProjectsByUser(args.input.userId),
 
   },
 
   Mutation: {
     createUser: async (_:any, args: IcreateUserInput) => createUserService(args.input),
-
+    createProject: async (_:any, args:ICreateProjectInput) => createProjectService(args.input),
   },
 
 };
