@@ -13,6 +13,13 @@ export interface IcreateUserInput {
   input: IUserInput;
 }
 
+export interface IUpdateUserInput {
+  input: {
+    id: string;
+    data: IUserInput;
+  };
+  }
+
 export interface IGetUserByEmailInput {
   input:{
     email: string;

@@ -1,11 +1,22 @@
-import { useSession, useUpload } from '@/hooks';
+import { useGetRoles, useSession, useUpload } from '@/hooks';
 import {
-  Box, Button, CircularProgress, Typography,
+  Button, Typography,
 } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import Image from 'next/image';
-import { ImageContainer } from './AccountTab.styles';
+import { Loading } from '@/components/Loading';
+import { TextInput } from '@/components/TextInput';
+import { PassInput } from '@/components/PassInput';
+import { Select } from '@/components/Select';
+import {
+  AccountTabContainer,
+  AvatarActionContainer,
+  AvatarSession,
+  FormSession,
+  GridContainer,
+  ImageContainer,
+} from './AccountTab.styles';
 
 interface IValues {
   name: string;
@@ -14,6 +25,8 @@ interface IValues {
   passwordConfirmation: string;
   username: string;
   avatar_url: string;
+  bio: string;
+  role: string;
 }
 
 const INITIAL_VALUES:IValues = {
@@ -23,12 +36,18 @@ const INITIAL_VALUES:IValues = {
   passwordConfirmation: '',
   username: '',
   avatar_url: '',
+  bio: '',
+  role: '',
 };
 
 export function AccountTab() {
   const { user, loading } = useSession();
   const { url, openUpload } = useUpload();
-
+  const { data: roles } = useGetRoles();
+  const mapedRoles = roles?.map((role) => ({
+    value: role.name,
+    label: role.name,
+  }));
   const methods = useForm<IValues>({ defaultValues: INITIAL_VALUES });
 
   const updateAccoutInformations = useCallback(() => {
@@ -38,6 +57,8 @@ export function AccountTab() {
         email: user.email,
         username: user.username,
         avatar_url: user.avatar_url,
+        role: user.role,
+        bio: user.bio,
       });
     }
   }, [user, methods]);
@@ -52,53 +73,21 @@ export function AccountTab() {
     }
   }, [url, methods]);
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        flex: 1,
-        width: '100%',
-        padding: '1rem',
-      }}
-    >
+    <AccountTabContainer>
       <Typography variant="h6" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>Informações da conta</Typography>
-      {loading ? (
-        <Box sx={{
-          width: '100%', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}
-        >
-          <CircularProgress size={96} />
-        </Box>
-      ) : (
+      {loading ? <Loading /> : (
         <FormProvider {...methods}>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
-            gap: '1rem',
-
-          }}
-          >
+          <AvatarSession>
             <ImageContainer>
               <Image
                 src={methods.watch('avatar_url') || '/fakeAvatar.png'}
                 alt="avatar"
                 autoCorrect="true"
                 fill
+                sizes="120px"
               />
             </ImageContainer>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                gap: '.5rem',
-
-              }}
-            >
+            <AvatarActionContainer>
               <Button
                 variant="contained"
                 color="primary"
@@ -108,10 +97,60 @@ export function AccountTab() {
                 Alterar avatar
               </Button>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>Tamanho máximo: 2mb</Typography>
-            </Box>
-          </Box>
+            </AvatarActionContainer>
+          </AvatarSession>
+          <FormSession>
+            <GridContainer>
+              <TextInput
+                name="name"
+                label="Nome"
+                placeholder="Nome"
+                required
+              />
+              <TextInput
+                name="username"
+                label="login de usuário"
+                placeholder="Nome"
+                disabled
+                required
+              />
+              <PassInput
+                name="password"
+                label="Nova senha"
+                placeholder="Digite para alterar a senha"
+                required
+              />
+              <PassInput
+                name="confirmPassword"
+                label="Confirmação da nova senha"
+                placeholder="Confirme a nova senha"
+                required
+              />
+              <TextInput
+                name="email"
+                label="E-mail"
+                placeholder="Digite o seu e-mail"
+                required
+              />
+              <Select
+                name="role"
+                label="Area de Atuação"
+                placeholder="Área de atuação"
+                value={methods.watch('role')}
+                options={mapedRoles || []}
+              />
+            </GridContainer>
+            <TextInput
+              name="bio"
+              label="Sobre você"
+              placeholder="Fale um pouco sobre você e o seu trabalho."
+              multiline
+              rows={4}
+            />
+          </FormSession>
+
         </FormProvider>
       )}
-    </Box>
+    </AccountTabContainer>
   );
 }

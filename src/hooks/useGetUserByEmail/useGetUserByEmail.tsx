@@ -13,6 +13,7 @@ const GET_USER_BY_EMAIL = gql`
       name
       id
       bio
+      role
       email
       createdAt
       cover_url
@@ -37,6 +38,7 @@ interface IUser {
   name: string;
   id: string;
   bio: string;
+  role: string;
   email: string;
   createdAt: string;
   cover_url: string;
