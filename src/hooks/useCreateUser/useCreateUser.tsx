@@ -7,6 +7,7 @@ const CREATE_USER = gql`
     createUser(input: $input) {
       status
       message
+      userId
     }
   }
 `;
@@ -35,12 +36,14 @@ interface IResponse {
   createUser: {
     status: Status;
     message: string;
+    userId: string;
   };
 }
 
 export const useCreateUser = (variables:Ivariables) => {
   const [createUser, { data, loading, error }] = useMutation<IResponse, Ivariables>(CREATE_USER, {
     variables,
+    fetchPolicy: 'no-cache',
   });
 
   return {

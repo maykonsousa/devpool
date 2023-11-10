@@ -35,8 +35,8 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
 
   const message = useMemo(() => {
     if (data) {
-      return `Bem vindo de volta, ${data.user.name}! Você já se encontra cadastrado na plataforma. Mas ainda pode usar essa tela 
-       para completar o seu perfil
+      return `Localizamos o seu cadastro na nossa plataforma com o username ${data.user.name},\r\n
+      Acesse a área locada no botão abaixo em seguida clique em sua foto e complete o seu perfil.
       `;
     }
     if (githubUser && !data) {
@@ -46,13 +46,24 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
     return 'Para começar, verificar se já não temos um cadastro seu em nossa plataforma. Para isso, basta clicar no botão abaixo e fazer login com sua conta do GitHub';
   }, [data, githubUser]);
 
+  const title = useMemo(() => {
+    if (data) {
+      return 'Perfil localizado!!';
+    }
+    if (githubUser && !data) {
+      return `Obrigado ${githubUser?.name ?? ''}!`;
+    }
+
+    return 'Olá, seja bem-vindo(a)';
+  }, [data, githubUser]);
+
   useEffect(() => {
     getGitHubUser();
   }, [getGitHubUser]);
 
   return isVisible ? (
     <StepContainer>
-      <StepTitle>{`Seja bem-vindo(a) ${githubUser?.name ?? ''}`}</StepTitle>
+      <StepTitle>{title}</StepTitle>
       <StepSubtitle>{message}</StepSubtitle>
       {!githubUser && !data && <LoginButton typeCall="github" isLoading={isAuthLoading} onClick={() => signIn('github', { redirect: true })} />}
       <StepContent />
@@ -65,19 +76,18 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
         >
           {isMobile ? <ArrowBack /> : 'Voltar' }
         </Button>
-        <Button fullWidth disabled={!githubUser && !data} variant="contained" color="primary" onClick={onNext}>
-          { !!data && !isMobile && 'Completar Pefil' }
-          {isMobile && !data && <ArrowForward />}
-          {isMobile && !!data && <ArrowForward />}
-          {!isMobile && !data && 'Continuar'}
-        </Button>
         {
-          data && (
-            <Button fullWidth variant="outlined" color="primary" href="/auth/login">
+          !data ? (
+            <Button fullWidth variant="contained" color="primary" onClick={onNext}>
+              {isMobile ? <ArrowForward /> : 'Continuar'}
+            </Button>
+          ) : (
+            <Button fullWidth variant="contained" color="primary" href="/auth/login">
               Acessar
             </Button>
           )
         }
+
       </ActionsContainer>
     </StepContainer>
   ) : null;

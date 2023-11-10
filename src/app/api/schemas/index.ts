@@ -1,8 +1,5 @@
 export const typeDefs = `#graphql
-  type HelloPayload {
-    message: String!
-  }
-
+  
   enum UserType {
     admin
     developer
@@ -15,11 +12,7 @@ export const typeDefs = `#graphql
     error
   }
 
-  type Role {
-    id: String
-    name: String
-    
-  }
+  ##USERS
 
   type User {
     id: String
@@ -31,7 +24,6 @@ export const typeDefs = `#graphql
     username: String
     avatar_url: String
     cover_url: String
-    password: String
     createdAt: String
     updatedAt: String
   }
@@ -62,6 +54,14 @@ export const typeDefs = `#graphql
     bio: String
     role: String
   }
+  type CreateUserPayload {
+    status: Status!
+    message: String!
+    userId: String
+    
+  }
+
+  ##ROLES
 
   type RolePayload {
     roles: [Role!]
@@ -69,19 +69,87 @@ export const typeDefs = `#graphql
     message: String!
   }
 
-  type CreateUserPayload {
-    status: Status!
-    message: String!
+  type Role {
+    id: String
+    name: String
     
   }
 
+  ##TECHNOLOGIES
+
+  type Technology {
+    id: String
+    name: String
+   
+  }
+
+  type TechnologyPayload {
+    technologies: [Technology!]
+    status: Status!
+    message: String!
+  }
+
+  ##PROJECTS
+
+
+
+  input ProjectInput {
+    name: String
+    description: String
+    image_url: String
+    repo_url: String
+    deployed_url: String
+    user_id: String
+    
+  }
+
+  type Project {
+    id: String
+    name: String
+    description: String
+    image_url: String
+    repo_url: String
+    deployed_url: String
+    userId: String
+    createdAt: String
+    updatedAt: String
+    technologies: [String]
+  }
+
+  input GetProjectsByUserInput {
+    userId: String!
+  }
+
+  type getProjetsPayload {
+    projects: [Project!]
+    status: Status!
+    message: String!
+  }
+
+  input CreateProjectInput {
+    
+      project: ProjectInput
+      technologies: [String]
+    }
+
+
+  type CreateProjectPayload {
+    status: Status!
+    message: String!
+    projectId: String
+  }
+
+  
+
   type Query {
-    hello: HelloPayload!
     getAllUsers: getAllUsersPayload!
+    getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
     getRoles: RolePayload!
+    getTechnoligies: TechnologyPayload!
   }
   type Mutation {
     createUser(input: UserInput): CreateUserPayload!
+    createProject(input:CreateProjectInput): CreateProjectPayload!
   }
 `;

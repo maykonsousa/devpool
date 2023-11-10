@@ -10,12 +10,21 @@ interface IGetRolesResponse {
 
 export const getRolesService = async ():Promise<IGetRolesResponse> => {
   try {
-    const roles = await prisma.roles.findMany();
-    const rolesFormatted = roles.map(({ id, name }) => ({ id, name }));
+    const roles = await prisma.role.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+      select: {
+        name: true,
+        id: true,
+      },
+
+    });
+
     return {
       status: 'success',
       message: 'Roles fetched successfully',
-      roles: rolesFormatted,
+      roles,
     };
   } catch (error) {
     console.log(error);
