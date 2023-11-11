@@ -36,7 +36,13 @@ export function ErrorGithubLoginPage() {
           <Image src="/manWithTablet.svg" alt="Error GitHub Login" width={190} height={540} />
         </AsideContainer>
         <ContentContainer>
-          <Image src="/logo.svg" alt="Error GitHub Login" width={isMobile ? 200 : 400} height={isMobile ? 100 : 200} />
+          <Image
+            src="/logo.svg"
+            alt="Error GitHub Login"
+            width={isMobile ? 200 : 400}
+            height={isMobile ? 100 : 200}
+            priority
+          />
 
           <Typography variant="h1" component="h1" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
             Ops!

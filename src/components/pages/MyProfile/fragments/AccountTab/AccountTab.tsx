@@ -144,6 +144,7 @@ export function AccountTab() {
                 autoCorrect="true"
                 fill
                 sizes="120px"
+                priority
               />
             </ImageContainer>
             <AvatarActionContainer>

@@ -10,3 +10,41 @@ export const ProjectsTabContainer = styled(Box)`
   flex: 1;
   gap: 1rem;
 `;
+export const AvatarSession = styled(Box)`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1rem;
+`;
+
+export const AvatarActionContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+`;
+
+export const ImageContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  position: relative;
+  border-radius: 8px;
+  padding: 8px;
+  color: ${({ theme }) => theme.palette.primary.contrastText};
+  border: 4px solid ${({ theme }) => theme.palette.primary.main};
+  
+  
+
+
+  @media (max-width: 900px) {
+    margin-top: 0;
+    width: 80px;
+    height: 80px;
+  }
+
+
+`;

@@ -82,7 +82,13 @@ export function Header() {
             }}
             onClick={() => { router.push('/'); }}
           >
-            <Image src="/logo.svg" alt="logo" width={200} height={50} />
+            <Image
+              src="/logo.svg"
+              alt="logo"
+              width={200}
+              height={50}
+              priority
+            />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -138,7 +144,13 @@ export function Header() {
             }}
             onClick={() => { router.push('/'); }}
           >
-            <Image src="/logo.svg" alt="logo" width={200} height={50} />
+            <Image
+              src="/logo.svg"
+              alt="logo"
+              width={200}
+              height={50}
+              priority
+            />
           </Box>
 
           <Box sx={{

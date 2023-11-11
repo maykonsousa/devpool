@@ -69,4 +69,9 @@ export const GridContainer = styled(Box)`
   grid-template-rows: repeat(3, auto);
   gap: 1rem;
   width: 100%;
+
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;

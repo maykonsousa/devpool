@@ -51,6 +51,8 @@ model Role {
 model Project {
   id                String              @id @default(uuid())
   userId            String
+  githubId          String?
+  main_language     String?
   name              String
   description       String
   image_url         String
