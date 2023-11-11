@@ -168,9 +168,11 @@ export function Header() {
           <Box sx={{ flexGrow: 0 }}>
             {isAuth ? (
               <Tooltip title={`${user?.name}`}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={`${user?.name}`} src={`${user?.avatar_url}`} />
-                </IconButton>
+                {user?.avatar_url ? (
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt={`${user?.name}`} src={user?.avatar_url ? `${user?.avatar_url}` : '/fakeAvatar.jpg'} />
+                  </IconButton>
+                ) : <Box />}
               </Tooltip>
             ) : (
               <Button

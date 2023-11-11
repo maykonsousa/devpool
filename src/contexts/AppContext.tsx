@@ -28,6 +28,9 @@ interface IUserData{
   name: string;
   bio: string;
   role: string;
+  seniority: string;
+  city: string;
+  state: string;
   id: string;
   email: string;
   createdAt: string;
@@ -57,6 +60,7 @@ interface IAppContext {
   sessionData: ISessionData | null;
   userData: IUserData | null;
   loadingSession: boolean;
+  refetchUserData: () => void;
   closeSnackbar: () => void;
   onChangeAtavarOptions: (options: Partial<IAvatarUploadOptions>) => void;
   onResetAtavarOptions: () => void;
@@ -85,6 +89,7 @@ const INITIAL_APP_CONTEXT: IAppContext = {
   userData: INITIAL_USER_DATA,
   snackbarOptions: INITIAL_SNACKBAR_OPTIONS,
   avatarUploadOptions: INITIAL_AVATAR_UPLOAD_OPTIONS,
+  refetchUserData: () => {},
   openSnackbar: ({ message, type }:{message:string, type:SnackbarType }) => {},
   closeSnackbar: () => {},
   onChangeAtavarOptions: (options: Partial<IAvatarUploadOptions>) => {},
@@ -100,7 +105,12 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
   const { data: sessionData, status: sessionStatus } = useSession();
   const email = useMemo(() => sessionData?.user?.email, [sessionData]);
 
-  const { data: userData, loading: userLoading } = useGetUserByEmail(email) || null;
+  const {
+    data: userData,
+    loading: userLoading,
+    refetch: refetchUserData,
+  } = useGetUserByEmail(email) || null;
+
   const loadingSession = useMemo(() => sessionStatus === 'loading' || userLoading, [sessionStatus, userLoading]);
 
   const openSnackbar = useCallback(({ message, type }:{message:string, type:SnackbarType }) => {
@@ -140,6 +150,7 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     sessionStatus,
     onResetAtavarOptions,
     loadingSession,
+    refetchUserData,
   }), [
     snackbarOptions,
     openSnackbar,
@@ -152,6 +163,7 @@ export function AppProvider({ children }:{children: React.ReactNode}) {
     sessionStatus,
     onResetAtavarOptions,
     loadingSession,
+    refetchUserData,
   ]);
 
   return (

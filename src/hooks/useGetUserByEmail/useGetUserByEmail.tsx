@@ -14,6 +14,9 @@ const GET_USER_BY_EMAIL = gql`
       id
       bio
       role
+      seniority
+      city
+      state
       email
       createdAt
       cover_url
@@ -39,6 +42,9 @@ interface IUser {
   id: string;
   bio: string;
   role: string;
+  seniority: string;
+  city: string;
+  state: string;
   email: string;
   createdAt: string;
   cover_url: string;
@@ -60,7 +66,9 @@ export const useGetUserByEmail = (email:string) => {
     },
   }), [email]);
 
-  const { data, loading, error } = useQuery<IResult, IVariables>(GET_USER_BY_EMAIL, {
+  const {
+    data, loading, error, refetch,
+  } = useQuery<IResult, IVariables>(GET_USER_BY_EMAIL, {
     variables,
   });
 
@@ -68,5 +76,6 @@ export const useGetUserByEmail = (email:string) => {
     data: data?.getUserByEmail?.user || null,
     loading,
     error,
+    refetch,
   };
 };

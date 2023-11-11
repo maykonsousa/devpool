@@ -3,12 +3,15 @@ import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
 interface IAlterableData {
+  [key: string]: string | undefined;
   name?: string
-  email?: string
   password?: string
   avatar?: string
   bio?: string
   role?: string
+  seniority?: string
+  city?: string
+  state?: string
 }
 
 interface IUpdateUser {
@@ -26,8 +29,15 @@ export const updateUserService = async ({ id, data }:IUpdateUser) => {
       throw new AppError('User not found', 404);
     }
 
-    const { password } = data;
+    const { password, ...restData } = data;
     const encriptedPassword = password ? await hash(password, 8) : undefined;
+    const updatedData: IAlterableData = {};
+
+    Object.entries(restData).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        updatedData[key] = value;
+      }
+    });
 
     await prisma.user.update({
       where: { id },
