@@ -16,6 +16,9 @@ model User {
   username       String           @unique
   bio            String?          @db.VarChar(4000)
   role           String?
+  seniority      String?
+  city           String?
+  state          String?
   avatar_url     String?
   cover_url      String?
   createdAt      DateTime         @default(now())

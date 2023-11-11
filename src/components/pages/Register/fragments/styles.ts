@@ -9,7 +9,7 @@ export const StepContainer = styled(Box)`
   justify-content: center;
   padding: 1rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   gap: 1rem;
   flex: 1;
 `;

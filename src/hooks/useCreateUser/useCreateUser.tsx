@@ -23,9 +23,11 @@ interface Ivariables {
     cover_url: string
     password: string
     role: string
+    seniority: string
+    city: string
+    state: string
     bio: string
-
-  };
+  }
 
 }
 

@@ -5,7 +5,7 @@ import { styled, Box } from '@mui/material';
 export const FormContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '900px',
+  maxWidth: '1200px',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'flex-start',
