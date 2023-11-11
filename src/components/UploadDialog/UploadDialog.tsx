@@ -131,7 +131,7 @@ export function UploadDialog() {
       >
         <Close />
       </IconButton>
-      <DialogTitle sx={{ textAlign: 'center' }}>Upload de avatar</DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center' }}>Upload de Imagem</DialogTitle>
       <DialogContent sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -157,7 +157,7 @@ export function UploadDialog() {
           alt="avatar"
           width={200}
           height={200}
-          style={{ cursor: 'pointer', borderRadius: '50%' }}
+          style={{ cursor: 'pointer', borderRadius: '8px' }}
           onClick={handleImageClick}
         />
         <Input

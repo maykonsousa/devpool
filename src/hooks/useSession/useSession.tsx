@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 export const useSession = () => {
   const {
-    userData, sessionData, sessionStatus, loadingSession,
+    userData, sessionData, sessionStatus, loadingSession, refetchUserData,
   } = useContext(appContext);
 
   return {
@@ -11,5 +11,6 @@ export const useSession = () => {
     session: sessionData,
     status: sessionStatus,
     loading: loadingSession,
+    refetch: refetchUserData,
   };
 };

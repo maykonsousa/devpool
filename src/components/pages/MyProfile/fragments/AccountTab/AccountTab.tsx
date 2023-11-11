@@ -1,4 +1,6 @@
-import { useGetRoles, useSession, useUpload } from '@/hooks';
+import {
+  IVariables, useFeedback, useGetRoles, useSession, useUpdateUser, useUpload,
+} from '@/hooks';
 import {
   Button, Typography,
 } from '@mui/material';
@@ -9,6 +11,8 @@ import { Loading } from '@/components/Loading';
 import { TextInput } from '@/components/TextInput';
 import { PassInput } from '@/components/PassInput';
 import { Select } from '@/components/Select';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { updateDeveloperValidation } from '@/validations/formValidations';
 import {
   AccountTabContainer,
   AvatarActionContainer,
@@ -27,6 +31,9 @@ interface IValues {
   avatar_url: string;
   bio: string;
   role: string;
+  seniority: string;
+  city: string;
+  state: string;
 }
 
 const INITIAL_VALUES:IValues = {
@@ -38,17 +45,64 @@ const INITIAL_VALUES:IValues = {
   avatar_url: '',
   bio: '',
   role: '',
+  seniority: '',
+  city: '',
+  state: '',
 };
 
+const seniorityOptions = [
+  { value: 'estagiario', label: 'Estagiário' },
+  { value: 'junior', label: 'Júnior' },
+  { value: 'pleno', label: 'Pleno' },
+  { value: 'senior', label: 'Sênior' },
+  { value: 'trainee', label: 'Trainee' },
+];
+
 export function AccountTab() {
-  const { user, loading } = useSession();
+  const { user, loading, refetch } = useSession();
   const { url, openUpload } = useUpload();
   const { data: roles } = useGetRoles();
+  const { showMessage } = useFeedback();
+
   const mapedRoles = roles?.map((role) => ({
     value: role.name,
     label: role.name,
   }));
-  const methods = useForm<IValues>({ defaultValues: INITIAL_VALUES });
+  const methods = useForm<IValues>({
+    defaultValues: INITIAL_VALUES,
+    resolver: zodResolver(updateDeveloperValidation),
+  });
+
+  const variables:IVariables = {
+    input: {
+      id: user?.id || '',
+      data: {
+        name: methods.watch('name'),
+        password: methods.watch('password'),
+        avatar_url: methods.watch('avatar_url'),
+        bio: methods.watch('bio'),
+        role: methods.watch('role'),
+        seniority: methods.watch('seniority'),
+        city: methods.watch('city'),
+        state: methods.watch('state'),
+      },
+    },
+  };
+
+  const {
+    updateUser, loading: UpdateLoading,
+  } = useUpdateUser(variables);
+
+  const hadleUpdateUser = methods.handleSubmit(async () => {
+    const { data } = await updateUser();
+
+    if (data?.updateUser.status === 'success') {
+      refetch();
+      showMessage({ message: 'Dados atualizados com sucesso', type: 'success' });
+    } else {
+      showMessage({ message: 'Falha ao atualizar dados. Tente novamente mais tarde', type: 'error' });
+    }
+  });
 
   const updateAccoutInformations = useCallback(() => {
     if (user) {
@@ -59,9 +113,14 @@ export function AccountTab() {
         avatar_url: user.avatar_url,
         role: user.role,
         bio: user.bio,
+        seniority: user.seniority,
+        city: user.city,
+        state: user.state,
       });
     }
   }, [user, methods]);
+
+  const isLoading = loading || UpdateLoading;
 
   useEffect(() => {
     updateAccoutInformations();
@@ -75,7 +134,7 @@ export function AccountTab() {
   return (
     <AccountTabContainer>
       <Typography variant="h6" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>Informações da conta</Typography>
-      {loading ? <Loading /> : (
+      {isLoading ? <Loading /> : (
         <FormProvider {...methods}>
           <AvatarSession>
             <ImageContainer>
@@ -100,20 +159,28 @@ export function AccountTab() {
             </AvatarActionContainer>
           </AvatarSession>
           <FormSession>
+            <TextInput
+              name="name"
+              label="Nome"
+              placeholder="Nome"
+              required
+            />
             <GridContainer>
-              <TextInput
-                name="name"
-                label="Nome"
-                placeholder="Nome"
-                required
+              <Select
+                name="role"
+                label="Area de Atuação"
+                placeholder="Área de atuação"
+                value={methods.watch('role')}
+                options={mapedRoles || []}
               />
-              <TextInput
-                name="username"
-                label="login de usuário"
-                placeholder="Nome"
-                disabled
-                required
+              <Select
+                name="seniority"
+                label="Senioridade"
+                placeholder="Área de atuação"
+                value={methods.watch('seniority') || ''}
+                options={seniorityOptions || []}
               />
+
               <PassInput
                 name="password"
                 label="Nova senha"
@@ -147,6 +214,15 @@ export function AccountTab() {
               multiline
               rows={4}
             />
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ marginTop: '1rem' }}
+              onClick={hadleUpdateUser}
+              disabled={methods.formState.isSubmitting}
+            >
+              Salvar alterações
+            </Button>
           </FormSession>
 
         </FormProvider>

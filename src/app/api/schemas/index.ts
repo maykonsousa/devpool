@@ -61,6 +61,8 @@ export const typeDefs = `#graphql
     state: String
   }
 
+  
+
   input UpdateUserInput {
     id: String!
     data: UserInput!

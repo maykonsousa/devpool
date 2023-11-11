@@ -20,7 +20,7 @@ export interface IcreateUserInput {
 export interface IUpdateUserInput {
   input: {
     id: string;
-    data: IUserInput;
+    data: Partial<IUserInput>
   };
   }
 

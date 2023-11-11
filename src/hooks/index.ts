@@ -8,3 +8,5 @@ export { useGetUserByEmail } from './useGetUserByEmail';
 export { useGetUserByToken } from './useGetUserByToken';
 export { useSession } from './useSession';
 export { useUpload } from './useUpload';
+export { useUpdateUser } from './useUpdateUser';
+export type { IVariables } from './useUpdateUser';

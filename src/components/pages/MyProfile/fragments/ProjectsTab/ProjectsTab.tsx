@@ -1,18 +1,12 @@
-import { Box } from '@mui/material';
 import React from 'react';
+import { Typography } from '@mui/material';
+import { ProjectsTabContainer } from './ProjectsTab.styles';
 
 export function ProjectsTab() {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      }}
-    >
-      Projetos
-    </Box>
+    <ProjectsTabContainer>
+      <Typography variant="h6" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>Meus projetos</Typography>
+
+    </ProjectsTabContainer>
   );
 }

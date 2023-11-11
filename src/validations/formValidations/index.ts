@@ -1,2 +1,2 @@
 export { loginFormValidations } from './loginFormValidations';
-export { creteDeveloperValidation } from './createDeveloperUserFormValidation';
+export { creteDeveloperValidation, updateDeveloperValidation } from './UserFormValidation';
