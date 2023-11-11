@@ -14,6 +14,9 @@ import { parseCookies } from 'nookies';
 import { Select } from '@components/Select';
 import { useGetRoles } from '@hooks/useGetRoles';
 import { useSession } from '@hooks/useSession';
+import { states } from '@/mock/statesMock';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { creteDeveloperValidation } from '@/validations/formValidations';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer, StepContainer, StepContent, StepTitle,
@@ -34,6 +37,9 @@ interface IFormValues {
     username: string
     bio: string
     role: string
+    seniority: string
+    city: string
+    state: string
     avatar_url: string
     cover_url: string
     password: string
@@ -50,11 +56,17 @@ const INITIAL_VALUES:IFormValues = {
   cover_url: '',
   password: '',
   role: '',
+  seniority: '',
+  city: '',
+  state: '',
   confirmPassword: '',
 };
 
 export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
-  const methods = useForm<IFormValues>({ defaultValues: INITIAL_VALUES });
+  const methods = useForm<IFormValues>({
+    defaultValues: INITIAL_VALUES,
+    resolver: zodResolver(creteDeveloperValidation),
+  });
 
   const avatar_url = methods.watch('avatar_url');
 
@@ -76,6 +88,14 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
   const { showMessage } = useFeedback();
   const { data: roles } = useGetRoles();
 
+  const seniorityOptions = [
+    { value: 'estagiario', label: 'Estagiário' },
+    { value: 'junior', label: 'Júnior' },
+    { value: 'pleno', label: 'Pleno' },
+    { value: 'senior', label: 'Sênior' },
+    { value: 'trainee', label: 'Trainee' },
+  ];
+
   const isLogged = status === 'authenticated';
 
   const mapedRoles = roles?.map((role) => ({
@@ -93,6 +113,9 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
       cover_url: methods.watch('cover_url'),
       password: methods.watch('password'),
       role: methods.watch('role'),
+      seniority: methods.watch('seniority'),
+      city: methods.watch('city'),
+      state: methods.watch('state'),
       bio: methods.watch('bio'),
     },
   });
@@ -183,20 +206,41 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                     label="Confirmar senha"
                     name="confirmPassword"
                   />
-                  <TextInput
-                    name="email"
-                    label="E-mail"
-                    disabled
-                  />
+
                   <Select
                     name="role"
                     label="Area de Atuação"
                     placeholder="Área de atuação"
                     options={mapedRoles || []}
                   />
+                  <Select
+                    name="seniority"
+                    label="Senioridade"
+                    placeholder="Senioridade"
+                    options={seniorityOptions}
+                  />
+                  <TextInput
+                    name="city"
+                    label="Cidade"
+                    placeholder="Cidade"
+                    required
+                  />
+
+                  <Select
+                    name="state"
+                    label="Estado"
+                    placeholder="Estado"
+                    options={states}
+                    autoComplete="on"
+                    required
+                  />
 
                 </GridContainer>
-
+                <TextInput
+                  name="email"
+                  label="E-mail"
+                  disabled
+                />
                 <TextInput
                   name="bio"
                   label="Sobre você"

@@ -39,6 +39,23 @@ export function Select({
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label={label}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                },
+                transformOrigin: {
+                  vertical: 'top',
+                  horizontal: 'left',
+                },
+                slotProps: {
+                  paper: {
+                    style: {
+                      maxHeight: '300px',
+                    },
+                  },
+                },
+              }}
               error={!!formState.errors[name]}
               {...field}
               {...rest}

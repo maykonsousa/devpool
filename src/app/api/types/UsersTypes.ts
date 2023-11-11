@@ -7,6 +7,10 @@ export interface IUserInput {
   username: string;
   avatar_url: string;
   cover_url: string;
+  role: string;
+  seniority: string;
+  city: string;
+  state: string;
 }
 
 export interface IcreateUserInput {

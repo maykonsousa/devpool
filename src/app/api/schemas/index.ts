@@ -20,6 +20,9 @@ export const typeDefs = `#graphql
     email: String
     type: UserType
     role: String
+    seniority: String
+    city: String
+    state: String
     bio: String
     username: String
     avatar_url: String
@@ -53,6 +56,9 @@ export const typeDefs = `#graphql
     password: String
     bio: String
     role: String
+    seniority: String
+    city: String
+    state: String
   }
 
   input UpdateUserInput {
