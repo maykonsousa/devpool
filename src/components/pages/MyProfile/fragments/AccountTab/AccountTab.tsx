@@ -197,17 +197,15 @@ export function AccountTab() {
                 required
               />
               <TextInput
-                name="email"
-                label="E-mail"
-                placeholder="Digite o seu e-mail"
+                name="city"
+                label="Cidade"
+                placeholder="Informa a cidade onde você mora"
                 required
               />
-              <Select
-                name="role"
-                label="Area de Atuação"
-                placeholder="Área de atuação"
-                value={methods.watch('role')}
-                options={mapedRoles || []}
+              <TextInput
+                name="state"
+                label="Estado"
+                placeholder="Digite o estado em que você mora"
               />
             </GridContainer>
             <TextInput
