@@ -8,7 +8,7 @@ import {
   Build, CodeOff, ConnectWithoutContact, IntegrationInstructions, Person, School, Share,
 } from '@mui/icons-material';
 import { PageContainer } from './MyProfilePage.styles';
-import { AccountTab, ProjectsTab } from './fragments';
+import { AccountTab, CoursesTab, ProjectsTab } from './fragments';
 
 interface TabPanelProps {
   label: string;
@@ -51,7 +51,7 @@ export function MyProfilePage() {
       value: 'courses',
       iconPosition: 'start',
       icon: <School fontSize="large" />,
-      component: <ProjectsTab />,
+      component: <CoursesTab />,
     },
     {
       label: 'Experiências',
@@ -68,7 +68,7 @@ export function MyProfilePage() {
       component: <ProjectsTab />,
     },
     {
-      label: 'Redes Socias',
+      label: 'Redes Sociais',
       value: 'socials',
       iconPosition: 'start',
       icon: <ConnectWithoutContact fontSize="large" />,

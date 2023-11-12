@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createProjectService } from '../services/createProject.service';
 import { createUserService } from '../services/createUser.service';
+import { deleteProjectUserService } from '../services/deleteProjectUser.service';
+import { deleteUserService } from '../services/deleteUser.service';
 import { getAllTechnologies } from '../services/getAllTechnologies.service';
 import { getAllUsersService } from '../services/getAllUsers.service';
 import { getProjectsByUser } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
 import { getUserByEmail } from '../services/getUserByEmail.service';
 import { updateUserService } from '../services/updateUser.service';
-import { ICreateProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
-import { IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput } from '../types/UsersTypes';
+import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
+import {
+  IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
+} from '../types/UsersTypes';
 
 export const resolvers = {
 
@@ -28,6 +32,11 @@ export const resolvers = {
     createUser: async (_:any, args: IcreateUserInput) => createUserService(args.input),
     createProject: async (_:any, args:ICreateProjectInput) => createProjectService(args.input),
     updateUser: async (_:any, args:IUpdateUserInput) => updateUserService(args.input),
+    deleteProjectUser: async (
+      _:any,
+      args:IDeleteProjectInput,
+    ) => deleteProjectUserService(args.input),
+    deleteUser: async (_:any, args: IDeleteUserInput) => deleteUserService(args.input.userId),
   },
 
 };

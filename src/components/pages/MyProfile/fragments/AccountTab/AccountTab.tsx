@@ -22,6 +22,7 @@ import {
   GridContainer,
   ImageContainer,
 } from './AccountTab.styles';
+import { DeleteAccount } from './DeleteAccount';
 
 interface IValues {
   name: string;
@@ -60,7 +61,9 @@ const seniorityOptions = [
 ];
 
 export function AccountTab() {
-  const { user, loading, refetch } = useSession();
+  const {
+    user, loading, refetch,
+  } = useSession();
   const { url, openUpload, onResetAtavarOptions } = useUpload();
   const { data: roles } = useGetRoles();
   const { showMessage } = useFeedback();
@@ -219,22 +222,13 @@ export function AccountTab() {
               <Button
                 variant="contained"
                 color="primary"
-                sx={{ marginTop: '1rem' }}
                 onClick={hadleUpdateUser}
                 disabled={methods.formState.isSubmitting}
               >
                 Salvar alterações
               </Button>
+              <DeleteAccount />
 
-              <Button
-                variant="outlined"
-                color="error"
-                sx={{ marginTop: '1rem' }}
-                onClick={updateAccoutInformations}
-                disabled={methods.formState.isSubmitting}
-              >
-                Excluir conta
-              </Button>
             </ActionsContainer>
 
           </FormSession>

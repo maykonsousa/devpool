@@ -11,3 +11,5 @@ export { useUpload } from './useUpload';
 export { useUpdateUser } from './useUpdateUser';
 export { useGetAllTechnologies } from './useGetAllTechnologies';
 export type { IVariables } from './useUpdateUser';
+export { useDeleteAccount } from './useDeleteAccount';
+export { useDeleteProject } from './useDeleteProject';

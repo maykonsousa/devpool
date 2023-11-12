@@ -74,6 +74,15 @@ export const typeDefs = `#graphql
     
   }
 
+  input DeleteUserInput {
+    userId: String!
+  }
+
+  type DeleteUserPayload {
+    status: Status!
+    message: String!
+  }
+
   ##ROLES
 
   type RolePayload {
@@ -103,8 +112,6 @@ export const typeDefs = `#graphql
   }
 
   ##PROJECTS
-
-
 
   input ProjectInput {
     name: String
@@ -147,9 +154,8 @@ export const typeDefs = `#graphql
   }
 
   input CreateProjectInput {
-      
-      project: ProjectInput
-      technologies: [String]
+    project: ProjectInput
+    technologies: [String]
   
   }
 
@@ -158,6 +164,16 @@ export const typeDefs = `#graphql
     status: Status!
     message: String!
     projectId: String
+  }
+
+  input DeleteProjectInput {
+    projectId: String!
+    userId: String!
+  }
+
+  type DeleteProjectPayload {
+    status: Status!
+    message: String!
   }
 
   
@@ -174,5 +190,7 @@ export const typeDefs = `#graphql
     createUser(input: UserInput): CreateUserPayload!
     createProject(input:CreateProjectInput): CreateProjectPayload!
     updateUser(input: UpdateUserInput): CreateUserPayload!
+    deleteProjectUser(input: DeleteProjectInput): DeleteProjectPayload!
+    deleteUser(input: DeleteUserInput): DeleteUserPayload!
   }
 `;
