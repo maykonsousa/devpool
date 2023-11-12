@@ -35,6 +35,7 @@ export function CoursesForm() {
   const [loading] = React.useState(false);
   const methods = useForm({
     defaultValues,
+
   });
 
   const handleShowForm = () => {
@@ -53,8 +54,7 @@ export function CoursesForm() {
       startIcon={<Add />}
       onClick={handleShowForm}
     >
-      Adicionar projeto
-
+      Adicionar curso
     </Button>
   ) : (
 
@@ -76,6 +76,7 @@ export function CoursesForm() {
               name="name"
               label="Nome do curso"
               placeholder="Digite o nome comercial do seu curso"
+
             />
             <TextInput
               name="description"
@@ -116,6 +117,8 @@ export function CoursesForm() {
               variant="contained"
               color="primary"
               startIcon={<Check />}
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+              onClick={() => {}}
             >
               Salvar
             </Button>

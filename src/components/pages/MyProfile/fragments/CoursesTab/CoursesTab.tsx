@@ -16,7 +16,6 @@ export function CoursesTab() {
         }}
       >
         Meus cursos
-
       </Typography>
       <CoursesForm />
     </CoursesTabContainer>
