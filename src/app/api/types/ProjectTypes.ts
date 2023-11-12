@@ -5,6 +5,7 @@ export interface IProjectInput {
   repo_url: string;
   deployed_url: string;
   user_id: string;
+  githubId: string;
 
 }
 
@@ -16,6 +17,7 @@ export interface IProjects {
   repo_url: string;
   deployed_url: string;
   userId: string;
+  githubId: string;
   createdAt: string;
   updatedAt: string;
   technologies: string[];

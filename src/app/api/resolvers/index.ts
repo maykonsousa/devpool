@@ -16,7 +16,7 @@ export const resolvers = {
     getAllUsers: async () => getAllUsersService(),
     getUserByEmail: async (_:any, args: IGetUserByEmailInput) => getUserByEmail(args.input.email),
     getRoles: async () => getRolesService(),
-    getTechnoligies: async () => getAllTechnologies(),
+    getTechnologies: async () => getAllTechnologies(),
     getProjectsByUser: async (
       _:any,
       args: IGetProjectsByUserInput,

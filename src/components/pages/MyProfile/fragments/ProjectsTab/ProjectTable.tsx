@@ -1,4 +1,5 @@
 import { GridTable } from '@/components/GridTable';
+import { useGetProjectsByUser, useSession } from '@/hooks';
 import {
   GitHub, Language, Edit, Delete,
 } from '@mui/icons-material';
@@ -7,6 +8,8 @@ import { GridColDef } from '@mui/x-data-grid';
 import React from 'react';
 
 export function ProjectTable() {
+  const { user } = useSession();
+  const { data } = useGetProjectsByUser(user?.id || '');
   const columns:GridColDef[] = [
     {
       field: 'name',
@@ -48,7 +51,7 @@ export function ProjectTable() {
   return (
     <GridTable
       columns={columns}
-      rows={[]}
+      rows={data}
       emptyMessage="Você ainda não possui projetos"
     />
   );

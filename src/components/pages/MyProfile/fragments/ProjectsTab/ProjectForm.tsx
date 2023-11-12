@@ -6,10 +6,13 @@ import {
 import React, { useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { MappedRepository, getRepositoriesByUser } from '@/app/api/services/getRepositoriesByUser.service';
-import { useSession, useUpload } from '@/hooks';
+import {
+  useCreateProject, useFeedback, useGetAllTechnologies, useGetProjectsByUser, useSession, useUpload,
+} from '@/hooks';
 import Image from 'next/image';
 import { Select } from '@/components/Select';
 import { MultiSelect } from '@/components/MultiSelect';
+import { Loading } from '@/components/Loading';
 import { AvatarSession, ImageContainer, AvatarActionContainer } from './ProjectsTab.styles';
 
 export interface IformValues {
@@ -33,23 +36,8 @@ const defaultValues:IformValues = {
   image_url: '',
   repo_url: '',
   dePloyed_url: '',
+  main_language: '',
 } as IformValues;
-
-const TechnologiesOptions = [
-  'React',
-  'React Native',
-  'Node',
-  'TypeScript',
-  'JavaScript',
-  'HTML',
-  'CSS',
-  'Java',
-  'C#',
-  'PHP',
-  'Python',
-  'Ruby',
-  'C++',
-];
 
 export function ProjectForm() {
   const [showForm, setShowForm] = React.useState(false);
@@ -59,7 +47,22 @@ export function ProjectForm() {
     defaultValues,
   });
   const { user } = useSession();
-  const { url, openUpload } = useUpload();
+  const { showMessage } = useFeedback();
+  const { refetch } = useGetProjectsByUser(user?.id as string);
+  const { url, openUpload, onResetAtavarOptions } = useUpload();
+  const { onlyNames: technologiesOptions } = useGetAllTechnologies();
+  const { createProject, loading } = useCreateProject({
+    project: {
+      name: methods.watch('name'),
+      description: methods.watch('description'),
+      deployed_url: methods.watch('dePloyed_url'),
+      repo_url: methods.watch('repo_url'),
+      image_url: methods.watch('image_url'),
+      githubId: `${methods.watch('githubId')}`,
+      user_id: user?.id as string,
+    },
+    technologies,
+  });
   const githubId = methods.watch('githubId');
 
   const handleChangeTechnologies = (event: SelectChangeEvent<string[]>) => {
@@ -114,6 +117,24 @@ export function ProjectForm() {
     methods.reset();
   };
 
+  const handleCreateProject = async () => {
+    const { data } = await createProject();
+    if (data?.createProject.status === 'success') {
+      showMessage({
+        message: 'Projeto criado com sucesso!',
+        type: 'success',
+      });
+      refetch();
+      handleHideForm();
+      onResetAtavarOptions();
+    } else {
+      showMessage({
+        message: 'Ocorreu um erro ao criar o projeto!',
+        type: 'error',
+      });
+    }
+  };
+
   useEffect(() => {
     getRepositories();
   }, [getRepositories]);
@@ -146,94 +167,98 @@ export function ProjectForm() {
         options={repositoryOptions}
         placeholder="Selecione um repositório"
       />
-      <Card sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        alignItems: 'flex-start',
-        gap: '1rem',
-        padding: '10px',
-      }}
-      >
+      {loading ? <Loading /> : (
+        <Card sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          alignItems: 'flex-start',
+          gap: '1rem',
+          padding: '10px',
+        }}
+        >
 
-        <AvatarSession>
-          <ImageContainer>
-            <Image
-              src={methods.watch('image_url') || '/fakeAvatar.png'}
-              alt="avatar"
-              autoCorrect="true"
-              fill
-              sizes="120px"
-              priority
+          <AvatarSession>
+            <ImageContainer>
+              <Image
+                src={methods.watch('image_url') || '/fakeAvatar.png'}
+                alt="avatar"
+                autoCorrect="true"
+                fill
+                sizes="120px"
+                priority
+              />
+            </ImageContainer>
+            <AvatarActionContainer>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ marginTop: '1rem' }}
+                onClick={openUpload}
+              >
+                Alterar imagem
+              </Button>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>Tamanho máximo: 2mb</Typography>
+            </AvatarActionContainer>
+          </AvatarSession>
+
+          <TextInput
+            name="name"
+            label="Nome"
+            placeholder="Nome do projeto"
+          />
+          <TextInput
+            name="description"
+            label="Descrição"
+            placeholder="Descrição do projeto"
+            multiline
+            rows={4}
+          />
+          <Box sx={{
+            display: 'flex',
+            width: '100%',
+            gap: '1rem',
+
+          }}
+          >
+            <TextInput
+              name="repo_url"
+              label="URL do repositório"
+              placeholder="URL do repositório"
             />
-          </ImageContainer>
-          <AvatarActionContainer>
+            <TextInput
+              name="dePloyed_url"
+              label="Link da aplicação online"
+              placeholder="Link da aplicação online"
+            />
+          </Box>
+          <MultiSelect
+            options={technologiesOptions}
+            label="Tecnologias usadas"
+            onChange={handleChangeTechnologies}
+            value={technologies}
+            fullWidth
+          />
+          <CardActions>
             <Button
               variant="contained"
               color="primary"
-              sx={{ marginTop: '1rem' }}
-              onClick={openUpload}
+              startIcon={<Check />}
+              onClick={handleCreateProject}
             >
-              Alterar imagem
+              Salvar
             </Button>
-            <Typography variant="caption" sx={{ color: 'text.secondary' }}>Tamanho máximo: 2mb</Typography>
-          </AvatarActionContainer>
-        </AvatarSession>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={handleHideForm}
+            >
+              Cancelar
+            </Button>
+          </CardActions>
 
-        <TextInput
-          name="name"
-          label="Nome"
-          placeholder="Nome do projeto"
-        />
-        <TextInput
-          name="description"
-          label="Descrição"
-          placeholder="Descrição do projeto"
-        />
-        <Box sx={{
-          display: 'flex',
-          width: '100%',
-          gap: '1rem',
-
-        }}
-        >
-          <TextInput
-            name="repo_url"
-            label="URL do repositório"
-            placeholder="URL do repositório"
-          />
-          <TextInput
-            name="dePloyed_url"
-            label="Link da aplicação online"
-            placeholder="Link da aplicação online"
-          />
-        </Box>
-        <MultiSelect
-          options={TechnologiesOptions}
-          label="Tecnologias usadas"
-          onChange={handleChangeTechnologies}
-          value={technologies}
-          fullWidth
-        />
-        <CardActions>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Check />}
-            onClick={handleHideForm}
-          >
-            Salvar
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleHideForm}
-          >
-            Cancelar
-          </Button>
-        </CardActions>
-
-      </Card>
+        </Card>
+      )}
     </FormProvider>
 
   );

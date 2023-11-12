@@ -75,3 +75,11 @@ export const GridContainer = styled(Box)`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
+
+export const ActionsContainer = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;  
+  max-width: 900px;
+`;

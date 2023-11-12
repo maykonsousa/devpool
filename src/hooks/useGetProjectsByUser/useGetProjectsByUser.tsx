@@ -6,12 +6,15 @@ const GET_PROJECTS_BY_USER = gql`
     getProjectsByUser(input: $input) {
       projects {
         id
-      name
-      description
-      image_url
-      repo_url
-      deployed_url
-      technologies
+        name
+        description
+        image_url
+        repo_url
+        deployed_url
+        technologies{
+          id
+          name
+        }
       }
       status
       message
@@ -43,7 +46,7 @@ export const useGetProjectsByUser = (userId:string) => {
   });
 
   return {
-    data: data?.getProjectsByUser,
+    data: data?.getProjectsByUser.projects || [],
     loading,
     error,
     refetch,

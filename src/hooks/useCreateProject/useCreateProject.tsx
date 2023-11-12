@@ -2,7 +2,7 @@ import { IProjectInput } from '@/app/api/types/ProjectTypes';
 import { gql, useMutation } from '@apollo/client';
 
 const CREATE_PROJECT = gql`
-  mutation CreateProject($input: ProjectInput!) {
+  mutation CreateProject($input: CreateProjectInput!) {
     createProject(input: $input) {
       status
       message
@@ -19,7 +19,7 @@ interface ICreateProjectResult {
   };
 }
 
-interface IVariables {
+ interface IVariables {
   input: {
     project: IProjectInput;
     technologies: string[];

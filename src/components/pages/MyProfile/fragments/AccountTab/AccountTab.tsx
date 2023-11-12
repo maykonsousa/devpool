@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { updateDeveloperValidation } from '@/validations/formValidations';
 import {
   AccountTabContainer,
+  ActionsContainer,
   AvatarActionContainer,
   AvatarSession,
   FormSession,
@@ -60,7 +61,7 @@ const seniorityOptions = [
 
 export function AccountTab() {
   const { user, loading, refetch } = useSession();
-  const { url, openUpload } = useUpload();
+  const { url, openUpload, onResetAtavarOptions } = useUpload();
   const { data: roles } = useGetRoles();
   const { showMessage } = useFeedback();
 
@@ -98,6 +99,7 @@ export function AccountTab() {
 
     if (data?.updateUser.status === 'success') {
       refetch();
+      onResetAtavarOptions();
       showMessage({ message: 'Dados atualizados com sucesso', type: 'success' });
     } else {
       showMessage({ message: 'Falha ao atualizar dados. Tente novamente mais tarde', type: 'error' });
@@ -215,15 +217,28 @@ export function AccountTab() {
               multiline
               rows={4}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ marginTop: '1rem' }}
-              onClick={hadleUpdateUser}
-              disabled={methods.formState.isSubmitting}
-            >
-              Salvar alterações
-            </Button>
+            <ActionsContainer>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ marginTop: '1rem' }}
+                onClick={hadleUpdateUser}
+                disabled={methods.formState.isSubmitting}
+              >
+                Salvar alterações
+              </Button>
+
+              <Button
+                variant="outlined"
+                color="error"
+                sx={{ marginTop: '1rem' }}
+                onClick={updateAccoutInformations}
+                disabled={methods.formState.isSubmitting}
+              >
+                Excluir conta
+              </Button>
+            </ActionsContainer>
+
           </FormSession>
 
         </FormProvider>
