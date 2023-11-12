@@ -13,6 +13,8 @@ import Image from 'next/image';
 import { Select } from '@/components/Select';
 import { MultiSelect } from '@/components/MultiSelect';
 import { Loading } from '@/components/Loading';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createProjectValidation } from '@/validations/formValidations';
 import { AvatarSession, ImageContainer, AvatarActionContainer } from './ProjectsTab.styles';
 
 export interface IformValues {
@@ -45,6 +47,7 @@ export function ProjectForm() {
   const [repositories, setRepositories] = React.useState<MappedRepository[]>([]);
   const methods = useForm({
     defaultValues,
+    resolver: zodResolver(createProjectValidation),
   });
   const { user } = useSession();
   const { showMessage } = useFeedback();
@@ -117,23 +120,25 @@ export function ProjectForm() {
     methods.reset();
   };
 
-  const handleCreateProject = async () => {
-    const { data } = await createProject();
-    if (data?.createProject.status === 'success') {
-      showMessage({
-        message: 'Projeto criado com sucesso!',
-        type: 'success',
-      });
-      refetch();
-      handleHideForm();
-      onResetAtavarOptions();
-    } else {
-      showMessage({
-        message: 'Ocorreu um erro ao criar o projeto!',
-        type: 'error',
-      });
-    }
-  };
+  const handleCreateProject = methods.handleSubmit(
+    async () => {
+      const { data } = await createProject();
+      if (data?.createProject.status === 'success') {
+        showMessage({
+          message: 'Projeto criado com sucesso!',
+          type: 'success',
+        });
+        refetch();
+        handleHideForm();
+        onResetAtavarOptions();
+      } else {
+        showMessage({
+          message: 'Ocorreu um erro ao criar o projeto!',
+          type: 'error',
+        });
+      }
+    },
+  );
 
   useEffect(() => {
     getRepositories();
@@ -206,11 +211,13 @@ export function ProjectForm() {
             name="name"
             label="Nome"
             placeholder="Nome do projeto"
+            required
           />
           <TextInput
             name="description"
             label="Descrição"
             placeholder="Descrição do projeto"
+            required
             multiline
             rows={4}
           />
