@@ -50,6 +50,7 @@ export function SignInPage() {
           alt="logo"
           width={isMobile ? 200 : 400}
           height={isMobile ? 100 : 200}
+          priority
         />
         {loading ? (<Loading />) : (
           <FormProvider {...methods}>

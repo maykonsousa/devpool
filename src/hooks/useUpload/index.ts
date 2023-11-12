@@ -6,6 +6,7 @@ export const useUpload = () => {
     handleOpenUploadDialog: openUpload,
     onChangeAtavarOptions,
     avatarUploadOptions,
+    onResetAtavarOptions,
   } = useContext(appContext);
 
   const url = avatarUploadOptions?.avatarUrl;
@@ -22,6 +23,6 @@ export const useUpload = () => {
     });
   };
   return {
-    openUpload, url, progress, setUrl, setProgress,
+    openUpload, url, progress, setUrl, setProgress, onResetAtavarOptions,
   };
 };

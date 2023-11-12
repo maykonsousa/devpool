@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {
-  Box, IconButton, Tab, Tabs, Typography,
+  Box, IconButton, Tab, Tabs, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
 import {
   Build, CodeOff, ConnectWithoutContact, IntegrationInstructions, Person, School, Share,
@@ -28,7 +28,9 @@ const INITIALTAB:TabPanelProps = {
 
 export function MyProfilePage() {
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
+  const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const tabs:TabPanelProps[] = [
     {
       label: 'Informações da Conta',
@@ -99,7 +101,7 @@ export function MyProfilePage() {
       <Box sx={{
         width: '100%',
         display: 'grid',
-        gridTemplateColumns: '300px 1fr',
+        gridTemplateColumns: !isMobile ? '300px 1fr' : '70px 1fr',
         flex: 1,
         gap: '1rem',
       }}
@@ -113,7 +115,7 @@ export function MyProfilePage() {
           {tabs.map((tab) => (
             <Tab
               key={tab.value}
-              label={tab.label}
+              label={!isMobile ? tab.label : ''}
               value={tab.value}
               icon={tab.icon}
               iconPosition="start"

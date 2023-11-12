@@ -112,8 +112,14 @@ export const typeDefs = `#graphql
     image_url: String
     repo_url: String
     deployed_url: String
+    githubId: String
     user_id: String
     
+  }
+
+  type TechnologyProject {
+    id: String
+    name: String
   }
 
   type Project {
@@ -123,10 +129,11 @@ export const typeDefs = `#graphql
     image_url: String
     repo_url: String
     deployed_url: String
+    githubId: String
     userId: String
     createdAt: String
     updatedAt: String
-    technologies: [String]
+    technologies: [TechnologyProject!]
   }
 
   input GetProjectsByUserInput {
@@ -140,10 +147,11 @@ export const typeDefs = `#graphql
   }
 
   input CreateProjectInput {
-    
+      
       project: ProjectInput
       technologies: [String]
-    }
+  
+  }
 
 
   type CreateProjectPayload {
@@ -159,7 +167,7 @@ export const typeDefs = `#graphql
     getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
     getRoles: RolePayload!
-    getTechnoligies: TechnologyPayload!
+    getTechnologies: TechnologyPayload!
 
   }
   type Mutation {

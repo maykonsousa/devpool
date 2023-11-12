@@ -1,22 +1,32 @@
 import { Box, useTheme } from '@mui/material';
 import {
-  DataGrid, DataGridProps, GridColDef, GridValidRowModel,
+  DataGrid, DataGridProps, GridColDef, GridValidRowModel, GridLocaleText,
 } from '@mui/x-data-grid';
 import React from 'react';
 
 interface GridTableProps extends DataGridProps {
   rows: GridValidRowModel[];
   columns: GridColDef[];
+  emptyMessage?: string;
 }
 
-export function GridTable({ columns, rows }:GridTableProps) {
+export function GridTable({
+  columns, rows, emptyMessage,
+}:GridTableProps) {
   const theme = useTheme();
   const headerBackgroundColor = theme.palette.background.paper;
+
+  const customLocaleText: Partial<GridLocaleText> = {
+    noRowsLabel: `${emptyMessage || 'Nenhum registro encontrado'}`,
+    MuiTablePagination: {
+      labelRowsPerPage: 'Registros por página',
+      labelDisplayedRows: ({ from, to, count }) => `${from}-${to} de ${count !== -1 ? count : `mais de ${to}`}`,
+    },
+  };
 
   return (
     <Box sx={{
       display: 'flex',
-      flex: 1,
       overflow: 'auto',
       width: '100%',
     }}
@@ -29,7 +39,12 @@ export function GridTable({ columns, rows }:GridTableProps) {
         disableColumnSelector
         pagination
         pageSizeOptions={[5, 10, 20]}
-        hideFooterSelectedRowCount
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize: 5 },
+          },
+        }}
+        localeText={customLocaleText}
         sx={{
           display: 'flex',
           width: '100%',

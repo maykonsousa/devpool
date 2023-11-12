@@ -111,7 +111,13 @@ export function RegisterPage() {
 
   return (
     <PageContainer>
-      <Image src="/logo.svg" alt="Vercel Logo" width={300} height={100} />
+      <Image
+        src="/logo.svg"
+        alt="Vercel Logo"
+        width={300}
+        height={100}
+        priority
+      />
       <StepTitle>Cadastro de usuário</StepTitle>
       <ActionsContainer>
         <Button

@@ -8,7 +8,13 @@ import { Container, Message } from './HomePage.styles';
 export function HomePage() {
   return (
     <Container>
-      <Image src="/logo.svg" alt="Vercel Logo" width={300} height={100} />
+      <Image
+        src="/logo.svg"
+        alt="Logo DevPool"
+        width={300}
+        height={100}
+        priority
+      />
       <Message>
         A plataforma DevPool é um projeto que visa conectar desenvolvedores,
         recrutadores e empresas.

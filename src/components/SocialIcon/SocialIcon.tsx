@@ -2,16 +2,20 @@ import React from 'react';
 import { Tooltip, Link } from '@mui/material';
 import { theme } from '@/theme';
 import {
-  Facebook, GitHub, Instagram, LinkedIn, WhatsApp,
+  Facebook, GitHub, Instagram, Language, LinkedIn, WhatsApp,
 } from '@mui/icons-material';
 
 interface ISocialIconProps {
-  type: 'facebook' | 'github' | 'instagram' | 'linkedin' | 'whatsapp';
+  type: 'facebook' | 'github' | 'instagram' | 'linkedin' | 'whatsapp' | 'web';
   url: string;
 }
 
 export function SocialIcon({ type, url }: ISocialIconProps) {
   const SocialEnum = {
+    web: {
+      label: 'Demo',
+      icon: <Language />,
+    },
     facebook: {
       label: 'Facebook',
       icon: <Facebook />,

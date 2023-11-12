@@ -28,6 +28,7 @@ export const getProjectsByUser = async (userId:string) => {
             Technology: {
               select: {
                 name: true,
+                id: true,
               },
             },
           },
@@ -37,7 +38,10 @@ export const getProjectsByUser = async (userId:string) => {
 
     const projectsFormatted = projects.map((project) => ({
       ...project,
-      technologies: project.ProjectTechnology.map((tecnology) => tecnology.Technology.name),
+      technologies: project.ProjectTechnology.map((tecnology) => ({
+        id: tecnology.Technology.id,
+        name: tecnology.Technology.name,
+      })),
     }));
 
     return {

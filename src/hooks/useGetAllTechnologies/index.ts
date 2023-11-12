@@ -1,0 +1,1 @@
+export { useGetAllTechnologies } from './useGetAllTechnologies';
