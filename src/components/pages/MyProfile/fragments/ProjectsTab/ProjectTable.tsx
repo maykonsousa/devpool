@@ -1,12 +1,11 @@
 import { GridTable } from '@/components/GridTable';
 import { Loading } from '@/components/Loading';
 import { useGetProjectsByUser, useSession } from '@/hooks';
-import {
-  GitHub, Language, Edit, Delete,
-} from '@mui/icons-material';
+import { GitHub, Language } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React from 'react';
+import { DeleteProjectIcon } from './DeleteProjectIcon';
 
 export function ProjectTable() {
   const { user } = useSession();
@@ -20,12 +19,12 @@ export function ProjectTable() {
     {
       field: 'access',
       headerName: 'Acessos',
-      renderCell: () => (
+      renderCell: ({ row }) => (
         <Box>
-          <IconButton>
+          <IconButton disabled={!row.repo_url} href={row?.repo_url ?? undefined} target="_blank">
             <GitHub />
           </IconButton>
-          <IconButton>
+          <IconButton disabled={!row.deployed_url} href={row?.deployed_url ?? undefined} target="_blank">
             <Language />
           </IconButton>
 
@@ -36,15 +35,10 @@ export function ProjectTable() {
     {
       field: 'actions',
       headerName: 'Ações',
-      renderCell: () => (
-        <Box>
-          <IconButton>
-            <Edit />
-          </IconButton>
-          <IconButton>
-            <Delete />
-          </IconButton>
-        </Box>
+      renderCell: ({ row }) => (
+
+        <DeleteProjectIcon projectId={row?.id} />
+
       ),
     },
 

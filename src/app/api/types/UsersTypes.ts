@@ -29,3 +29,9 @@ export interface IGetUserByEmailInput {
     email: string;
   }
 }
+
+export interface IDeleteUserInput {
+  input:{
+    userId: string;
+  }
+}

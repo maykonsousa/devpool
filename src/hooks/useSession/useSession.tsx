@@ -1,4 +1,5 @@
 import { appContext } from '@/contexts/AppContext';
+import { signOut } from 'next-auth/react';
 import { useContext } from 'react';
 
 export const useSession = () => {
@@ -12,5 +13,6 @@ export const useSession = () => {
     status: sessionStatus,
     loading: loadingSession,
     refetch: refetchUserData,
+    signOut,
   };
 };

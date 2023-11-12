@@ -25,6 +25,7 @@ model User {
   updatedAt      DateTime         @updatedAt
   Social         Social[]
   Project        Project[]
+  Course         Course[]
   UserTechnology UserTechnology[]
 }
 
@@ -91,4 +92,19 @@ model UserTechnology {
   updatedAt    DateTime   @updatedAt
   User         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   Technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  school      String
+  type        String
+  progress    Int
+  duration    Int
+  courseUrl   String
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

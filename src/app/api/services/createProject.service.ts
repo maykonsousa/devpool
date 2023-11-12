@@ -20,11 +20,11 @@ export const createProjectService = async ({ project, technologies }:ICreateProj
 
     const projectAlreadyExists = await prisma.project.findFirst({
       where: {
-        name: project.name,
+        githubId: project.githubId,
       },
     });
     if (projectAlreadyExists) {
-      throw new AppError('Já existe um projeto cadastrado com esse nome', 400);
+      throw new AppError('Já existe um projeto vinculado a esse repositório', 400);
     }
 
     const projectCreated = await prisma.project.create({
@@ -39,20 +39,9 @@ export const createProjectService = async ({ project, technologies }:ICreateProj
     });
 
     technologies.forEach(async (element) => {
-      const projectTechnologyAlreadyExists = await prisma.projectTechnology.findFirst({
-        where: {
-          projectId: projectCreated.id,
-          technologyId: element,
-        },
-      });
-
-      if (projectTechnologyAlreadyExists) {
-        throw new AppError('Tecnologia já inserida no projeto', 400);
-      }
-
       const technologyExists = await prisma.technology.findFirst({
         where: {
-          id: element,
+          name: element,
         },
       });
 
@@ -63,7 +52,7 @@ export const createProjectService = async ({ project, technologies }:ICreateProj
       await prisma.projectTechnology.create({
         data: {
           projectId: projectCreated.id,
-          technologyId: element,
+          technologyId: technologyExists.id,
         },
       });
     });

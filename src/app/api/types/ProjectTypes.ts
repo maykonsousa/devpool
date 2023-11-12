@@ -36,3 +36,10 @@ export interface IGetProjectsByUserInput {
   userId: string;
 }
 }
+
+export interface IDeleteProjectInput {
+  input: {
+    projectId: string;
+    userId: string;
+  }
+}

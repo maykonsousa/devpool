@@ -1,0 +1,1 @@
+export { CoursesTab } from './CoursesTab';
