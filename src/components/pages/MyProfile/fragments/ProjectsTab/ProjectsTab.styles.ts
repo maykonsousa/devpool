@@ -48,3 +48,10 @@ export const ImageContainer = styled(Box)`
 
 
 `;
+
+export const CheckboxContainer = styled(Box)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  width: 100%;
+`;
