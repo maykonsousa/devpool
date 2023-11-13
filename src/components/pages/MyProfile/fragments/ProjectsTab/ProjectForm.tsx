@@ -1,9 +1,9 @@
 import { TextInput } from '@/components/TextInput';
 import { Add, Check } from '@mui/icons-material';
 import {
-  Button, Card, Typography, CardActions, SelectChangeEvent, Box,
+  Button, Card, Typography, CardActions, Box,
 } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { SyntheticEvent, useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { MappedRepository, getRepositoriesByUser } from '@/app/api/services/getRepositoriesByUser.service';
 import {
@@ -11,11 +11,15 @@ import {
 } from '@/hooks';
 import Image from 'next/image';
 import { Select } from '@/components/Select';
-import { MultiSelect } from '@/components/MultiSelect';
+
 import { Loading } from '@/components/Loading';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createProjectValidation } from '@/validations/formValidations';
-import { AvatarSession, ImageContainer, AvatarActionContainer } from './ProjectsTab.styles';
+
+import { AutoComplete } from '@/components/AutoComplete';
+import {
+  AvatarSession, ImageContainer, AvatarActionContainer,
+} from './ProjectsTab.styles';
 
 export interface IformValues {
   name: string;
@@ -68,14 +72,8 @@ export function ProjectForm() {
   });
   const githubId = methods.watch('githubId');
 
-  const handleChangeTechnologies = (event: SelectChangeEvent<string[]>) => {
-    const {
-      target: { value },
-    } = event;
-    setTechnologies(
-
-      typeof value === 'string' ? value.split(',') : value,
-    );
+  const handleSelectChange = (event: SyntheticEvent<Element, Event>, newValue: string[]) => {
+    setTechnologies(newValue);
   };
 
   const setValues = useCallback(
@@ -239,12 +237,12 @@ export function ProjectForm() {
               placeholder="Link da aplicação online"
             />
           </Box>
-          <MultiSelect
+
+          <AutoComplete
             options={technologiesOptions}
-            label="Tecnologias usadas"
-            onChange={handleChangeTechnologies}
             value={technologies}
-            fullWidth
+            label="Tecnologias utilizadas"
+            onChange={handleSelectChange}
           />
           <CardActions>
             <Button
