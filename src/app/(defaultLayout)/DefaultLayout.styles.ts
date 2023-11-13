@@ -7,6 +7,8 @@ export const DefaultLayoutContainer = styled(Box)`
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   gap: 1rem;
 
 `;

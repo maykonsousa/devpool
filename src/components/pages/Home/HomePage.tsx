@@ -1,41 +1,18 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { Box, Button } from '@mui/material';
-import { Container, Message } from './HomePage.styles';
+import { Footer } from './fragments/Footer';
+import { Container } from './HomePage.styles';
+import { Header } from './fragments/Header';
+import { Main } from './fragments/Main';
 
 export function HomePage() {
   return (
     <Container>
-      <Image
-        src="/logo.svg"
-        alt="Logo DevPool"
-        width={300}
-        height={100}
-        priority
-      />
-      <Message>
-        A plataforma DevPool é um projeto que visa conectar desenvolvedores,
-        recrutadores e empresas.
-      </Message>
-      <Message>
-        No momento ainda estamos construindo as principais features,
-        mas caso queira acompanhar o projeto, você pode navegar pelo que já temos.
-      </Message>
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'space-around',
-        width: '100%',
-        maxWidth: '300px',
-        marginTop: '20px',
-        gap: 2,
-      }}
-      >
+      <Header />
+      <Main />
+      <Footer />
 
-        <Button variant="contained" href="/auth/login">Fazer Login</Button>
-        <Button variant="outlined" href="/auth/register">Criar Conta</Button>
-      </Box>
     </Container>
   );
 }
