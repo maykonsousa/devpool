@@ -1,0 +1,1 @@
+export { useDeleteCourse } from './useDeleteCourse';

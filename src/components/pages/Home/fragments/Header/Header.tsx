@@ -18,16 +18,25 @@ export function Header() {
     }
   };
 
-  const pages = [{
-    label: 'Comunidade',
-    onClick: () => scrollToSection('community'),
-  }, {
-    label: 'Buscar Perfis',
-    onClick: () => scrollToSection('profiles'),
-  }, {
-    label: 'Vagas',
-    onClick: () => scrollToSection('contact'),
-  }];
+  const pages = [
+    {
+      label: 'Início',
+      onClick: () => scrollToSection('community'),
+    },
+    {
+      label: 'Para desenvolvedores',
+      onClick: () => scrollToSection('profiles'),
+    },
+    {
+      label: 'Para recrutadores',
+      onClick: () => scrollToSection('contact'),
+    },
+    {
+      label: 'contato',
+      onClick: () => scrollToSection('contact'),
+    },
+
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

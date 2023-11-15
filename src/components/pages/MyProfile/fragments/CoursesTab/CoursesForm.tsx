@@ -6,6 +6,11 @@ import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Select } from '@/components/Select';
 import { typeCousesOptions } from '@/mock/coursesMock';
+import {
+  useCreateCourse, useFeedback, useGetCoursesByUser, useSession,
+} from '@/hooks';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createCourseValidation } from '@/validations/formValidations';
 import { GridContainer } from './CoursesTab.styles';
 
 export interface IformValues {
@@ -16,7 +21,7 @@ export interface IformValues {
   progress: number;
   duration: number;
   courseUrl: string;
-  userId: string;
+
 }
 
 const defaultValues: IformValues = {
@@ -27,14 +32,18 @@ const defaultValues: IformValues = {
   progress: 0,
   duration: 0,
   courseUrl: '',
-  userId: '',
+
 };
 
 export function CoursesForm() {
   const [showForm, setShowForm] = React.useState(false);
-  const [loading] = React.useState(false);
+  const { user } = useSession();
+  const { refetch } = useGetCoursesByUser(user?.id || '');
+  const { showMessage } = useFeedback();
+
   const methods = useForm({
     defaultValues,
+    resolver: zodResolver(createCourseValidation),
 
   });
 
@@ -46,6 +55,45 @@ export function CoursesForm() {
     setShowForm(false);
     methods.reset();
   };
+
+  const onCompleted = () => {
+    showMessage({
+      message: 'Curso adicionado com sucesso!',
+      type: 'success',
+    });
+    handleHideForm();
+    refetch();
+  };
+  const onError = () => {
+    showMessage({
+      message: 'Erro ao adicionar curso!',
+      type: 'error',
+    });
+  };
+
+  const { createCourse, loading } = useCreateCourse({
+    variables: {
+      input: {
+        userId: `${user?.id || ''}`,
+        data: {
+          name: methods.getValues('name'),
+          description: methods.getValues('description'),
+          school: methods.getValues('school'),
+          type: methods.getValues('type'),
+          progress: +methods.getValues('progress'),
+          duration: +methods.getValues('duration'),
+          courseUrl: methods.getValues('courseUrl'),
+        },
+      },
+    },
+
+    onCompleted,
+    onError,
+  });
+
+  const onSubmit = methods.handleSubmit(() => {
+    createCourse();
+  });
 
   return !showForm ? (
     <Button
@@ -76,24 +124,27 @@ export function CoursesForm() {
               name="name"
               label="Nome do curso"
               placeholder="Digite o nome comercial do seu curso"
-
+              required
             />
             <TextInput
-              name="description"
-              label="Descrição do curso"
-              placeholder="Digite uma descrição para o seu curso"
+              name="school"
+              label="Instiuição de ensino"
+              placeholder="Digite o nome da instituição de ensino"
+              required
             />
 
             <Select
               name="type"
               label="Tipo de curso"
               options={typeCousesOptions}
+              required
             />
             <TextInput
               name="progress"
               label="Progresso de conclusão %"
               placeholder="Digite o progresso de conclusão do curso"
               type="number"
+              required
               inputProps={{
                 min: 0,
                 max: 100,
@@ -104,6 +155,7 @@ export function CoursesForm() {
               label="Duração do curso (em horas)"
               placeholder="Digite a duração do curso"
               type="number"
+              required
             />
             <TextInput
               name="courseUrl"
@@ -111,14 +163,21 @@ export function CoursesForm() {
               placeholder="Digite a URL do curso"
             />
           </GridContainer>
+          <TextInput
+            name="description"
+            label="Descrição do curso"
+            placeholder="Digite uma descrição para o seu curso"
+            multiline
+            rows={4}
+            required
+          />
 
           <CardActions>
             <Button
               variant="contained"
               color="primary"
               startIcon={<Check />}
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onClick={() => {}}
+              onClick={onSubmit}
             >
               Salvar
             </Button>

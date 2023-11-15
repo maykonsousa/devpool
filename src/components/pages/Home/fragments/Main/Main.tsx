@@ -45,7 +45,6 @@ export function Main() {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             height: '100%',
@@ -56,8 +55,8 @@ export function Main() {
           <Image
             src="/hero.svg"
             alt="Hero"
-            width={800}
-            height={800}
+            width={600}
+            height={600}
           />
         </Box>
       </MainContent>

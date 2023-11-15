@@ -11,7 +11,6 @@ export const MainContainer = styled(Box)`
   background-size: cover;
   background-color: ${({ theme }) => theme.palette.background.default};
   width: 100%;
-  padding: 10rem 0;
 `;
 
 export const MainContent = styled(Box)`
@@ -22,5 +21,5 @@ export const MainContent = styled(Box)`
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing(0, 2)};
+  padding: ${({ theme }) => theme.spacing(4, 2)};
 `;

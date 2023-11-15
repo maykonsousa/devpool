@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { CoursesTabContainer } from './CoursesTab.styles';
 import { CoursesForm } from './CoursesForm';
+import { CoursesTable } from './CoursesTable';
 
 export function CoursesTab() {
   return (
@@ -18,6 +19,7 @@ export function CoursesTab() {
         Meus cursos
       </Typography>
       <CoursesForm />
+      <CoursesTable />
     </CoursesTabContainer>
   );
 }
