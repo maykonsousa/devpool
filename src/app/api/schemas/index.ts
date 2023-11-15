@@ -176,6 +176,63 @@ export const typeDefs = `#graphql
     message: String!
   }
 
+  ##COURSES
+  input CourseInput {
+    courseUrl: String
+    description: String
+    duration: Int
+    name: String
+    progress: Int
+    school: String
+    type: String
+  }
+
+  input CreateCourseInput {
+    userId: String!
+    data: CourseInput!
+  }
+
+  type CreateCoursePayload {
+    status: Status!
+    message: String!
+    id: String
+  }
+
+  type Course {
+    id: String
+    courseUrl: String
+    description: String
+    duration: Int
+    name: String
+    progress: Int
+    school: String
+    type: String
+    userId: String
+    createdAt: String
+    updatedAt: String
+  }
+
+  input GetCoursesByUserInput {
+    userId: String!
+  }
+
+  type CoursePayload {
+    courses: [Course!]
+    status: Status!
+    message: String!
+  }
+
+  input DeleteCourseInput {
+    courseId: String!
+    userId: String!
+  }
+
+  type DeleteCoursePayload {
+    status: Status!
+    message: String!
+  }
+
+
   
 
   type Query {
@@ -184,6 +241,7 @@ export const typeDefs = `#graphql
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
     getRoles: RolePayload!
     getTechnologies: TechnologyPayload!
+    getCoursesByUser(input: GetCoursesByUserInput): CoursePayload!
 
   }
   type Mutation {
@@ -192,5 +250,7 @@ export const typeDefs = `#graphql
     updateUser(input: UpdateUserInput): CreateUserPayload!
     deleteProjectUser(input: DeleteProjectInput): DeleteProjectPayload!
     deleteUser(input: DeleteUserInput): DeleteUserPayload!
+    createCourse(input: CreateCourseInput): CreateCoursePayload!
+    deleteCourseUser(input: DeleteCourseInput): DeleteCoursePayload!
   }
 `;

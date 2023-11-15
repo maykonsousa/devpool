@@ -13,3 +13,6 @@ export { useGetAllTechnologies } from './useGetAllTechnologies';
 export type { IVariables } from './useUpdateUser';
 export { useDeleteAccount } from './useDeleteAccount';
 export { useDeleteProject } from './useDeleteProject';
+export { useCreateCourse } from './useCreateCourse';
+export { useGetCoursesByUser } from './useGetCoursesByUser';
+export { useDeleteCourse } from './useDeleteCourse';

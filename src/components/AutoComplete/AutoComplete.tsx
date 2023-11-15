@@ -14,7 +14,7 @@ interface IAutoCompleteProps {
 }
 
 export function AutoComplete({
-  options, value, label,
+  options, value, label, ...rest
 }: IAutoCompleteProps) {
   return (
     <FormControl fullWidth>
@@ -24,6 +24,7 @@ export function AutoComplete({
         options={options}
         placeholder="Select a technology"
         value={value}
+        {...rest}
         renderInput={(params) => (
           <TextField
             {...params}

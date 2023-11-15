@@ -7,7 +7,6 @@ export const PageContainer = styled(Box)`
   margin: 0 auto;
   flex-direction: column;
   width: 100%;
-  max-width: 1440px;
   min-height: 100vh;
 
   @media (max-width: 768px) {
