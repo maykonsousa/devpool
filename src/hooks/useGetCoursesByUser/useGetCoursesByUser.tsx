@@ -1,3 +1,4 @@
+import { ICourseData } from '@/app/api/types/CousersTypes';
 import { gql, useQuery } from '@apollo/client';
 
 const GET_COURSES_BY_USER = gql`
@@ -26,20 +27,6 @@ interface IVariables {
   input: {
     userId: string;
   };
-}
-
-interface ICourseData {
-  userId: string;
-  updatedAt: string;
-  type: string;
-  school: string;
-  progress: number;
-  name: string;
-  id: string;
-  duration: number;
-  description: string;
-  createdAt: string;
-  courseUrl: string;
 }
 
 interface IResult {

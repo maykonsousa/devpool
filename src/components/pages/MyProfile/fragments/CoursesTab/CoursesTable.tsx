@@ -1,10 +1,11 @@
 import { GridTable } from '@/components/GridTable';
 import { useGetCoursesByUser, useSession } from '@/hooks';
-import { Edit } from '@mui/icons-material';
-import { Box, IconButton } from '@mui/material';
-import { GridColDef } from '@mui/x-data-grid';
+import { Box } from '@mui/material';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React from 'react';
+import { ICourseData } from '@/app/api/types/CousersTypes';
 import { DeleteCourseIcon } from './DeleteCourseIcon';
+import { UpdateCourseDialog } from './UpdateCourseDialog';
 
 export function CoursesTable() {
   const { user } = useSession();
@@ -31,11 +32,9 @@ export function CoursesTable() {
       headerName: 'Ações',
       field: 'actions',
       width: 200,
-      renderCell: ({ row }) => (
+      renderCell: ({ row }: GridRenderCellParams<ICourseData>) => (
         <Box>
-          <IconButton>
-            <Edit />
-          </IconButton>
+          <UpdateCourseDialog course={row} userId={user?.id as string} />
           <DeleteCourseIcon
             courseId={row.id}
             userId={user?.id || ''}
