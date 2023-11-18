@@ -1,4 +1,4 @@
-interface ICourseData {
+export interface ICourseInputData {
   courseUrl: string;
   description: string;
   duration: number;
@@ -8,10 +8,24 @@ interface ICourseData {
   type: string;
 }
 
+export interface ICourseData {
+  userId: string;
+  updatedAt: string;
+  type: string;
+  school: string;
+  progress: number;
+  name: string;
+  id: string;
+  duration: number;
+  description: string;
+  createdAt: string;
+  courseUrl: string;
+}
+
 export interface ICreateCourseInput {
   input:{
     userId: string;
-    data: ICourseData;
+    data: ICourseInputData;
   }
 }
 
@@ -19,5 +33,13 @@ export interface IDeleteCourseInput {
   input:{
     courseId: string;
     userId: string;
+  }
+}
+
+export interface IUpdateCourseInput {
+  input:{
+    courseId: string;
+    userId: string;
+    data: Partial<ICourseInputData>;
   }
 }

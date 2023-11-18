@@ -232,6 +232,18 @@ export const typeDefs = `#graphql
     message: String!
   }
 
+  input UpdateCourseInput {
+    courseId: String!
+    userId: String!
+    data: CourseInput!
+  }
+
+  type UpdateCoursePayload {
+    id: String
+    status: Status!
+    message: String!
+  }
+
 
   
 
@@ -245,12 +257,18 @@ export const typeDefs = `#graphql
 
   }
   type Mutation {
+    ##USERS
     createUser(input: UserInput): CreateUserPayload!
-    createProject(input:CreateProjectInput): CreateProjectPayload!
     updateUser(input: UpdateUserInput): CreateUserPayload!
-    deleteProjectUser(input: DeleteProjectInput): DeleteProjectPayload!
     deleteUser(input: DeleteUserInput): DeleteUserPayload!
+
+    ##PROJECTS
+    createProject(input:CreateProjectInput): CreateProjectPayload!
+    deleteProjectUser(input: DeleteProjectInput): DeleteProjectPayload!
+
+    ##COURSES
     createCourse(input: CreateCourseInput): CreateCoursePayload!
     deleteCourseUser(input: DeleteCourseInput): DeleteCoursePayload!
+    updateCourseUser(input: UpdateCourseInput): UpdateCoursePayload!
   }
 `;

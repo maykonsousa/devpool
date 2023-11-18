@@ -16,3 +16,4 @@ export { useDeleteProject } from './useDeleteProject';
 export { useCreateCourse } from './useCreateCourse';
 export { useGetCoursesByUser } from './useGetCoursesByUser';
 export { useDeleteCourse } from './useDeleteCourse';
+export { useUpdateCourse } from './useUpdateCourse';

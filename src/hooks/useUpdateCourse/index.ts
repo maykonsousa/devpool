@@ -1,0 +1,1 @@
+export { useUpdateCourse } from './useUpdateCourse';

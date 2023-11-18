@@ -11,8 +11,9 @@ import { getCoursesByUserService } from '../services/getCoursesByUser.service';
 import { getProjectsByUser } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
 import { getUserByEmail } from '../services/getUserByEmail.service';
+import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
-import { ICreateCourseInput, IDeleteCourseInput } from '../types/CousersTypes';
+import { ICreateCourseInput, IDeleteCourseInput, IUpdateCourseInput } from '../types/CousersTypes';
 import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
 import {
   IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
@@ -37,19 +38,26 @@ export const resolvers = {
   },
 
   Mutation: {
+    // USERS
     createUser: async (_:any, args: IcreateUserInput) => createUserService(args.input),
-    createProject: async (_:any, args:ICreateProjectInput) => createProjectService(args.input),
     updateUser: async (_:any, args:IUpdateUserInput) => updateUserService(args.input),
-    deleteProjectUser: async (
-      _:any,
-      args:IDeleteProjectInput,
-    ) => deleteProjectUserService(args.input),
+
     deleteUser: async (_:any, args: IDeleteUserInput) => deleteUserService(args.input.userId),
+
+    // COURSES
     createCourse: async (_:any, args: ICreateCourseInput) => createCourseService(args.input),
     deleteCourseUser: async (
       _:any,
       args: IDeleteCourseInput,
     ) => deleteCourseUserService(args.input),
+    updateCourseUser: async (_:any, args:IUpdateCourseInput) => updateCourseService(args.input),
+
+    // PROJECTS
+    createProject: async (_:any, args:ICreateProjectInput) => createProjectService(args.input),
+    deleteProjectUser: async (
+      _:any,
+      args:IDeleteProjectInput,
+    ) => deleteProjectUserService(args.input),
   },
 
 };
