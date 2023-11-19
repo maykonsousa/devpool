@@ -2,6 +2,8 @@ import { ICourseData } from '@/app/api/types/CousersTypes';
 import { Dialog } from '@/components/Dialog';
 import { TextInput } from '@/components/TextInput';
 import { useFeedback, useUpdateCourse } from '@/hooks';
+import { createCourseValidation } from '@/validations/formValidations';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Edit } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
@@ -14,7 +16,12 @@ interface IUpdateCourseDialogProps {
 
 export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps) {
   const formMethods = useForm({
-    defaultValues: course,
+    defaultValues: {
+      ...course,
+      progress: course.progress.toString(),
+      duration: course.duration.toString(),
+    },
+    resolver: zodResolver(createCourseValidation),
   });
   const { showMessage } = useFeedback();
 
@@ -51,16 +58,23 @@ export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps)
   };
 
   useEffect(() => {
-    formMethods.reset(course);
+    formMethods.reset({
+      ...course,
+      progress: course.progress.toString(),
+      duration: course.duration.toString(),
+    });
   }, [course, formMethods]);
 
   const { updateCourse, loading } = useUpdateCourse({ variables, onCompleted, onError });
+
+  const handleSubmit = formMethods.handleSubmit(() => updateCourse());
+
   return (
     <Dialog
       elementAction={<IconButton><Edit /></IconButton>}
       title="Editar curso"
       confirmText="Salvar"
-      onConfirm={updateCourse}
+      onConfirm={handleSubmit}
       onDismiss={() => formMethods.reset()}
       loading={loading}
 
@@ -72,6 +86,7 @@ export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps)
             flexDirection: 'column',
             gap: '1rem',
             width: '100%',
+            padding: '1rem',
           }}
         >
 

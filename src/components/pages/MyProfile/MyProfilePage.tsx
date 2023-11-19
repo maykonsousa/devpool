@@ -9,6 +9,7 @@ import {
 } from '@mui/icons-material';
 import { PageContainer } from './MyProfilePage.styles';
 import { AccountTab, CoursesTab, ProjectsTab } from './fragments';
+import { JobsTab } from './fragments/JobsTab';
 
 interface TabPanelProps {
   label: string;
@@ -58,7 +59,7 @@ export function MyProfilePage() {
       value: 'jobs',
       iconPosition: 'start',
       icon: <Build fontSize="large" />,
-      component: <ProjectsTab />,
+      component: <JobsTab />,
     },
     {
       label: 'Tecnologias',

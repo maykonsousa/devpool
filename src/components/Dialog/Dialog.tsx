@@ -9,13 +9,12 @@ import {
   CircularProgress,
   DialogActions, DialogContent, DialogTitle, Dialog as MuiDialog, Slide, SlideProps,
 } from '@mui/material';
-import { FetchResult } from '@apollo/client';
 
 interface IDialogProps {
   elementAction: React.ReactElement;
   children: React.ReactNode;
   title: string;
-  onConfirm?: () => Promise<FetchResult<void>>;
+  onConfirm?: () => Promise<void>;
   onDismiss?: () => void;
   loading?: boolean;
   confirmText?: string;
@@ -48,7 +47,6 @@ export function Dialog({
 
   const handleConfirm = async () => {
     await onConfirm?.();
-    handleClose();
   };
   return (
     <>
