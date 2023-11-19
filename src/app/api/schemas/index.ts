@@ -267,16 +267,63 @@ export const typeDefs = `#graphql
     message: String!
   }
 
+  input GetJobsByUserInput {
+    userId: String
+    username: String
+  }
+
+  type Job {
+    id: String
+    name: String
+    company: String
+    description: String
+    startDate: String
+    endDate: String
+    isCurrent: Boolean
+    userId: String
+    createdAt: String
+    updatedAt: String
+    technologies: [TechnologyProject]
+  }
+
+  type JobPayload {
+    jobs: [Job!]
+    status: Status!
+    message: String!
+  }
+
+  input DeleteJobInput {
+    userId: String!
+    jobId: String!
+  }
+
+  type DeleteJobPayload {
+    status: Status!
+    message: String!
+  }
+
 
   
 
   type Query {
+    ##USERS
     getAllUsers: getAllUsersPayload!
-    getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
+
+    ##PROJECTS
+    getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!
+
+    ##ROLES
     getRoles: RolePayload!
+
+    ##TECHNOLOGIES
     getTechnologies: TechnologyPayload!
+
+    ##COURSES
     getCoursesByUser(input: GetCoursesByUserInput): CoursePayload!
+
+    ##JOBS
+    getJobsByUser(input: GetJobsByUserInput): JobPayload!
 
   }
   type Mutation {
@@ -296,5 +343,6 @@ export const typeDefs = `#graphql
 
     ##JOBS
     createJob(input: CreateJobInput): CreateJobPayload!
+    deleteJobUser(input: DeleteJobInput): DeleteJobPayload!
   }
 `;

@@ -6,7 +6,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
 import { authenticateService } from '../../services/authenticate.service';
-import { getUserByEmail } from '../../services/getUserByEmail.service';
+import { getUserByEmailService } from '../../services/getUserByEmail.service';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -54,7 +54,7 @@ export const options: NextAuthOptions = {
     }) {
       if (account?.provider === 'github') {
         const email = user?.email as string;
-        const { status } = await getUserByEmail(email);
+        const { status } = await getUserByEmailService(email);
         if (status === 'success') {
           return true;
         }

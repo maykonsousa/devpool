@@ -41,7 +41,7 @@ export function AutoComplete({
           paper: {
             sx: {
               maxHeight: '300px',
-              diplay: 'flex',
+              display: 'flex',
               overflow: 'auto',
             },
           },

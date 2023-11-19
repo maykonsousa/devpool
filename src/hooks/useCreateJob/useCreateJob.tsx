@@ -38,6 +38,7 @@ export const useCreateJob = ({ onCompleted, onError, variables }:IUseCreateJob) 
     onCompleted,
     onError,
     variables,
+    refetchQueries: ['GetJobsByUser'],
   });
 
   return {

@@ -14,3 +14,17 @@ export interface ICreateJobInput {
     technologies: string[];
   }
 }
+
+export interface IGetJobsByUserInput {
+  input: {
+    userId?: string;
+    username?: string;
+  }
+}
+
+export interface IDeleteJobInput {
+  input: {
+    userId: string;
+    jobId: string;
+  }
+}
