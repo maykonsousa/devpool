@@ -1,7 +1,7 @@
 import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
-export const getProjectsByUser = async (userId:string) => {
+export const getProjectsByUserService = async (userId:string) => {
   try {
     if (!userId) throw new AppError('User id is required', 400);
     const userExists = await prisma.user.findFirst({

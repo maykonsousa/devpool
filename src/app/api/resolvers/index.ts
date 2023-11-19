@@ -4,18 +4,20 @@ import { createJobService } from '../services/createJob.service';
 import { createProjectService } from '../services/createProject.service';
 import { createUserService } from '../services/createUser.service';
 import { deleteCourseUserService } from '../services/deleteCourseUser.service';
+import { deleteJobUserService } from '../services/deleteJobUser.service';
 import { deleteProjectUserService } from '../services/deleteProjectUser.service';
 import { deleteUserService } from '../services/deleteUser.service';
-import { getAllTechnologies } from '../services/getAllTechnologies.service';
+import { getAllTechnologiesService } from '../services/getAllTechnologies.service';
 import { getAllUsersService } from '../services/getAllUsers.service';
 import { getCoursesByUserService } from '../services/getCoursesByUser.service';
-import { getProjectsByUser } from '../services/getProjectsByUser.service';
+import { getJobsByUserService } from '../services/getJobsByUser.service';
+import { getProjectsByUserService } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
-import { getUserByEmail } from '../services/getUserByEmail.service';
+import { getUserByEmailService } from '../services/getUserByEmail.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
 import { ICreateCourseInput, IDeleteCourseInput, IUpdateCourseInput } from '../types/CousersTypes';
-import { ICreateJobInput } from '../types/JobTypes';
+import { ICreateJobInput, IDeleteJobInput, IGetJobsByUserInput } from '../types/JobTypes';
 import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
 import {
   IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
@@ -24,18 +26,36 @@ import {
 export const resolvers = {
 
   Query: {
+    // USERS
     getAllUsers: async () => getAllUsersService(),
-    getUserByEmail: async (_:any, args: IGetUserByEmailInput) => getUserByEmail(args.input.email),
+    getUserByEmail: async (
+      _:any,
+      args: IGetUserByEmailInput,
+    ) => getUserByEmailService(args.input.email),
+
+    // ROLES
     getRoles: async () => getRolesService(),
-    getTechnologies: async () => getAllTechnologies(),
+
+    // TECHNOLOGIES
+    getTechnologies: async () => getAllTechnologiesService(),
+
+    // PROJECTS
     getProjectsByUser: async (
       _:any,
       args: IGetProjectsByUserInput,
-    ) => getProjectsByUser(args.input.userId),
+    ) => getProjectsByUserService(args.input.userId),
+
+    // COURSES
     getCoursesByUser: async (
       _:any,
       args: IGetProjectsByUserInput,
     ) => getCoursesByUserService(args.input.userId),
+
+    // JOBS
+    getJobsByUser: async (
+      _:any,
+      args: IGetJobsByUserInput,
+    ) => getJobsByUserService(args.input),
 
   },
 
@@ -63,6 +83,7 @@ export const resolvers = {
 
     // JOBS
     createJob: async (_:any, args:ICreateJobInput) => createJobService(args.input),
+    deleteJobUser: async (_:any, args:IDeleteJobInput) => deleteJobUserService(args.input),
   },
 
 };

@@ -1,10 +1,15 @@
 import { GridTable } from '@/components/GridTable';
-import { Delete, Edit } from '@mui/icons-material';
+import { Loading } from '@/components/Loading';
+import { useGetJobsByUser, useSession } from '@/hooks';
+import { formatDate } from '@/utils';
+import { Edit } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { DeleteJobDialog } from './deleteJobDialog';
 
 export function JobsTable() {
+  const { user } = useSession();
   const columns:GridColDef[] = [
     {
       field: 'company',
@@ -22,41 +27,41 @@ export function JobsTable() {
       field: 'startDate',
       headerName: 'inicio',
       width: 150,
+      renderCell: ({ value }) => formatDate(value),
     },
     {
       field: 'endDate',
       headerName: 'termino',
       width: 150,
+      renderCell: ({ value }) => (value ? formatDate(value) : 'Atual'),
+
     },
     {
       field: 'actions',
       headerName: 'Ações',
       width: 100,
       sortable: false,
-      renderCell: () => (
+      renderCell: ({ row }) => (
         <Box>
           <IconButton>
             <Edit />
           </IconButton>
-          <IconButton>
-            <Delete />
-          </IconButton>
+          <DeleteJobDialog jobId={row.id} userId={user?.id as string} />
         </Box>
       ),
     },
 
   ];
 
-  return (
+  const { data, loading } = useGetJobsByUser({ userId: user?.id });
+
+  const jobs = useMemo(() => data?.jobs, [data]);
+
+  return loading ? (<Loading />) : (
     <GridTable
       columns={columns}
-      rows={[{
-        id: 1,
-        company: 'Empresa 1',
-        name: 'Cargo 1',
-        startDate: '01/01/2021',
-        endDate: '01/01/2022',
-      }]}
+      loading={loading}
+      rows={jobs || []}
       emptyMessage="Voce ainda nao adicionou nenhuma experiencia profissional"
 
     />

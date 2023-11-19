@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { prisma } from '../database';
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmailService = async (email: string) => {
   try {
     const user = await prisma.user.findUnique({
       where: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { prisma } from '../database';
 
-export const getAllTechnologies = async () => {
+export const getAllTechnologiesService = async () => {
   try {
     const technologies = await prisma.technology.findMany({
       orderBy: {
