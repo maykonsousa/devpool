@@ -27,6 +27,7 @@ model User {
   Project        Project[]
   Course         Course[]
   UserTechnology UserTechnology[]
+  Job            Job[]
 }
 
 model Social {
@@ -72,6 +73,7 @@ model Technology {
   updatedAt         DateTime            @updatedAt
   ProjectTechnology ProjectTechnology[]
   UserTechnology    UserTechnology[]
+  JobTechnology     JobTechnology[]
 }
 
 model ProjectTechnology {
@@ -94,6 +96,16 @@ model UserTechnology {
   Technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
 }
 
+model JobTechnology {
+  id           String     @id @default(uuid())
+  jobId        String
+  technologyId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Job          Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  Technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+}
+
 model Course {
   id          String   @id @default(uuid())
   name        String
@@ -107,4 +119,19 @@ model Course {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Job {
+  id            String          @id @default(uuid())
+  name          String
+  description   String
+  company       String
+  startDate     DateTime
+  endDate       DateTime?
+  isCurrent     Boolean
+  userId        String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  User          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  JobTechnology JobTechnology[]
 }

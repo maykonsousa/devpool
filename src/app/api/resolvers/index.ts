@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createCourseService } from '../services/createCourse.service';
+import { createJobService } from '../services/createJob.service';
 import { createProjectService } from '../services/createProject.service';
 import { createUserService } from '../services/createUser.service';
 import { deleteCourseUserService } from '../services/deleteCourseUser.service';
@@ -14,6 +15,7 @@ import { getUserByEmail } from '../services/getUserByEmail.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
 import { ICreateCourseInput, IDeleteCourseInput, IUpdateCourseInput } from '../types/CousersTypes';
+import { ICreateJobInput } from '../types/JobTypes';
 import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
 import {
   IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
@@ -58,6 +60,9 @@ export const resolvers = {
       _:any,
       args:IDeleteProjectInput,
     ) => deleteProjectUserService(args.input),
+
+    // JOBS
+    createJob: async (_:any, args:ICreateJobInput) => createJobService(args.input),
   },
 
 };

@@ -244,6 +244,29 @@ export const typeDefs = `#graphql
     message: String!
   }
 
+  ##JOBS
+
+  input JobInput {
+    name: String
+    company: String
+    description: String
+    startDate: String
+    endDate: String
+    isCurrent: Boolean
+  }
+
+  input CreateJobInput {
+    userId: String!
+    data: JobInput!
+    technologies: [String]
+  }
+
+  type CreateJobPayload {
+    id: String
+    status: Status!
+    message: String!
+  }
+
 
   
 
@@ -270,5 +293,8 @@ export const typeDefs = `#graphql
     createCourse(input: CreateCourseInput): CreateCoursePayload!
     deleteCourseUser(input: DeleteCourseInput): DeleteCoursePayload!
     updateCourseUser(input: UpdateCourseInput): UpdateCoursePayload!
+
+    ##JOBS
+    createJob(input: CreateJobInput): CreateJobPayload!
   }
 `;

@@ -239,7 +239,7 @@ export function ProjectForm() {
           </Box>
 
           <AutoComplete
-            options={technologiesOptions}
+            options={technologiesOptions || []}
             value={technologies}
             label="Tecnologias utilizadas"
             onChange={handleSelectChange}
