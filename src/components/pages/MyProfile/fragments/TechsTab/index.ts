@@ -1,0 +1,1 @@
+export { TechsTab } from './TechsTab';

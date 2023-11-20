@@ -102,11 +102,36 @@ export const typeDefs = `#graphql
   type Technology {
     id: String
     name: String
-   
+   }
+
+  input AddOrRemoveTechnologyUserInput {
+    userId: String!
+    technologyId: String!
+  }
+
+  type AddOrRemoveTechnologyUserPayload {
+    status: Status!
+    message: String!
   }
 
   type TechnologyPayload {
     technologies: [Technology!]
+    status: Status!
+    message: String!
+  }
+
+  input GetTechsByUserInput {
+    userId: String!
+  }
+
+  type TechUser {
+    id: String
+    techId: String
+    name: String
+  }
+
+  type GetTechsByUserPayload {
+    techs: [TechUser!]
     status: Status!
     message: String!
   }
@@ -325,6 +350,9 @@ export const typeDefs = `#graphql
     ##JOBS
     getJobsByUser(input: GetJobsByUserInput): JobPayload!
 
+    ##TECHNOLOGIES
+    getTechsByUser(input: GetTechsByUserInput): GetTechsByUserPayload!
+
   }
   type Mutation {
     ##USERS
@@ -344,5 +372,8 @@ export const typeDefs = `#graphql
     ##JOBS
     createJob(input: CreateJobInput): CreateJobPayload!
     deleteJobUser(input: DeleteJobInput): DeleteJobPayload!
+
+    ##TECHNOLOGIES
+    addOrRemoveTechnologyUser(input: AddOrRemoveTechnologyUserInput): AddOrRemoveTechnologyUserPayload!
   }
 `;

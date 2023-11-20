@@ -1,0 +1,1 @@
+export { useGetTechsByUser } from './useGetTechsByUser';
