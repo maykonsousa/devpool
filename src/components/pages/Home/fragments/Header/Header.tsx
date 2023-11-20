@@ -170,7 +170,7 @@ export function Header() {
                 gap: '10px',
               }}
             >
-              Login
+              Entrar
             </Button>
 
           </Box>
