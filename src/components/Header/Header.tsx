@@ -45,7 +45,7 @@ export function Header() {
     onClick: () => router.push('/community'),
   }, {
     label: 'Buscar Perfis',
-    onClick: () => router.push('/search'),
+    onClick: () => router.push('/search-profiles'),
   }, {
     label: 'Vagas',
     onClick: () => router.push('/jobs'),

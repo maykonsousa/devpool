@@ -24,3 +24,4 @@ export { useUpdateTechnology } from './useUpdateTechnology';
 export { useGetTechsByUser } from './useGetTechsByUser';
 export { useGetContacts } from './useGetContacts';
 export { useUpdateContacts } from './useUpdateContacts';
+export { useGetProfiles } from './useGetProfiles';

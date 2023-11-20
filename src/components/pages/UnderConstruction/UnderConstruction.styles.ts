@@ -1,16 +1,15 @@
 'use client';
 
-import { Box, styled } from '@mui/material';
+import { styled, Box } from '@mui/material';
 
 export const PageContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
-
+  justify-content: center;
   max-height: calc(100vh - 160px);
   flex: 1;
-  justify-content: flex-start;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0.5em;
@@ -23,14 +22,4 @@ export const PageContainer = styled(Box)`
     background-color: ${({ theme }) => theme.palette.primary.main};
     border-radius: 4px;
   }
-`;
-
-export const CardsContainer = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  gap: 1rem;
-
 `;
