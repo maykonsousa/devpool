@@ -35,6 +35,7 @@ export function AutoComplete({
         ListboxProps={{
           style: {
             maxHeight: '300px',
+            width: '100%',
           },
         }}
         componentsProps={{
@@ -43,6 +44,7 @@ export function AutoComplete({
               maxHeight: '300px',
               display: 'flex',
               overflow: 'auto',
+              width: '100%',
             },
           },
 

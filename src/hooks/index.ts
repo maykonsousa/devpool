@@ -20,3 +20,5 @@ export { useUpdateCourse } from './useUpdateCourse';
 export { useCreateJob } from './useCreateJob';
 export { useGetJobsByUser } from './useGetJobsByUser';
 export { useDeleteJob } from './useDeleteJob';
+export { useUpdateTechnology } from './useUpdateTechnology';
+export { useGetTechsByUser } from './useGetTechsByUser';

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { addOrRemoveTechnologyUserService } from '../services/addTechnologyUser.service';
 import { createCourseService } from '../services/createCourse.service';
 import { createJobService } from '../services/createJob.service';
 import { createProjectService } from '../services/createProject.service';
@@ -13,12 +14,14 @@ import { getCoursesByUserService } from '../services/getCoursesByUser.service';
 import { getJobsByUserService } from '../services/getJobsByUser.service';
 import { getProjectsByUserService } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
+import { getTechsByUserService } from '../services/getTechsByUser.service';
 import { getUserByEmailService } from '../services/getUserByEmail.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
 import { ICreateCourseInput, IDeleteCourseInput, IUpdateCourseInput } from '../types/CousersTypes';
 import { ICreateJobInput, IDeleteJobInput, IGetJobsByUserInput } from '../types/JobTypes';
 import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
+import { IAddOrRemoveTechnologyInput, IGetTechsByUserInput } from '../types/TechsTypes';
 import {
   IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
 } from '../types/UsersTypes';
@@ -57,6 +60,12 @@ export const resolvers = {
       args: IGetJobsByUserInput,
     ) => getJobsByUserService(args.input),
 
+    // TECHNOLOGIES
+    getTechsByUser: async (
+      _:any,
+      args: IGetTechsByUserInput,
+    ) => getTechsByUserService(args.input),
+
   },
 
   Mutation: {
@@ -84,6 +93,12 @@ export const resolvers = {
     // JOBS
     createJob: async (_:any, args:ICreateJobInput) => createJobService(args.input),
     deleteJobUser: async (_:any, args:IDeleteJobInput) => deleteJobUserService(args.input),
+
+    // TECHNOLOGIES
+    addOrRemoveTechnologyUser: async (
+      _:any,
+      args:IAddOrRemoveTechnologyInput,
+    ) => addOrRemoveTechnologyUserService(args.input),
   },
 
 };

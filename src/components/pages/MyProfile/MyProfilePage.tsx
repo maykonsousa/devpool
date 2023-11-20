@@ -10,6 +10,7 @@ import {
 import { PageContainer } from './MyProfilePage.styles';
 import { AccountTab, CoursesTab, ProjectsTab } from './fragments';
 import { JobsTab } from './fragments/JobsTab';
+import { TechsTab } from './fragments/TechsTab';
 
 interface TabPanelProps {
   label: string;
@@ -66,7 +67,7 @@ export function MyProfilePage() {
       value: 'techs',
       iconPosition: 'start',
       icon: <CodeOff fontSize="large" />,
-      component: <ProjectsTab />,
+      component: <TechsTab />,
     },
     {
       label: 'Redes Sociais',
