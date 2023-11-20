@@ -13,6 +13,8 @@ import { PassInput } from '@/components/PassInput';
 import { Select } from '@/components/Select';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { updateDeveloperValidation } from '@/validations/formValidations';
+import { CityInput } from '@/components/CityInput';
+import { states } from '@/mock/statesMock';
 import {
   AccountTabContainer,
   ActionsContainer,
@@ -199,16 +201,19 @@ export function AccountTab() {
                 placeholder="Confirme a nova senha"
                 required
               />
-              <TextInput
-                name="city"
-                label="Cidade"
-                placeholder="Informa a cidade onde você mora"
-                required
-              />
-              <TextInput
+
+              <Select
                 name="state"
                 label="Estado"
-                placeholder="Digite o estado em que você mora"
+                placeholder="Estado"
+                options={states}
+                autoComplete="on"
+                required
+              />
+              <CityInput
+                UF={methods.watch('state')}
+                onChange={(e, value) => methods.setValue('city', value || '')}
+                value={methods.watch('city')}
               />
             </GridContainer>
             <TextInput

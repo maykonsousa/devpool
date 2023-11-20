@@ -6,4 +6,3 @@ export { FinishStep } from './FinishStep/FinishStep';
 export { SkillsForm } from './SkillsForm/SkillsForm';
 export { SocialForm } from './SocialForm/SocialForm';
 export { RecruiterSocialForm } from './RecruiterSocialForm/RecruiterSocialForm';
-export { ExperiencesForm } from './ExperiencesForm/ExperiencesForm';
