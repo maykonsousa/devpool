@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { useGetAllTechnologies, useGetTechsByUser, useSession } from '@/hooks';
+import { Loading } from '@/components/Loading';
 import { GridContainer, TabContainer } from './TechsTab.styles';
 import { TechCheckbox } from './TechCheckbox';
 
 export function TechsTab() {
-  const { technologies } = useGetAllTechnologies();
+  const { technologies, loading } = useGetAllTechnologies();
   const { user } = useSession();
   const { data } = useGetTechsByUser({
     variables: {
@@ -32,18 +33,23 @@ export function TechsTab() {
         Adicione as tecnologias que você conhece e que podem ser relevantes para
         o seu perfil profissional.
       </Typography>
-      <GridContainer>
-        {technologies?.map((tech:{id:string, name: string}) => (
-          <TechCheckbox
-            key={tech.id}
-            techId={tech.id}
-            techName={tech.name}
-            userId={user?.id as string}
-            isChecked={isChecked(tech.id)}
-          />
-        ))}
+      {
+        loading ? (<Loading />) : (
+          <GridContainer>
+            {technologies?.map((tech:{id:string, name: string}) => (
+              <TechCheckbox
+                key={tech.id}
+                techId={tech.id}
+                techName={tech.name}
+                userId={user?.id as string}
+                isChecked={isChecked(tech.id)}
+              />
+            ))}
 
-      </GridContainer>
+          </GridContainer>
+        )
+
+      }
     </TabContainer>
   );
 }
