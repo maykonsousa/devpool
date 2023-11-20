@@ -239,7 +239,6 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                 <TextInput
                   name="email"
                   label="E-mail"
-                  disabled
                 />
                 <TextInput
                   name="bio"

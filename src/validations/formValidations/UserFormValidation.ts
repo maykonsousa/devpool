@@ -2,7 +2,7 @@ import z from 'zod';
 
 export const creteDeveloperValidation = z.object({
   name: z.string().min(1, { message: 'Campo obrigatório' }),
-  email: z.string().min(1, { message: 'Campo obrigatório' }),
+  email: z.string().min(1, { message: 'Campo obrigatório' }).email({ message: 'Email inválido' }),
   password: z.string().min(6, { message: 'Campo obrigatório (6 caracteres)' }),
   confirmPassword: z.string().min(6, { message: 'Campo obrigatório' }),
   username: z.string().min(1, { message: 'Campo obrigatório' }),
