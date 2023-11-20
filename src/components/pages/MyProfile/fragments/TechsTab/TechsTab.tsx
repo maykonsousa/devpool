@@ -1,11 +1,21 @@
 import React, { useMemo } from 'react';
-import { Typography } from '@mui/material';
+import {
+  Box, FormControl, InputAdornment, TextField, Typography,
+} from '@mui/material';
 import { useGetAllTechnologies, useGetTechsByUser, useSession } from '@/hooks';
 import { Loading } from '@/components/Loading';
+import { Search } from '@mui/icons-material';
 import { GridContainer, TabContainer } from './TechsTab.styles';
 import { TechCheckbox } from './TechCheckbox';
 
+interface ITechs {
+  id: string;
+  name: string;
+}
+
 export function TechsTab() {
+  const [fiteredTechs, setFilteredTechs] = React.useState<ITechs[]>([]);
+  const [seachText, setSearchText] = React.useState<string>('');
   const { technologies, loading } = useGetAllTechnologies();
   const { user } = useSession();
   const { data } = useGetTechsByUser({
@@ -15,6 +25,13 @@ export function TechsTab() {
       },
     },
   });
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+    const filtered = technologies?.filter((tech:ITechs) => tech.name.toLowerCase()
+      .includes(event.target.value.toLowerCase()));
+    setFilteredTechs(filtered);
+  };
 
   const techsByUser = useMemo(() => data?.techs, [data]);
 
@@ -35,18 +52,40 @@ export function TechsTab() {
       </Typography>
       {
         loading ? (<Loading />) : (
-          <GridContainer>
-            {technologies?.map((tech:{id:string, name: string}) => (
-              <TechCheckbox
-                key={tech.id}
-                techId={tech.id}
-                techName={tech.name}
-                userId={user?.id as string}
-                isChecked={isChecked(tech.id)}
+          <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+          }}
+          >
+            <FormControl fullWidth>
+              <TextField
+                label="Pesquisar"
+                fullWidth
+                value={seachText}
+                onChange={handleSearch}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
               />
-            ))}
+            </FormControl>
+            <GridContainer>
+              {fiteredTechs?.map((tech:{id:string, name: string}) => (
+                <TechCheckbox
+                  key={tech.id}
+                  techId={tech.id}
+                  techName={tech.name}
+                  userId={user?.id as string}
+                  isChecked={isChecked(tech.id)}
+                />
+              ))}
 
-          </GridContainer>
+            </GridContainer>
+          </Box>
         )
 
       }
