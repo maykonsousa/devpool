@@ -17,11 +17,18 @@ export const createUserService = async (user:IUserInput) => {
 
     const encriptedPassword = await hash(user.password, 8);
 
-    await prisma.user.create({
+    const userCreated = await prisma.user.create({
       data: {
         ...user,
         password: encriptedPassword,
 
+      },
+    });
+
+    await prisma.social.create({
+      data: {
+        userId: userCreated.id,
+        github_url: `https://github.com/${userCreated.username}`,
       },
     });
 

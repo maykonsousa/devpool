@@ -33,11 +33,12 @@ model User {
 model Social {
   id               String   @id @default(uuid())
   userId           String
-  linkedin_url     String
-  instagram_url    String
-  github_url       String
-  personal_website String
-  cell_phone       String
+  linkedin_url     String?
+  instagram_url    String?
+  github_url       String?
+  personal_website String?
+  cell_phone       String?
+  twitter_url      String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)

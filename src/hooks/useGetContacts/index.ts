@@ -1,0 +1,1 @@
+export { useGetContacts } from './useGetContacts';

@@ -8,9 +8,9 @@ import {
   Build, CodeOff, ConnectWithoutContact, IntegrationInstructions, Person, School, Share,
 } from '@mui/icons-material';
 import { PageContainer } from './MyProfilePage.styles';
-import { AccountTab, CoursesTab, ProjectsTab } from './fragments';
-import { JobsTab } from './fragments/JobsTab';
-import { TechsTab } from './fragments/TechsTab';
+import {
+  AccountTab, ContactsTab, CoursesTab, JobsTab, ProjectsTab, TechsTab,
+} from './fragments';
 
 interface TabPanelProps {
   label: string;
@@ -74,7 +74,7 @@ export function MyProfilePage() {
       value: 'socials',
       iconPosition: 'start',
       icon: <ConnectWithoutContact fontSize="large" />,
-      component: <ProjectsTab />,
+      component: <ContactsTab />,
     },
   ];
 
