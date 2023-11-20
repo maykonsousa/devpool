@@ -32,7 +32,7 @@ export function Header() {
     },
     {
       label: 'Editar Perfil',
-      onClick: () => { router.push('/my'); },
+      onClick: () => { router.push('/settings'); },
     },
     {
       label: 'Sair',
