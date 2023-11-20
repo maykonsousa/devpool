@@ -14,7 +14,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { PageContainer, StepList } from './RegisterPage.styles';
 import {
   AccountForm,
-  ExperiencesForm,
   FinishStep,
   Orientation,
   RecruiterAccountForm,
@@ -170,12 +169,6 @@ export function RegisterPage() {
 
         <FinishStep
           isVisible={activeStep?.name === 'finishStep'}
-          onNext={handleNextStep}
-          onPrevious={handleBackStep}
-        />
-
-        <ExperiencesForm
-          isVisible={activeStep?.name === 'experiences'}
           onNext={handleNextStep}
           onPrevious={handleBackStep}
         />

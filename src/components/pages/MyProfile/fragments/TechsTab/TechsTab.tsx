@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   Box, FormControl, InputAdornment, TextField, Typography,
 } from '@mui/material';
@@ -35,12 +35,22 @@ export function TechsTab() {
 
   const techsByUser = useMemo(() => data?.techs, [data]);
 
+  const getAllTechs = useCallback(() => {
+    if (technologies) {
+      setFilteredTechs(technologies);
+    }
+  }, [technologies]);
+
   const isChecked = (techId:string) => {
     if (techsByUser) {
       return techsByUser.some((tech) => tech.techId === techId);
     }
     return false;
   };
+
+  React.useEffect(() => {
+    getAllTechs();
+  }, [getAllTechs]);
   return (
     <TabContainer>
       <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: '1rem' }}>

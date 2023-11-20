@@ -17,6 +17,7 @@ import { useSession } from '@hooks/useSession';
 import { states } from '@/mock/statesMock';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { creteDeveloperValidation } from '@/validations/formValidations';
+import { CityInput } from '@/components/CityInput';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer, StepContainer, StepContent, StepTitle,
@@ -219,12 +220,6 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                     placeholder="Senioridade"
                     options={seniorityOptions}
                   />
-                  <TextInput
-                    name="city"
-                    label="Cidade"
-                    placeholder="Cidade"
-                    required
-                  />
 
                   <Select
                     name="state"
@@ -233,6 +228,11 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                     options={states}
                     autoComplete="on"
                     required
+                  />
+                  <CityInput
+                    UF={methods.watch('state')}
+                    onChange={(e, value) => methods.setValue('city', value || '')}
+                    value={methods.watch('city')}
                   />
 
                 </GridContainer>
