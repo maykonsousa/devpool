@@ -10,12 +10,14 @@ import { deleteProjectUserService } from '../services/deleteProjectUser.service'
 import { deleteUserService } from '../services/deleteUser.service';
 import { getAllTechnologiesService } from '../services/getAllTechnologies.service';
 import { getAllUsersService } from '../services/getAllUsers.service';
+import { getContactsService } from '../services/getContacts.service';
 import { getCoursesByUserService } from '../services/getCoursesByUser.service';
 import { getJobsByUserService } from '../services/getJobsByUser.service';
 import { getProjectsByUserService } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
 import { getTechsByUserService } from '../services/getTechsByUser.service';
 import { getUserByEmailService } from '../services/getUserByEmail.service';
+import { updateContactsService } from '../services/updateContacts.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
 import { ICreateCourseInput, IDeleteCourseInput, IUpdateCourseInput } from '../types/CousersTypes';
@@ -25,6 +27,7 @@ import { IAddOrRemoveTechnologyInput, IGetTechsByUserInput } from '../types/Tech
 import {
   IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
 } from '../types/UsersTypes';
+import { IGetContactsInput, IUpdateContactsInput } from '../types/contactsType';
 
 export const resolvers = {
 
@@ -66,6 +69,9 @@ export const resolvers = {
       args: IGetTechsByUserInput,
     ) => getTechsByUserService(args.input),
 
+    // CONTACTS
+    getContacts: async (_:any, args:IGetContactsInput) => getContactsService(args.input),
+
   },
 
   Mutation: {
@@ -99,6 +105,9 @@ export const resolvers = {
       _:any,
       args:IAddOrRemoveTechnologyInput,
     ) => addOrRemoveTechnologyUserService(args.input),
+
+    // CONTACTS
+    updateContacts: async (_:any, args: IUpdateContactsInput) => updateContactsService(args.input),
   },
 
 };

@@ -22,3 +22,5 @@ export { useGetJobsByUser } from './useGetJobsByUser';
 export { useDeleteJob } from './useDeleteJob';
 export { useUpdateTechnology } from './useUpdateTechnology';
 export { useGetTechsByUser } from './useGetTechsByUser';
+export { useGetContacts } from './useGetContacts';
+export { useUpdateContacts } from './useUpdateContacts';

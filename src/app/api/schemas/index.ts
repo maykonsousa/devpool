@@ -327,6 +327,51 @@ export const typeDefs = `#graphql
     message: String!
   }
 
+  ##CONTACTS
+
+  type Social {
+  id: String 
+  userId: String
+  linkedin_url: String
+  instagram_url: String
+  github_url: String
+  personal_website: String
+  cell_phone: String
+  twitter_url: String
+  createdAt: String 
+  updatedAt: String      
+  }
+
+  input SocialInput {
+    linkedin_url: String
+    instagram_url: String
+    github_url: String
+    personal_website: String
+    cell_phone: String
+    twitter_url: String
+  }
+
+  input GetContactsInput {
+    userId: String
+    username: String
+  }
+
+  type GetContactsPayload {
+    contacts: Social
+    status: Status!
+    message: String!
+  }
+
+  input UpdateContactsInput {
+    userId: String!
+    data: SocialInput!
+  }
+
+  type UpdateContactsPayload {
+    status: Status!
+    message: String!
+  }
+
 
   
 
@@ -353,6 +398,9 @@ export const typeDefs = `#graphql
     ##TECHNOLOGIES
     getTechsByUser(input: GetTechsByUserInput): GetTechsByUserPayload!
 
+    ##CONTACTS
+    getContacts(input: GetContactsInput): GetContactsPayload!
+
   }
   type Mutation {
     ##USERS
@@ -375,5 +423,8 @@ export const typeDefs = `#graphql
 
     ##TECHNOLOGIES
     addOrRemoveTechnologyUser(input: AddOrRemoveTechnologyUserInput): AddOrRemoveTechnologyUserPayload!
+
+    ##CONTACTS
+    updateContacts(input: UpdateContactsInput): UpdateContactsPayload!
   }
 `;
