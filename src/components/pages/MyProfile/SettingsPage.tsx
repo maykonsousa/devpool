@@ -7,7 +7,7 @@ import {
 import {
   Build, CodeOff, ConnectWithoutContact, IntegrationInstructions, Person, School, Share,
 } from '@mui/icons-material';
-import { PageContainer } from './MyProfilePage.styles';
+import { PageContainer } from './SettingsPage.styles';
 import {
   AccountTab, ContactsTab, CoursesTab, JobsTab, ProjectsTab, TechsTab,
 } from './fragments';
@@ -28,7 +28,7 @@ const INITIALTAB:TabPanelProps = {
   component: <AccountTab />,
 };
 
-export function MyProfilePage() {
+export function SettingsPage() {
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
   const theme = useTheme();
 
