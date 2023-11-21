@@ -1,4 +1,6 @@
-import { Avatar, AvatarGroup, Chip } from '@mui/material';
+import {
+  Avatar, AvatarGroup, Chip, Typography,
+} from '@mui/material';
 import React from 'react';
 import {
   Computer, EqualizerSharp, LocationOn,
@@ -58,7 +60,19 @@ export function UserCard({
       </InfoContainer>
 
       <CardContent>
-        {user.bio}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 4,
+            WebkitBoxOrient: 'vertical',
+          }}
+        >
+          {user.bio}
+        </Typography>
       </CardContent>
       <CardFooter>
         <AvatarGroup max={5}>

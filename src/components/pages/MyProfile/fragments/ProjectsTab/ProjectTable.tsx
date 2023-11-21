@@ -4,12 +4,20 @@ import { useGetProjectsByUser, useSession } from '@/hooks';
 import { GitHub, Language } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { DeleteProjectIcon } from './DeleteProjectIcon';
 
 export function ProjectTable() {
   const { user } = useSession();
-  const { data, loading } = useGetProjectsByUser(user?.id || '');
+  const { data, loading } = useGetProjectsByUser({
+    variables: {
+      input: {
+        userId: user?.id,
+      },
+    },
+  });
+
+  const projects = useMemo(() => data?.projects, [data]) ?? [];
   const columns:GridColDef[] = [
     {
       field: 'name',
@@ -48,7 +56,7 @@ export function ProjectTable() {
   ) : (
     <GridTable
       columns={columns}
-      rows={data}
+      rows={projects}
       loading={loading}
       emptyMessage="Você ainda não possui projetos"
     />

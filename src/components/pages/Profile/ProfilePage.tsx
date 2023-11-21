@@ -8,7 +8,6 @@ import {
   Box, Tab, Tabs, useMediaQuery, useTheme, TabScrollButton,
 } from '@mui/material';
 import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
-import { useSession } from 'next-auth/react';
 import {
   Cover, Header, TabExperiences, TabProfile, TabProjects,
 } from './fragments';
@@ -22,23 +21,22 @@ interface TabPanelProps {
   component: React.ReactNode;
 }
 
-const INITIALTAB:TabPanelProps = {
-  label: 'Perfil',
-  value: 'perfil',
-  iconPosition: 'start',
-  icon: <Person />,
-  component: <TabProfile />,
-};
-
 interface ProfilePageProps {
-  profileName?: string;
+  profileName: string;
 }
 
 export function ProfilePage({ profileName }:ProfilePageProps) {
+  const INITIALTAB:TabPanelProps = {
+    label: 'Perfil',
+    value: 'perfil',
+    iconPosition: 'start',
+    icon: <Person />,
+    component: <TabProfile username={profileName} />,
+  };
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
-  const { status } = useSession();
 
   const theme = useTheme();
+
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const tabs:TabPanelProps[] = [
@@ -47,14 +45,14 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
       value: 'perfil',
       iconPosition: 'start',
       icon: <Person />,
-      component: <TabProfile />,
+      component: <TabProfile username={profileName} />,
     },
     {
       label: 'Projetos',
       value: 'projetos',
       iconPosition: 'start',
       icon: <IntegrationInstructions />,
-      component: <TabProjects />,
+      component: <TabProjects username={profileName} />,
     },
     {
       label: 'Experiência',
@@ -80,7 +78,7 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
   return (
     <ProfilePageContainer>
       <Cover />
-      <Header />
+      <Header username={profileName} />
       <Box sx={{
         display: 'flex',
         width: '100%',

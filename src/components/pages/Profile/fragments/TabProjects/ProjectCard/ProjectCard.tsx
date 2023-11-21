@@ -1,6 +1,5 @@
-import { GitHub, Language, MoreVert } from '@mui/icons-material';
+import { GitHub, Language } from '@mui/icons-material';
 import {
-  Avatar,
   Box,
   Card,
   CardActions,
@@ -10,62 +9,25 @@ import {
   Chip,
   Divider,
   IconButton,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
 
+interface ITechs {
+  id: string;
+  name: string;
+}
+
 interface ProjectCardProps {
   name?: string;
-  description?: string;
-  type?: string;
   resume?: string;
   github_url?: string;
   deploy_url?: string;
   image_url?: string;
-  tecs?: string[];
+  techs?: ITechs[];
 }
 
 export function ProjectCard(props:ProjectCardProps) {
-  const typesEnum = {
-    frontend: {
-      color: 'primary.main',
-      subTitle: 'Front-end',
-      abbreviation: 'FE',
-    },
-    backend: {
-      color: 'secondary.main',
-      subTitle: 'Back-end',
-      abbreviation: 'BE',
-    },
-    mobile: {
-      color: 'error.main',
-      subTitle: 'Mobile',
-      abbreviation: 'MO',
-    },
-    fullstack: {
-      color: 'warning.main',
-      subTitle: 'Fullstack',
-      abbreviation: 'FS',
-    },
-    qa: {
-      color: 'info.main',
-      subTitle: 'Quality Assurance',
-      abbreviation: 'QA',
-    },
-    devops: {
-      color: 'success.main',
-      subTitle: 'DevOps',
-      abbreviation: 'DO',
-    },
-    data: {
-      color: 'text.primary',
-      subTitle: 'Data Science',
-      abbreviation: 'DS',
-    },
-
-  };
-
   return (
     <Card
       sx={{
@@ -77,24 +39,13 @@ export function ProjectCard(props:ProjectCardProps) {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: '1rem',
+        borderRadius: '10px',
       }}
     >
       <CardHeader
         sx={{ padding: 0, paddingBottom: '1rem' }}
-        avatar={(
-          <Tooltip title={typesEnum[props?.type as keyof typeof typesEnum].subTitle} arrow placement="top">
-            <Avatar sx={{ bgcolor: typesEnum[props?.type as keyof typeof typesEnum].color }}>
-              {typesEnum[props?.type as keyof typeof typesEnum].abbreviation}
-            </Avatar>
-          </Tooltip>
-)}
         title={props?.name}
-        subheader={props?.description}
-        action={(
-          <IconButton>
-            <MoreVert />
-          </IconButton>
-        )}
+
       />
       <CardMedia
         sx={{ height: '200px' }}
@@ -110,21 +61,25 @@ export function ProjectCard(props:ProjectCardProps) {
         </Typography>
         <Divider />
         <Box display="flex" gap={1}>
-          {props?.tecs?.map((tec) => (
-            <Chip label={tec} key={tec} />
+          {props?.techs?.map((tec) => (
+            <Chip label={tec.name} key={tec.id} />
           ))}
         </Box>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
           href={`${props?.github_url}`}
+          target="_blank"
           aria-label="Repositório"
+          disabled={!props?.github_url}
         >
           <GitHub />
         </IconButton>
         <IconButton
           href={`${props?.deploy_url}`}
+          target="_blank"
           aria-label="Deploy"
+          disabled={!props?.deploy_url}
         >
           <Language />
         </IconButton>

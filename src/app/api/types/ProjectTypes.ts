@@ -9,6 +9,11 @@ export interface IProjectInput {
 
 }
 
+interface ITecnology {
+  id: string;
+  name: string;
+}
+
 export interface IProjects {
   id: string;
   name: string;
@@ -20,7 +25,7 @@ export interface IProjects {
   githubId: string;
   createdAt: string;
   updatedAt: string;
-  technologies: string[];
+  technologies: ITecnology[];
 
 }
 
@@ -34,7 +39,8 @@ export interface ICreateProjectInput {
 export interface IGetProjectsByUserInput {
   input: {
   userId: string;
-}
+  username: string;
+  }
 }
 
 export interface IDeleteProjectInput {

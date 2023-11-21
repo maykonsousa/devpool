@@ -9,17 +9,22 @@ interface IFeedback {
 interface ICreateFeedbackService {
   feedback: IFeedback;
 }
-export const createFeedbackService = async ({ feedback }:ICreateFeedbackService) => {
+export const createFeedbackService = async ({ feedback: input }:ICreateFeedbackService) => {
   try {
     await prisma.feedback.create({
-      data: feedback,
+      data: {
+        name: input.name,
+        email: input.email,
+        phone: input.phone,
+        message: input.message,
+      },
     });
 
     return {
       status: 'success',
       message: 'Sua mensagem foi enviada com sucesso!. Aguarde nosso contato.',
     };
-  } catch {
+  } catch (error) {
     return {
       status: 'error',
       message: 'Ocorreu um erro ao enviar sua mensagem. Tente novamente.',

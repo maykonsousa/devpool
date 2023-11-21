@@ -55,7 +55,13 @@ export function ProjectForm() {
   });
   const { user } = useSession();
   const { showMessage } = useFeedback();
-  const { refetch } = useGetProjectsByUser(user?.id as string);
+  const { refetch } = useGetProjectsByUser({
+    variables: {
+      input: {
+        userId: user?.id,
+      },
+    },
+  });
   const { url, openUpload, onResetAtavarOptions } = useUpload();
   const { onlyNames: technologiesOptions } = useGetAllTechnologies();
   const { createProject, loading } = useCreateProject({

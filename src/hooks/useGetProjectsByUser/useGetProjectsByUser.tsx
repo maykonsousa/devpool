@@ -1,6 +1,5 @@
 import { IProjects } from '@/app/api/types/ProjectTypes';
 import { gql, useQuery } from '@apollo/client';
-import { useSession } from '../useSession';
 
 const GET_PROJECTS_BY_USER = gql`
   query GetProjectsByUser($input: GetProjectsByUserInput!) {
@@ -26,7 +25,8 @@ const GET_PROJECTS_BY_USER = gql`
 
 interface IVariables {
   input:{
-    userId:string
+    userId?:string
+    username?:string
   }
 }
 
@@ -38,17 +38,19 @@ interface IResult {
   };
   }
 
-export const useGetProjectsByUser = (userId?:string) => {
-  const { user } = useSession();
+  interface IUseGetProjectsByUser {
+    variables:IVariables
+  }
+
+export const useGetProjectsByUser = ({ variables }:IUseGetProjectsByUser) => {
   const {
     data, loading, error, refetch,
   } = useQuery<IResult, IVariables>(GET_PROJECTS_BY_USER, {
-    variables: { input: { userId: `${userId ?? user?.id}` } },
-    skip: !userId,
+    variables,
   });
 
   return {
-    data: data?.getProjectsByUser.projects || [],
+    data: data?.getProjectsByUser,
     loading,
     error,
     refetch,

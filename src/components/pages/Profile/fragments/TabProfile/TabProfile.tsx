@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
-  Box, Chip, Typography, useTheme, LinearProgress, Tooltip,
+  Box, Chip, Typography, useTheme, LinearProgress, Tooltip, AvatarGroup, Skeleton,
 } from '@mui/material';
 import {
   Computer, EqualizerSharp, LocationOn, Person,
@@ -8,6 +8,7 @@ import {
 import { Card } from '@/components/Card';
 import { SocialIcon } from '@/components/SocialIcon';
 import { GridTable } from '@/components/GridTable';
+import { useGetProfile } from '@/hooks';
 import {
   Container, Content, Sidebar,
 } from './TabProfile.styles';
@@ -82,93 +83,145 @@ function InFormationRow({ label, icon, value }:InfoRowProps) {
     </Box>
   );
 }
+interface ITabProfileProps {
+  username: string;
+}
+export function TabProfile({ username }:ITabProfileProps) {
+  const { data, loading } = useGetProfile({
+    variables: {
+      input: {
+        username,
+      },
+    },
+  });
 
-export function TabProfile() {
+  const user = useMemo(() => data?.user, [data]);
   return (
     <Container>
       <Sidebar>
         <Card title="informações">
-          <InFormationRow label="Nome:" value="Maykon Sousa" icon={<Person />} />
-          <InFormationRow label="Atuação:" value="Front-end" icon={<Computer />} />
-          <InFormationRow label="Senioridade:" value="Pleno" icon={<EqualizerSharp />} />
-          <InFormationRow label="Localização:" value="João Pessoa/PB" icon={<LocationOn />} />
+          {loading ? (<Skeleton variant="rectangular" width="100%" height={200} />) : (
+            <>
+              <InFormationRow label="Nome:" value={user?.name} icon={<Person />} />
+              <InFormationRow label="Atuação:" value={user?.role} icon={<Computer />} />
+              <InFormationRow label="Senioridade:" value={user?.seniority} icon={<EqualizerSharp />} />
+              <InFormationRow label="Localização:" value={`${user?.city}/${user?.state}`} icon={<LocationOn />} />
+            </>
+          )}
         </Card>
 
         <Card title="tecnologias" direction="row">
-          <Chip label="React" />
-          <Chip label="Next" />
-          <Chip label="Node" />
-          <Chip label="Material-ui" />
-          <Chip label="AWS" />
-          <Chip label="Typescript" />
-          <Chip label="Tailwind" />
-          <Chip label="Jira" />
-          <Chip label="Jenkings" />
-          <Chip label="Postgress" />
+          {loading ? (<Skeleton variant="rectangular" width="100%" height={200} />) : (
+            <Box sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+            }}
+            >
+              {user?.technologies.map((tech) => (
+                <Chip label={tech.name} key={tech.id} />
+              ))}
+            </Box>
+          )}
         </Card>
 
         <Card title="social" direction="row">
-          <SocialIcon type="facebook" url="http://facebook.com/maykonsousa" />
-          <SocialIcon type="instagram" url="https://www.instagram.com/mykesousa/" />
-          <SocialIcon type="linkedin" url="https://www.linkedin.com/in/maykonsousa/" />
-          <SocialIcon type="github" url="https://github.com/maykonsousa" />
-          <SocialIcon type="whatsapp" url="https://wa.me/5561992943297" />
+          {loading ? (<Skeleton variant="rectangular" width="100%" height={50} />) : (
+            <AvatarGroup max={6}>
+              {user?.contacts[0].linkedin_url && (
+              <SocialIcon
+                type="linkedin_url"
+                url={user?.contacts[0].linkedin_url}
+              />
+              )}
+              {user?.contacts[0].github_url && (
+              <SocialIcon
+                type="github_url"
+                url={user?.contacts[0].github_url}
+              />
+              )}
+              {user?.contacts[0].twitter_url && (
+              <SocialIcon
+                type="twitter_url"
+                url={user?.contacts[0].twitter_url}
+              />
+              )}
+              {user?.contacts[0].instagram_url && (
+              <SocialIcon
+                type="instagram_url"
+                url={user?.contacts[0].instagram_url}
+              />
+              )}
+              {user?.contacts[0].personal_website && (
+              <SocialIcon
+                type="personal_website"
+                url={user?.contacts[0].personal_website}
+              />
+              )}
+              {user?.contacts[0].cell_phone && (
+              <SocialIcon
+                type="cell_phone"
+                url={user?.contacts[0].cell_phone}
+              />
+              )}
+            </AvatarGroup>
+          )}
 
         </Card>
       </Sidebar>
       <Content>
         <Card title="sobre">
-          <Typography variant="body1">
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-            Dados mockados para teste
-          </Typography>
+          {loading ? (<Skeleton variant="text" width="100%" height={80} />) : (
+            <Typography variant="body1">
+              {user?.bio}
+            </Typography>
+          )}
         </Card>
 
-        <Card title="Cursos" sx={{ flex: 1 }}>
-          <GridTable
-            columns={[
-              {
-                field: 'title',
-                headerName: 'Título',
-                minWidth: 100,
-                flex: 1,
-              },
-              {
-                field: 'school', headerName: 'Instituição', minWidth: 100, flex: 1,
-              },
-              {
-                field: 'progress',
-                headerName: 'Progresso',
-                minWidth: 50,
-                flex: 1,
-                renderCell: ({ row }) => (
-                  <Tooltip title={`${row.progress}%`}>
-                    <LinearProgress
-                      sx={{ width: '100%', height: '10px' }}
-                      color="primary"
-                      variant="determinate"
-                      value={row.progress}
-                      content="teste"
-                    />
-                  </Tooltip>
-                ),
-              },
-            ]}
-            rows={courses.map((course) => ({
-              id: course.title,
-              title: course.title,
-              school: course.school,
-              progress: course.progress,
-            }))}
-          />
+        <Card
+          title="Cursos"
+          sx={{
+            flex: 1,
+          }}
+        >
+          {loading ? (<Skeleton width="100%" height={400} />) : (
+            <GridTable
+              columns={[
+                {
+                  field: 'title',
+                  headerName: 'Título',
+                  minWidth: 100,
+                  flex: 1,
+                },
+                {
+                  field: 'school', headerName: 'Instituição', minWidth: 100, flex: 1,
+                },
+                {
+                  field: 'progress',
+                  headerName: 'Progresso',
+                  minWidth: 50,
+                  flex: 1,
+                  renderCell: ({ row }) => (
+                    <Tooltip title={`${row.progress}%`}>
+                      <LinearProgress
+                        sx={{ width: '100%', height: '10px' }}
+                        color="primary"
+                        variant="determinate"
+                        value={row.progress}
+                        content="teste"
+                      />
+                    </Tooltip>
+                  ),
+                },
+              ]}
+              rows={user?.courses?.map((course) => ({
+                id: course.id,
+                title: course.name,
+                school: course.school,
+                progress: course.progress,
+              })) || []}
+            />
+          )}
 
         </Card>
       </Content>
