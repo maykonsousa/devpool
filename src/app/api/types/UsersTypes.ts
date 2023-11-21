@@ -35,3 +35,9 @@ export interface IDeleteUserInput {
     userId: string;
   }
 }
+
+export interface IGetProfileInput {
+  input:{
+    username: string;
+  }
+}

@@ -28,9 +28,9 @@ export const HeaderAvatar = styled(Box)`
   width: 120px;
   height: 120px;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.palette.primary.main};
   color: ${({ theme }) => theme.palette.primary.contrastText};
   border: 4px solid ${({ theme }) => theme.palette.primary.main};
+  background-color: ${({ theme }) => theme.palette.background.paper};
   margin-top: -60px;
   z-index: 1;
 

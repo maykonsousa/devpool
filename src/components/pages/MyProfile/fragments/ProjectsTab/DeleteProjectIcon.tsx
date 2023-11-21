@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import { ConfirmationDialog } from '@/components/ConfimationDialog';
-import { useDeleteProject, useFeedback, useGetProjectsByUser } from '@/hooks';
+import {
+  useDeleteProject, useFeedback, useGetProjectsByUser, useSession,
+} from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -11,7 +13,14 @@ interface IDeleteProjectIconProps {
 
 export function DeleteProjectIcon({ projectId }:IDeleteProjectIconProps) {
   const { deleteProject, loading } = useDeleteProject(projectId);
-  const { refetch } = useGetProjectsByUser();
+  const { user } = useSession();
+  const { refetch } = useGetProjectsByUser({
+    variables: {
+      input: {
+        userId: user?.id,
+      },
+    },
+  });
   const { showMessage } = useFeedback();
 
   const handleDeleteProject = useCallback(async () => {

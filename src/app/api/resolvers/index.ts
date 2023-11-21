@@ -14,6 +14,7 @@ import { getAllUsersService } from '../services/getAllUsers.service';
 import { getContactsService } from '../services/getContacts.service';
 import { getCoursesByUserService } from '../services/getCoursesByUser.service';
 import { getJobsByUserService } from '../services/getJobsByUser.service';
+import { getProfileService } from '../services/getProfile.service';
 import { getProjectsByUserService } from '../services/getProjectsByUser.service';
 import { getRolesService } from '../services/getRoles.service';
 import { getTechsByUserService } from '../services/getTechsByUser.service';
@@ -26,7 +27,7 @@ import { ICreateJobInput, IDeleteJobInput, IGetJobsByUserInput } from '../types/
 import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
 import { IAddOrRemoveTechnologyInput, IGetTechsByUserInput } from '../types/TechsTypes';
 import {
-  IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
+  IDeleteUserInput, IGetProfileInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
 } from '../types/UsersTypes';
 import { IGetContactsInput, IUpdateContactsInput } from '../types/contactsType';
 import { ICreateFeedbackInput } from '../types/feedbackTypes';
@@ -40,6 +41,7 @@ export const resolvers = {
       _:any,
       args: IGetUserByEmailInput,
     ) => getUserByEmailService(args.input.email),
+    getProfile: async (_:any, args:IGetProfileInput) => getProfileService(args.input),
 
     // ROLES
     getRoles: async () => getRolesService(),
@@ -51,7 +53,7 @@ export const resolvers = {
     getProjectsByUser: async (
       _:any,
       args: IGetProjectsByUserInput,
-    ) => getProjectsByUserService(args.input.userId),
+    ) => getProjectsByUserService(args.input),
 
     // COURSES
     getCoursesByUser: async (
@@ -80,7 +82,6 @@ export const resolvers = {
     // USERS
     createUser: async (_:any, args: IcreateUserInput) => createUserService(args.input),
     updateUser: async (_:any, args:IUpdateUserInput) => updateUserService(args.input),
-
     deleteUser: async (_:any, args: IDeleteUserInput) => deleteUserService(args.input.userId),
 
     // COURSES

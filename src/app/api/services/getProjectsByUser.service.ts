@@ -1,12 +1,24 @@
 import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
-export const getProjectsByUserService = async (userId:string) => {
+interface IGetProjectsByUserService {
+  userId?: string;
+  username?: string;
+}
+
+export const getProjectsByUserService = async ({ userId, username }:IGetProjectsByUserService) => {
   try {
-    if (!userId) throw new AppError('User id is required', 400);
+    if (!userId && !username) throw new AppError('Requisição inválida', 400);
     const userExists = await prisma.user.findFirst({
       where: {
-        id: userId,
+        OR: [
+          {
+            id: userId,
+          },
+          {
+            username,
+          },
+        ],
       },
 
     });
@@ -19,7 +31,7 @@ export const getProjectsByUserService = async (userId:string) => {
       },
 
       where: {
-        userId,
+        userId: userExists.id,
       },
 
       include: {

@@ -1,10 +1,26 @@
+import React, { useMemo } from 'react';
 import { Box, useTheme } from '@mui/material';
-import React from 'react';
+import { useGetProjectsByUser } from '@/hooks';
+import { Loading } from '@/components/Loading';
 import { ProjectCard } from './ProjectCard';
 
-export function TabProjects() {
+interface TabProjectsProps {
+  username: string;
+}
+
+export function TabProjects({ username }: TabProjectsProps) {
   const theme = useTheme();
-  return (
+  const { data, loading } = useGetProjectsByUser({
+    variables: {
+      input: {
+        username,
+      },
+    },
+  });
+
+  const projects = useMemo(() => data?.projects, [data]) ?? [];
+
+  return loading ? (<Loading />) : (
     <Box
       sx={{
         display: 'grid',
@@ -19,104 +35,20 @@ export function TabProjects() {
         },
       }}
     >
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/574080/pexels-photo-574080.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 2"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['React', 'Typescript', 'Material UI']}
-        type="frontend"
 
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/270557/pexels-photo-270557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 3"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['Node.js', 'Prisma', 'Typescript']}
-        type="backend"
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 4"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['React Native', 'Typescript', 'Material UI']}
-        type="mobile"
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/811587/pexels-photo-811587.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 5"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['React', 'Typescript', 'Material UI', 'Node.js', 'Prisma']}
-        type="fullstack"
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/574080/pexels-photo-574080.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 6"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['React', 'Typescript', 'Material UI']}
-        type="frontend"
+      { projects.map((project) => (
+        <ProjectCard
+          key={project.id}
+          name={project.name}
+          image_url={project.image_url}
+          deploy_url={project.deployed_url}
+          github_url={project.repo_url}
+          techs={project.technologies}
+          resume={project.description}
+        />
 
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/270557/pexels-photo-270557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 1"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['Node.js', 'Prisma', 'Typescript']}
-        type="backend"
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 7"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['React Native', 'Typescript', 'Material UI']}
-        type="mobile"
-      />
-      <ProjectCard
-        deploy_url="www.google.com.br"
-        description="Descrição do projeto"
-        github_url="www.google.com.br"
-        image_url="https://images.pexels.com/photos/811587/pexels-photo-811587.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=2"
-        name="Projeto 8"
-        resume="This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like."
-        tecs={['React', 'Typescript', 'Material UI', 'Node.js', 'Prisma']}
-        type="fullstack"
-      />
+      ))}
+
     </Box>
   );
 }
