@@ -7,7 +7,10 @@ export const PageContainer = styled(Box)`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+  max-width: 1440px;
   flex:1;
+  margin: 0 auto;
 `;
 
 export const MainContainer = styled(Box)`

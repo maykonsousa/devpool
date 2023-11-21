@@ -1,33 +1,28 @@
 import React from 'react';
 import Image from 'next/image';
-import { Box, Button, Typography } from '@mui/material';
-import { MainContainer, MainContent } from './Main.styles';
+import { useMediaQuery, useTheme } from '@mui/material';
+import {
+  AsideContainer, HeroContainer, MainContainer, MainContent, RegisterButton, Title,
+} from './Main.styles';
 
 export function Main() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <MainContainer>
       <MainContent>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          width: '100%',
-          gap: '1rem',
+        <AsideContainer>
 
-        }}
-        >
           <Image
             src="/logo.svg"
             alt="Hero"
-            width={400}
-            height={200}
+            width={isMobile ? 200 : 400}
+            height={isMobile ? 100 : 200}
           />
-          <Typography variant="h3" component="h1" textAlign="center">
+          <Title>
             Reunindo talentos tech em um só lugar
-          </Typography>
-          <Button
+          </Title>
+          <RegisterButton
             variant="contained"
             color="primary"
             href="/auth/register"
@@ -39,26 +34,18 @@ export function Main() {
               fontWeight: 'bold',
             }}
           >
-            Me inscrever agora
-          </Button>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            width: '100%',
-          }}
+            Fazer inscrição
+          </RegisterButton>
+        </AsideContainer>
 
-        >
+        <HeroContainer>
           <Image
             src="/hero.svg"
             alt="Hero"
             width={600}
             height={600}
           />
-        </Box>
+        </HeroContainer>
       </MainContent>
     </MainContainer>
   );
