@@ -78,7 +78,13 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
         </Button>
         {
           !data ? (
-            <Button fullWidth variant="contained" color="primary" onClick={onNext}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              disabled={!githubUser}
+              onClick={onNext}
+            >
               {isMobile ? <ArrowForward /> : 'Continuar'}
             </Button>
           ) : (
