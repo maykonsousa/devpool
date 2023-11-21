@@ -5,7 +5,11 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-export function MenuCard() {
+interface MenuCardProps {
+  username: string;
+}
+
+export function MenuCard({ username }:MenuCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const opened = Boolean(anchorEl);
   const navigation = useRouter();
@@ -19,7 +23,7 @@ export function MenuCard() {
   };
 
   const handleClick = () => {
-    navigation.push('/profile/maykonsousa');
+    navigation.push(`/profile/${username}`);
     handleCloseMenu();
   };
   return (

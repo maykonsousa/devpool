@@ -50,7 +50,7 @@ export function UserCard({
       <CardHeader>
         <Avatar alt={user.name} src={user.avatar_url} />
         <CardTitle>{user.name}</CardTitle>
-        <MenuCard />
+        <MenuCard username={user.username} />
       </CardHeader>
       <InfoContainer>
         <Chip avatar={<Computer fontSize="small" />} label={user.role} />
