@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { addOrRemoveTechnologyUserService } from '../services/addTechnologyUser.service';
 import { createCourseService } from '../services/createCourse.service';
+import { createFeedbackService } from '../services/createFeedback.service';
 import { createJobService } from '../services/createJob.service';
 import { createProjectService } from '../services/createProject.service';
 import { createUserService } from '../services/createUser.service';
@@ -28,6 +29,7 @@ import {
   IDeleteUserInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
 } from '../types/UsersTypes';
 import { IGetContactsInput, IUpdateContactsInput } from '../types/contactsType';
+import { ICreateFeedbackInput } from '../types/feedbackTypes';
 
 export const resolvers = {
 
@@ -108,6 +110,9 @@ export const resolvers = {
 
     // CONTACTS
     updateContacts: async (_:any, args: IUpdateContactsInput) => updateContactsService(args.input),
+
+    // FEEDBACK
+    createFeedback: async (_:any, args: ICreateFeedbackInput) => createFeedbackService(args.input),
   },
 
 };

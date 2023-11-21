@@ -11,7 +11,18 @@ export const PageContainer = styled(Box)`
   max-height: calc(100vh - 160px);
   flex: 1;
   justify-content: flex-start;
+  overflow-y: hidden;
+  
+`;
+
+export const CardsContainer = styled(Box)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  height: 100%;
+  width: 100%;
   overflow-y: auto;
+  gap: 1rem;
+
   &::-webkit-scrollbar {
     width: 0.5em;
   }
@@ -23,14 +34,5 @@ export const PageContainer = styled(Box)`
     background-color: ${({ theme }) => theme.palette.primary.main};
     border-radius: 4px;
   }
-`;
-
-export const CardsContainer = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  gap: 1rem;
 
 `;
