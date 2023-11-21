@@ -372,6 +372,24 @@ export const typeDefs = `#graphql
     message: String!
   }
 
+  ##FEEDBACK
+
+  input FeedbackInputData {
+    name: String
+    email: String
+    phone: String
+    message: String
+  }
+
+  input CreateFeedbackInput {
+    feedback: FeedbackInputData
+  }
+
+  type CreateFeedbackPayload {
+    status: Status!
+    message: String!
+  }
+
 
   
 
@@ -426,5 +444,8 @@ export const typeDefs = `#graphql
 
     ##CONTACTS
     updateContacts(input: UpdateContactsInput): UpdateContactsPayload!
+
+    ##FEEDBACK
+    createFeedback(input: CreateFeedbackInput): CreateFeedbackPayload!
   }
 `;

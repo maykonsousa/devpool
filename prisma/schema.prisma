@@ -136,3 +136,13 @@ model Job {
   User          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   JobTechnology JobTechnology[]
 }
+
+model Feedback {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
