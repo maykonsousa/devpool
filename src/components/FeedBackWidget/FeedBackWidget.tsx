@@ -9,6 +9,8 @@ import {
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useCreateFeedback, useFeedback } from '@/hooks';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createFeedbackValidation } from '@/validations/formValidations/feedbackValidations';
 import { TextInput } from '../TextInput';
 import { Loading } from '../Loading';
 
@@ -30,6 +32,7 @@ export function FeedBackWidget() {
   const [isVisible, setIsVisible] = React.useState(false);
   const formMethods = useForm<IFormValues>({
     defaultValues,
+    resolver: zodResolver(createFeedbackValidation),
   });
   const { showMessage } = useFeedback();
 
