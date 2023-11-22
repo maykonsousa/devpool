@@ -21,7 +21,6 @@ export const GridContainer = styled(Box)`
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     
   }
 `;

@@ -26,7 +26,7 @@ export const PageContainer = styled(Box)`
 
 export const Title = styled(Typography)`
   font-weight: 700;
-  font-size: ${({ theme }) => theme.typography.h1.fontSize};
+  font-size: ${({ theme }) => theme.typography.h3.fontSize};
 
   @media (max-width: 768px) {
     font-size: 32px;
@@ -35,12 +35,12 @@ export const Title = styled(Typography)`
 
 export const Subtitle = styled(Typography)`
   font-weight: 400;
-  font-size: ${({ theme }) => theme.typography.h2.fontSize};
+  font-size: ${({ theme }) => theme.typography.h5.fontSize};
   margin-top: ${({ theme }) => theme.spacing(2)};
   margin-bottom: ${({ theme }) => theme.spacing(2)};
   text-align: center;
 
   @media (max-width: 768px) {
-    font-size: 24px;
+    font-size: 20px;
   }
 `;

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
 export const PageContainer = styled(Box)`
   display: flex;
@@ -11,7 +11,27 @@ export const PageContainer = styled(Box)`
   flex: 1;
   justify-content: flex-start;
   overflow-y: hidden;
+
+
+  @media (max-width: 768px) {
+    padding: 0;
+    gap: 0;
+    justify-content: center;
+    max-height: calc(100vh - 130px);
+  }
   
+`;
+
+export const Title = styled(Typography)`
+  font-weight: 500;
+  font-size: 2rem;
+  margin: ${({ theme }) => theme.spacing(2, 0)};
+  color: ${({ theme }) => theme.palette.text.primary};
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+    margin: ${({ theme }) => theme.spacing(1, 0)};
+  }
 `;
 
 export const CardsContainer = styled(Box)`

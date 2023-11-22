@@ -14,8 +14,8 @@ export function UnderConstruction() {
       <Image
         src="/manWithTablet.svg"
         alt="Em construção"
-        width={isMobile ? 250 : 500}
-        height={isMobile ? 250 : 500}
+        width={isMobile ? 250 : 300}
+        height={isMobile ? 250 : 300}
       />
       <Subtitle>Ainda estamos trabalhando nessa feature</Subtitle>
     </PageContainer>

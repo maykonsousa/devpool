@@ -4,15 +4,16 @@ import { Close, WhatsApp } from '@mui/icons-material';
 import {
   Box,
   Button,
-  Card, CardActions, CardContent, IconButton, Typography,
+  CardActions, CardContent, IconButton, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useCreateFeedback, useFeedback } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createFeedbackValidation } from '@/validations/formValidations';
 import { TextInput } from '../TextInput';
 import { Loading } from '../Loading';
+import { CardContainer, CardHeader, ActionButton } from './FeedBackWidget.styles';
 
 interface IFormValues {
   name: string;
@@ -30,6 +31,8 @@ const defaultValues: IFormValues = {
 
 export function FeedBackWidget() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const formMethods = useForm<IFormValues>({
     defaultValues,
     resolver: zodResolver(createFeedbackValidation),
@@ -60,6 +63,14 @@ export function FeedBackWidget() {
     });
   };
 
+  const actionClick = useCallback(() => {
+    if (isVisible) {
+      handleClose();
+    } else {
+      handleOpen();
+    }
+  }, [isVisible, handleClose, handleOpen]);
+
   const { createFeedback, loading } = useCreateFeedback({
     variables: {
       input: {
@@ -75,53 +86,19 @@ export function FeedBackWidget() {
   });
   return (
     <>
-      <IconButton
-        sx={{
-          position: 'fixed',
-          bottom: 76,
-          right: 16,
-          zIndex: 9999,
-          backgroundColor: 'primary.main',
-          color: 'white',
-          '&:hover': {
-            backgroundColor: 'primary.dark',
-          },
-        }}
-        onClick={handleOpen}
+      <ActionButton
+        onClick={actionClick}
       >
-        <WhatsApp />
-      </IconButton>
+        {isVisible ? <Close /> : <WhatsApp />}
+      </ActionButton>
       {isVisible && (
-      <Card
-        sx={{
-          position: 'fixed',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          borderRadius: '10px',
-          width: '100%',
-          maxWidth: 400,
-          bottom: 140,
-          right: 16,
-          zIndex: 9999,
-        }}
-
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-            color: 'white',
-            padding: '1rem',
-          }}
-        >
+      <CardContainer>
+        <CardHeader>
           <Typography variant="h6" fontWeight={600}>Feedback</Typography>
           <IconButton onClick={handleClose}>
             <Close />
           </IconButton>
-        </Box>
+        </CardHeader>
         <FormProvider {...formMethods}>
           {loading ? <Loading /> : (
             <CardContent>
@@ -159,7 +136,7 @@ export function FeedBackWidget() {
                   label="Mensagem"
                   placeholder="Digite sua mensagem"
                   multiline
-                  rows={4}
+                  rows={isMobile ? 2 : 4}
                 />
               </Box>
             </CardContent>
@@ -177,7 +154,7 @@ export function FeedBackWidget() {
           </CardActions>
         </FormProvider>
 
-      </Card>
+      </CardContainer>
       )}
     </>
   );

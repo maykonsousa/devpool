@@ -1,10 +1,9 @@
 'use client';
 
-import { Typography } from '@mui/material';
 import { useGetProfiles } from '@/hooks';
 import { Loading } from '@/components/Loading';
 import { EmptyState } from '@/components/EmptyState';
-import { CardsContainer, PageContainer } from './CommunityPage.styles';
+import { CardsContainer, PageContainer, Title } from './CommunityPage.styles';
 import { UserCard } from './fragments';
 
 interface IUserData {
@@ -29,9 +28,7 @@ export function CommunityPage() {
 
   return (
     <PageContainer>
-      <Typography variant="h4" sx={{ marginBottom: '2rem' }}>
-        Comunidade
-      </Typography>
+      <Title> Comunidade </Title>
       {!data && !loading && error && (
       <EmptyState
         message="Ocorreu um erro ao carregar os usuários."
