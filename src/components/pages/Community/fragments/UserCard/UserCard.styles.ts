@@ -35,6 +35,22 @@ export const CardTitle = styled(Typography)`
   font-size: ${({ theme }) => theme.typography.h6.fontSize};
 `;
 
+export const Bio = styled(Typography)`
+  font-size: ${({ theme }) => theme.typography.body2.fontSize};
+  color: ${({ theme }) => theme.palette.text.secondary};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; 
+  -webkit-box-orient: vertical;
+
+
+  
+  @media (max-width: 768px) {
+    -webkit-line-clamp: 2; 
+  }
+`;
+
 export const CardContent = styled(Box)`
   flex: 1;
 `;

@@ -7,10 +7,11 @@ interface TechCheckboxProps {
   techId: string;
   isChecked: boolean;
   techName: string;
+  reset: () => void;
 }
 
 export function TechCheckbox({
-  userId, techId, isChecked, techName,
+  userId, techId, isChecked, techName, reset,
 }:TechCheckboxProps) {
   const { showMessage } = useFeedback();
   const { updateTechnology, loading } = useUpdateTechnology({
@@ -24,6 +25,7 @@ export function TechCheckbox({
 
   const handleChange = async () => {
     const { data } = await updateTechnology();
+    reset();
     showMessage({
       type: data?.addOrRemoveTechnologyUser?.status === 'success' ? 'success' : 'error',
       message: data?.addOrRemoveTechnologyUser?.message || 'Erro ao atualizar tecnologia',

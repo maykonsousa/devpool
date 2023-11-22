@@ -7,7 +7,6 @@ export const PageContainer = styled(Box)`
   flex-direction: column;
   width: 100%;
   align-items: center;
-
   max-height: calc(100vh - 160px);
   flex: 1;
   justify-content: flex-start;
@@ -34,5 +33,12 @@ export const CardsContainer = styled(Box)`
     background-color: ${({ theme }) => theme.palette.primary.main};
     border-radius: 4px;
   }
+
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    padding: 0 1rem;
+    gap: 2rem;
+  } 
 
 `;

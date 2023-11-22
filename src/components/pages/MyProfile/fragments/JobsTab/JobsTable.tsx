@@ -3,14 +3,18 @@ import { Loading } from '@/components/Loading';
 import { useGetJobsByUser, useSession } from '@/hooks';
 import { formatDate } from '@/utils';
 import { Edit } from '@mui/icons-material';
-import { Box, IconButton } from '@mui/material';
+import {
+  Box, IconButton, useMediaQuery, useTheme,
+} from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
 import { DeleteJobDialog } from './deleteJobDialog';
 
 export function JobsTable() {
   const { user } = useSession();
-  const columns:GridColDef[] = [
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const desktopColumns:GridColDef[] = [
     {
       field: 'company',
       headerName: 'Empresa',
@@ -53,13 +57,41 @@ export function JobsTable() {
 
   ];
 
+  const mobileColumns:GridColDef[] = [
+    {
+      field: 'company',
+      headerName: 'Empresa',
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            justifyContent: 'space-between',
+          }}
+
+        >
+          {row.company}
+          <Box>
+            <IconButton>
+              <Edit />
+            </IconButton>
+            <DeleteJobDialog jobId={row.id} userId={user?.id as string} />
+          </Box>
+        </Box>
+      ),
+    },
+
+  ];
+
   const { data, loading } = useGetJobsByUser({ userId: user?.id });
 
   const jobs = useMemo(() => data?.jobs, [data]);
 
   return loading ? (<Loading />) : (
     <GridTable
-      columns={columns}
+      columns={isMobile ? mobileColumns : desktopColumns}
       loading={loading}
       rows={jobs || []}
       emptyMessage="Voce ainda nao adicionou nenhuma experiencia profissional"

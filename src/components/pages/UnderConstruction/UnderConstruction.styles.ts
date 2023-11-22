@@ -1,6 +1,6 @@
 'use client';
 
-import { styled, Box } from '@mui/material';
+import { styled, Box, Typography } from '@mui/material';
 
 export const PageContainer = styled(Box)`
   display: flex;
@@ -21,5 +21,26 @@ export const PageContainer = styled(Box)`
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.palette.primary.main};
     border-radius: 4px;
+  }
+`;
+
+export const Title = styled(Typography)`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.typography.h1.fontSize};
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+`;
+
+export const Subtitle = styled(Typography)`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.typography.h2.fontSize};
+  margin-top: ${({ theme }) => theme.spacing(2)};
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
   }
 `;

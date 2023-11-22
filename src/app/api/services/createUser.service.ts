@@ -12,7 +12,7 @@ export const createUserService = async (user:IUserInput) => {
     });
 
     if (userAlreadyExists) {
-      throw new AppError('User already exists', 400);
+      throw new AppError('Já existe um usuário inscrito com esse email', 400);
     }
 
     const encriptedPassword = await hash(user.password, 8);
@@ -34,7 +34,7 @@ export const createUserService = async (user:IUserInput) => {
 
     return {
       status: 'success',
-      message: 'User created successfully',
+      message: 'Usuário cadastrado com sucesso',
     };
   } catch (error) {
     if (error instanceof AppError) {
@@ -45,7 +45,7 @@ export const createUserService = async (user:IUserInput) => {
     }
     return {
       status: 'error',
-      message: 'Internal server error',
+      message: 'Erro ao cadastrar usuário',
     };
   }
 };

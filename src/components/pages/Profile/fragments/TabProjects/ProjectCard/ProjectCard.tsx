@@ -1,7 +1,6 @@
 import { GitHub, Language } from '@mui/icons-material';
 import {
   Box,
-  Card,
   CardActions,
   CardContent,
   CardHeader,
@@ -12,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+import { CardContainer } from './ProjectCard.styles';
 
 interface ITechs {
   id: string;
@@ -29,7 +29,7 @@ interface ProjectCardProps {
 
 export function ProjectCard(props:ProjectCardProps) {
   return (
-    <Card
+    <CardContainer
       sx={{
         width: '100%',
         maxWidth: '360px',
@@ -53,14 +53,23 @@ export function ProjectCard(props:ProjectCardProps) {
         title={props?.name}
       />
       <CardContent sx={{
-        padding: '8px 0', gap: '8px', display: 'flex', flexDirection: 'column',
+        padding: '8px', gap: '8px', display: 'flex', flexDirection: 'column',
       }}
       >
         <Typography variant="body2" color="text.secondary">
           {props?.resume}
         </Typography>
         <Divider />
-        <Box display="flex" gap={1}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '8px',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+
           {props?.techs?.map((tec) => (
             <Chip label={tec.name} key={tec.id} />
           ))}
@@ -86,6 +95,6 @@ export function ProjectCard(props:ProjectCardProps) {
 
       </CardActions>
 
-    </Card>
+    </CardContainer>
   );
 }

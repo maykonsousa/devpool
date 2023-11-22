@@ -1,6 +1,8 @@
+'use client';
+
 import { GridTable } from '@/components/GridTable';
 import { useGetCoursesByUser, useSession } from '@/hooks';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React from 'react';
 import { ICourseData } from '@/app/api/types/CousersTypes';
@@ -10,7 +12,9 @@ import { UpdateCourseDialog } from './UpdateCourseDialog';
 export function CoursesTable() {
   const { user } = useSession();
   const { data, loading } = useGetCoursesByUser(user?.id || '');
-  const columns: GridColDef[] = [
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const deskTopColumns: GridColDef[] = [
     {
       headerName: 'Nome',
       field: 'name',
@@ -26,7 +30,7 @@ export function CoursesTable() {
     {
       headerName: 'Tipo',
       field: 'type',
-      width: 200,
+      maxWidth: 200,
     },
     {
       headerName: 'Ações',
@@ -46,12 +50,44 @@ export function CoursesTable() {
 
   ];
 
+  const mobileColumns: GridColDef[] = [
+    {
+      headerName: 'Nome',
+      field: 'name',
+      flex: 1,
+      renderCell: ({ row }: GridRenderCellParams<ICourseData>) => (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            justifyContent: 'space-between',
+          }}
+        >
+          {row.name}
+          <Box>
+            <UpdateCourseDialog course={row} userId={user?.id as string} />
+            <DeleteCourseIcon
+              courseId={row.id}
+              userId={user?.id || ''}
+            />
+
+          </Box>
+        </Box>
+      ),
+
+    },
+
+  ];
+
   return (
+
     <GridTable
-      columns={columns}
+      columns={isMobile ? mobileColumns : deskTopColumns}
       rows={data ?? []}
       loading={loading}
       emptyMessage="Você ainda não possui cursos cadastrados"
     />
+
   );
 }

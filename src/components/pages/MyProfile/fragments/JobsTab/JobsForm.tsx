@@ -106,7 +106,6 @@ export function JobsForm() {
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
-      padding: '1rem',
     }}
     >
       <CardContent sx={{

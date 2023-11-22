@@ -1,19 +1,23 @@
+'use client';
+
 import React from 'react';
-import { Typography } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
-import { PageContainer } from './UnderConstruction.styles';
+import { PageContainer, Subtitle, Title } from './UnderConstruction.styles';
 
 export function UnderConstruction() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <PageContainer>
-      <Typography variant="h1">Calma gafanhoto!</Typography>
+      <Title>Calma gafanhoto!</Title>
       <Image
         src="/manWithTablet.svg"
         alt="Em construção"
-        width={500}
-        height={500}
+        width={isMobile ? 250 : 500}
+        height={isMobile ? 250 : 500}
       />
-      <Typography variant="h2">Ainda estamos trabalhando nessa feature</Typography>
+      <Subtitle>Ainda estamos trabalhando nessa feature</Subtitle>
     </PageContainer>
   );
 }

@@ -81,5 +81,11 @@ export const ActionsContainer = styled(Box)`
   align-items: center;
   justify-content: center;
   gap: 1rem;  
+  width: 100%;
   max-width: 900px;
+
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;

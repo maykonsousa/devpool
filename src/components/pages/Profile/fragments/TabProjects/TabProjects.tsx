@@ -36,6 +36,7 @@ export function TabProjects({ username }: TabProjectsProps) {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gridGap: theme.spacing(2),
+            padding: theme.spacing(2),
           }}
         >
           {projects.map((project) => (

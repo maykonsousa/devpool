@@ -48,6 +48,11 @@ export function TechsTab() {
     return false;
   };
 
+  const handleReset = () => {
+    setSearchText('');
+    setFilteredTechs(technologies);
+  };
+
   React.useEffect(() => {
     getAllTechs();
   }, [getAllTechs]);
@@ -91,6 +96,7 @@ export function TechsTab() {
                   techName={tech.name}
                   userId={user?.id as string}
                   isChecked={isChecked(tech.id)}
+                  reset={handleReset}
                 />
               ))}
 

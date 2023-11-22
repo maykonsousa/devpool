@@ -104,7 +104,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
     label: role.name,
   }));
 
-  const { createUser, loading: createuserLoading } = useCreateUser({
+  const { createUser, loading: createuserLoading, error } = useCreateUser({
     input: {
       name: methods.watch('name'),
       email: methods.watch('email'),
@@ -126,19 +126,19 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
 
   const onSubmit = methods.handleSubmit(async () => {
     const { data: createUserData } = await createUser();
-    if (createUserData?.createUser?.status === 'success') {
+    if (error || !createUserData) {
       showMessage({
-        message: 'Usuário criado com sucesso!',
-        type: 'success',
-      });
-      if (onNext) {
-        onNext();
-      }
-    } else {
-      showMessage({
-        message: 'Erro ao criar usuário',
+        message: 'Falha ao criar usuário',
         type: 'error',
       });
+    }
+    showMessage({
+      message: createUserData?.createUser.message as string,
+      type: createUserData?.createUser.status as 'success' | 'error',
+    });
+
+    if (createUserData?.createUser.status === 'success') {
+      onNext();
     }
   });
 

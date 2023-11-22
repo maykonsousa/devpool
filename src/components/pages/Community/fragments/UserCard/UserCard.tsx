@@ -1,5 +1,5 @@
 import {
-  Avatar, AvatarGroup, Chip, Typography,
+  Avatar, AvatarGroup, Chip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React from 'react';
 import {
@@ -7,6 +7,7 @@ import {
 } from '@mui/icons-material';
 import { useGetContacts } from '@/hooks';
 import {
+  Bio,
   CardContainer, CardContent, CardFooter, CardHeader, CardTitle, InfoContainer,
 } from './UserCard.styles';
 import { SocialIcon } from '../SocialIcon/SocialIcon';
@@ -44,6 +45,8 @@ export function UserCard({
   });
 
   const contacts = data?.contacts;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <CardContainer elevation={8}>
@@ -52,31 +55,20 @@ export function UserCard({
         <CardTitle>{user.name}</CardTitle>
         <MenuCard username={user.username} />
       </CardHeader>
-      <InfoContainer>
-        <Chip avatar={<Computer fontSize="small" />} label={user.role} />
-        <Chip avatar={<EqualizerSharp fontSize="small" />} label={user.seniority} />
-        <Chip avatar={<LocationOn fontSize="small" />} label={`${user.city}/${user.state}`} />
 
+      <InfoContainer>
+        <Chip avatar={!isMobile ? <Computer fontSize="small" /> : undefined} label={user.role} />
+        <Chip avatar={!isMobile ? <EqualizerSharp fontSize="small" /> : undefined} label={user.seniority} />
+        <Chip avatar={!isMobile ? <LocationOn fontSize="small" /> : undefined} label={`${user.city}/${user.state}`} />
       </InfoContainer>
 
       <CardContent>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: 4,
-            WebkitBoxOrient: 'vertical',
-          }}
-        >
+        <Bio>
           {user.bio}
-        </Typography>
+        </Bio>
       </CardContent>
       <CardFooter>
         <AvatarGroup max={5}>
-
           {contacts?.linkedin_url && <SocialIcon type="linkedin_url" url={contacts.linkedin_url} />}
           {contacts?.github_url && <SocialIcon type="github_url" url={contacts.github_url} />}
           {contacts?.instagram_url && <SocialIcon type="instagram_url" url={contacts.instagram_url} />}

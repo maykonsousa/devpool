@@ -16,4 +16,12 @@ export const GridContainer = styled(Box)`
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   gap: 1rem;
   width: 100%;
+
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    
+  }
 `;

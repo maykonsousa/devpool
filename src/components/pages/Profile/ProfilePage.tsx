@@ -75,6 +75,21 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
     if (newTab) setCurrentTab(newTab);
   };
 
+  const handleScrollButtonClick = (direction:string) => {
+    const indexCurrentTab = tabs.findIndex((tab) => tab.value === currentTab.value);
+    if (direction === 'right') {
+      if (indexCurrentTab + 1 < tabs.length) {
+        const newTab = tabs[indexCurrentTab + 1];
+        setCurrentTab(newTab);
+      }
+    } else if (direction === 'left') {
+      if (indexCurrentTab - 1 >= 0) {
+        const newTab = tabs[indexCurrentTab - 1];
+        setCurrentTab(newTab);
+      }
+    }
+  };
+
   return (
     <ProfilePageContainer>
       <Cover />
@@ -89,7 +104,13 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
           onChange={(event, value) => handleChangeTab(value)}
           scrollButtons
           allowScrollButtonsMobile
-          ScrollButtonComponent={TabScrollButton}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ScrollButtonComponent={(props) => (
+            <TabScrollButton
+              {...props}
+              onClick={() => handleScrollButtonClick(props.direction)}
+            />
+          )}
           variant={isMobile ? 'scrollable' : 'standard'}
           value={currentTab.value}
           sx={{
