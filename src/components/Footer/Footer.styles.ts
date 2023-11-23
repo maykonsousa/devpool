@@ -10,8 +10,6 @@ export const FooterContainer = styled(Box)`
   gap: 1rem;
   max-width: 1440px;
   margin: 0 auto;
-  position: fixed;
-  bottom: 5px;
 
 
   @media (max-width: 768px) {
