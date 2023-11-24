@@ -10,13 +10,18 @@ export function DeleteAccount() {
     const { data } = await deleteAccount();
 
     if (data?.deleteUser?.status === 'success') {
-      showMessage({ message: data.deleteUser.message, type: data.deleteUser.status });
+      showMessage({
+        message: data.deleteUser.message,
+        type: data.deleteUser.status,
+      });
       setTimeout(() => {
         signOut();
       }, 3000);
     } else {
       showMessage({
-        message: data?.deleteUser?.message || 'Falha ao excluir conta. Tente novamente mais tarde',
+        message:
+          data?.deleteUser?.message ||
+          'Falha ao excluir conta. Tente novamente mais tarde',
         type: 'error',
       });
     }
@@ -29,7 +34,6 @@ export function DeleteAccount() {
       type="danger"
       onConfirm={handleDeleteAccount}
       loading={loading}
-
     />
   );
 }

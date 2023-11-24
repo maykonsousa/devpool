@@ -1,13 +1,19 @@
 import { TextInput } from '@/components/TextInput';
 import { Add, Check } from '@mui/icons-material';
-import {
-  Button, Card, Typography, CardActions, Box,
-} from '@mui/material';
+import { Button, Card, Typography, CardActions, Box } from '@mui/material';
 import React, { SyntheticEvent, useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { MappedRepository, getRepositoriesByUser } from '@/app/api/services/getRepositoriesByUser.service';
 import {
-  useCreateProject, useFeedback, useGetAllTechnologies, useGetProjectsByUser, useSession, useUpload,
+  MappedRepository,
+  getRepositoriesByUser,
+} from '@/app/api/services/getRepositoriesByUser.service';
+import {
+  useCreateProject,
+  useFeedback,
+  useGetAllTechnologies,
+  useGetProjectsByUser,
+  useSession,
+  useUpload,
 } from '@/hooks';
 import Image from 'next/image';
 import { Select } from '@/components/Select';
@@ -18,7 +24,9 @@ import { createProjectValidation } from '@/validations/formValidations';
 
 import { AutoComplete } from '@/components/AutoComplete';
 import {
-  AvatarSession, ImageContainer, AvatarActionContainer,
+  AvatarSession,
+  ImageContainer,
+  AvatarActionContainer,
 } from './ProjectsTab.styles';
 
 export interface IformValues {
@@ -33,7 +41,7 @@ export interface IformValues {
   dePloyed_url: string;
 }
 
-const defaultValues:IformValues = {
+const defaultValues: IformValues = {
   name: '',
   description: '',
   repository: '',
@@ -48,7 +56,9 @@ const defaultValues:IformValues = {
 export function ProjectForm() {
   const [showForm, setShowForm] = React.useState(false);
   const [technologies, setTechnologies] = React.useState<string[]>([]);
-  const [repositories, setRepositories] = React.useState<MappedRepository[]>([]);
+  const [repositories, setRepositories] = React.useState<MappedRepository[]>(
+    [],
+  );
   const methods = useForm({
     defaultValues,
     resolver: zodResolver(createProjectValidation),
@@ -78,25 +88,25 @@ export function ProjectForm() {
   });
   const githubId = methods.watch('githubId');
 
-  const handleSelectChange = (event: SyntheticEvent<Element, Event>, newValue: string[]) => {
+  const handleSelectChange = (
+    event: SyntheticEvent<Element, Event>,
+    newValue: string[],
+  ) => {
     setTechnologies(newValue);
   };
 
-  const setValues = useCallback(
-    () => {
-      const repository = repositories.find((repo) => repo.githubId === +githubId);
-      if (repository) {
-        methods.setValue('name', repository.name || '');
-        methods.setValue('description', repository.description || '');
-        methods.setValue('repo_url', repository.url || '');
-        methods.setValue(
-          'image_url',
-          'https://firebasestorage.googleapis.com/v0/b/devpool-110a7.appspot.com/o/images%2Fcover_project_default.jpg?alt=media&token=97e03dab-8b65-4a56-8f1f-8f8451f0648d',
-        );
-      }
-    },
-    [githubId, methods, repositories],
-  );
+  const setValues = useCallback(() => {
+    const repository = repositories.find((repo) => repo.githubId === +githubId);
+    if (repository) {
+      methods.setValue('name', repository.name || '');
+      methods.setValue('description', repository.description || '');
+      methods.setValue('repo_url', repository.url || '');
+      methods.setValue(
+        'image_url',
+        'https://firebasestorage.googleapis.com/v0/b/devpool-110a7.appspot.com/o/images%2Fcover_project_default.jpg?alt=media&token=97e03dab-8b65-4a56-8f1f-8f8451f0648d',
+      );
+    }
+  }, [githubId, methods, repositories]);
 
   const getRepositories = useCallback(async () => {
     const data = await getRepositoriesByUser(user?.username as string);
@@ -107,13 +117,18 @@ export function ProjectForm() {
     );
   }, [user, methods]);
 
-  const repositoryOptions = repositories?.map((repository:MappedRepository):{
-    label: string;
-    value: number;
-  } => ({
-    label: repository.name,
-    value: repository.githubId,
-  })) || [];
+  const repositoryOptions =
+    repositories?.map(
+      (
+        repository: MappedRepository,
+      ): {
+        label: string;
+        value: number;
+      } => ({
+        label: repository.name,
+        value: repository.githubId,
+      }),
+    ) || [];
 
   const handleShowForm = () => {
     setShowForm(true);
@@ -124,25 +139,23 @@ export function ProjectForm() {
     methods.reset();
   };
 
-  const handleCreateProject = methods.handleSubmit(
-    async () => {
-      const { data } = await createProject();
-      if (data?.createProject.status === 'success') {
-        showMessage({
-          message: 'Projeto criado com sucesso!',
-          type: 'success',
-        });
-        refetch();
-        handleHideForm();
-        onResetAtavarOptions();
-      } else {
-        showMessage({
-          message: 'Ocorreu um erro ao criar o projeto!',
-          type: 'error',
-        });
-      }
-    },
-  );
+  const handleCreateProject = methods.handleSubmit(async () => {
+    const { data } = await createProject();
+    if (data?.createProject.status === 'success') {
+      showMessage({
+        message: 'Projeto criado com sucesso!',
+        type: 'success',
+      });
+      refetch();
+      handleHideForm();
+      onResetAtavarOptions();
+    } else {
+      showMessage({
+        message: 'Ocorreu um erro ao criar o projeto!',
+        type: 'error',
+      });
+    }
+  });
 
   useEffect(() => {
     getRepositories();
@@ -165,10 +178,8 @@ export function ProjectForm() {
       onClick={handleShowForm}
     >
       Adicionar projeto
-
     </Button>
   ) : (
-
     <FormProvider {...methods}>
       <Select
         name="githubId"
@@ -176,17 +187,19 @@ export function ProjectForm() {
         options={repositoryOptions}
         placeholder="Selecione um repositório"
       />
-      {loading ? <Loading /> : (
-        <Card sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          alignItems: 'flex-start',
-          gap: '1rem',
-          padding: '10px',
-        }}
+      {loading ? (
+        <Loading />
+      ) : (
+        <Card
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            alignItems: 'flex-start',
+            gap: '1rem',
+            padding: '10px',
+          }}
         >
-
           <AvatarSession>
             <ImageContainer>
               <Image
@@ -207,7 +220,9 @@ export function ProjectForm() {
               >
                 Alterar imagem
               </Button>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>Tamanho máximo: 2mb</Typography>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                Tamanho máximo: 2mb
+              </Typography>
             </AvatarActionContainer>
           </AvatarSession>
 
@@ -225,12 +240,12 @@ export function ProjectForm() {
             multiline
             rows={4}
           />
-          <Box sx={{
-            display: 'flex',
-            width: '100%',
-            gap: '1rem',
-
-          }}
+          <Box
+            sx={{
+              display: 'flex',
+              width: '100%',
+              gap: '1rem',
+            }}
           >
             <TextInput
               name="repo_url"
@@ -267,10 +282,8 @@ export function ProjectForm() {
               Cancelar
             </Button>
           </CardActions>
-
         </Card>
       )}
     </FormProvider>
-
   );
 }

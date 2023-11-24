@@ -1,5 +1,8 @@
 import {
-  ThemeProvider, ApolloProvider, AppProvider, SessionProvider,
+  ThemeProvider,
+  ApolloProvider,
+  AppProvider,
+  SessionProvider,
 } from '@/providers';
 import React from 'react';
 
@@ -12,7 +15,7 @@ import { PageContainer } from './layout.styles';
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   const session = await getServerSession();
   return (

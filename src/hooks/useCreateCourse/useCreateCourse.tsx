@@ -13,10 +13,10 @@ interface ICourseData {
 }
 
 interface IVariables {
- input:{
-  userId: string;
-  data: ICourseData;
- }
+  input: {
+    userId: string;
+    data: ICourseData;
+  };
 }
 
 interface IUseCreateCourseProps {
@@ -43,12 +43,18 @@ const CREATE_COURSE = gql`
   }
 `;
 
-export const useCreateCourse = ({ variables, onCompleted, onError }:IUseCreateCourseProps) => {
-  const [createCourse, { data, error, loading }] = useMutation<IResult, IVariables>(CREATE_COURSE, {
+export const useCreateCourse = ({
+  variables,
+  onCompleted,
+  onError,
+}: IUseCreateCourseProps) => {
+  const [createCourse, { data, error, loading }] = useMutation<
+    IResult,
+    IVariables
+  >(CREATE_COURSE, {
     variables,
     onCompleted,
     onError,
-
   });
 
   return {

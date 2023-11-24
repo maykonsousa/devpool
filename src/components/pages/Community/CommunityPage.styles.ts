@@ -12,14 +12,12 @@ export const PageContainer = styled(Box)`
   justify-content: flex-start;
   overflow-y: hidden;
 
-
   @media (max-width: 768px) {
     padding: 0;
     gap: 0;
     justify-content: center;
     max-height: calc(100vh - 130px);
   }
-  
 `;
 
 export const Title = styled(Typography)`
@@ -54,11 +52,9 @@ export const CardsContainer = styled(Box)`
     border-radius: 4px;
   }
 
-
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     padding: 0 1rem;
     gap: 2rem;
-  } 
-
+  }
 `;

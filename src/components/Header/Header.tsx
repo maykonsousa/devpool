@@ -3,7 +3,17 @@
 import { useSession } from '@/hooks';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
-  AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography,
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from '@mui/material';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
@@ -11,8 +21,12 @@ import * as React from 'react';
 import { signOut } from 'next-auth/react';
 
 export function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null,
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null,
+  );
 
   const router = useRouter();
   const { user, status } = useSession();
@@ -28,11 +42,15 @@ export function Header() {
   const userMenu = [
     {
       label: 'Ver Perfil',
-      onClick: () => { router.push(`/profile/${user?.username}`); },
+      onClick: () => {
+        router.push(`/profile/${user?.username}`);
+      },
     },
     {
       label: 'Editar Perfil',
-      onClick: () => { router.push('/settings'); },
+      onClick: () => {
+        router.push('/settings');
+      },
     },
     {
       label: 'Sair',
@@ -40,16 +58,20 @@ export function Header() {
     },
   ];
 
-  const pages = [{
-    label: 'Comunidade',
-    onClick: () => router.push('/community'),
-  }, {
-    label: 'Buscar Perfis',
-    onClick: () => router.push('/search-profiles'),
-  }, {
-    label: 'Vagas',
-    onClick: () => router.push('/jobs'),
-  }];
+  const pages = [
+    {
+      label: 'Comunidade',
+      onClick: () => router.push('/community'),
+    },
+    {
+      label: 'Buscar Perfis',
+      onClick: () => router.push('/search-profiles'),
+    },
+    {
+      label: 'Vagas',
+      onClick: () => router.push('/jobs'),
+    },
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -80,7 +102,9 @@ export function Header() {
               flexGrow: 1,
               cursor: 'pointer',
             }}
-            onClick={() => { router.push('/'); }}
+            onClick={() => {
+              router.push('/');
+            }}
           >
             <Image
               src="/logo.svg"
@@ -140,9 +164,10 @@ export function Header() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-
             }}
-            onClick={() => { router.push('/'); }}
+            onClick={() => {
+              router.push('/');
+            }}
           >
             <Image
               src="/logo.svg"
@@ -153,13 +178,14 @@ export function Header() {
             />
           </Box>
 
-          <Box sx={{
-            width: '100%',
-            display: { xs: 'none', md: 'flex' },
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 2,
-          }}
+          <Box
+            sx={{
+              width: '100%',
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2,
+            }}
           >
             {pages.map((page) => (
               <Button
@@ -170,7 +196,6 @@ export function Header() {
                 }}
                 variant="text"
                 color="inherit"
-
               >
                 {page.label}
               </Button>
@@ -182,23 +207,32 @@ export function Header() {
               <Tooltip title={`${user?.name}`}>
                 {user?.avatar_url ? (
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt={`${user?.name}`} src={user?.avatar_url ? `${user?.avatar_url}` : '/fakeAvatar.jpg'} />
+                    <Avatar
+                      alt={`${user?.name}`}
+                      src={
+                        user?.avatar_url
+                          ? `${user?.avatar_url}`
+                          : '/fakeAvatar.jpg'
+                      }
+                    />
                   </IconButton>
-                ) : <Box />}
+                ) : (
+                  <Box />
+                )}
               </Tooltip>
             ) : (
               <Button
                 variant="contained"
                 sx={{
-                  width: '100%',
-                  borderRadius: '10px',
-                  backgroundColor: 'primary.main',
+                  'width': '100%',
+                  'borderRadius': '10px',
+                  'backgroundColor': 'primary.main',
                   '&:hover': {
                     backgroundColor: 'primary.dark',
                   },
-                  color: 'white',
-                  fontWeight: 'bold',
-                  gap: '10px',
+                  'color': 'white',
+                  'fontWeight': 'bold',
+                  'gap': '10px',
                 }}
                 onClick={onLoginRedirect}
               >

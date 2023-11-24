@@ -4,22 +4,22 @@ import { AppError } from '../utils/appError';
 
 interface IAlterableData {
   [key: string]: string | undefined;
-  name?: string
-  password?: string
-  avatar?: string
-  bio?: string
-  role?: string
-  seniority?: string
-  city?: string
-  state?: string
+  name?: string;
+  password?: string;
+  avatar?: string;
+  bio?: string;
+  role?: string;
+  seniority?: string;
+  city?: string;
+  state?: string;
 }
 
 interface IUpdateUser {
-  id: string
-  data: IAlterableData
+  id: string;
+  data: IAlterableData;
 }
 
-export const updateUserService = async ({ id, data }:IUpdateUser) => {
+export const updateUserService = async ({ id, data }: IUpdateUser) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id },

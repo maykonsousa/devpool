@@ -9,7 +9,7 @@ interface IFeedbackOptions {
 export const useFeedback = () => {
   const { openSnackbar } = useContext(appContext);
 
-  const showMessage = ({ message, type }:IFeedbackOptions) => {
+  const showMessage = ({ message, type }: IFeedbackOptions) => {
     openSnackbar({ message, type });
   };
 

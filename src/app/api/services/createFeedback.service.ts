@@ -9,7 +9,9 @@ interface IFeedback {
 interface ICreateFeedbackService {
   feedback: IFeedback;
 }
-export const createFeedbackService = async ({ feedback: input }:ICreateFeedbackService) => {
+export const createFeedbackService = async ({
+  feedback: input,
+}: ICreateFeedbackService) => {
   try {
     await prisma.feedback.create({
       data: {

@@ -2,11 +2,14 @@ import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
 interface IDeleteProjectUserInput {
-  projectId: string
-  userId: string
+  projectId: string;
+  userId: string;
 }
 
-export const deleteProjectUserService = async ({ projectId, userId }:IDeleteProjectUserInput) => {
+export const deleteProjectUserService = async ({
+  projectId,
+  userId,
+}: IDeleteProjectUserInput) => {
   try {
     const userExists = await prisma.user.findFirst({
       where: {
@@ -31,7 +34,10 @@ export const deleteProjectUserService = async ({ projectId, userId }:IDeleteProj
     const isProjectOwner = projectExists.userId === userId;
 
     if (!isProjectOwner) {
-      throw new AppError('Você não tem permissão para remover esse projeto', 401);
+      throw new AppError(
+        'Você não tem permissão para remover esse projeto',
+        401,
+      );
     }
 
     await prisma.project.delete({

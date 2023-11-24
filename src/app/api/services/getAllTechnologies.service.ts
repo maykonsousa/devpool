@@ -11,7 +11,6 @@ export const getAllTechnologiesService = async () => {
         id: true,
         name: true,
       },
-
     });
 
     return {

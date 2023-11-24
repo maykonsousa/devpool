@@ -14,7 +14,6 @@ export const Sidebar = styled(Box)`
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.palette.background.paper};
-  
 `;
 
 export const Content = styled(Box)`

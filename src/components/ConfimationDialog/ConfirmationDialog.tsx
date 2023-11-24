@@ -1,12 +1,18 @@
 'use client';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useTheme,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  useTheme,
 } from '@mui/material';
 import React from 'react';
 import { Loading } from '../Loading';
 
-interface IConfirmationDialogProps{
+interface IConfirmationDialogProps {
   title: string;
   description: string;
   buttonLabel?: string;
@@ -26,7 +32,7 @@ export function ConfirmationDialog({
   title,
   loading,
   elementAction,
-}:IConfirmationDialogProps) {
+}: IConfirmationDialogProps) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
 
@@ -41,15 +47,16 @@ export function ConfirmationDialog({
   };
   return (
     <>
-      {elementAction && React.cloneElement(elementAction, { onClick: handleOpen })}
+      {elementAction &&
+        React.cloneElement(elementAction, { onClick: handleOpen })}
       {!elementAction && (
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-        color={type === 'danger' ? 'error' : 'primary'}
-      >
-        {buttonLabel || 'Confirmar'}
-      </Button>
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          color={type === 'danger' ? 'error' : 'primary'}
+        >
+          {buttonLabel || 'Confirmar'}
+        </Button>
       )}
       <Dialog
         open={open}
@@ -63,7 +70,11 @@ export function ConfirmationDialog({
       >
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          {loading ? <Loading /> : <DialogContentText>{description}</DialogContentText>}
+          {loading ? (
+            <Loading />
+          ) : (
+            <DialogContentText>{description}</DialogContentText>
+          )}
         </DialogContent>
         <DialogActions>
           <Button

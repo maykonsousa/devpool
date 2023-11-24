@@ -9,7 +9,7 @@ export const PageContainer = styled(Box)`
   flex-direction: column;
   width: 100%;
   max-width: 1440px;
-  flex:1;
+  flex: 1;
   margin: 0 auto;
 `;
 
@@ -18,7 +18,7 @@ export const MainContainer = styled(Box)`
   justify-content: center;
   align-items: center;
   width: 100%;
-  flex:1;
+  flex: 1;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -45,5 +45,5 @@ export const ContentContainer = styled(Box)`
   flex-direction: column;
   gap: 20px;
   height: 100%;
-  flex:1;
+  flex: 1;
 `;

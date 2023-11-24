@@ -29,8 +29,6 @@ export const ActionsContainer = styled(Box)`
   max-width: 900px;
   margin: 0 auto;
   gap: 2rem;
-
-
 `;
 
 export const StepContent = styled(Box)`
@@ -40,7 +38,7 @@ export const StepContent = styled(Box)`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  flex:1;
+  flex: 1;
 `;
 
 export const StepSubtitle = styled(Typography)`

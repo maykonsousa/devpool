@@ -5,7 +5,9 @@ interface IGetTechsByUserService {
   userId: string;
 }
 
-export const getTechsByUserService = async ({ userId }:IGetTechsByUserService) => {
+export const getTechsByUserService = async ({
+  userId,
+}: IGetTechsByUserService) => {
   try {
     if (!userId) throw new AppError('ID do usuário não informado', 400);
 

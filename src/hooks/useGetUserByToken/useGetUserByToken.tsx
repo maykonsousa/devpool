@@ -1,10 +1,11 @@
-import { IGitHubUser, getGitHubUserByToken } from '@services/getGitHubUserByToken.service';
 import {
-  useCallback, useEffect, useMemo, useState,
-} from 'react';
+  IGitHubUser,
+  getGitHubUserByToken,
+} from '@services/getGitHubUserByToken.service';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useGetUserByEmail } from '../useGetUserByEmail';
 
-export const useGetUserByToken = (token:string) => {
+export const useGetUserByToken = (token: string) => {
   const [githubUser, setGitHubUser] = useState<IGitHubUser | null>(null);
   const getGitHubUser = useCallback(async () => {
     if (token) {
@@ -25,6 +26,5 @@ export const useGetUserByToken = (token:string) => {
 
   return {
     user: userData,
-
   };
 };

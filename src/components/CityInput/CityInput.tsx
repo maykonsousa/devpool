@@ -4,7 +4,7 @@ import { FormControl, Autocomplete, TextField } from '@mui/material';
 
 interface ICityInputProps {
   UF: string;
-  onChange: (event: React.SyntheticEvent, value: string |null) => void;
+  onChange: (event: React.SyntheticEvent, value: string | null) => void;
   value?: string;
   label?: string;
 }
@@ -15,16 +15,21 @@ interface ICity {
 }
 
 export function CityInput({
-  UF, onChange, value, label = 'Cidade',
+  UF,
+  onChange,
+  value,
+  label = 'Cidade',
 }: ICityInputProps) {
   const [cities, setCities] = React.useState<string[]>([]);
 
   React.useEffect(() => {
     if (UF) {
-      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${UF}/municipios`)
+      fetch(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${UF}/municipios`,
+      )
         .then((res) => res.json())
         .then((data) => {
-          const citiesNames = data.map((city:ICity) => city.nome);
+          const citiesNames = data.map((city: ICity) => city.nome);
           setCities(citiesNames);
         });
     }
@@ -39,11 +44,7 @@ export function CityInput({
         onChange={onChange}
         disabled={!UF}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label={label}
-            variant="outlined"
-          />
+          <TextField {...params} label={label} variant="outlined" />
         )}
         ListboxProps={{
           style: {
@@ -60,7 +61,6 @@ export function CityInput({
               width: '100%',
             },
           },
-
         }}
       />
     </FormControl>

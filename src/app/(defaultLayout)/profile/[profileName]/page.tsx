@@ -3,16 +3,14 @@ import { ProfilePage } from '@/components/pages/Profile';
 
 interface ProfilePageProps {
   params: {
-    profileName: string
-  }
+    profileName: string;
+  };
 }
 
-const page = ({ params }:ProfilePageProps) => {
+const page = ({ params }: ProfilePageProps) => {
   const { profileName } = params;
 
-  return (
-    <ProfilePage profileName={profileName} />
-  );
+  return <ProfilePage profileName={profileName} />;
 };
 
 export default page;

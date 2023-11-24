@@ -9,7 +9,7 @@ interface IDateInputProps {
   label: string;
 }
 
-export function DateInput({ name, label }:IDateInputProps) {
+export function DateInput({ name, label }: IDateInputProps) {
   const { control } = useFormContext();
   return (
     <Controller
@@ -17,17 +17,13 @@ export function DateInput({ name, label }:IDateInputProps) {
       control={control}
       defaultValue={new Date()}
       render={({ field }) => (
-        <LocalizationProvider
-          dateAdapter={AdapterDateFns}
-          adapterLocale={ptBR}
-        >
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
           <DatePicker
             {...field}
             label={label}
             sx={{
               width: '100%',
             }}
-
           />
         </LocalizationProvider>
       )}

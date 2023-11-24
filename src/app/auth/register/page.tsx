@@ -2,9 +2,7 @@ import { RegisterPage } from '@components/pages';
 import React from 'react';
 
 function Register() {
-  return (
-    <RegisterPage />
-  );
+  return <RegisterPage />;
 }
 
 export default Register;

@@ -6,15 +6,19 @@ interface IGetJobsByUserService {
   username?: string;
 }
 
-export const getJobsByUserService = async ({ userId, username }:IGetJobsByUserService) => {
+export const getJobsByUserService = async ({
+  userId,
+  username,
+}: IGetJobsByUserService) => {
   try {
-    if (!userId && !username) throw new AppError('Voce precisa informar o id ou o username do usuario', 400);
+    if (!userId && !username)
+      throw new AppError(
+        'Voce precisa informar o id ou o username do usuario',
+        400,
+      );
     const userExists = await prisma.user.findFirst({
       where: {
-        OR: [
-          { id: userId },
-          { username },
-        ],
+        OR: [{ id: userId }, { username }],
       },
     });
     if (!userExists) throw new AppError('Usuario não encontrado', 404);

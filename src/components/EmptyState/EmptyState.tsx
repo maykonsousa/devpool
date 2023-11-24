@@ -9,7 +9,7 @@ interface IEmptyStateProps {
   message: string;
 }
 
-export function EmptyState({ type, message }:IEmptyStateProps) {
+export function EmptyState({ type, message }: IEmptyStateProps) {
   const iconMap = {
     empty: <InboxOutlined color="secondary" fontSize="large" />,
     error: <ErrorOutline fontSize="large" color="error" />,
@@ -25,11 +25,15 @@ export function EmptyState({ type, message }:IEmptyStateProps) {
         width: '100%',
         padding: '2rem',
       }}
-
     >
       {iconMap[type]}
-      <Typography variant="h6" component="h6" sx={{ marginTop: '1rem', textAlign: 'center' }}>{message}</Typography>
-
+      <Typography
+        variant="h6"
+        component="h6"
+        sx={{ marginTop: '1rem', textAlign: 'center' }}
+      >
+        {message}
+      </Typography>
     </Box>
   );
 }

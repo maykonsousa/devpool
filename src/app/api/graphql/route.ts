@@ -7,7 +7,7 @@ import { resolvers } from '../resolvers';
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
 const handler = startServerAndCreateNextHandler(apolloServer, {
-  context: async (req:NextApiRequest, res:NextApiResponse) => ({ req, res }),
+  context: async (req: NextApiRequest, res: NextApiResponse) => ({ req, res }),
 });
 
 export { handler as GET, handler as POST };

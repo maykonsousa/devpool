@@ -6,7 +6,10 @@ interface IGetProjectsByUserService {
   username?: string;
 }
 
-export const getProjectsByUserService = async ({ userId, username }:IGetProjectsByUserService) => {
+export const getProjectsByUserService = async ({
+  userId,
+  username,
+}: IGetProjectsByUserService) => {
   try {
     if (!userId && !username) throw new AppError('Requisição inválida', 400);
     const userExists = await prisma.user.findFirst({
@@ -20,7 +23,6 @@ export const getProjectsByUserService = async ({ userId, username }:IGetProjects
           },
         ],
       },
-
     });
 
     if (!userExists) throw new AppError('User not found', 404);

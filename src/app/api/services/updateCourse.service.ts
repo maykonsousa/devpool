@@ -12,7 +12,7 @@ export const updateCourseService = async ({
   courseId,
   userId,
   data,
-}:IUpdateCourseService) => {
+}: IUpdateCourseService) => {
   try {
     if (!userId) throw new AppError('Usuário não encontrado', 404);
     if (!courseId) throw new AppError('Curso não encontrado', 404);
@@ -35,7 +35,10 @@ export const updateCourseService = async ({
     const userIsOwnerOfCourse = courseAlreadyExists.userId === userId;
 
     if (!userIsOwnerOfCourse) {
-      throw new AppError('Você não tem autorização para editar esse curso', 401);
+      throw new AppError(
+        'Você não tem autorização para editar esse curso',
+        401,
+      );
     }
 
     const course = await prisma.course.update({

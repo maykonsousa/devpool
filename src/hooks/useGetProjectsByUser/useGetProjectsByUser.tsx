@@ -11,23 +11,22 @@ const GET_PROJECTS_BY_USER = gql`
         image_url
         repo_url
         deployed_url
-        technologies{
+        technologies {
           id
           name
         }
       }
       status
       message
-      
     }
   }
 `;
 
 interface IVariables {
-  input:{
-    userId?:string
-    username?:string
-  }
+  input: {
+    userId?: string;
+    username?: string;
+  };
 }
 
 interface IResult {
@@ -36,18 +35,19 @@ interface IResult {
     status: string;
     message: string;
   };
-  }
+}
 
-  interface IUseGetProjectsByUser {
-    variables:IVariables
-  }
+interface IUseGetProjectsByUser {
+  variables: IVariables;
+}
 
-export const useGetProjectsByUser = ({ variables }:IUseGetProjectsByUser) => {
-  const {
-    data, loading, error, refetch,
-  } = useQuery<IResult, IVariables>(GET_PROJECTS_BY_USER, {
-    variables,
-  });
+export const useGetProjectsByUser = ({ variables }: IUseGetProjectsByUser) => {
+  const { data, loading, error, refetch } = useQuery<IResult, IVariables>(
+    GET_PROJECTS_BY_USER,
+    {
+      variables,
+    },
+  );
 
   return {
     data: data?.getProjectsByUser,

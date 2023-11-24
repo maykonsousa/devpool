@@ -1,24 +1,28 @@
 import { Button, useMediaQuery, useTheme } from '@mui/material';
-import React, {
-  useCallback, useEffect, useMemo, useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { LoginButton } from '@components/LoginButton';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { parseCookies } from 'nookies';
-import { IGitHubUser, getGitHubUserByToken } from '@services/getGitHubUserByToken.service';
+import {
+  IGitHubUser,
+  getGitHubUserByToken,
+} from '@services/getGitHubUserByToken.service';
 import { IStepsBaseProps } from '../types';
 import {
-  ActionsContainer, StepContainer, StepSubtitle, StepTitle,
+  ActionsContainer,
+  StepContainer,
+  StepSubtitle,
+  StepTitle,
 } from '../styles';
 
 interface IOrientationProps extends IStepsBaseProps {
   isVisible: boolean;
 }
 
-export function Orientation({ isVisible, onNext }:IOrientationProps) {
+export function Orientation({ isVisible, onNext }: IOrientationProps) {
   const { data, status } = useSession();
-  const [githubUser, setGithubUser] = useState<IGitHubUser | null >(null);
+  const [githubUser, setGithubUser] = useState<IGitHubUser | null>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const acessToken = parseCookies().accessToken;
@@ -65,34 +69,37 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
     <StepContainer>
       <StepTitle>{title}</StepTitle>
       <StepSubtitle>{message}</StepSubtitle>
-      {!githubUser && !data && <LoginButton typeCall="github" isLoading={isAuthLoading} onClick={() => signIn('github', { redirect: true })} />}
+      {!githubUser && !data && (
+        <LoginButton
+          typeCall="github"
+          isLoading={isAuthLoading}
+          onClick={() => signIn('github', { redirect: true })}
+        />
+      )}
       <ActionsContainer>
-        <Button
-          fullWidth
-          disabled
-          variant="outlined"
-          color="primary"
-        >
-          {isMobile ? <ArrowBack /> : 'Voltar' }
+        <Button fullWidth disabled variant="outlined" color="primary">
+          {isMobile ? <ArrowBack /> : 'Voltar'}
         </Button>
-        {
-          !data ? (
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              disabled={!githubUser}
-              onClick={onNext}
-            >
-              {isMobile ? <ArrowForward /> : 'Continuar'}
-            </Button>
-          ) : (
-            <Button fullWidth variant="contained" color="primary" href="/auth/login">
-              Acessar
-            </Button>
-          )
-        }
-
+        {!data ? (
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={!githubUser}
+            onClick={onNext}
+          >
+            {isMobile ? <ArrowForward /> : 'Continuar'}
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            href="/auth/login"
+          >
+            Acessar
+          </Button>
+        )}
       </ActionsContainer>
     </StepContainer>
   ) : null;

@@ -9,7 +9,7 @@ interface IAddTechnologyUserService {
 export const addOrRemoveTechnologyUserService = async ({
   userId,
   technologyId,
-}:IAddTechnologyUserService) => {
+}: IAddTechnologyUserService) => {
   try {
     if (!userId || !technologyId) {
       throw new AppError('Rquisição inválida');
@@ -71,7 +71,6 @@ export const addOrRemoveTechnologyUserService = async ({
       return {
         message: error.message,
         status: 'error',
-
       };
     }
 

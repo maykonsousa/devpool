@@ -44,7 +44,5 @@ export const theme = createTheme({
       secondary: '#E7E3FC99',
       disabled: '#E7E3FC61',
     },
-
   },
-
 });

@@ -11,27 +11,26 @@ const CREATE_USER = gql`
   }
 `;
 
-type UserType = 'admin' | 'developer' | 'recruiter' ;
+type UserType = 'admin' | 'developer' | 'recruiter';
 
 interface Ivariables {
   input: {
     name: string;
     email: string;
-    type: UserType
-    username: string
-    avatar_url: string
-    cover_url: string
-    password: string
-    role: string
-    seniority: string
-    city: string
-    state: string
-    bio: string
-  }
-
+    type: UserType;
+    username: string;
+    avatar_url: string;
+    cover_url: string;
+    password: string;
+    role: string;
+    seniority: string;
+    city: string;
+    state: string;
+    bio: string;
+  };
 }
 
-type Status = 'success' | 'error'
+type Status = 'success' | 'error';
 
 interface IResponse {
   createUser: {
@@ -40,13 +39,19 @@ interface IResponse {
   };
 }
 
-export const useCreateUser = (variables:Ivariables) => {
-  const [createUser, { data, loading, error }] = useMutation<IResponse, Ivariables>(CREATE_USER, {
+export const useCreateUser = (variables: Ivariables) => {
+  const [createUser, { data, loading, error }] = useMutation<
+    IResponse,
+    Ivariables
+  >(CREATE_USER, {
     variables,
     fetchPolicy: 'no-cache',
   });
 
   return {
-    createUser, data, loading, error,
+    createUser,
+    data,
+    loading,
+    error,
   };
 };

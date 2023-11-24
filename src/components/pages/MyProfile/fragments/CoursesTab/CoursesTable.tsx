@@ -39,15 +39,10 @@ export function CoursesTable() {
       renderCell: ({ row }: GridRenderCellParams<ICourseData>) => (
         <Box>
           <UpdateCourseDialog course={row} userId={user?.id as string} />
-          <DeleteCourseIcon
-            courseId={row.id}
-            userId={user?.id || ''}
-          />
-
+          <DeleteCourseIcon courseId={row.id} userId={user?.id || ''} />
         </Box>
       ),
     },
-
   ];
 
   const mobileColumns: GridColDef[] = [
@@ -67,27 +62,19 @@ export function CoursesTable() {
           {row.name}
           <Box>
             <UpdateCourseDialog course={row} userId={user?.id as string} />
-            <DeleteCourseIcon
-              courseId={row.id}
-              userId={user?.id || ''}
-            />
-
+            <DeleteCourseIcon courseId={row.id} userId={user?.id || ''} />
           </Box>
         </Box>
       ),
-
     },
-
   ];
 
   return (
-
     <GridTable
       columns={isMobile ? mobileColumns : deskTopColumns}
       rows={data ?? []}
       loading={loading}
       emptyMessage="Você ainda não possui cursos cadastrados"
     />
-
   );
 }

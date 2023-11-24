@@ -4,9 +4,7 @@ import { GridTable } from '@/components/GridTable';
 import { Loading } from '@/components/Loading';
 import { useGetProjectsByUser, useSession } from '@/hooks';
 import { GitHub, Language } from '@mui/icons-material';
-import {
-  Box, IconButton, useMediaQuery, useTheme,
-} from '@mui/material';
+import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
 import { DeleteProjectIcon } from './DeleteProjectIcon';
@@ -24,7 +22,7 @@ export function ProjectTable() {
   });
 
   const projects = useMemo(() => data?.projects, [data]) ?? [];
-  const deskTopColumns:GridColDef[] = [
+  const deskTopColumns: GridColDef[] = [
     {
       field: 'name',
       headerName: 'Nome',
@@ -35,13 +33,20 @@ export function ProjectTable() {
       headerName: 'Acessos',
       renderCell: ({ row }) => (
         <Box>
-          <IconButton disabled={!row.repo_url} href={row?.repo_url ?? undefined} target="_blank">
+          <IconButton
+            disabled={!row.repo_url}
+            href={row?.repo_url ?? undefined}
+            target="_blank"
+          >
             <GitHub />
           </IconButton>
-          <IconButton disabled={!row.deployed_url} href={row?.deployed_url ?? undefined} target="_blank">
+          <IconButton
+            disabled={!row.deployed_url}
+            href={row?.deployed_url ?? undefined}
+            target="_blank"
+          >
             <Language />
           </IconButton>
-
         </Box>
       ),
     },
@@ -49,16 +54,11 @@ export function ProjectTable() {
     {
       field: 'actions',
       headerName: 'Ações',
-      renderCell: ({ row }) => (
-
-        <DeleteProjectIcon projectId={row?.id} />
-
-      ),
+      renderCell: ({ row }) => <DeleteProjectIcon projectId={row?.id} />,
     },
-
   ];
 
-  const mobileColumns:GridColDef[] = [
+  const mobileColumns: GridColDef[] = [
     {
       field: 'name',
       headerName: 'Nome',
@@ -74,18 +74,24 @@ export function ProjectTable() {
         >
           {row.name}
           <Box>
-            <IconButton disabled={!row.repo_url} href={row?.repo_url ?? undefined} target="_blank">
+            <IconButton
+              disabled={!row.repo_url}
+              href={row?.repo_url ?? undefined}
+              target="_blank"
+            >
               <GitHub />
             </IconButton>
-            <IconButton disabled={!row.deployed_url} href={row?.deployed_url ?? undefined} target="_blank">
+            <IconButton
+              disabled={!row.deployed_url}
+              href={row?.deployed_url ?? undefined}
+              target="_blank"
+            >
               <Language />
             </IconButton>
-
           </Box>
         </Box>
       ),
     },
-
   ];
   return loading ? (
     <Loading />

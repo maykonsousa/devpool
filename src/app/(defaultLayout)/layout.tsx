@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer';
 import { DefaultLayoutContainer } from './DefaultLayout.styles';
 
 interface DefaultlayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 function Defaultlayout({ children }: DefaultlayoutProps) {

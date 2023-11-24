@@ -34,9 +34,8 @@ export function MultiSelect({
   onChange,
   label,
   ...props
-}:IMultiSelectProps) {
+}: IMultiSelectProps) {
   return (
-
     <FormControl fullWidth={fullWidth}>
       <InputLabel id="demo-multiple-checkbox-label">{label}</InputLabel>
       <Select
@@ -59,6 +58,5 @@ export function MultiSelect({
         ))}
       </Select>
     </FormControl>
-
   );
 }

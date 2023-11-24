@@ -20,34 +20,41 @@ import { creteDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { IStepsBaseProps } from '../types';
 import {
-  ActionsContainer, StepContainer, StepContent, StepTitle,
+  ActionsContainer,
+  StepContainer,
+  StepContent,
+  StepTitle,
 } from '../styles';
-import { AvatarContainer, FormContainer, GridContainer } from './AccountForm.styles';
+import {
+  AvatarContainer,
+  FormContainer,
+  GridContainer,
+} from './AccountForm.styles';
 
 interface IAccountProps extends IStepsBaseProps {
   isVisible: boolean;
   onNext: () => void;
 }
 
-type UserType = 'admin' | 'developer' | 'recruiter' ;
+type UserType = 'admin' | 'developer' | 'recruiter';
 
 interface IFormValues {
-    name: string;
-    email: string;
-    type: UserType
-    username: string
-    bio: string
-    role: string
-    seniority: string
-    city: string
-    state: string
-    avatar_url: string
-    cover_url: string
-    password: string
-    confirmPassword: string
+  name: string;
+  email: string;
+  type: UserType;
+  username: string;
+  bio: string;
+  role: string;
+  seniority: string;
+  city: string;
+  state: string;
+  avatar_url: string;
+  cover_url: string;
+  password: string;
+  confirmPassword: string;
 }
 
-const INITIAL_VALUES:IFormValues = {
+const INITIAL_VALUES: IFormValues = {
   name: '',
   email: '',
   type: 'developer',
@@ -63,7 +70,7 @@ const INITIAL_VALUES:IFormValues = {
   confirmPassword: '',
 };
 
-export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
+export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
   const methods = useForm<IFormValues>({
     defaultValues: INITIAL_VALUES,
     resolver: zodResolver(creteDeveloperValidation),
@@ -104,7 +111,11 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
     label: role.name,
   }));
 
-  const { createUser, loading: createuserLoading, error } = useCreateUser({
+  const {
+    createUser,
+    loading: createuserLoading,
+    error,
+  } = useCreateUser({
     input: {
       name: methods.watch('name'),
       email: methods.watch('email'),
@@ -159,12 +170,13 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
       <StepContent>
         {isLoading && <Loading />}
         {!isLoading && !isLogged && (
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-          }}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+            }}
           >
             <FormProvider {...methods}>
               <FormContainer>
@@ -184,11 +196,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                   />
                 </AvatarContainer>
                 <GridContainer>
-                  <TextInput
-                    name="name"
-                    label="Nome"
-                    required
-                  />
+                  <TextInput name="name" label="Nome" required />
 
                   <TextInput
                     name="username"
@@ -197,16 +205,9 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                     required
                   />
 
-                  <PassInput
-                    name="password"
-                    label="Senha"
-                    required
-                  />
+                  <PassInput name="password" label="Senha" required />
 
-                  <PassInput
-                    label="Confirmar senha"
-                    name="confirmPassword"
-                  />
+                  <PassInput label="Confirmar senha" name="confirmPassword" />
 
                   <Select
                     name="role"
@@ -231,15 +232,13 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                   />
                   <CityInput
                     UF={methods.watch('state')}
-                    onChange={(e, value) => methods.setValue('city', value || '')}
+                    onChange={(e, value) =>
+                      methods.setValue('city', value || '')
+                    }
                     value={methods.watch('city')}
                   />
-
                 </GridContainer>
-                <TextInput
-                  name="email"
-                  label="E-mail"
-                />
+                <TextInput name="email" label="E-mail" />
                 <TextInput
                   name="bio"
                   label="Sobre você"
@@ -247,7 +246,6 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
                   multiline
                   rows={4}
                 />
-
               </FormContainer>
             </FormProvider>
           </Box>
@@ -258,7 +256,6 @@ export function AccountForm({ isVisible, onNext, onPrevious }:IAccountProps) {
             message="Etapa concluída. Continue para prosseguir com o cadastro"
           />
         )}
-
       </StepContent>
       <ActionsContainer>
         <Button

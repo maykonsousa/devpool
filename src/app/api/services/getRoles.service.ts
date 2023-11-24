@@ -8,7 +8,7 @@ interface IGetRolesResponse {
   roles: IRoles[];
 }
 
-export const getRolesService = async ():Promise<IGetRolesResponse> => {
+export const getRolesService = async (): Promise<IGetRolesResponse> => {
   try {
     const roles = await prisma.role.findMany({
       orderBy: {
@@ -18,7 +18,6 @@ export const getRolesService = async ():Promise<IGetRolesResponse> => {
         name: true,
         id: true,
       },
-
     });
 
     return {

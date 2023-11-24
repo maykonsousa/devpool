@@ -6,7 +6,6 @@ export interface IProjectInput {
   deployed_url: string;
   user_id: string;
   githubId: string;
-
 }
 
 interface ITecnology {
@@ -26,26 +25,25 @@ export interface IProjects {
   createdAt: string;
   updatedAt: string;
   technologies: ITecnology[];
-
 }
 
 export interface ICreateProjectInput {
-    input : {
-      project: IProjectInput;
-      technologies: string[];
-    }
+  input: {
+    project: IProjectInput;
+    technologies: string[];
+  };
 }
 
 export interface IGetProjectsByUserInput {
   input: {
-  userId: string;
-  username: string;
-  }
+    userId: string;
+    username: string;
+  };
 }
 
 export interface IDeleteProjectInput {
   input: {
     projectId: string;
     userId: string;
-  }
+  };
 }

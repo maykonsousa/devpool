@@ -23,6 +23,11 @@ export const useUpload = () => {
     });
   };
   return {
-    openUpload, url, progress, setUrl, setProgress, onResetAtavarOptions,
+    openUpload,
+    url,
+    progress,
+    setUrl,
+    setProgress,
+    onResetAtavarOptions,
   };
 };

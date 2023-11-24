@@ -15,16 +15,14 @@ interface IOptionsProps {
   label: string;
 }
 
-interface ISelectProps extends SelectProps{
-  name: string
-  options: IOptionsProps[]
+interface ISelectProps extends SelectProps {
+  name: string;
+  options: IOptionsProps[];
 }
 
-export function Select({
-  name, label, options, ...rest
-}:ISelectProps) {
+export function Select({ name, label, options, ...rest }: ISelectProps) {
   const { control, formState } = useFormContext();
-  const errorMessage = formState.errors[name]?.message as string || '';
+  const errorMessage = (formState.errors[name]?.message as string) || '';
 
   return (
     <FormControl fullWidth>
@@ -61,12 +59,12 @@ export function Select({
               {...rest}
             >
               {options.map((option, index) => (
-                <MenuItem key={index} value={option.value}>{option.label}</MenuItem>
+                <MenuItem key={index} value={option.value}>
+                  {option.label}
+                </MenuItem>
               ))}
             </MuiSelect>
-            <FormHelperText
-              error={!!formState.errors[name]}
-            >
+            <FormHelperText error={!!formState.errors[name]}>
               {errorMessage}
             </FormHelperText>
           </>

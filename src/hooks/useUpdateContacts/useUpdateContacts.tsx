@@ -2,11 +2,11 @@ import { gql, useMutation } from '@apollo/client';
 
 const UPDATE_CONTACTS = gql`
   mutation UpdateContacts($input: UpdateContactsInput) {
-  updateContacts(input: $input) {
-    status
-    message
+    updateContacts(input: $input) {
+      status
+      message
+    }
   }
-}
 `;
 
 interface IData {
@@ -22,14 +22,14 @@ interface IVariables {
   input: {
     userId: string;
     data: IData;
-  }
+  };
 }
 
 interface IResult {
-  updateContacts:{
+  updateContacts: {
     status: string;
     message: string;
-  }
+  };
 }
 
 interface IUseUpdateContacts {
@@ -38,12 +38,15 @@ interface IUseUpdateContacts {
   onError?: () => void;
 }
 
-export const useUpdateContacts = ({ variables, onCompleted, onError }:IUseUpdateContacts) => {
-  const [updateContacts, {
-    data,
-    loading,
-    error,
-  }] = useMutation<IResult, IVariables>(UPDATE_CONTACTS, {
+export const useUpdateContacts = ({
+  variables,
+  onCompleted,
+  onError,
+}: IUseUpdateContacts) => {
+  const [updateContacts, { data, loading, error }] = useMutation<
+    IResult,
+    IVariables
+  >(UPDATE_CONTACTS, {
     refetchQueries: ['GetContacts'],
     variables,
     onCompleted,

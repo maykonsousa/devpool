@@ -9,7 +9,7 @@ const CREATE_JOB = gql`
       id
     }
   }
-  `;
+`;
 
 interface ICreateJobResult {
   createJob: {
@@ -24,7 +24,7 @@ interface IVariables {
     userId: string;
     data: JobInputData;
     technologies: string[];
-  }
+  };
 }
 
 interface IUseCreateJob {
@@ -33,13 +33,20 @@ interface IUseCreateJob {
   onError: () => void;
 }
 
-export const useCreateJob = ({ onCompleted, onError, variables }:IUseCreateJob) => {
-  const [createJob, { data, loading, error }] = useMutation<ICreateJobResult>(CREATE_JOB, {
-    onCompleted,
-    onError,
-    variables,
-    refetchQueries: ['GetJobsByUser'],
-  });
+export const useCreateJob = ({
+  onCompleted,
+  onError,
+  variables,
+}: IUseCreateJob) => {
+  const [createJob, { data, loading, error }] = useMutation<ICreateJobResult>(
+    CREATE_JOB,
+    {
+      onCompleted,
+      onError,
+      variables,
+      refetchQueries: ['GetJobsByUser'],
+    },
+  );
 
   return {
     createJob,

@@ -7,7 +7,12 @@ import {
   Box,
   Button,
   CircularProgress,
-  DialogActions, DialogContent, DialogTitle, Dialog as MuiDialog, Slide, SlideProps,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Dialog as MuiDialog,
+  Slide,
+  SlideProps,
 } from '@mui/material';
 
 interface IDialogProps {
@@ -21,15 +26,23 @@ interface IDialogProps {
   dismissText?: string;
 }
 
-const Transition = React.forwardRef((
-  props: SlideProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>,
-) => <Slide direction="up" ref={ref} {...props} />);
+const Transition = React.forwardRef(
+  (
+    props: SlideProps & { children?: React.ReactElement<any, any> },
+    ref: React.Ref<unknown>,
+  ) => <Slide direction="up" ref={ref} {...props} />,
+);
 
 export function Dialog({
-  elementAction, children, title, onConfirm, onDismiss, loading,
-  confirmText = 'Confirmar', dismissText = 'Cancelar',
-}:IDialogProps) {
+  elementAction,
+  children,
+  title,
+  onConfirm,
+  onDismiss,
+  loading,
+  confirmText = 'Confirmar',
+  dismissText = 'Cancelar',
+}: IDialogProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -51,11 +64,7 @@ export function Dialog({
   return (
     <>
       {React.cloneElement(elementAction, { onClick: handleOpen })}
-      <MuiDialog
-        open={open}
-        TransitionComponent={Transition}
-
-      >
+      <MuiDialog open={open} TransitionComponent={Transition}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent
           sx={{
@@ -65,28 +74,24 @@ export function Dialog({
             flexDirection: 'column',
             minHeight: '200px',
             minWidth: '500px',
-
           }}
         >
-          {loading ? <Box><CircularProgress size={92} /></Box> : children}
+          {loading ? (
+            <Box>
+              <CircularProgress size={92} />
+            </Box>
+          ) : (
+            children
+          )}
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleCancel}
-            color="error"
-            variant="outlined"
-          >
+          <Button onClick={handleCancel} color="error" variant="outlined">
             {dismissText}
           </Button>
-          <Button
-            onClick={handleConfirm}
-            color="primary"
-            variant="contained"
-          >
+          <Button onClick={handleConfirm} color="primary" variant="contained">
             {confirmText}
           </Button>
         </DialogActions>
-
       </MuiDialog>
     </>
   );

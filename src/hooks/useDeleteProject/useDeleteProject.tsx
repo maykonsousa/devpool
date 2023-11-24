@@ -24,12 +24,12 @@ interface IResult {
   };
 }
 
-export const useDeleteProject = (projectId:string) => {
+export const useDeleteProject = (projectId: string) => {
   const { user } = useSession();
-  const [
-    deleteProject,
-    { data, loading, error },
-  ] = useMutation<IResult, IVariables >(DELETE_PROJECT, {
+  const [deleteProject, { data, loading, error }] = useMutation<
+    IResult,
+    IVariables
+  >(DELETE_PROJECT, {
     variables: {
       input: {
         userId: user?.id || '',

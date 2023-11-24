@@ -2,9 +2,11 @@ import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
 interface IGetUserByUsernameService {
-  username: string
+  username: string;
 }
-export const getUserByUsernameService = async ({ username }:IGetUserByUsernameService) => {
+export const getUserByUsernameService = async ({
+  username,
+}: IGetUserByUsernameService) => {
   try {
     if (!username) throw new AppError('Requisição inválida', 400);
     const user = await prisma.user.findUnique({

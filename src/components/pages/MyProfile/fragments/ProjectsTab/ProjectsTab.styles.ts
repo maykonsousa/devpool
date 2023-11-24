@@ -36,17 +36,12 @@ export const ImageContainer = styled(Box)`
   padding: 8px;
   color: ${({ theme }) => theme.palette.primary.contrastText};
   border: 4px solid ${({ theme }) => theme.palette.primary.main};
-  
-  
-
 
   @media (max-width: 900px) {
     margin-top: 0;
     width: 80px;
     height: 80px;
   }
-
-
 `;
 
 export const CheckboxContainer = styled(Box)`

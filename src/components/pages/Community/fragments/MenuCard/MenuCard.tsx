@@ -9,7 +9,7 @@ interface MenuCardProps {
   username: string;
 }
 
-export function MenuCard({ username }:MenuCardProps) {
+export function MenuCard({ username }: MenuCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const opened = Boolean(anchorEl);
   const navigation = useRouter();
@@ -28,10 +28,7 @@ export function MenuCard({ username }:MenuCardProps) {
   };
   return (
     <>
-      <IconButton onClick={
-        opened ? handleCloseMenu : handleOpenMenu
-      }
-      >
+      <IconButton onClick={opened ? handleCloseMenu : handleOpenMenu}>
         <MoreVert />
       </IconButton>
       <Menu
@@ -48,12 +45,7 @@ export function MenuCard({ username }:MenuCardProps) {
         }}
         onClose={handleCloseMenu}
       >
-        <MenuItem
-          onClick={handleClick}
-        >
-          Ver Perfil
-
-        </MenuItem>
+        <MenuItem onClick={handleClick}>Ver Perfil</MenuItem>
       </Menu>
     </>
   );

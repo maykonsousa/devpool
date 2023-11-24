@@ -8,28 +8,31 @@ interface LoginButtonProps extends ButtonProps {
   isLoading?: boolean;
 }
 
-export function LoginButton({ typeCall, isLoading, ...rest }:LoginButtonProps) {
+export function LoginButton({
+  typeCall,
+  isLoading,
+  ...rest
+}: LoginButtonProps) {
   return (
     <Button
       variant="contained"
       sx={{
-        height: '56px',
-        borderRadius: '10px',
-        backgroundColor: typeCall === 'github' ? 'black' : 'primary.main',
+        'height': '56px',
+        'borderRadius': '10px',
+        'backgroundColor': typeCall === 'github' ? 'black' : 'primary.main',
         '&:hover': {
-          backgroundColor: typeCall === 'github' ? 'secondary.dark' : 'primary.dark',
+          backgroundColor:
+            typeCall === 'github' ? 'secondary.dark' : 'primary.dark',
         },
-        color: 'white',
-        fontWeight: 'bold',
-        gap: '10px',
-
+        'color': 'white',
+        'fontWeight': 'bold',
+        'gap': '10px',
       }}
       {...rest}
     >
       {isLoading && <CircularProgress size={24} />}
       {typeCall === 'github' && !isLoading && <GitHub format={3} />}
       {typeCall === 'github' ? 'Login com Github' : 'Entrar'}
-
     </Button>
   );
 }

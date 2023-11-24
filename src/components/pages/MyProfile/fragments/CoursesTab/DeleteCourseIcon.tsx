@@ -5,11 +5,11 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 
 interface IDeleteCourseIconProps {
-  courseId:string;
-  userId:string;
+  courseId: string;
+  userId: string;
 }
 
-export function DeleteCourseIcon({ courseId, userId }:IDeleteCourseIconProps) {
+export function DeleteCourseIcon({ courseId, userId }: IDeleteCourseIconProps) {
   const { showMessage } = useFeedback();
   const { refetch } = useGetCoursesByUser(userId);
   const onCompleted = () => {
@@ -42,11 +42,11 @@ export function DeleteCourseIcon({ courseId, userId }:IDeleteCourseIconProps) {
       type="danger"
       onConfirm={deleteCourse}
       loading={loading}
-      elementAction={(
+      elementAction={
         <IconButton>
           <Delete />
         </IconButton>
-      )}
+      }
     />
   );
 }

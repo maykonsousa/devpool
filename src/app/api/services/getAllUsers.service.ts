@@ -6,10 +6,22 @@ export const getAllUsersService = async () => {
       orderBy: {
         name: 'asc',
       },
+      include: {
+        Social: true,
+      },
+    });
+
+    const usersFormatted = users.map((user) => {
+      const { Social, ...rest } = user;
+
+      return {
+        ...rest,
+        contacts: Social,
+      };
     });
 
     return {
-      users,
+      users: usersFormatted,
       status: 'success',
       message: 'Users found',
     };

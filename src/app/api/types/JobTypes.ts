@@ -12,19 +12,19 @@ export interface ICreateJobInput {
     userId: string;
     data: JobInputData;
     technologies: string[];
-  }
+  };
 }
 
 export interface IGetJobsByUserInput {
   input: {
     userId?: string;
     username?: string;
-  }
+  };
 }
 
 export interface IDeleteJobInput {
   input: {
     userId: string;
     jobId: string;
-  }
+  };
 }

@@ -23,23 +23,23 @@ export interface ICourseData {
 }
 
 export interface ICreateCourseInput {
-  input:{
+  input: {
     userId: string;
     data: ICourseInputData;
-  }
+  };
 }
 
 export interface IDeleteCourseInput {
-  input:{
+  input: {
     courseId: string;
     userId: string;
-  }
+  };
 }
 
 export interface IUpdateCourseInput {
-  input:{
+  input: {
     courseId: string;
     userId: string;
     data: Partial<ICourseInputData>;
-  }
+  };
 }

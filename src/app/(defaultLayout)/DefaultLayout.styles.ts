@@ -10,5 +10,4 @@ export const DefaultLayoutContainer = styled(Box)`
   max-width: 1440px;
   margin: 0 auto;
   gap: 1rem;
-
 `;

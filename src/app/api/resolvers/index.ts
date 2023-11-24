@@ -23,10 +23,25 @@ import { getUserByUsernameService } from '../services/getUserByUsername.service'
 import { updateContactsService } from '../services/updateContacts.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
-import { ICreateCourseInput, IDeleteCourseInput, IUpdateCourseInput } from '../types/CousersTypes';
-import { ICreateJobInput, IDeleteJobInput, IGetJobsByUserInput } from '../types/JobTypes';
-import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
-import { IAddOrRemoveTechnologyInput, IGetTechsByUserInput } from '../types/TechsTypes';
+import {
+  ICreateCourseInput,
+  IDeleteCourseInput,
+  IUpdateCourseInput,
+} from '../types/CousersTypes';
+import {
+  ICreateJobInput,
+  IDeleteJobInput,
+  IGetJobsByUserInput,
+} from '../types/JobTypes';
+import {
+  ICreateProjectInput,
+  IDeleteProjectInput,
+  IGetProjectsByUserInput,
+} from '../types/ProjectTypes';
+import {
+  IAddOrRemoveTechnologyInput,
+  IGetTechsByUserInput,
+} from '../types/TechsTypes';
 import {
   IDeleteUserInput,
   IGetProfileInput,
@@ -39,19 +54,15 @@ import { IGetContactsInput, IUpdateContactsInput } from '../types/contactsType';
 import { ICreateFeedbackInput } from '../types/feedbackTypes';
 
 export const resolvers = {
-
   Query: {
     // USERS
     getAllUsers: async () => getAllUsersService(),
-    getUserByEmail: async (
-      _:any,
-      args: IGetUserByEmailInput,
-    ) => getUserByEmailService(args.input.email),
-    getProfile: async (_:any, args:IGetProfileInput) => getProfileService(args.input),
-    getUserByUsername: async (
-      _:any,
-      args:IgetUserByUsernameInput,
-    ) => getUserByUsernameService(args.input),
+    getUserByEmail: async (_: any, args: IGetUserByEmailInput) =>
+      getUserByEmailService(args.input.email),
+    getProfile: async (_: any, args: IGetProfileInput) =>
+      getProfileService(args.input),
+    getUserByUsername: async (_: any, args: IgetUserByUsernameInput) =>
+      getUserByUsernameService(args.input),
 
     // ROLES
     getRoles: async () => getRolesService(),
@@ -60,70 +71,67 @@ export const resolvers = {
     getTechnologies: async () => getAllTechnologiesService(),
 
     // PROJECTS
-    getProjectsByUser: async (
-      _:any,
-      args: IGetProjectsByUserInput,
-    ) => getProjectsByUserService(args.input),
+    getProjectsByUser: async (_: any, args: IGetProjectsByUserInput) =>
+      getProjectsByUserService(args.input),
 
     // COURSES
-    getCoursesByUser: async (
-      _:any,
-      args: IGetProjectsByUserInput,
-    ) => getCoursesByUserService(args.input.userId),
+    getCoursesByUser: async (_: any, args: IGetProjectsByUserInput) =>
+      getCoursesByUserService(args.input.userId),
 
     // JOBS
-    getJobsByUser: async (
-      _:any,
-      args: IGetJobsByUserInput,
-    ) => getJobsByUserService(args.input),
+    getJobsByUser: async (_: any, args: IGetJobsByUserInput) =>
+      getJobsByUserService(args.input),
 
     // TECHNOLOGIES
-    getTechsByUser: async (
-      _:any,
-      args: IGetTechsByUserInput,
-    ) => getTechsByUserService(args.input),
+    getTechsByUser: async (_: any, args: IGetTechsByUserInput) =>
+      getTechsByUserService(args.input),
 
     // CONTACTS
-    getContacts: async (_:any, args:IGetContactsInput) => getContactsService(args.input),
-
+    getContacts: async (_: any, args: IGetContactsInput) =>
+      getContactsService(args.input),
   },
 
   Mutation: {
     // USERS
-    createUser: async (_:any, args: IcreateUserInput) => createUserService(args.input),
-    updateUser: async (_:any, args:IUpdateUserInput) => updateUserService(args.input),
-    deleteUser: async (_:any, args: IDeleteUserInput) => deleteUserService(args.input.userId),
+    createUser: async (_: any, args: IcreateUserInput) =>
+      createUserService(args.input),
+    updateUser: async (_: any, args: IUpdateUserInput) =>
+      updateUserService(args.input),
+    deleteUser: async (_: any, args: IDeleteUserInput) =>
+      deleteUserService(args.input.userId),
 
     // COURSES
-    createCourse: async (_:any, args: ICreateCourseInput) => createCourseService(args.input),
-    deleteCourseUser: async (
-      _:any,
-      args: IDeleteCourseInput,
-    ) => deleteCourseUserService(args.input),
-    updateCourseUser: async (_:any, args:IUpdateCourseInput) => updateCourseService(args.input),
+    createCourse: async (_: any, args: ICreateCourseInput) =>
+      createCourseService(args.input),
+    deleteCourseUser: async (_: any, args: IDeleteCourseInput) =>
+      deleteCourseUserService(args.input),
+    updateCourseUser: async (_: any, args: IUpdateCourseInput) =>
+      updateCourseService(args.input),
 
     // PROJECTS
-    createProject: async (_:any, args:ICreateProjectInput) => createProjectService(args.input),
-    deleteProjectUser: async (
-      _:any,
-      args:IDeleteProjectInput,
-    ) => deleteProjectUserService(args.input),
+    createProject: async (_: any, args: ICreateProjectInput) =>
+      createProjectService(args.input),
+    deleteProjectUser: async (_: any, args: IDeleteProjectInput) =>
+      deleteProjectUserService(args.input),
 
     // JOBS
-    createJob: async (_:any, args:ICreateJobInput) => createJobService(args.input),
-    deleteJobUser: async (_:any, args:IDeleteJobInput) => deleteJobUserService(args.input),
+    createJob: async (_: any, args: ICreateJobInput) =>
+      createJobService(args.input),
+    deleteJobUser: async (_: any, args: IDeleteJobInput) =>
+      deleteJobUserService(args.input),
 
     // TECHNOLOGIES
     addOrRemoveTechnologyUser: async (
-      _:any,
-      args:IAddOrRemoveTechnologyInput,
+      _: any,
+      args: IAddOrRemoveTechnologyInput,
     ) => addOrRemoveTechnologyUserService(args.input),
 
     // CONTACTS
-    updateContacts: async (_:any, args: IUpdateContactsInput) => updateContactsService(args.input),
+    updateContacts: async (_: any, args: IUpdateContactsInput) =>
+      updateContactsService(args.input),
 
     // FEEDBACK
-    createFeedback: async (_:any, args: ICreateFeedbackInput) => createFeedbackService(args.input),
+    createFeedback: async (_: any, args: ICreateFeedbackInput) =>
+      createFeedbackService(args.input),
   },
-
 };
