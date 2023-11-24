@@ -10,9 +10,18 @@ interface TextInputProps extends StandardTextFieldProps {
 }
 
 export function TextInput({ name, ...props }: TextInputProps) {
-  const { control, formState } = useFormContext();
+  const {
+    control, formState, setValue,
+  } = useFormContext();
   const isError = !!formState.errors[name];
   const errorMessage = formState.errors[name]?.message as string || '';
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const breakLineValue = value.replace(/\n/g, ' \r\n');
+    setValue(name, breakLineValue);
+  };
+
   return (
     <FormControl fullWidth>
       <Controller
@@ -26,6 +35,7 @@ export function TextInput({ name, ...props }: TextInputProps) {
             helperText={errorMessage}
             {...field}
             {...props}
+            onBlur={handleBlur}
           />
         )}
       />

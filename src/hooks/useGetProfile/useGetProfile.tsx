@@ -83,7 +83,7 @@ interface IUser {
   cover_url: string
   technologies: ITechnology[]
   courses: ICourse[]
-  contacts: IContact[]
+  contacts: IContact
 }
 
 interface IResult {

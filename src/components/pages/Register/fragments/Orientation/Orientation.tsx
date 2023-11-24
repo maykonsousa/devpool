@@ -9,7 +9,7 @@ import { parseCookies } from 'nookies';
 import { IGitHubUser, getGitHubUserByToken } from '@services/getGitHubUserByToken.service';
 import { IStepsBaseProps } from '../types';
 import {
-  ActionsContainer, StepContainer, StepContent, StepSubtitle, StepTitle,
+  ActionsContainer, StepContainer, StepSubtitle, StepTitle,
 } from '../styles';
 
 interface IOrientationProps extends IStepsBaseProps {
@@ -66,7 +66,6 @@ export function Orientation({ isVisible, onNext }:IOrientationProps) {
       <StepTitle>{title}</StepTitle>
       <StepSubtitle>{message}</StepSubtitle>
       {!githubUser && !data && <LoginButton typeCall="github" isLoading={isAuthLoading} onClick={() => signIn('github', { redirect: true })} />}
-      <StepContent />
       <ActionsContainer>
         <Button
           fullWidth

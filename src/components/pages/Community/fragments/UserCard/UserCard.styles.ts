@@ -43,6 +43,7 @@ export const Bio = styled(Typography)`
   display: -webkit-box;
   -webkit-line-clamp: 4; 
   -webkit-box-orient: vertical;
+  white-space: pre-line;
 
 
   

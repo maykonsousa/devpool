@@ -30,6 +30,12 @@ export interface IGetUserByEmailInput {
   }
 }
 
+export interface IgetUserByUsernameInput {
+  input:{
+    username: string;
+  }
+}
+
 export interface IDeleteUserInput {
   input:{
     userId: string;

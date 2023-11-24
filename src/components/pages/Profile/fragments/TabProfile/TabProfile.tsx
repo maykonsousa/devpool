@@ -128,40 +128,40 @@ export function TabProfile({ username }:ITabProfileProps) {
         <Card title="social" direction="row">
           {loading ? (<Skeleton variant="rectangular" width="100%" height={50} />) : (
             <AvatarGroup max={6}>
-              {user?.contacts[0].linkedin_url && (
+              {user?.contacts.linkedin_url && (
               <SocialIcon
                 type="linkedin_url"
-                url={user?.contacts[0].linkedin_url}
+                url={user?.contacts.linkedin_url}
               />
               )}
-              {user?.contacts[0].github_url && (
+              {user?.contacts.github_url && (
               <SocialIcon
                 type="github_url"
-                url={user?.contacts[0].github_url}
+                url={user?.contacts.github_url}
               />
               )}
-              {user?.contacts[0].twitter_url && (
+              {user?.contacts.twitter_url && (
               <SocialIcon
                 type="twitter_url"
-                url={user?.contacts[0].twitter_url}
+                url={user?.contacts.twitter_url}
               />
               )}
-              {user?.contacts[0].instagram_url && (
+              {user?.contacts.instagram_url && (
               <SocialIcon
                 type="instagram_url"
-                url={user?.contacts[0].instagram_url}
+                url={user?.contacts.instagram_url}
               />
               )}
-              {user?.contacts[0].personal_website && (
+              {user?.contacts.personal_website && (
               <SocialIcon
                 type="personal_website"
-                url={user?.contacts[0].personal_website}
+                url={user?.contacts.personal_website}
               />
               )}
-              {user?.contacts[0].cell_phone && (
+              {user?.contacts.cell_phone && (
               <SocialIcon
                 type="cell_phone"
-                url={user?.contacts[0].cell_phone}
+                url={user?.contacts.cell_phone}
               />
               )}
             </AvatarGroup>
@@ -172,7 +172,7 @@ export function TabProfile({ username }:ITabProfileProps) {
       <Content>
         <Card title="sobre">
           {loading ? (<Skeleton variant="text" width="100%" height={80} />) : (
-            <Typography variant="body1">
+            <Typography variant="body1" whiteSpace="pre-line">
               {user?.bio}
             </Typography>
           )}

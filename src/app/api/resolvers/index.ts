@@ -19,6 +19,7 @@ import { getProjectsByUserService } from '../services/getProjectsByUser.service'
 import { getRolesService } from '../services/getRoles.service';
 import { getTechsByUserService } from '../services/getTechsByUser.service';
 import { getUserByEmailService } from '../services/getUserByEmail.service';
+import { getUserByUsernameService } from '../services/getUserByUsername.service';
 import { updateContactsService } from '../services/updateContacts.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
@@ -27,7 +28,12 @@ import { ICreateJobInput, IDeleteJobInput, IGetJobsByUserInput } from '../types/
 import { ICreateProjectInput, IDeleteProjectInput, IGetProjectsByUserInput } from '../types/ProjectTypes';
 import { IAddOrRemoveTechnologyInput, IGetTechsByUserInput } from '../types/TechsTypes';
 import {
-  IDeleteUserInput, IGetProfileInput, IGetUserByEmailInput, IUpdateUserInput, IcreateUserInput,
+  IDeleteUserInput,
+  IGetProfileInput,
+  IGetUserByEmailInput,
+  IUpdateUserInput,
+  IcreateUserInput,
+  IgetUserByUsernameInput,
 } from '../types/UsersTypes';
 import { IGetContactsInput, IUpdateContactsInput } from '../types/contactsType';
 import { ICreateFeedbackInput } from '../types/feedbackTypes';
@@ -42,6 +48,10 @@ export const resolvers = {
       args: IGetUserByEmailInput,
     ) => getUserByEmailService(args.input.email),
     getProfile: async (_:any, args:IGetProfileInput) => getProfileService(args.input),
+    getUserByUsername: async (
+      _:any,
+      args:IgetUserByUsernameInput,
+    ) => getUserByUsernameService(args.input),
 
     // ROLES
     getRoles: async () => getRolesService(),

@@ -33,15 +33,23 @@ export const getProfileService = async ({ username }:IGetProfileService) => {
     if (!user) throw new AppError('Usuário não encontrado', 404);
 
     const userFormatted = {
-      ...user,
-      technologies: user.UserTechnology.map((tecnology) => ({
-        id: tecnology.Technology.id,
-        name: tecnology.Technology.name,
-      })),
-      projects: user.Project.map((project) => project),
-      jobs: user.Job.map((job) => job),
-      courses: user.Course.map((course) => course),
-      contacts: user.Social.map((social) => social),
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      type: user.type,
+      role: user.role,
+      seniority: user.seniority,
+      city: user.city,
+      state: user.state,
+      bio: user.bio,
+      username: user.username,
+      avatar_url: user.avatar_url,
+      cover_url: user.cover_url,
+      courses: user.Course,
+      jobs: user.Job,
+      projects: user.Project,
+      technologies: user.UserTechnology.map((tech) => tech.Technology),
+      contacts: user.Social[0],
 
     };
 

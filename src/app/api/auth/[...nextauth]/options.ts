@@ -6,7 +6,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
 import { authenticateService } from '../../services/authenticate.service';
-import { getUserByEmailService } from '../../services/getUserByEmail.service';
+import { getUserByUsernameService } from '../../services/getUserByUsername.service';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -31,16 +31,17 @@ export const options: NextAuthOptions = {
           username: credentials?.username as string,
           password: credentials?.password as string,
         });
+
         if (user) {
           const {
-            name, email, avatar_url, id, password, ...rest
+            username: name, email, avatar_url, id, password, ...rest
           } = user;
           return {
             id,
             name,
             email,
             image: avatar_url,
-            ...rest,
+
           };
         }
         return null;
@@ -53,8 +54,8 @@ export const options: NextAuthOptions = {
       user, account,
     }) {
       if (account?.provider === 'github') {
-        const email = user?.email as string;
-        const { status } = await getUserByEmailService(email);
+        const username = user?.name as string;
+        const { status } = await getUserByUsernameService({ username });
         if (status === 'success') {
           return true;
         }

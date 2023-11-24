@@ -30,11 +30,22 @@ export const typeDefs = `#graphql
     createdAt: String
     updatedAt: String
   }
+
   input GetUserByEmailInput {
     email: String!
   }
 
   type GetUserByEmailPayload {
+    user: User
+    status: String!
+    message: String! 
+  }
+
+  input GetUserByUsernameInput {
+    username: String!
+  }
+
+  type GetUserByUsernamePayload {
     user: User
     status: String!
     message: String! 
@@ -415,7 +426,7 @@ export const typeDefs = `#graphql
     projects: [Project!]
     jobs: [Job!]
     courses: [Course!]
-    contacts: [Social!]
+    contacts: Social
   }
 
   type getProfilePayload {
@@ -433,6 +444,7 @@ export const typeDefs = `#graphql
     getAllUsers: getAllUsersPayload!
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
     getProfile(input: GetProfileInput!): getProfilePayload!
+    getUserByUsername(input: GetUserByUsernameInput!): GetUserByUsernamePayload!
 
     ##PROJECTS
     getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!
