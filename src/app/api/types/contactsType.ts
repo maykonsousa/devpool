@@ -3,7 +3,7 @@ export interface IGetContactsInput {
     userId?: string;
     username?: string;
   };
-  }
+}
 
 export interface IContactsDataInput {
   linkedin_url?: string;
@@ -12,12 +12,11 @@ export interface IContactsDataInput {
   personal_website?: string;
   cell_phone?: string;
   twitter_url?: string;
-  }
+}
 
 export interface IUpdateContactsInput {
   input: {
     userId: string;
     data: IContactsDataInput;
   };
-
-  }
+}

@@ -19,32 +19,29 @@ interface ICreateProjectResult {
   };
 }
 
- interface IVariables {
+interface IVariables {
   input: {
     project: IProjectInput;
     technologies: string[];
-  }
+  };
 }
 
 export const useCreateProject = ({
   project,
   technologies,
-}:{
-  project:IProjectInput,
-  technologies:string[]
+}: {
+  project: IProjectInput;
+  technologies: string[];
 }) => {
-  const [createProject, {
-    data,
-    loading,
-    error,
-
-  }] = useMutation<ICreateProjectResult, IVariables>(CREATE_PROJECT, {
+  const [createProject, { data, loading, error }] = useMutation<
+    ICreateProjectResult,
+    IVariables
+  >(CREATE_PROJECT, {
     variables: {
       input: {
         project,
         technologies,
       },
-
     },
   });
 

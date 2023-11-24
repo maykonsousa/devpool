@@ -11,8 +11,12 @@ interface TechCheckboxProps {
 }
 
 export function TechCheckbox({
-  userId, techId, isChecked, techName, reset,
-}:TechCheckboxProps) {
+  userId,
+  techId,
+  isChecked,
+  techName,
+  reset,
+}: TechCheckboxProps) {
   const { showMessage } = useFeedback();
   const { updateTechnology, loading } = useUpdateTechnology({
     variables: {
@@ -27,8 +31,13 @@ export function TechCheckbox({
     const { data } = await updateTechnology();
     reset();
     showMessage({
-      type: data?.addOrRemoveTechnologyUser?.status === 'success' ? 'success' : 'error',
-      message: data?.addOrRemoveTechnologyUser?.message || 'Erro ao atualizar tecnologia',
+      type:
+        data?.addOrRemoveTechnologyUser?.status === 'success'
+          ? 'success'
+          : 'error',
+      message:
+        data?.addOrRemoveTechnologyUser?.message ||
+        'Erro ao atualizar tecnologia',
     });
   };
   return (
@@ -37,7 +46,6 @@ export function TechCheckbox({
       checked={isChecked}
       onChange={handleChange}
       loading={loading}
-
     />
   );
 }

@@ -1,12 +1,13 @@
 import { gql, useMutation } from '@apollo/client';
 
 const UPDATE_TECHNOLOGY = gql`
-mutation AddOrRemoveTechnologyUser($input: AddOrRemoveTechnologyUserInput) {
-  addOrRemoveTechnologyUser(input: $input) {
-    status
-    message
+  mutation AddOrRemoveTechnologyUser($input: AddOrRemoveTechnologyUserInput) {
+    addOrRemoveTechnologyUser(input: $input) {
+      status
+      message
+    }
   }
-}`;
+`;
 
 interface IVariables {
   input: {
@@ -26,18 +27,13 @@ interface IUseUpdateTechnology {
   variables: IVariables;
 }
 
-export const useUpdateTechnology = ({ variables }:IUseUpdateTechnology) => {
-  const [
-    updateTechnology,
-    {
-      data,
-      loading,
-      error,
-    },
-  ] = useMutation<IResult, IVariables>(UPDATE_TECHNOLOGY, {
+export const useUpdateTechnology = ({ variables }: IUseUpdateTechnology) => {
+  const [updateTechnology, { data, loading, error }] = useMutation<
+    IResult,
+    IVariables
+  >(UPDATE_TECHNOLOGY, {
     variables,
     refetchQueries: ['GetTechsByUser'],
-
   });
 
   return {

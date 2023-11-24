@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-  CircularProgress, FormControlLabel, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps,
+  CircularProgress,
+  FormControlLabel,
+  Checkbox as MuiCheckbox,
+  CheckboxProps as MuiCheckboxProps,
 } from '@mui/material';
 
 interface CheckboxProps extends MuiCheckboxProps {
@@ -9,7 +12,6 @@ interface CheckboxProps extends MuiCheckboxProps {
 }
 export function Checkbox({ label, loading = false, ...props }: CheckboxProps) {
   return (
-
     <FormControlLabel
       control={
         loading ? (
@@ -19,10 +21,11 @@ export function Checkbox({ label, loading = false, ...props }: CheckboxProps) {
               marginRight: '10px',
             }}
           />
-        ) : (<MuiCheckbox {...props} />)
+        ) : (
+          <MuiCheckbox {...props} />
+        )
       }
       label={label}
-
     />
   );
 }

@@ -2,14 +2,31 @@
 
 import React from 'react';
 import {
-  Box, IconButton, Tab, Tabs, Typography, useMediaQuery, useTheme,
+  Box,
+  IconButton,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import {
-  Build, CodeOff, ConnectWithoutContact, IntegrationInstructions, Person, School, Share,
+  Build,
+  CodeOff,
+  ConnectWithoutContact,
+  IntegrationInstructions,
+  Person,
+  School,
+  Share,
 } from '@mui/icons-material';
 import { PageContainer } from './SettingsPage.styles';
 import {
-  AccountTab, ContactsTab, CoursesTab, JobsTab, ProjectsTab, TechsTab,
+  AccountTab,
+  ContactsTab,
+  CoursesTab,
+  JobsTab,
+  ProjectsTab,
+  TechsTab,
 } from './fragments';
 
 interface TabPanelProps {
@@ -20,7 +37,7 @@ interface TabPanelProps {
   component: React.ReactNode;
 }
 
-const INITIALTAB:TabPanelProps = {
+const INITIALTAB: TabPanelProps = {
   label: 'Informações da Conta',
   value: 'account',
   iconPosition: 'start',
@@ -33,7 +50,7 @@ export function SettingsPage() {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const tabs:TabPanelProps[] = [
+  const tabs: TabPanelProps[] = [
     {
       label: 'Informações da Conta',
       value: 'account',
@@ -78,20 +95,21 @@ export function SettingsPage() {
     },
   ];
 
-  const handleChangeTab = (value:string) => {
+  const handleChangeTab = (value: string) => {
     const newTab = tabs.find((tab) => tab.value === value);
     if (newTab) setCurrentTab(newTab);
   };
   return (
     <PageContainer>
-      <Box sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
-        padding: '1rem',
-        paddingBottom: '2rem',
-      }}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          padding: '1rem',
+          paddingBottom: '2rem',
+        }}
       >
         <Typography variant="h4">Meu Perfil</Typography>
         <Box>
@@ -100,13 +118,14 @@ export function SettingsPage() {
           </IconButton>
         </Box>
       </Box>
-      <Box sx={{
-        width: '100%',
-        display: 'grid',
-        gridTemplateColumns: !isMobile ? '300px 1fr' : '70px 1fr',
-        flex: 1,
-        gap: '1rem',
-      }}
+      <Box
+        sx={{
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: !isMobile ? '300px 1fr' : '70px 1fr',
+          flex: 1,
+          gap: '1rem',
+        }}
       >
         <Tabs
           onChange={(e, value) => handleChangeTab(value)}
@@ -122,33 +141,32 @@ export function SettingsPage() {
               icon={tab.icon}
               iconPosition="start"
               sx={{
-                textTransform: 'none',
-                fontSize: '1.2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                width: '100%',
-                fontWeight: 'bold',
+                'textTransform': 'none',
+                'fontSize': '1.2rem',
+                'display': 'flex',
+                'alignItems': 'center',
+                'justifyContent': 'flex-start',
+                'width': '100%',
+                'fontWeight': 'bold',
                 '&:hover': {
                   backgroundColor: 'background.paper',
-
                 },
               }}
             />
           ))}
         </Tabs>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flex: 1,
-        }}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+          }}
         >
           {currentTab.component}
         </Box>
       </Box>
-
     </PageContainer>
   );
 }

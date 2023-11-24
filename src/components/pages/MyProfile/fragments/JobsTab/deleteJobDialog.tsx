@@ -9,7 +9,7 @@ interface IDeleteJobDialogProps {
   jobId: string;
 }
 
-export function DeleteJobDialog({ jobId, userId }:IDeleteJobDialogProps) {
+export function DeleteJobDialog({ jobId, userId }: IDeleteJobDialogProps) {
   const { showMessage } = useFeedback();
   const { deleteJob, loading } = useDeleteJob({
     variables: {
@@ -23,7 +23,8 @@ export function DeleteJobDialog({ jobId, userId }:IDeleteJobDialogProps) {
   const handleDeleteJob = async () => {
     const { data } = await deleteJob();
     showMessage({
-      message: data?.deleteJobUser?.message || 'Experiência removida com sucesso',
+      message:
+        data?.deleteJobUser?.message || 'Experiência removida com sucesso',
       type: data?.deleteJobUser?.status === 'success' ? 'success' : 'error',
     });
   };
@@ -34,9 +35,12 @@ export function DeleteJobDialog({ jobId, userId }:IDeleteJobDialogProps) {
       buttonLabel="Remover"
       type="danger"
       onConfirm={handleDeleteJob}
-      elementAction={<IconButton><Delete /></IconButton>}
+      elementAction={
+        <IconButton>
+          <Delete />
+        </IconButton>
+      }
       loading={loading}
-
     />
   );
 }

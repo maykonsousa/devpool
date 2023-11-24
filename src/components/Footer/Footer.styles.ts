@@ -11,20 +11,16 @@ export const FooterContainer = styled(Box)`
   max-width: 1440px;
   margin: 0 auto;
 
-
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     padding: 0;
     gap: 0;
     justify-content: center;
-
-    
   }
 `;
 
 export const CopyRight = styled(Typography)`
-  
   color: ${({ theme }) => theme.palette.text.secondary};
   font-weight: 400;
   margin: 0;
@@ -43,10 +39,9 @@ export const FooterMenu = styled(Box)`
   justify-content: flex-end;
   gap: 1rem;
 
-
   @media (max-width: 768px) {
-   width: 100%;
-   padding: 0 1rem;
+    width: 100%;
+    padding: 0 1rem;
     justify-content: center;
   }
 `;

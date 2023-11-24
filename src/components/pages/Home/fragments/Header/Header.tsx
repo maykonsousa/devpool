@@ -2,16 +2,26 @@
 
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
-  AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography,
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import Image from 'next/image';
 import router from 'next/router';
 import * as React from 'react';
 
 export function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null,
+  );
 
-  const scrollToSection = (sectionId:string) => {
+  const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -35,7 +45,6 @@ export function Header() {
       label: 'contato',
       onClick: () => scrollToSection('contact'),
     },
-
   ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -56,7 +65,9 @@ export function Header() {
               flexGrow: 1,
               cursor: 'pointer',
             }}
-            onClick={() => { router.push('/'); }}
+            onClick={() => {
+              router.push('/');
+            }}
           >
             <Image
               src="/logo.svg"
@@ -116,9 +127,10 @@ export function Header() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-
             }}
-            onClick={() => { router.push('/'); }}
+            onClick={() => {
+              router.push('/');
+            }}
           >
             <Image
               src="/logo.svg"
@@ -129,13 +141,14 @@ export function Header() {
             />
           </Box>
 
-          <Box sx={{
-            width: '100%',
-            display: { xs: 'none', md: 'flex' },
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 2,
-          }}
+          <Box
+            sx={{
+              width: '100%',
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2,
+            }}
           >
             {pages.map((page) => (
               <Button
@@ -146,7 +159,6 @@ export function Header() {
                 }}
                 variant="text"
                 color="inherit"
-
               >
                 {page.label}
               </Button>
@@ -154,25 +166,23 @@ export function Header() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-
             <Button
               variant="contained"
               href="/auth/login"
               sx={{
-                width: '100%',
-                borderRadius: '10px',
-                backgroundColor: 'primary.main',
+                'width': '100%',
+                'borderRadius': '10px',
+                'backgroundColor': 'primary.main',
                 '&:hover': {
                   backgroundColor: 'primary.dark',
                 },
-                color: 'white',
-                fontWeight: 'bold',
-                gap: '10px',
+                'color': 'white',
+                'fontWeight': 'bold',
+                'gap': '10px',
               }}
             >
               Entrar
             </Button>
-
           </Box>
         </Toolbar>
       </Container>

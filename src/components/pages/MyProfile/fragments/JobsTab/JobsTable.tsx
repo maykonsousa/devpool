@@ -3,9 +3,7 @@ import { Loading } from '@/components/Loading';
 import { useGetJobsByUser, useSession } from '@/hooks';
 import { formatDate } from '@/utils';
 import { Edit } from '@mui/icons-material';
-import {
-  Box, IconButton, useMediaQuery, useTheme,
-} from '@mui/material';
+import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
 import { DeleteJobDialog } from './deleteJobDialog';
@@ -14,7 +12,7 @@ export function JobsTable() {
   const { user } = useSession();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const desktopColumns:GridColDef[] = [
+  const desktopColumns: GridColDef[] = [
     {
       field: 'company',
       headerName: 'Empresa',
@@ -38,7 +36,6 @@ export function JobsTable() {
       headerName: 'termino',
       width: 150,
       renderCell: ({ value }) => (value ? formatDate(value) : 'Atual'),
-
     },
     {
       field: 'actions',
@@ -54,10 +51,9 @@ export function JobsTable() {
         </Box>
       ),
     },
-
   ];
 
-  const mobileColumns:GridColDef[] = [
+  const mobileColumns: GridColDef[] = [
     {
       field: 'company',
       headerName: 'Empresa',
@@ -70,7 +66,6 @@ export function JobsTable() {
             width: '100%',
             justifyContent: 'space-between',
           }}
-
         >
           {row.company}
           <Box>
@@ -82,20 +77,20 @@ export function JobsTable() {
         </Box>
       ),
     },
-
   ];
 
   const { data, loading } = useGetJobsByUser({ userId: user?.id });
 
   const jobs = useMemo(() => data?.jobs, [data]);
 
-  return loading ? (<Loading />) : (
+  return loading ? (
+    <Loading />
+  ) : (
     <GridTable
       columns={isMobile ? mobileColumns : desktopColumns}
       loading={loading}
       rows={jobs || []}
       emptyMessage="Voce ainda nao adicionou nenhuma experiencia profissional"
-
     />
   );
 }

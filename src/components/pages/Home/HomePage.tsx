@@ -23,7 +23,6 @@ export function HomePage() {
       <Header />
       <Main />
       <Footer />
-
     </Container>
   );
 }

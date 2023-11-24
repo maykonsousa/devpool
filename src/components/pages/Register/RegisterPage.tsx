@@ -5,7 +5,10 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import {
-  Stepper, Step, StepLabel, Button,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
@@ -30,7 +33,7 @@ interface ISteps {
   name?: string;
 }
 
-const developerSteps:ISteps[] = [
+const developerSteps: ISteps[] = [
   {
     sequence: 0,
     label: 'Orientações',
@@ -46,10 +49,9 @@ const developerSteps:ISteps[] = [
     label: 'Confirmação',
     name: 'finishStep',
   },
-
 ];
 
-const recruiterSteps:ISteps[] = [
+const recruiterSteps: ISteps[] = [
   {
     sequence: 0,
     label: 'Orientações',
@@ -80,20 +82,24 @@ export function RegisterPage() {
   const isRecruiter = typeUser === 'recruiter';
 
   const handleNextStep = () => {
-    const nextStep = steps.find((step) => step?.sequence === activeStep?.sequence + 1);
+    const nextStep = steps.find(
+      (step) => step?.sequence === activeStep?.sequence + 1,
+    );
     if (nextStep) {
       setActiveStep(nextStep);
     }
   };
 
   const handleBackStep = () => {
-    const backStep = steps.find((step) => step?.sequence === activeStep?.sequence - 1);
+    const backStep = steps.find(
+      (step) => step?.sequence === activeStep?.sequence - 1,
+    );
     if (backStep) {
       setActiveStep(backStep);
     }
   };
 
-  const onSelectedTypeUser = (type:string) => {
+  const onSelectedTypeUser = (type: string) => {
     router.push(`/auth/register?userType=${type}`);
   };
 
@@ -122,7 +128,8 @@ export function RegisterPage() {
         <Button
           fullWidth
           sx={{
-            backgroundColor: typeUser === 'developer' ? 'primary.main' : 'transparent',
+            backgroundColor:
+              typeUser === 'developer' ? 'primary.main' : 'transparent',
             color: typeUser === 'developer' ? 'white' : 'primary.main',
             border: '1px solid',
             borderColor: 'primary.main',
@@ -135,7 +142,8 @@ export function RegisterPage() {
           fullWidth
           onClick={() => onSelectedTypeUser('recruiter')}
           sx={{
-            backgroundColor: typeUser === 'recruiter' ? 'primary.main' : 'transparent',
+            backgroundColor:
+              typeUser === 'recruiter' ? 'primary.main' : 'transparent',
             color: typeUser === 'recruiter' ? 'white' : 'primary.main',
             border: '1px solid',
             borderColor: 'primary.main',
@@ -146,13 +154,13 @@ export function RegisterPage() {
       </ActionsContainer>
 
       {!isMobile && (
-      <Stepper activeStep={activeStep?.sequence}>
-        {steps.map((step) => (
-          <Step key={step?.sequence}>
-            <StepLabel>{step?.label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+        <Stepper activeStep={activeStep?.sequence}>
+          {steps.map((step) => (
+            <Step key={step?.sequence}>
+              <StepLabel>{step?.label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
       )}
 
       <StepList>
@@ -200,7 +208,6 @@ export function RegisterPage() {
           onNext={handleNextStep}
           onPrevious={handleBackStep}
         />
-
       </StepList>
       <Footer />
     </PageContainer>

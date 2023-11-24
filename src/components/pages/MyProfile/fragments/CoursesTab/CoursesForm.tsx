@@ -7,7 +7,10 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { Select } from '@/components/Select';
 import { typeCousesOptions } from '@/mock/coursesMock';
 import {
-  useCreateCourse, useFeedback, useGetCoursesByUser, useSession,
+  useCreateCourse,
+  useFeedback,
+  useGetCoursesByUser,
+  useSession,
 } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createCourseValidation } from '@/validations/formValidations';
@@ -21,7 +24,6 @@ export interface IformValues {
   progress: number;
   duration: number;
   courseUrl: string;
-
 }
 
 const defaultValues: IformValues = {
@@ -32,7 +34,6 @@ const defaultValues: IformValues = {
   progress: 0,
   duration: 0,
   courseUrl: '',
-
 };
 
 export function CoursesForm() {
@@ -44,7 +45,6 @@ export function CoursesForm() {
   const methods = useForm({
     defaultValues,
     resolver: zodResolver(createCourseValidation),
-
   });
 
   const handleShowForm = () => {
@@ -105,21 +105,21 @@ export function CoursesForm() {
       Adicionar curso
     </Button>
   ) : (
-
     <FormProvider {...methods}>
-
-      {loading ? <Loading /> : (
-        <Card sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          alignItems: 'flex-start',
-          gap: '1rem',
-          padding: '10px',
-        }}
+      {loading ? (
+        <Loading />
+      ) : (
+        <Card
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            alignItems: 'flex-start',
+            gap: '1rem',
+            padding: '10px',
+          }}
         >
           <GridContainer>
-
             <TextInput
               name="name"
               label="Nome do curso"
@@ -189,10 +189,8 @@ export function CoursesForm() {
               Cancelar
             </Button>
           </CardActions>
-
         </Card>
       )}
     </FormProvider>
-
   );
 }

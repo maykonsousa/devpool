@@ -39,17 +39,12 @@ export const ImageContainer = styled(Box)`
   padding: 8px;
   color: ${({ theme }) => theme.palette.primary.contrastText};
   border: 4px solid ${({ theme }) => theme.palette.primary.main};
-  
-  
-
 
   @media (max-width: 900px) {
     margin-top: 0;
     width: 80px;
     height: 80px;
   }
-
-
 `;
 
 export const FormSession = styled(Box)`
@@ -70,7 +65,6 @@ export const GridContainer = styled(Box)`
   gap: 1rem;
   width: 100%;
 
-
   @media (max-width: 900px) {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -80,10 +74,9 @@ export const ActionsContainer = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;  
+  gap: 1rem;
   width: 100%;
   max-width: 900px;
-
 
   @media (max-width: 900px) {
     flex-direction: column;

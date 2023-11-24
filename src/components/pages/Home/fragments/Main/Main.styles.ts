@@ -1,6 +1,4 @@
-import {
-  styled, Box, Typography, Button,
-} from '@mui/material';
+import { styled, Box, Typography, Button } from '@mui/material';
 
 export const MainContainer = styled(Box)`
   display: flex;
@@ -53,9 +51,8 @@ export const HeroContainer = styled(Box)`
   justify-content: center;
   gap: 1rem;
 
-
   @media (max-width: 768px) {
-    display: none;  
+    display: none;
   }
 `;
 

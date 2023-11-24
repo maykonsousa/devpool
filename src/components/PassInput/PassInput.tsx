@@ -1,6 +1,10 @@
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import {
-  FormControl, IconButton, InputAdornment, StandardTextFieldProps, TextField,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  StandardTextFieldProps,
+  TextField,
 } from '@mui/material';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -16,7 +20,7 @@ export function PassInput({ name, ...props }: PassInputProps) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const isError = !!formState.errors[name];
-  const errorMessage = formState.errors[name]?.message as string || '';
+  const errorMessage = (formState.errors[name]?.message as string) || '';
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -38,10 +42,7 @@ export function PassInput({ name, ...props }: PassInputProps) {
               ...field,
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
+                  <IconButton onClick={handleClickShowPassword} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>

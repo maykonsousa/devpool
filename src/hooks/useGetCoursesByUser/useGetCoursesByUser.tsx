@@ -2,23 +2,23 @@ import { ICourseData } from '@/app/api/types/CousersTypes';
 import { gql, useQuery } from '@apollo/client';
 
 const GET_COURSES_BY_USER = gql`
-  query GetCoursesByUser($input:GetCoursesByUserInput) {
-    getCoursesByUser(input:$input) {
+  query GetCoursesByUser($input: GetCoursesByUserInput) {
+    getCoursesByUser(input: $input) {
       courses {
-      userId
-      updatedAt
-      type
-      school
-      progress
-      name
-      id
-      duration
-      description
-      createdAt
-      courseUrl
-    }
-    status
-    message
+        userId
+        updatedAt
+        type
+        school
+        progress
+        name
+        id
+        duration
+        description
+        createdAt
+        courseUrl
+      }
+      status
+      message
     }
   }
 `;
@@ -38,16 +38,16 @@ interface IResult {
 }
 
 export const useGetCoursesByUser = (userId: string) => {
-  const {
-    data, loading, error, refetch,
-  } = useQuery<IResult, IVariables>(GET_COURSES_BY_USER, {
-    variables: {
-      input: {
-        userId,
+  const { data, loading, error, refetch } = useQuery<IResult, IVariables>(
+    GET_COURSES_BY_USER,
+    {
+      variables: {
+        input: {
+          userId,
+        },
       },
     },
-
-  });
+  );
 
   return {
     data: data?.getCoursesByUser.courses,

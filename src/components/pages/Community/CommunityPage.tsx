@@ -18,26 +18,31 @@ interface IUserData {
   bio: string;
   email: string;
   username: string;
-
 }
 
 export function CommunityPage() {
   const { data, loading, error } = useGetProfiles();
 
-  const users:IUserData[] = data || [];
+  const users: IUserData[] = data || [];
 
   return (
     <PageContainer>
       <Title> Comunidade </Title>
       {!data && !loading && error && (
-      <EmptyState
-        message="Ocorreu um erro ao carregar os usuários."
-        type="error"
-      />
+        <EmptyState
+          message="Ocorreu um erro ao carregar os usuários."
+          type="error"
+        />
       )}
-      {loading ? <Loading /> : (
+      {loading ? (
+        <Loading />
+      ) : (
         <CardsContainer>
-          {users.length ? users.map((user) => (<UserCard key={user.id} user={user} />)) : <EmptyState message="Nenhum usuário encontrado." type="empty" />}
+          {users.length ? (
+            users.map((user) => <UserCard key={user.id} user={user} />)
+          ) : (
+            <EmptyState message="Nenhum usuário encontrado." type="empty" />
+          )}
         </CardsContainer>
       )}
     </PageContainer>

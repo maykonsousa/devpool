@@ -1,6 +1,4 @@
-import {
-  styled, Card, IconButton as MuiIconButton, Box,
-} from '@mui/material';
+import { styled, Card, IconButton as MuiIconButton, Box } from '@mui/material';
 
 export const CardContainer = styled(Card)`
   position: fixed;
@@ -11,16 +9,13 @@ export const CardContainer = styled(Card)`
 
   z-index: 1000;
 
-
   @media (max-width: 768px) {
     bottom: 80px;
     top: 16px;
     right: 1rem;
     width: 100%;
     width: calc(100% - 2rem);
-    
   }
-
 `;
 
 export const CardHeader = styled(Box)`
@@ -29,7 +24,6 @@ export const CardHeader = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-
 `;
 
 export const ActionButton = styled(MuiIconButton)`
@@ -43,7 +37,6 @@ export const ActionButton = styled(MuiIconButton)`
   &:hover {
     background: ${({ theme }) => theme.palette.primary.dark};
   }
-
 
   @media (max-width: 768px) {
     bottom: 40px;

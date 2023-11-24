@@ -6,14 +6,14 @@ const DELETE_JOB = gql`
       status
       message
     }
-}
+  }
 `;
 
 interface IVariables {
   input: {
     userId: string;
     jobId: string;
-  }
+  };
 }
 
 interface IDeleteJobInput {
@@ -26,15 +26,18 @@ interface IResult {
   deleteJobUser: {
     status: string;
     message: string;
-  }
+  };
 }
 
 export function useDeleteJob({
   variables,
   onCompleted,
   onError,
-}:IDeleteJobInput) {
-  const [deleteJob, { data, loading, error }] = useMutation<IResult, IVariables>(DELETE_JOB, {
+}: IDeleteJobInput) {
+  const [deleteJob, { data, loading, error }] = useMutation<
+    IResult,
+    IVariables
+  >(DELETE_JOB, {
     variables,
     onCompleted,
     onError,

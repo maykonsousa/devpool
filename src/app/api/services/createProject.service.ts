@@ -3,11 +3,14 @@ import { IProjectInput } from '../types/ProjectTypes';
 import { AppError } from '../utils/appError';
 
 interface ICreateProjectInput {
-  project: IProjectInput
-  technologies: string[]
+  project: IProjectInput;
+  technologies: string[];
 }
 
-export const createProjectService = async ({ project, technologies }:ICreateProjectInput) => {
+export const createProjectService = async ({
+  project,
+  technologies,
+}: ICreateProjectInput) => {
   try {
     const userExists = await prisma.user.findFirst({
       where: {
@@ -24,7 +27,10 @@ export const createProjectService = async ({ project, technologies }:ICreateProj
       },
     });
     if (projectAlreadyExists) {
-      throw new AppError('Já existe um projeto vinculado a esse repositório', 400);
+      throw new AppError(
+        'Já existe um projeto vinculado a esse repositório',
+        400,
+      );
     }
 
     const projectCreated = await prisma.project.create({

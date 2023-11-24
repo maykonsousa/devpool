@@ -1,7 +1,7 @@
 import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
-export const deleteUserService = async (userId:string) => {
+export const deleteUserService = async (userId: string) => {
   try {
     const userExists = await prisma.user.findFirst({
       where: {
@@ -21,7 +21,8 @@ export const deleteUserService = async (userId:string) => {
 
     return {
       status: 'success',
-      message: 'Conta deletada com sucesso. Obrigado por usar nossa plataforma!',
+      message:
+        'Conta deletada com sucesso. Obrigado por usar nossa plataforma!',
     };
   } catch (error) {
     if (error instanceof AppError) {

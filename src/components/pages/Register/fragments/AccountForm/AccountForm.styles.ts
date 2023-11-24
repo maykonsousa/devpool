@@ -27,7 +27,6 @@ export const GridContainer = styled(Box)(({ theme }) => ({
     gridTemplateColumns: '1fr',
     gap: '1rem',
   },
-
 }));
 
 export const AvatarContainer = styled(Box)`
@@ -41,11 +40,8 @@ export const AvatarContainer = styled(Box)`
   color: ${({ theme }) => theme.palette.primary.contrastText};
   border: 4px solid ${({ theme }) => theme.palette.primary.main};
 
-
   @media (max-width: 900px) {
     width: 80px;
     height: 80px;
   }
-
-
-  `;
+`;

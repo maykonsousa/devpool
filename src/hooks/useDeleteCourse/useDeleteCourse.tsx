@@ -3,10 +3,10 @@ import { gql, useMutation } from '@apollo/client';
 const DELETE_COURSE = gql`
   mutation DeleteCourseUser($input: DeleteCourseInput!) {
     deleteCourseUser(input: $input) {
-    status
-    message
+      status
+      message
+    }
   }
-}
 `;
 
 interface IVariables {
@@ -17,26 +17,27 @@ interface IVariables {
 }
 
 interface IResult {
-  deleteCourseUser:{
+  deleteCourseUser: {
     status: string;
     message: string;
-
-  }
+  };
 }
 
 interface IDeleteCoursePros {
   variables: IVariables;
-  onCompleted:() => void;
+  onCompleted: () => void;
   onError: () => void;
-
 }
 
-export const useDeleteCourse = ({ variables, onCompleted, onError }:IDeleteCoursePros) => {
-  const [deleteCourse, {
-    data,
-    loading,
-    error,
-  }] = useMutation<IResult, IVariables>(DELETE_COURSE, {
+export const useDeleteCourse = ({
+  variables,
+  onCompleted,
+  onError,
+}: IDeleteCoursePros) => {
+  const [deleteCourse, { data, loading, error }] = useMutation<
+    IResult,
+    IVariables
+  >(DELETE_COURSE, {
     variables,
     onCompleted,
     onError,

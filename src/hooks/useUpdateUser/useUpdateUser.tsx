@@ -7,7 +7,6 @@ const UPDATE_USER = gql`
       message
     }
   }
-
 `;
 
 export interface IVariables {
@@ -23,7 +22,6 @@ export interface IVariables {
       city?: string;
       state?: string;
     };
-
   };
 }
 
@@ -34,8 +32,11 @@ interface IResult {
   };
 }
 
-export const useUpdateUser = (variables:IVariables) => {
-  const [updateUser, { data, loading, error }] = useMutation<IResult, IVariables>(UPDATE_USER, {
+export const useUpdateUser = (variables: IVariables) => {
+  const [updateUser, { data, loading, error }] = useMutation<
+    IResult,
+    IVariables
+  >(UPDATE_USER, {
     variables,
   });
 

@@ -8,5 +8,5 @@ export interface IFeedbackInputData {
 export interface ICreateFeedbackInput {
   input: {
     feedback: IFeedbackInputData;
-  }
+  };
 }

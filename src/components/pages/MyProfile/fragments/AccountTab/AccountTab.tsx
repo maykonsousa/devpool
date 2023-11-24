@@ -1,9 +1,12 @@
 import {
-  IVariables, useFeedback, useGetRoles, useSession, useUpdateUser, useUpload,
+  IVariables,
+  useFeedback,
+  useGetRoles,
+  useSession,
+  useUpdateUser,
+  useUpload,
 } from '@/hooks';
-import {
-  Button, Typography,
-} from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import Image from 'next/image';
@@ -40,7 +43,7 @@ interface IValues {
   state: string;
 }
 
-const INITIAL_VALUES:IValues = {
+const INITIAL_VALUES: IValues = {
   name: '',
   email: '',
   password: '',
@@ -63,9 +66,7 @@ const seniorityOptions = [
 ];
 
 export function AccountTab() {
-  const {
-    user, loading, refetch,
-  } = useSession();
+  const { user, loading, refetch } = useSession();
   const { url, openUpload, onResetAtavarOptions } = useUpload();
   const { data: roles } = useGetRoles();
   const { showMessage } = useFeedback();
@@ -79,7 +80,7 @@ export function AccountTab() {
     resolver: zodResolver(updateDeveloperValidation),
   });
 
-  const variables:IVariables = {
+  const variables: IVariables = {
     input: {
       id: user?.id || '',
       data: {
@@ -95,9 +96,7 @@ export function AccountTab() {
     },
   };
 
-  const {
-    updateUser, loading: UpdateLoading,
-  } = useUpdateUser(variables);
+  const { updateUser, loading: UpdateLoading } = useUpdateUser(variables);
 
   const hadleUpdateUser = methods.handleSubmit(async () => {
     const { data } = await updateUser();
@@ -105,9 +104,15 @@ export function AccountTab() {
     if (data?.updateUser.status === 'success') {
       refetch();
       onResetAtavarOptions();
-      showMessage({ message: 'Dados atualizados com sucesso', type: 'success' });
+      showMessage({
+        message: 'Dados atualizados com sucesso',
+        type: 'success',
+      });
     } else {
-      showMessage({ message: 'Falha ao atualizar dados. Tente novamente mais tarde', type: 'error' });
+      showMessage({
+        message: 'Falha ao atualizar dados. Tente novamente mais tarde',
+        type: 'error',
+      });
     }
   });
 
@@ -140,8 +145,15 @@ export function AccountTab() {
   }, [url, methods]);
   return (
     <AccountTabContainer>
-      <Typography variant="h6" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>Informações da conta</Typography>
-      {isLoading ? <Loading /> : (
+      <Typography
+        variant="h6"
+        sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}
+      >
+        Informações da conta
+      </Typography>
+      {isLoading ? (
+        <Loading />
+      ) : (
         <FormProvider {...methods}>
           <AvatarSession>
             <ImageContainer>
@@ -163,16 +175,13 @@ export function AccountTab() {
               >
                 Alterar avatar
               </Button>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>Tamanho máximo: 2mb</Typography>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                Tamanho máximo: 2mb
+              </Typography>
             </AvatarActionContainer>
           </AvatarSession>
           <FormSession>
-            <TextInput
-              name="name"
-              label="Nome"
-              placeholder="Nome"
-              required
-            />
+            <TextInput name="name" label="Nome" placeholder="Nome" required />
             <GridContainer>
               <Select
                 name="role"
@@ -233,11 +242,8 @@ export function AccountTab() {
                 Salvar alterações
               </Button>
               <DeleteAccount />
-
             </ActionsContainer>
-
           </FormSession>
-
         </FormProvider>
       )}
     </AccountTabContainer>

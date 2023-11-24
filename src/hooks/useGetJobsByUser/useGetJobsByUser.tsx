@@ -4,22 +4,21 @@ const GET_JOBS_BY_USER = gql`
   query GetJobsByUser($input: GetJobsByUserInput!) {
     getJobsByUser(input: $input) {
       status
-    message
-    jobs {
-      id
-      company
-      name
-      description
-      startDate
-      endDate
-      isCurrent
-      userId
-      technologies {
+      message
+      jobs {
         id
+        company
         name
+        description
+        startDate
+        endDate
+        isCurrent
+        userId
+        technologies {
+          id
+          name
+        }
       }
-    }
-      
     }
   }
 `;
@@ -44,7 +43,7 @@ interface IVariables {
   input: {
     userId?: string;
     username?: string;
-  }
+  };
 }
 
 interface IResult {
@@ -52,7 +51,7 @@ interface IResult {
     status: string;
     message: string;
     jobs: IJob[];
-  }
+  };
 }
 
 interface IUseGetJobsByUser {
@@ -60,15 +59,18 @@ interface IUseGetJobsByUser {
   username?: string;
 }
 
-export const useGetJobsByUser = ({ userId, username }:IUseGetJobsByUser) => {
-  const { data, loading, error } = useQuery<IResult, IVariables>(GET_JOBS_BY_USER, {
-    variables: {
-      input: {
-        userId,
-        username,
+export const useGetJobsByUser = ({ userId, username }: IUseGetJobsByUser) => {
+  const { data, loading, error } = useQuery<IResult, IVariables>(
+    GET_JOBS_BY_USER,
+    {
+      variables: {
+        input: {
+          userId,
+          username,
+        },
       },
     },
-  });
+  );
 
   return {
     data: data?.getJobsByUser,

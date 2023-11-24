@@ -1,4 +1,4 @@
-type UserType = 'admin' | 'developer' | 'recruiter' | 'user'
+type UserType = 'admin' | 'developer' | 'recruiter' | 'user';
 export interface IUserInput {
   type: UserType;
   email: string;
@@ -20,30 +20,30 @@ export interface IcreateUserInput {
 export interface IUpdateUserInput {
   input: {
     id: string;
-    data: Partial<IUserInput>
+    data: Partial<IUserInput>;
   };
-  }
+}
 
 export interface IGetUserByEmailInput {
-  input:{
+  input: {
     email: string;
-  }
+  };
 }
 
 export interface IgetUserByUsernameInput {
-  input:{
+  input: {
     username: string;
-  }
+  };
 }
 
 export interface IDeleteUserInput {
-  input:{
+  input: {
     userId: string;
-  }
+  };
 }
 
 export interface IGetProfileInput {
-  input:{
+  input: {
     username: string;
-  }
+  };
 }

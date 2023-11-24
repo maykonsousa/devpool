@@ -6,7 +6,10 @@ interface IGetContactsService {
   username?: string;
 }
 
-export const getContactsService = async ({ userId, username }:IGetContactsService) => {
+export const getContactsService = async ({
+  userId,
+  username,
+}: IGetContactsService) => {
   try {
     if (!userId && !username) {
       throw new AppError('Dados inválidos');

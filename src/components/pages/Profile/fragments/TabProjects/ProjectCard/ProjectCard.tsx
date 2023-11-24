@@ -27,7 +27,7 @@ interface ProjectCardProps {
   techs?: ITechs[];
 }
 
-export function ProjectCard(props:ProjectCardProps) {
+export function ProjectCard(props: ProjectCardProps) {
   return (
     <CardContainer
       sx={{
@@ -45,16 +45,19 @@ export function ProjectCard(props:ProjectCardProps) {
       <CardHeader
         sx={{ padding: 0, paddingBottom: '1rem' }}
         title={props?.name}
-
       />
       <CardMedia
         sx={{ height: '200px' }}
         image={props?.image_url}
         title={props?.name}
       />
-      <CardContent sx={{
-        padding: '8px', gap: '8px', display: 'flex', flexDirection: 'column',
-      }}
+      <CardContent
+        sx={{
+          padding: '8px',
+          gap: '8px',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
         <Typography variant="body2" color="text.secondary">
           {props?.resume}
@@ -69,10 +72,7 @@ export function ProjectCard(props:ProjectCardProps) {
             alignItems: 'center',
           }}
         >
-
-          {props?.techs?.map((tec) => (
-            <Chip label={tec.name} key={tec.id} />
-          ))}
+          {props?.techs?.map((tec) => <Chip label={tec.name} key={tec.id} />)}
         </Box>
       </CardContent>
       <CardActions disableSpacing>
@@ -92,9 +92,7 @@ export function ProjectCard(props:ProjectCardProps) {
         >
           <Language />
         </IconButton>
-
       </CardActions>
-
     </CardContainer>
   );
 }

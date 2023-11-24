@@ -1,6 +1,10 @@
 import { Box, useTheme } from '@mui/material';
 import {
-  DataGrid, DataGridProps, GridColDef, GridValidRowModel, GridLocaleText,
+  DataGrid,
+  DataGridProps,
+  GridColDef,
+  GridValidRowModel,
+  GridLocaleText,
 } from '@mui/x-data-grid';
 import React from 'react';
 
@@ -10,9 +14,7 @@ interface GridTableProps extends DataGridProps {
   emptyMessage?: string;
 }
 
-export function GridTable({
-  columns, rows, emptyMessage,
-}:GridTableProps) {
+export function GridTable({ columns, rows, emptyMessage }: GridTableProps) {
   const theme = useTheme();
   const headerBackgroundColor = theme.palette.background.paper;
 
@@ -20,16 +22,18 @@ export function GridTable({
     noRowsLabel: `${emptyMessage || 'Nenhum registro encontrado'}`,
     MuiTablePagination: {
       labelRowsPerPage: 'Registros por página',
-      labelDisplayedRows: ({ from, to, count }) => `${from}-${to} de ${count !== -1 ? count : `mais de ${to}`}`,
+      labelDisplayedRows: ({ from, to, count }) =>
+        `${from}-${to} de ${count !== -1 ? count : `mais de ${to}`}`,
     },
   };
 
   return (
-    <Box sx={{
-      display: 'flex',
-      overflow: 'auto',
-      width: '100%',
-    }}
+    <Box
+      sx={{
+        display: 'flex',
+        overflow: 'auto',
+        width: '100%',
+      }}
     >
       <DataGrid
         rows={rows}
@@ -46,9 +50,9 @@ export function GridTable({
         }}
         localeText={customLocaleText}
         sx={{
-          display: 'flex',
-          width: '100%',
-          flex: 1,
+          'display': 'flex',
+          'width': '100%',
+          'flex': 1,
 
           '& .MuiDataGrid-columnHeader, MuiDataGrid-cell': {
             backgroundColor: headerBackgroundColor,
@@ -59,9 +63,7 @@ export function GridTable({
             fontWeight: 'bold',
             textTransform: 'uppercase',
           },
-
         }}
-
       />
     </Box>
   );

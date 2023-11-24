@@ -9,5 +9,4 @@ export const CardContainer = styled(Card)`
   padding: 16px;
   gap: 16px;
   border-radius: 10px;
-
 `;

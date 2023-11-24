@@ -8,7 +8,11 @@ interface ICreateJobService {
   technologies: string[];
 }
 
-export const createJobService = async ({ userId, data, technologies }:ICreateJobService) => {
+export const createJobService = async ({
+  userId,
+  data,
+  technologies,
+}: ICreateJobService) => {
   try {
     if (!userId) throw new AppError('Usuário não autenticado', 401);
     const userExists = await prisma.user.findUnique({ where: { id: userId } });

@@ -14,7 +14,10 @@ interface IUpdateCourseDialogProps {
   course: ICourseData;
 }
 
-export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps) {
+export function UpdateCourseDialog({
+  course,
+  userId,
+}: IUpdateCourseDialogProps) {
   const formMethods = useForm({
     defaultValues: {
       ...course,
@@ -27,20 +30,23 @@ export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps)
 
   const formValues = formMethods.watch();
 
-  const variables = useMemo(() => ({
-    input: {
-      userId,
-      courseId: course.id,
-      data: {
-        name: formValues.name,
-        school: formValues.school,
-        courseUrl: formValues.courseUrl,
-        progress: +formValues.progress,
-        duration: +formValues.duration,
-        description: formValues.description,
+  const variables = useMemo(
+    () => ({
+      input: {
+        userId,
+        courseId: course.id,
+        data: {
+          name: formValues.name,
+          school: formValues.school,
+          courseUrl: formValues.courseUrl,
+          progress: +formValues.progress,
+          duration: +formValues.duration,
+          description: formValues.description,
+        },
       },
-    },
-  }), [course, userId, formValues]);
+    }),
+    [course, userId, formValues],
+  );
 
   const onCompleted = () => {
     showMessage({
@@ -65,19 +71,26 @@ export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps)
     });
   }, [course, formMethods]);
 
-  const { updateCourse, loading } = useUpdateCourse({ variables, onCompleted, onError });
+  const { updateCourse, loading } = useUpdateCourse({
+    variables,
+    onCompleted,
+    onError,
+  });
 
   const handleSubmit = formMethods.handleSubmit(() => updateCourse());
 
   return (
     <Dialog
-      elementAction={<IconButton><Edit /></IconButton>}
+      elementAction={
+        <IconButton>
+          <Edit />
+        </IconButton>
+      }
       title="Editar curso"
       confirmText="Salvar"
       onConfirm={handleSubmit}
       onDismiss={() => formMethods.reset()}
       loading={loading}
-
     >
       <FormProvider {...formMethods}>
         <Box
@@ -89,7 +102,6 @@ export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps)
             padding: '1rem',
           }}
         >
-
           <TextInput name="name" label="Nome" />
           <TextInput name="school" label="Instituição" />
           <TextInput name="courseUrl" label="Url do Curso" />
@@ -103,13 +115,7 @@ export function UpdateCourseDialog({ course, userId }: IUpdateCourseDialogProps)
             <TextInput name="progress" label="Progresso" />
             <TextInput name="duration" label="Duração" />
           </Box>
-          <TextInput
-            name="description"
-            label="Descrição"
-            multiline
-            rows={4}
-          />
-
+          <TextInput name="description" label="Descrição" multiline rows={4} />
         </Box>
       </FormProvider>
     </Dialog>

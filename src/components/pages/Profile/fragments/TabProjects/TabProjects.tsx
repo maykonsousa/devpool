@@ -48,7 +48,6 @@ export function TabProjects({ username }: TabProjectsProps) {
               deploy_url={project?.deployed_url ?? ''}
               github_url={project?.repo_url ?? ''}
               techs={project?.technologies ?? []}
-
             />
           ))}
         </Box>

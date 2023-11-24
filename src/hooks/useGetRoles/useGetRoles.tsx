@@ -26,15 +26,17 @@ interface IGetRoleResult {
 }
 
 interface UseGetRoleResult {
-  data: {
-    id: string;
-    name: string;
-  }[] | []
+  data:
+    | {
+        id: string;
+        name: string;
+      }[]
+    | [];
   loading: boolean;
   error: any;
 }
 
-export const useGetRoles = ():UseGetRoleResult => {
+export const useGetRoles = (): UseGetRoleResult => {
   const { data, loading, error } = useQuery<IGetRoleResult>(GET_ROLES);
   return {
     data: data?.getRoles?.roles || [],

@@ -9,15 +9,14 @@ const UPDATE_COURSE = gql`
       id
     }
   }
-
 `;
 
 interface IVariables {
-  input:{
-  userId: string;
-  courseId: string;
-  data: Partial<ICourseInputData>;
-}
+  input: {
+    userId: string;
+    courseId: string;
+    data: Partial<ICourseInputData>;
+  };
 }
 
 interface IUseUpdateCourse {
@@ -26,7 +25,11 @@ interface IUseUpdateCourse {
   onError?: () => void;
 }
 
-export const useUpdateCourse = ({ variables, onCompleted, onError }:IUseUpdateCourse) => {
+export const useUpdateCourse = ({
+  variables,
+  onCompleted,
+  onError,
+}: IUseUpdateCourse) => {
   const [updateCourse, { data, loading, error }] = useMutation(UPDATE_COURSE, {
     variables,
     onCompleted,

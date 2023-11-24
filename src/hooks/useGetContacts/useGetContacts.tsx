@@ -2,21 +2,21 @@ import { gql, useQuery } from '@apollo/client';
 
 const GET_CONTACTS = gql`
   query GetContacts($input: GetContactsInput) {
-  getContacts(input: $input) {
-    status
-    message
-    contacts {
-      id
-      userId
-      twitter_url
-      personal_website
-      linkedin_url
-      instagram_url
-      github_url
-      cell_phone
+    getContacts(input: $input) {
+      status
+      message
+      contacts {
+        id
+        userId
+        twitter_url
+        personal_website
+        linkedin_url
+        instagram_url
+        github_url
+        cell_phone
+      }
     }
   }
-}
 `;
 
 interface IContacts {
@@ -34,27 +34,28 @@ interface IVariables {
   input: {
     userId?: string;
     username?: string;
-  }
+  };
 }
 
 interface IResult {
-  getContacts:{
+  getContacts: {
     status: string;
     message: string;
     contacts: IContacts;
+  };
 }
-  }
 
-  interface IUseGetContacts {
-    variables: IVariables;
-  }
+interface IUseGetContacts {
+  variables: IVariables;
+}
 
-export const useGetContacts = ({ variables }:IUseGetContacts) => {
-  const {
-    data, loading, error, refetch,
-  } = useQuery<IResult, IVariables>(GET_CONTACTS, {
-    variables,
-  });
+export const useGetContacts = ({ variables }: IUseGetContacts) => {
+  const { data, loading, error, refetch } = useQuery<IResult, IVariables>(
+    GET_CONTACTS,
+    {
+      variables,
+    },
+  );
 
   return {
     data: data?.getContacts,

@@ -10,11 +10,13 @@ interface IAutoCompleteProps {
   label: string;
   onChange: (event: React.SyntheticEvent, value: string[]) => void;
   limitTags?: number;
-
 }
 
 export function AutoComplete({
-  options, value, label, ...rest
+  options,
+  value,
+  label,
+  ...rest
 }: IAutoCompleteProps) {
   return (
     <FormControl fullWidth>
@@ -26,11 +28,7 @@ export function AutoComplete({
         value={value}
         {...rest}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label={label}
-            variant="outlined"
-          />
+          <TextField {...params} label={label} variant="outlined" />
         )}
         ListboxProps={{
           style: {
@@ -47,9 +45,7 @@ export function AutoComplete({
               width: '100%',
             },
           },
-
         }}
-
       />
     </FormControl>
   );

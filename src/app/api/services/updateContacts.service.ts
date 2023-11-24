@@ -6,7 +6,10 @@ interface IUpdateContactsService {
   userId: string;
   data: IContactsDataInput;
 }
-export const updateContactsService = async ({ data, userId }:IUpdateContactsService) => {
+export const updateContactsService = async ({
+  data,
+  userId,
+}: IUpdateContactsService) => {
   try {
     if (!userId) {
       throw new AppError('Requisição inválida');

@@ -5,11 +5,20 @@
 
 import React from 'react';
 import {
-  Box, Tab, Tabs, useMediaQuery, useTheme, TabScrollButton,
+  Box,
+  Tab,
+  Tabs,
+  useMediaQuery,
+  useTheme,
+  TabScrollButton,
 } from '@mui/material';
 import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
 import {
-  Cover, Header, TabExperiences, TabProfile, TabProjects,
+  Cover,
+  Header,
+  TabExperiences,
+  TabProfile,
+  TabProjects,
 } from './fragments';
 import { ProfilePageContainer } from './ProfilePage.styles';
 
@@ -25,8 +34,8 @@ interface ProfilePageProps {
   profileName: string;
 }
 
-export function ProfilePage({ profileName }:ProfilePageProps) {
-  const INITIALTAB:TabPanelProps = {
+export function ProfilePage({ profileName }: ProfilePageProps) {
+  const INITIALTAB: TabPanelProps = {
     label: 'Perfil',
     value: 'perfil',
     iconPosition: 'start',
@@ -39,7 +48,7 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const tabs:TabPanelProps[] = [
+  const tabs: TabPanelProps[] = [
     {
       label: 'Perfil',
       value: 'perfil',
@@ -70,13 +79,15 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
     },
   ];
 
-  const handleChangeTab = (value:string) => {
+  const handleChangeTab = (value: string) => {
     const newTab = tabs.find((tab) => tab.value === value);
     if (newTab) setCurrentTab(newTab);
   };
 
-  const handleScrollButtonClick = (direction:string) => {
-    const indexCurrentTab = tabs.findIndex((tab) => tab.value === currentTab.value);
+  const handleScrollButtonClick = (direction: string) => {
+    const indexCurrentTab = tabs.findIndex(
+      (tab) => tab.value === currentTab.value,
+    );
     if (direction === 'right') {
       if (indexCurrentTab + 1 < tabs.length) {
         const newTab = tabs[indexCurrentTab + 1];
@@ -94,11 +105,12 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
     <ProfilePageContainer>
       <Cover />
       <Header username={profileName} />
-      <Box sx={{
-        display: 'flex',
-        width: '100%',
-        marginTop: '20px',
-      }}
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          marginTop: '20px',
+        }}
       >
         <Tabs
           onChange={(event, value) => handleChangeTab(value)}
@@ -125,19 +137,16 @@ export function ProfilePage({ profileName }:ProfilePageProps) {
               value={tab.value}
               icon={tab.icon}
               sx={{
-
                 [theme.breakpoints.down('md')]: {
                   width: '100%',
                 },
               }}
               iconPosition={isMobile ? 'top' : 'start'}
-
             />
           ))}
         </Tabs>
       </Box>
       {currentTab.component}
-
     </ProfilePageContainer>
   );
 }

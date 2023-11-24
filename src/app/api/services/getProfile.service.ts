@@ -2,10 +2,10 @@ import { AppError } from '../utils/appError';
 import { prisma } from '../database';
 
 interface IGetProfileService {
-  username: string
+  username: string;
 }
 
-export const getProfileService = async ({ username }:IGetProfileService) => {
+export const getProfileService = async ({ username }: IGetProfileService) => {
   try {
     if (!username) throw new AppError('Requisição inválida', 400);
     const user = await prisma.user.findUnique({
@@ -27,7 +27,6 @@ export const getProfileService = async ({ username }:IGetProfileService) => {
             },
           },
         },
-
       },
     });
     if (!user) throw new AppError('Usuário não encontrado', 404);
@@ -50,7 +49,6 @@ export const getProfileService = async ({ username }:IGetProfileService) => {
       projects: user.Project,
       technologies: user.UserTechnology.map((tech) => tech.Technology),
       contacts: user.Social[0],
-
     };
 
     return {

@@ -2,13 +2,20 @@ import { TextInput } from '@/components/TextInput';
 import { Check } from '@mui/icons-material';
 import {
   Box,
-  Button, Card, CardActions, CardContent, CircularProgress,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CircularProgress,
 } from '@mui/material';
 import React, { SyntheticEvent } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DateInput } from '@/components/DateInput';
 import {
-  useCreateJob, useFeedback, useGetAllTechnologies, useSession,
+  useCreateJob,
+  useFeedback,
+  useGetAllTechnologies,
+  useSession,
 } from '@/hooks';
 import { AutoComplete } from '@/components/AutoComplete';
 import { Checkbox } from '@/components/Checkbox';
@@ -53,7 +60,10 @@ export function JobsForm() {
     setShowForm(false);
   };
 
-  const handleSelectTechnologies = (event: SyntheticEvent<Element, Event>, newValue: string[]) => {
+  const handleSelectTechnologies = (
+    event: SyntheticEvent<Element, Event>,
+    newValue: string[],
+  ) => {
     setTechnologies(newValue);
   };
 
@@ -102,19 +112,20 @@ export function JobsForm() {
       Adicionar
     </Button>
   ) : (
-    <Card sx={{
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-    }}
-    >
-      <CardContent sx={{
+    <Card
+      sx={{
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
-        padding: '1rem',
-
       }}
+    >
+      <CardContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          padding: '1rem',
+        }}
       >
         {loading ? (
           <Box
@@ -142,21 +153,26 @@ export function JobsForm() {
               >
                 <DateInput name="startDate" label="Data de início" />
                 {!formMethods.watch('isCurrent') && (
-                <DateInput name="endDate" label="Data de término" />
+                  <DateInput name="endDate" label="Data de término" />
                 )}
-
               </Box>
               <Checkbox
                 name="isCurrent"
                 label="Emprego atual"
                 value={formMethods.watch('isCurrent')}
-                onChange={(e) => formMethods.setValue('isCurrent', e.target.checked)}
+                onChange={(e) =>
+                  formMethods.setValue('isCurrent', e.target.checked)
+                }
                 checked={formMethods.watch('isCurrent')}
               />
-
             </GridContainer>
 
-            <TextInput name="description" label="Descrição" multiline rows={4} />
+            <TextInput
+              name="description"
+              label="Descrição"
+              multiline
+              rows={4}
+            />
             <AutoComplete
               options={technologiesOptions || []}
               value={technologies}
@@ -167,9 +183,17 @@ export function JobsForm() {
         )}
       </CardContent>
       <CardActions sx={{ padding: '1rem' }}>
-
-        <Button color="primary" startIcon={<Check />} variant="contained" onClick={handleSubmit}>Salvar</Button>
-        <Button color="secondary" variant="outlined" onClick={handleHideForm}>Cancelar</Button>
+        <Button
+          color="primary"
+          startIcon={<Check />}
+          variant="contained"
+          onClick={handleSubmit}
+        >
+          Salvar
+        </Button>
+        <Button color="secondary" variant="outlined" onClick={handleHideForm}>
+          Cancelar
+        </Button>
       </CardActions>
     </Card>
   );

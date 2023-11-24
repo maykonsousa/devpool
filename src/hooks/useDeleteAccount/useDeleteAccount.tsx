@@ -26,14 +26,10 @@ interface IResponse {
 export const useDeleteAccount = () => {
   const { user } = useSession();
 
-  const [
-    deleteAccount,
-    {
-      data,
-      loading,
-      error,
-    },
-  ] = useMutation<IResponse, IVariables>(DELETE_ACCOUNT, {
+  const [deleteAccount, { data, loading, error }] = useMutation<
+    IResponse,
+    IVariables
+  >(DELETE_ACCOUNT, {
     variables: {
       input: {
         userId: user?.id || '',

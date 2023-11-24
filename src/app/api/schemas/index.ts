@@ -29,6 +29,7 @@ export const typeDefs = `#graphql
     cover_url: String
     createdAt: String
     updatedAt: String
+    contacts: Social
   }
 
   input GetUserByEmailInput {

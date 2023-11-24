@@ -1,6 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 import {
-  Box, FormControl, InputAdornment, TextField, Typography,
+  Box,
+  FormControl,
+  InputAdornment,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { useGetAllTechnologies, useGetTechsByUser, useSession } from '@/hooks';
 import { Loading } from '@/components/Loading';
@@ -28,8 +32,9 @@ export function TechsTab() {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
-    const filtered = technologies?.filter((tech:ITechs) => tech.name.toLowerCase()
-      .includes(event.target.value.toLowerCase()));
+    const filtered = technologies?.filter((tech: ITechs) =>
+      tech.name.toLowerCase().includes(event.target.value.toLowerCase()),
+    );
     setFilteredTechs(filtered);
   };
 
@@ -41,7 +46,7 @@ export function TechsTab() {
     }
   }, [technologies]);
 
-  const isChecked = (techId:string) => {
+  const isChecked = (techId: string) => {
     if (techsByUser) {
       return techsByUser.some((tech) => tech.techId === techId);
     }
@@ -65,46 +70,45 @@ export function TechsTab() {
         Adicione as tecnologias que você conhece e que podem ser relevantes para
         o seu perfil profissional.
       </Typography>
-      {
-        loading ? (<Loading />) : (
-          <Box sx={{
+      {loading ? (
+        <Loading />
+      ) : (
+        <Box
+          sx={{
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
           }}
-          >
-            <FormControl fullWidth>
-              <TextField
-                label="Pesquisar"
-                fullWidth
-                value={seachText}
-                onChange={handleSearch}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  ),
-                }}
+        >
+          <FormControl fullWidth>
+            <TextField
+              label="Pesquisar"
+              fullWidth
+              value={seachText}
+              onChange={handleSearch}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </FormControl>
+          <GridContainer>
+            {fiteredTechs?.map((tech: { id: string; name: string }) => (
+              <TechCheckbox
+                key={tech.id}
+                techId={tech.id}
+                techName={tech.name}
+                userId={user?.id as string}
+                isChecked={isChecked(tech.id)}
+                reset={handleReset}
               />
-            </FormControl>
-            <GridContainer>
-              {fiteredTechs?.map((tech:{id:string, name: string}) => (
-                <TechCheckbox
-                  key={tech.id}
-                  techId={tech.id}
-                  techName={tech.name}
-                  userId={user?.id as string}
-                  isChecked={isChecked(tech.id)}
-                  reset={handleReset}
-                />
-              ))}
-
-            </GridContainer>
-          </Box>
-        )
-
-      }
+            ))}
+          </GridContainer>
+        </Box>
+      )}
     </TabContainer>
   );
 }

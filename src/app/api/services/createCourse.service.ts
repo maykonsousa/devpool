@@ -9,7 +9,6 @@ interface ICourseData {
   progress: number;
   school: string;
   type: string;
-
 }
 
 interface ICreateCourseService {
@@ -17,7 +16,10 @@ interface ICreateCourseService {
   data: ICourseData;
 }
 
-export const createCourseService = async ({ userId, data }:ICreateCourseService) => {
+export const createCourseService = async ({
+  userId,
+  data,
+}: ICreateCourseService) => {
   try {
     const userAlreadyExists = await prisma.user.findUnique({
       where: {

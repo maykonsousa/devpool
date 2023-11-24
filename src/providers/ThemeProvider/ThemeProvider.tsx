@@ -7,10 +7,10 @@ import { theme } from '@/theme';
 import { NextAppDirEmotionCacheProvider } from './EmotionCache';
 
 interface ThemeProviderProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export function ThemeProvider({ children }:ThemeProviderProps) {
+export function ThemeProvider({ children }: ThemeProviderProps) {
   return (
     <NextAppDirEmotionCacheProvider options={{ key: 'css' }}>
       <MuiThemeProvider theme={theme}>

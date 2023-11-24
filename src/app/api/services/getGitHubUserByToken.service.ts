@@ -5,7 +5,9 @@ export interface IGitHubUser {
   bio: string;
   email: string;
 }
-export const getGitHubUserByToken = async (token:string):Promise<IGitHubUser | null> => {
+export const getGitHubUserByToken = async (
+  token: string,
+): Promise<IGitHubUser | null> => {
   try {
     const response = await fetch('https://api.github.com/user', {
       headers: {

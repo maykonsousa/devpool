@@ -6,18 +6,28 @@ interface IDeleteCourseUserService {
   courseId: string;
 }
 
-export const deleteCourseUserService = async ({ userId, courseId }:IDeleteCourseUserService) => {
+export const deleteCourseUserService = async ({
+  userId,
+  courseId,
+}: IDeleteCourseUserService) => {
   try {
-    if (!userId || !courseId) throw new AppError('Falha ao deletar curso, dados inválidos', 400);
+    if (!userId || !courseId)
+      throw new AppError('Falha ao deletar curso, dados inválidos', 400);
     const userExists = await prisma.user.findUnique({ where: { id: userId } });
 
     if (!userExists) throw new AppError('Usuário não encontrado', 404);
 
-    const courseExists = await prisma.course.findUnique({ where: { id: courseId } });
+    const courseExists = await prisma.course.findUnique({
+      where: { id: courseId },
+    });
 
     if (!courseExists) throw new AppError('Curso não encontrado', 404);
 
-    if (courseExists.userId !== userId) throw new AppError('Voce não tem autorização para remover esse curso', 401);
+    if (courseExists.userId !== userId)
+      throw new AppError(
+        'Voce não tem autorização para remover esse curso',
+        401,
+      );
 
     await prisma.course.delete({ where: { id: courseId } });
 

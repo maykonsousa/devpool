@@ -3,7 +3,7 @@ import { prisma } from '../database';
 import { IUserInput } from '../types/UsersTypes';
 import { AppError } from '../utils/appError';
 
-export const createUserService = async (user:IUserInput) => {
+export const createUserService = async (user: IUserInput) => {
   try {
     const userAlreadyExists = await prisma.user.findFirst({
       where: {
@@ -21,7 +21,6 @@ export const createUserService = async (user:IUserInput) => {
       data: {
         ...user,
         password: encriptedPassword,
-
       },
     });
 

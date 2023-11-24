@@ -8,5 +8,4 @@ export const typeCousesOptions = [
   { label: 'Técnico', value: 'TECHNICAL' },
   { label: 'Tecnólogo', value: 'TECHNOLOGIST' },
   { label: 'Outros', value: 'OTHER' },
-
 ];

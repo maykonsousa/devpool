@@ -26,7 +26,10 @@ export const options: NextAuthOptions = {
         username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password' },
       },
-      authorize: async (credentials: Record<'username' | 'password', string> | undefined, req: any): Promise<any> => {
+      authorize: async (
+        credentials: Record<'username' | 'password', string> | undefined,
+        req: any,
+      ): Promise<any> => {
         const { data: user } = await authenticateService({
           username: credentials?.username as string,
           password: credentials?.password as string,
@@ -34,25 +37,26 @@ export const options: NextAuthOptions = {
 
         if (user) {
           const {
-            username: name, email, avatar_url, id, password, ...rest
+            username: name,
+            email,
+            avatar_url,
+            id,
+            password,
+            ...rest
           } = user;
           return {
             id,
             name,
             email,
             image: avatar_url,
-
           };
         }
         return null;
       },
     }),
-
   ],
   callbacks: {
-    async signIn({
-      user, account,
-    }) {
+    async signIn({ user, account }) {
       if (account?.provider === 'github') {
         const username = user?.name as string;
         const { status } = await getUserByUsernameService({ username });
@@ -65,7 +69,6 @@ export const options: NextAuthOptions = {
 
       return true;
     },
-
   },
 
   pages: {

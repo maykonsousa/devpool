@@ -4,10 +4,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useGetContacts, useSession, useUpdateContacts } from '@/hooks';
 import { TextInput } from '@/components/TextInput';
 import { Loading } from '@/components/Loading';
-import { ActionsContainer, GridContainer, TabContainer } from './ContactsTab.styles';
+import {
+  ActionsContainer,
+  GridContainer,
+  TabContainer,
+} from './ContactsTab.styles';
 
 interface IFormValues {
-
   userId: string;
   linkedin_url: string;
   instagram_url: string;
@@ -72,14 +75,13 @@ export function ContactsTab() {
 
   return (
     <TabContainer>
-      <Typography
-        variant="h6"
-        fontWeight={600}
-      >
+      <Typography variant="h6" fontWeight={600}>
         Redes Sociais & Contatos
       </Typography>
       <FormProvider {...formMethods}>
-        {isLoading ? (<Loading />) : (
+        {isLoading ? (
+          <Loading />
+        ) : (
           <GridContainer>
             <TextInput
               name="linkedin_url"
@@ -111,7 +113,6 @@ export function ContactsTab() {
               label="Celular"
               placeholder="(99) 99999-9999"
             />
-
           </GridContainer>
         )}
         <ActionsContainer>
@@ -126,7 +127,6 @@ export function ContactsTab() {
           </Button>
         </ActionsContainer>
       </FormProvider>
-
     </TabContainer>
   );
 }

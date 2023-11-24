@@ -1,7 +1,10 @@
 import React from 'react';
 
 import {
-  CardContent, CardHeader, CardProps, Card as MuiCard,
+  CardContent,
+  CardHeader,
+  CardProps,
+  Card as MuiCard,
 } from '@mui/material';
 
 interface ICardProps extends CardProps {
@@ -11,15 +14,17 @@ interface ICardProps extends CardProps {
 }
 
 export function Card({
-  title, children, direction = 'column', ...rest
-}:ICardProps) {
+  title,
+  children,
+  direction = 'column',
+  ...rest
+}: ICardProps) {
   return (
     <MuiCard
       sx={{
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-
       }}
       {...rest}
     >
@@ -32,15 +37,16 @@ export function Card({
           }}
         />
       ) : null}
-      <CardContent sx={{
-        display: 'flex',
-        flexDirection: direction,
-        alignItems: 'flex-start',
-        justifyContent: direction === 'column' ? 'center' : 'flex-start',
-        gap: 1,
-        flexWrap: 'wrap',
-        width: '100%',
-      }}
+      <CardContent
+        sx={{
+          display: 'flex',
+          flexDirection: direction,
+          alignItems: 'flex-start',
+          justifyContent: direction === 'column' ? 'center' : 'flex-start',
+          gap: 1,
+          flexWrap: 'wrap',
+          width: '100%',
+        }}
       >
         {children}
       </CardContent>

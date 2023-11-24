@@ -1,8 +1,6 @@
 'use client';
 
-import {
-  Box, Card, styled,
-} from '@mui/material';
+import { Box, Card, styled } from '@mui/material';
 
 export const SignInPageContainer = styled(Box)`
   display: flex;
@@ -21,5 +19,4 @@ export const SignInFormContainer = styled(Card)`
   max-width: 600px;
   padding: 2rem;
   gap: 1rem;
-
 `;

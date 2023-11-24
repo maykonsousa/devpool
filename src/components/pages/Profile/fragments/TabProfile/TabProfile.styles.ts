@@ -1,11 +1,9 @@
 'use client';
 
-import {
-  styled, Box, Card,
-} from '@mui/material';
+import { styled, Box, Card } from '@mui/material';
 
 export const Container = styled(Box)`
-padding-top: ${({ theme }) => theme.spacing(2.5)};
+  padding-top: ${({ theme }) => theme.spacing(2.5)};
   display: grid;
   grid-template-columns: 2fr 5fr;
   gap: 1rem;
@@ -15,20 +13,19 @@ padding-top: ${({ theme }) => theme.spacing(2.5)};
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-
 `;
 
 export const Sidebar = styled(Box)`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 `;
 
 export const Content = styled(Box)`
-display: flex;
-flex-direction: column;
-gap: 1rem;
-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 `;
 
 export const AboutCard = styled(Card)`

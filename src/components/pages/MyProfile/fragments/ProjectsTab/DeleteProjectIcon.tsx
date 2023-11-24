@@ -1,17 +1,20 @@
 /* eslint-disable no-console */
 import { ConfirmationDialog } from '@/components/ConfimationDialog';
 import {
-  useDeleteProject, useFeedback, useGetProjectsByUser, useSession,
+  useDeleteProject,
+  useFeedback,
+  useGetProjectsByUser,
+  useSession,
 } from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, { useCallback } from 'react';
 
 interface IDeleteProjectIconProps {
-  projectId:string;
+  projectId: string;
 }
 
-export function DeleteProjectIcon({ projectId }:IDeleteProjectIconProps) {
+export function DeleteProjectIcon({ projectId }: IDeleteProjectIconProps) {
   const { deleteProject, loading } = useDeleteProject(projectId);
   const { user } = useSession();
   const { refetch } = useGetProjectsByUser({
@@ -27,10 +30,18 @@ export function DeleteProjectIcon({ projectId }:IDeleteProjectIconProps) {
     const { data } = await deleteProject();
 
     if (data?.deleteProjectUser?.status === 'success') {
-      showMessage({ message: data.deleteProjectUser.message, type: data.deleteProjectUser.status });
+      showMessage({
+        message: data.deleteProjectUser.message,
+        type: data.deleteProjectUser.status,
+      });
       refetch();
     } else {
-      showMessage({ message: data?.deleteProjectUser?.message || 'Falha ao excluir projeto. Tente novamente mais tarde', type: 'error' });
+      showMessage({
+        message:
+          data?.deleteProjectUser?.message ||
+          'Falha ao excluir projeto. Tente novamente mais tarde',
+        type: 'error',
+      });
     }
   }, [deleteProject, showMessage, refetch]);
   return (
@@ -39,13 +50,12 @@ export function DeleteProjectIcon({ projectId }:IDeleteProjectIconProps) {
       title="Excluir projeto"
       type="danger"
       onConfirm={handleDeleteProject}
-      elementAction={(
+      elementAction={
         <IconButton>
           <Delete />
         </IconButton>
-)}
+      }
       loading={loading}
     />
-
   );
 }
