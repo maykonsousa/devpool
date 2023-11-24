@@ -13,15 +13,6 @@ import {
 import { SocialIcon } from '../SocialIcon/SocialIcon';
 import { MenuCard } from '../MenuCard/MenuCard';
 
-interface IContacts {
-  linkedin_url: string;
-  github_url: string;
-  instagram_url: string;
-  cell_phone: string;
-  personal_website: string;
-  twitter_url: string;
-}
-
 interface IUserData {
   id: string;
   name: string;
@@ -34,7 +25,6 @@ interface IUserData {
   bio: string;
   email: string;
   username: string;
-  contacts: IContacts;
 
 }
 
