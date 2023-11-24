@@ -4,7 +4,7 @@ export { useCreateUser } from './useCreateUser';
 export { useFeedback } from './useFeedBack';
 export { useGetProjectsByUser } from './useGetProjectsByUser';
 export { useGetRoles } from './useGetRoles';
-export { useGetUserByEmail } from './useGetUserByEmail';
+export { useGetUserByUsername } from './useGetUserByUsername';
 export { useGetUserByToken } from './useGetUserByToken';
 export { useSession } from './useSession';
 export { useUpload } from './useUpload';

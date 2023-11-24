@@ -18,6 +18,14 @@ const GET_PROFILES = gql`
         city
         bio
         avatar_url
+        contacts {
+          twitter_url
+          linkedin_url
+          personal_website
+          instagram_url
+          github_url
+          cell_phone
+        }
       }
       status
       message

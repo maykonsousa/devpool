@@ -90,7 +90,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
   return (
     <Avatar
       sx={{
-        bgcolor: socialIconEnum[type].bgColor,
+        bgcolor: socialIconEnum[type]?.bgColor,
         color: '#fff',
       }}
     >
@@ -101,7 +101,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
         target="_blank"
         rel="noreferrer"
       >
-        {socialIconEnum[type].icon}
+        {socialIconEnum[type]?.icon}
       </Link>
     </Avatar>
   );

@@ -1,11 +1,10 @@
 'use client';
 
 import { gql, useQuery } from '@apollo/client';
-import { useMemo } from 'react';
 
 const GET_USER_BY_EMAIL = gql`
-  query GetUserByEmail($input: GetUserByEmailInput!) {
-    getUserByEmail(input: $input) {
+  query GetUserByUsername($input: GetUserByUsernameInput!) {
+    getUserByUsername(input: $input) {
       user {
         username
         updatedAt
@@ -30,7 +29,7 @@ const GET_USER_BY_EMAIL = gql`
 
 interface IVariables {
   input: {
-    email: string;
+    username: string;
   };
 }
 
@@ -52,23 +51,18 @@ interface IUser {
 }
 
 interface IResult {
-  getUserByEmail: {
+  getUserByUsername: {
     user: IUser;
     status: string;
     message: string;
   };
 }
 
-export const useGetUserByEmail = (email: string) => {
-  const variables: IVariables = useMemo(
-    () => ({
-      input: {
-        email,
-      },
-    }),
-    [email],
-  );
+interface IUseGetUserByUsername {
+  variables: IVariables;
+}
 
+export const useGetUserByUsername = ({ variables }: IUseGetUserByUsername) => {
   const { data, loading, error, refetch } = useQuery<IResult, IVariables>(
     GET_USER_BY_EMAIL,
     {
@@ -77,7 +71,7 @@ export const useGetUserByEmail = (email: string) => {
   );
 
   return {
-    data: data?.getUserByEmail?.user || null,
+    data: data?.getUserByUsername?.user || null,
     loading,
     error,
     refetch,

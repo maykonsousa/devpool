@@ -4,7 +4,7 @@
 
 'use client';
 
-import { useGetUserByEmail } from '@/hooks/useGetUserByEmail';
+import { useGetUserByUsername } from '@/hooks/useGetUserByUsername';
 import { useSession } from 'next-auth/react';
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -115,13 +115,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     INITIAL_AVATAR_UPLOAD_OPTIONS,
   );
   const { data: sessionData, status: sessionStatus } = useSession();
-  const email = useMemo(() => sessionData?.user?.email, [sessionData]);
+  const username = useMemo(() => sessionData?.user?.name, [sessionData]);
 
   const {
     data: userData,
     loading: userLoading,
     refetch: refetchUserData,
-  } = useGetUserByEmail(email) || null;
+  } = useGetUserByUsername({
+    variables: {
+      input: {
+        username,
+      },
+    },
+  }) || null;
 
   const loadingSession = useMemo(
     () => sessionStatus === 'loading' || userLoading,

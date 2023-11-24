@@ -3,7 +3,7 @@ import {
   getGitHubUserByToken,
 } from '@services/getGitHubUserByToken.service';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useGetUserByEmail } from '../useGetUserByEmail';
+import { useGetUserByUsername } from '../useGetUserByUsername';
 
 export const useGetUserByToken = (token: string) => {
   const [githubUser, setGitHubUser] = useState<IGitHubUser | null>(null);
@@ -15,9 +15,11 @@ export const useGetUserByToken = (token: string) => {
     return null;
   }, [token]);
 
-  const email = useMemo(() => githubUser?.email, [githubUser]) || '';
+  const username = useMemo(() => githubUser?.login, [githubUser]) || '';
 
-  const { data: userData } = useGetUserByEmail(email);
+  const { data: userData } = useGetUserByUsername({
+    variables: { input: { username } },
+  });
   useEffect(() => {
     getGitHubUser().then((user) => {
       setGitHubUser(user);

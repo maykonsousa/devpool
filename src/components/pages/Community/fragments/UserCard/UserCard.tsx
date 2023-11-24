@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { Computer, EqualizerSharp, LocationOn } from '@mui/icons-material';
-import { useGetContacts } from '@/hooks';
 import {
   Bio,
   CardContainer,
@@ -19,6 +18,15 @@ import {
 } from './UserCard.styles';
 import { SocialIcon } from '../SocialIcon/SocialIcon';
 import { MenuCard } from '../MenuCard/MenuCard';
+
+interface IContacts {
+  linkedin_url: string;
+  github_url: string;
+  instagram_url: string;
+  cell_phone: string;
+  personal_website: string;
+  twitter_url: string;
+}
 
 interface IUserData {
   id: string;
@@ -32,22 +40,22 @@ interface IUserData {
   bio: string;
   email: string;
   username: string;
+  contacts: IContacts;
 }
 
 interface UserCardProps {
   user: IUserData;
 }
 
+type SocialIconType =
+  | 'linkedin_url'
+  | 'github_url'
+  | 'twitter_url'
+  | 'instagram_url'
+  | 'cell_phone'
+  | 'personal_website';
 export function UserCard({ user }: UserCardProps) {
-  const { data } = useGetContacts({
-    variables: {
-      input: {
-        userId: user.id,
-      },
-    },
-  });
-
-  const contacts = data?.contacts;
+  const { contacts } = user;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -75,38 +83,22 @@ export function UserCard({ user }: UserCardProps) {
       </InfoContainer>
 
       <CardContent>
-        <Bio>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-          reprehenderit saepe possimus asperiores doloribus numquam dolorum,
-          corporis nihil, facilis dolor nesciunt quia libero nulla deserunt
-          repellendus vitae laboriosam! Odio doloremque reprehenderit libero a
-          harum excepturi, sunt pariatur ut eligendi exercitationem perferendis
-          suscipit ratione cumque ex qui quis nulla provident ipsum.
-        </Bio>
+        <Bio>{user.bio}</Bio>
       </CardContent>
       <CardFooter>
         <AvatarGroup max={5}>
-          {contacts?.linkedin_url && (
-            <SocialIcon type="linkedin_url" url={contacts.linkedin_url} />
-          )}
-          {contacts?.github_url && (
-            <SocialIcon type="github_url" url={contacts.github_url} />
-          )}
-          {contacts?.instagram_url && (
-            <SocialIcon type="instagram_url" url={contacts.instagram_url} />
-          )}
-          {contacts?.cell_phone && (
-            <SocialIcon type="cell_phone" url={contacts.cell_phone} />
-          )}
-          {contacts?.personal_website && (
-            <SocialIcon
-              type="personal_website"
-              url={contacts.personal_website}
-            />
-          )}
-          {contacts?.twitter_url && (
-            <SocialIcon type="twitter_url" url={contacts.twitter_url} />
-          )}
+          {Object.entries(contacts).map(([key, value]) => {
+            if (value && key !== '__typename') {
+              return (
+                <SocialIcon
+                  key={key}
+                  type={key as SocialIconType}
+                  url={value}
+                />
+              );
+            }
+            return null;
+          })}
         </AvatarGroup>
       </CardFooter>
     </CardContainer>

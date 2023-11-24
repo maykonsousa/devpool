@@ -16,7 +16,9 @@ export const getAllUsersService = async () => {
 
       return {
         ...rest,
-        contacts: Social,
+        contacts: {
+          ...Social[0],
+        },
       };
     });
 

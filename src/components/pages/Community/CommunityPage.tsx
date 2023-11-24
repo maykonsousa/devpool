@@ -6,6 +6,15 @@ import { EmptyState } from '@/components/EmptyState';
 import { CardsContainer, PageContainer, Title } from './CommunityPage.styles';
 import { UserCard } from './fragments';
 
+interface IContacts {
+  linkedin_url: string;
+  github_url: string;
+  instagram_url: string;
+  cell_phone: string;
+  personal_website: string;
+  twitter_url: string;
+}
+
 interface IUserData {
   id: string;
   name: string;
@@ -18,6 +27,7 @@ interface IUserData {
   bio: string;
   email: string;
   username: string;
+  contacts: IContacts;
 }
 
 export function CommunityPage() {
