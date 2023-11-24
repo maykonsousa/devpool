@@ -83,7 +83,12 @@ export function FeedBackWidget() {
   const { createFeedback, loading } = useCreateFeedback({
     variables: {
       input: {
-        feedback: formMethods.getValues(),
+        feedback: {
+          name: formMethods.watch('name'),
+          email: formMethods.watch('email'),
+          phone: formMethods.watch('phone'),
+          message: formMethods.watch('message'),
+        },
       },
     },
     onCompleted,
