@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { useGetProjectsByUser } from '@/hooks';
-import { Loading } from '@/components/Loading';
 import { EmptyState } from '@/components/EmptyState';
 import { ProjectCard } from './ProjectCard';
 
@@ -11,7 +10,7 @@ interface TabProjectsProps {
 
 export function TabProjects({ username }: TabProjectsProps) {
   const theme = useTheme();
-  const { data, loading } = useGetProjectsByUser({
+  const { data, loading, error } = useGetProjectsByUser({
     variables: {
       input: {
         username,
@@ -21,25 +20,41 @@ export function TabProjects({ username }: TabProjectsProps) {
 
   const projects = useMemo(() => data?.projects, [data]) ?? [];
 
-  return (
-    <>
-      {loading && <Loading />}
-      {!loading && !projects.length && (
+  const getEmptyState = () => {
+    if (data?.status === 'error') {
+      return <EmptyState type="error" message={data.message} />;
+    }
+
+    if (loading) {
+      return <EmptyState type="loading" message="Carregando..." />;
+    }
+
+    if (error) {
+      return <EmptyState type="error" message="Falha ao recuperar projetos" />;
+    }
+
+    if (!projects.length) {
+      return (
         <EmptyState
           type="empty"
-          message="Ainda não há projetos cadastrados para este usuário"
+          message="Ainda não há projetos cadastrados para este uduário"
         />
-      )}
-      {!loading && projects.length > 0 && (
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gridGap: theme.spacing(2),
-            padding: theme.spacing(2),
-          }}
-        >
-          {projects.map((project) => (
+      );
+    }
+    return null;
+  };
+
+  return (
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gridGap: theme.spacing(2),
+        padding: theme.spacing(2),
+      }}
+    >
+      {projects.length
+        ? projects.map((project) => (
             <ProjectCard
               key={project.id}
               name={project?.name ?? ''}
@@ -49,9 +64,8 @@ export function TabProjects({ username }: TabProjectsProps) {
               github_url={project?.repo_url ?? ''}
               techs={project?.technologies ?? []}
             />
-          ))}
-        </Box>
-      )}
-    </>
+          ))
+        : getEmptyState()}
+    </Box>
   );
 }

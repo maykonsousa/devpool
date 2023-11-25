@@ -26,6 +26,9 @@ export const getJobsByUserService = async ({
       where: {
         userId: userExists.id,
       },
+      orderBy: {
+        startDate: 'desc',
+      },
       include: {
         JobTechnology: {
           select: {
