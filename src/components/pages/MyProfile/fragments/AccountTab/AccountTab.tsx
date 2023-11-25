@@ -220,6 +220,7 @@ export function AccountTab() {
                 required
               />
               <CityInput
+                errorMessage={methods.formState.errors.city?.message || ''}
                 UF={methods.watch('state')}
                 onChange={(e, value) => methods.setValue('city', value || '')}
                 value={methods.watch('city')}
