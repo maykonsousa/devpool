@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       'DevPool é uma plataforma para conectar desenvolvedores e empresas.',
     images: [
       {
-        url: '/logo.png',
+        url: '/metadataImage.png',
         width: 150,
         height: 150,
         alt: 'DevPool',
