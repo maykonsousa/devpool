@@ -127,7 +127,7 @@ export function Header({ username }: HeaderProps) {
           </Box>
         )}
       </Box>
-      <LinkedinShareButton url="https://devpoolbr/profile/maykonsousa/">
+      <LinkedinShareButton url="https://www.google.com">
         <LinkedIn />
       </LinkedinShareButton>
     </HeaderContainer>
