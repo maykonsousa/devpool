@@ -1,8 +1,8 @@
 import { ErrorOutline, InboxOutlined, Verified } from '@mui/icons-material';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 
-type StateType = 'empty' | 'error' | 'success';
+type StateType = 'empty' | 'error' | 'success' | 'loading';
 
 interface IEmptyStateProps {
   type: StateType;
@@ -14,6 +14,7 @@ export function EmptyState({ type, message }: IEmptyStateProps) {
     empty: <InboxOutlined color="secondary" fontSize="large" />,
     error: <ErrorOutline fontSize="large" color="error" />,
     success: <Verified color="success" fontSize="large" />,
+    loading: <CircularProgress />,
   };
   return (
     <Box

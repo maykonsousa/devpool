@@ -14,6 +14,7 @@ import { Metadata } from 'next';
 import { PageContainer } from './layout.styles';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_URL ?? ''),
   title: 'DevPool',
   description:
     'DevPool é uma plataforma para conectar desenvolvedores e empresas.',
