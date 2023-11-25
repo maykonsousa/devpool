@@ -8,6 +8,7 @@ import {
   Tooltip,
   AvatarGroup,
   Skeleton,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Computer,
@@ -19,6 +20,7 @@ import { Card } from '@/components/Card';
 import { SocialIcon } from '@/components/SocialIcon';
 import { GridTable } from '@/components/GridTable';
 import { useGetProfile } from '@/hooks';
+import { GridColDef } from '@mui/x-data-grid';
 import { Container, Content, Sidebar } from './TabProfile.styles';
 
 interface InfoRowProps {
@@ -26,34 +28,6 @@ interface InfoRowProps {
   label: string;
   value?: string;
 }
-
-interface ICourse {
-  title: string;
-  description?: string;
-  type: 'course' | 'graduate';
-  school: string;
-  progress?: number;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-const courses: ICourse[] = [
-  {
-    title: 'Análise e Desenvolvimento de Sistemas',
-    type: 'graduate',
-    school: 'Faculdade Maurício de Nassau',
-    progress: 80,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros vitae nisl aliquam aliquet. Sed vitae eros vitae nisl aliquam aliquet.',
-  },
-  {
-    title: 'React Avançado',
-    type: 'course',
-    school: 'Udemy',
-    progress: 100,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros vitae nisl aliquam aliquet. Sed vitae eros vitae nisl aliquam aliquet.',
-  },
-];
 
 function InFormationRow({ label, icon, value }: InfoRowProps) {
   const theme = useTheme();
@@ -108,6 +82,72 @@ export function TabProfile({ username }: ITabProfileProps) {
       },
     },
   });
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const columnsDesktop: GridColDef[] = [
+    {
+      field: 'title',
+      headerName: 'Título',
+      minWidth: 100,
+      flex: 1,
+    },
+    {
+      field: 'school',
+      headerName: 'Instituição',
+      minWidth: 100,
+      flex: 1,
+    },
+    {
+      field: 'type',
+      headerName: 'Tipo',
+      width: 150,
+    },
+    {
+      field: 'progress',
+      headerName: 'Progresso',
+      minWidth: 50,
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Tooltip title={`${row.progress}%`}>
+          <LinearProgress
+            sx={{ width: '100%', height: '10px' }}
+            color="primary"
+            variant="determinate"
+            value={row.progress}
+            content="teste"
+          />
+        </Tooltip>
+      ),
+    },
+  ];
+
+  const columnsMobile: GridColDef[] = [
+    {
+      field: 'title',
+      headerName: 'Título',
+      minWidth: 100,
+      flex: 1,
+    },
+    {
+      field: 'progress',
+      headerName: 'Progresso',
+      minWidth: 50,
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Tooltip title={`${row.progress}%`}>
+          <LinearProgress
+            sx={{ width: '100%', height: '10px' }}
+            color="primary"
+            variant="determinate"
+            value={row.progress}
+            content="teste"
+          />
+        </Tooltip>
+      ),
+    },
+  ];
 
   const user = useMemo(() => data?.user, [data]);
   return (
@@ -220,40 +260,11 @@ export function TabProfile({ username }: ITabProfileProps) {
             <Skeleton width="100%" height={400} />
           ) : (
             <GridTable
-              columns={[
-                {
-                  field: 'title',
-                  headerName: 'Título',
-                  minWidth: 100,
-                  flex: 1,
-                },
-                {
-                  field: 'school',
-                  headerName: 'Instituição',
-                  minWidth: 100,
-                  flex: 1,
-                },
-                {
-                  field: 'progress',
-                  headerName: 'Progresso',
-                  minWidth: 50,
-                  flex: 1,
-                  renderCell: ({ row }) => (
-                    <Tooltip title={`${row.progress}%`}>
-                      <LinearProgress
-                        sx={{ width: '100%', height: '10px' }}
-                        color="primary"
-                        variant="determinate"
-                        value={row.progress}
-                        content="teste"
-                      />
-                    </Tooltip>
-                  ),
-                },
-              ]}
+              columns={isMobile ? columnsMobile : columnsDesktop}
               rows={
                 user?.courses?.map((course) => ({
                   id: course.id,
+                  type: course.type,
                   title: course.name,
                   school: course.school,
                   progress: course.progress,

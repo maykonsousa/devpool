@@ -11,7 +11,16 @@ export interface ICourseInputData {
 export interface ICourseData {
   userId: string;
   updatedAt: string;
-  type: string;
+  type:
+    | 'BOOTCAMP'
+    | 'FREECOURSE'
+    | 'DOCTORATE'
+    | 'GRADUATION'
+    | 'MASTER'
+    | 'POSTGRADUATE'
+    | 'TECHNICAL'
+    | 'TECHNOLOGIST'
+    | 'OTHER';
   school: string;
   progress: number;
   name: string;

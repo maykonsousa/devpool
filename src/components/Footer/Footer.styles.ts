@@ -6,7 +6,6 @@ export const FooterContainer = styled(Box)`
   justify-content: space-between;
   padding: ${({ theme }) => theme.spacing(2, 0)};
   width: 100%;
-  flex: 1;
   gap: 1rem;
   max-width: 1440px;
   margin: 0 auto;

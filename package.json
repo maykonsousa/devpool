@@ -35,6 +35,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.1",
+    "react-share": "^5.0.2",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },

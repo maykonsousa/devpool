@@ -44,7 +44,7 @@ export function CommunityPage() {
   React.useEffect(() => {
     if (data as IUserData[]) {
       const filtered = data.filter((user: IUserData) =>
-        user.name.toLowerCase().includes(searchText.toLowerCase()),
+        user.name.toLowerCase().startsWith(searchText.toLowerCase()),
       );
       setFilteredUsers(filtered);
     }

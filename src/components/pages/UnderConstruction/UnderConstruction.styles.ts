@@ -8,7 +8,6 @@ export const PageContainer = styled(Box)`
   width: 100%;
   align-items: center;
   justify-content: center;
-  max-height: calc(100vh - 160px);
   flex: 1;
   overflow-y: auto;
   &::-webkit-scrollbar {

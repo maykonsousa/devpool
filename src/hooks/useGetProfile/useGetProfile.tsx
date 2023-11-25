@@ -21,6 +21,7 @@ const GET_PROFILE = gql`
         courses {
           name
           school
+          type
           progress
           id
         }
@@ -57,6 +58,16 @@ interface ITechnology {
 interface ICourse {
   name: string;
   school: string;
+  type:
+    | 'BOOTCAMP'
+    | 'FREECOURSE'
+    | 'DOCTORATE'
+    | 'GRADUATION'
+    | 'MASTER'
+    | 'POSTGRADUATE'
+    | 'TECHNICAL'
+    | 'TECHNOLOGIST'
+    | 'OTHER';
   progress: number;
   id: string;
 }

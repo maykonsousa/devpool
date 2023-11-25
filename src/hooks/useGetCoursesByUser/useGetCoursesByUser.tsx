@@ -37,6 +37,28 @@ interface IResult {
   };
 }
 
+// { label: 'Bootcamp', value: 'BOOTCAMP' },
+//   { label: 'Curso Livre', value: 'FREECOURSE' },
+//   { label: 'Doutorado', value: 'DOCTORATE' },
+//   { label: 'Graduação', value: 'GRADUATION' },
+//   { label: 'Mestrado', value: 'MASTER' },
+//   { label: 'Pós-Graduação', value: 'POSTGRADUATE' },
+//   { label: 'Técnico', value: 'TECHNICAL' },
+//   { label: 'Tecnólogo', value: 'TECHNOLOGIST' },
+//   { label: 'Outros', value: 'OTHER' },
+
+const typeCoursesEnum = {
+  BOOTCAMP: 'Bootcamp',
+  FREECOURSE: 'Curso Livre',
+  DOCTORATE: 'Doutorado',
+  GRADUATION: 'Graduação',
+  MASTER: 'Mestrado',
+  POSTGRADUATE: 'Pós-Graduação',
+  TECHNICAL: 'Técnico',
+  TECHNOLOGIST: 'Tecnólogo',
+  OTHER: 'Outros',
+};
+
 export const useGetCoursesByUser = (userId: string) => {
   const { data, loading, error, refetch } = useQuery<IResult, IVariables>(
     GET_COURSES_BY_USER,
@@ -49,8 +71,13 @@ export const useGetCoursesByUser = (userId: string) => {
     },
   );
 
+  const coursesMapped = data?.getCoursesByUser.courses.map((course) => ({
+    ...course,
+    type: typeCoursesEnum?.[course?.type],
+  }));
+
   return {
-    data: data?.getCoursesByUser.courses,
+    data: coursesMapped,
     loading,
     error,
     refetch,

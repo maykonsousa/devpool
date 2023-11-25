@@ -3,8 +3,14 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Box, Skeleton, Typography, useTheme } from '@mui/material';
-import { Computer, EqualizerSharp, LocationOn } from '@mui/icons-material';
+import {
+  Computer,
+  EqualizerSharp,
+  LinkedIn,
+  LocationOn,
+} from '@mui/icons-material';
 import { useGetProfile } from '@/hooks';
+import { LinkedinShareButton } from 'react-share';
 import { HeaderAvatar, HeaderContainer } from './Header.styles';
 
 interface HeaderProps {
@@ -121,6 +127,9 @@ export function Header({ username }: HeaderProps) {
           </Box>
         )}
       </Box>
+      <LinkedinShareButton url="https://devpoolbr/profile/maykonsousa/">
+        <LinkedIn />
+      </LinkedinShareButton>
     </HeaderContainer>
   );
 }

@@ -5,7 +5,11 @@ import { Button, Card, CardActions } from '@mui/material';
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Select } from '@/components/Select';
-import { typeCousesOptions } from '@/mock/coursesMock';
+import {
+  durationOptions,
+  progessOptions,
+  typeCousesOptions,
+} from '@/mock/coursesMock';
 import {
   useCreateCourse,
   useFeedback,
@@ -21,8 +25,8 @@ export interface IformValues {
   description: string;
   school: string;
   type: string;
-  progress: number;
-  duration: number;
+  progress: string;
+  duration: string;
   courseUrl: string;
 }
 
@@ -31,8 +35,8 @@ const defaultValues: IformValues = {
   description: '',
   school: '',
   type: '',
-  progress: 0,
-  duration: 0,
+  progress: '',
+  duration: '',
   courseUrl: '',
 };
 
@@ -139,23 +143,15 @@ export function CoursesForm() {
               options={typeCousesOptions}
               required
             />
-            <TextInput
+            <Select
               name="progress"
-              label="Progresso de conclusão %"
-              placeholder="Digite o progresso de conclusão do curso"
-              type="number"
-              required
-              inputProps={{
-                min: 0,
-                max: 100,
-              }}
+              label="Progresso"
+              options={progessOptions}
             />
-            <TextInput
+            <Select
               name="duration"
-              label="Duração do curso (em horas)"
-              placeholder="Digite a duração do curso"
-              type="number"
-              required
+              label="Duração do curso"
+              options={durationOptions}
             />
             <TextInput
               name="courseUrl"
