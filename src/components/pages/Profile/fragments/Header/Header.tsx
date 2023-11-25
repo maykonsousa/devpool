@@ -127,7 +127,7 @@ export function Header({ username }: HeaderProps) {
           </Box>
         )}
       </Box>
-      <LinkedinShareButton url="https://www.google.com">
+      <LinkedinShareButton url="https://devpoolbr.vercel.app/profile/maykonsousa">
         <LinkedIn />
       </LinkedinShareButton>
     </HeaderContainer>
