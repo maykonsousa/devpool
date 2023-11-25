@@ -14,7 +14,7 @@ export async function generateMetadata(
   parent: ResolvedMetadata,
 ): Promise<Metadata> {
   const { profileName } = params;
-  const previewsImages = (await parent).openGraph?.images;
+  const previewsImages = (await parent).openGraph?.images || [];
 
   const { user } = await getUserByUsernameService({ username: profileName });
 
@@ -27,7 +27,7 @@ export async function generateMetadata(
     title,
     openGraph: {
       title,
-      images: previewsImages,
+      images: [user?.avatar_url as string, ...previewsImages],
       description,
     },
   };
