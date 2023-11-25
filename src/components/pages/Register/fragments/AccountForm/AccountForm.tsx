@@ -236,6 +236,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
                       methods.setValue('city', value || '')
                     }
                     value={methods.watch('city')}
+                    errorMessage={methods.formState.errors.city?.message || ''}
                   />
                 </GridContainer>
                 <TextInput name="email" label="E-mail" />
