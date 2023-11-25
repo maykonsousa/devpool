@@ -68,7 +68,7 @@ export function ProfilePage({ profileName }: ProfilePageProps) {
       value: 'experiencia',
       iconPosition: 'start',
       icon: <Build />,
-      component: <TabExperiences />,
+      component: <TabExperiences username={profileName} />,
     },
     {
       label: 'Contatos',

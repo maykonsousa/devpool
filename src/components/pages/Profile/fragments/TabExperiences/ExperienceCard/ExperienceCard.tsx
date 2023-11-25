@@ -1,77 +1,73 @@
-import { Handyman } from '@mui/icons-material';
 import {
-  Paper,
-  Typography,
-  Divider,
-  Box,
-  Chip,
-  IconButton,
-} from '@mui/material';
+  CalendarMonth,
+  Check,
+  Engineering,
+  Handyman,
+} from '@mui/icons-material';
+import { Divider } from '@mui/material';
 import React from 'react';
+import { IJob } from '@/hooks';
+import { formatDate } from '@/utils';
+import {
+  DateContainer,
+  IndicatorContainer,
+  IndicatorIcon,
+  JobContainer,
+  JobContent,
+  JobDate,
+  JobDescription,
+  JobInformations,
+  JobOffice,
+  JobTitle,
+  TechItem,
+  TechsContainer,
+} from './ExperienceCard.styles';
 
-export function ExperienceCard() {
+interface IExperienceCard {
+  job: IJob;
+}
+
+export function ExperienceCard({ job }: IExperienceCard) {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: 4,
-        borderLeft: '2px solid #ccc',
-        paddingBottom: '1rem',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 2,
-          transform: 'translateX(-1.5rem)',
-          alignItems: 'center',
-        }}
-      >
-        <IconButton
-          sx={{
-            width: '3rem',
-            height: '3rem',
-            padding: '8px',
-            bgcolor: 'primary.main',
-          }}
-        >
+    <JobContainer>
+      <IndicatorContainer>
+        <IndicatorIcon>
           <Handyman />
-        </IconButton>
-        <Paper elevation={3} sx={{ padding: '1rem', gap: 1 }}>
-          <Typography variant="h6" fontWeight="bold">
-            Nome da Empresa
-          </Typography>
-          <Typography variant="body1" color="textSecondary">
-            Cargo
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-            nobis labore facere modi molestiae commodi sit suscipit numquam,
-            aspernatur iusto temporibus sapiente repellat voluptatibus aliquid.
-          </Typography>
-          <Divider
-            sx={{
-              marginTop: '1rem',
-              marginBottom: '1rem',
-            }}
-          />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '1rem',
-              gap: '8px',
-              flexWrap: 'wrap',
-            }}
-          >
-            {['React', 'Node', 'TypeScript', 'JavaScript', 'HTML', 'CSS'].map(
-              (item) => (
-                <Chip label={item} key={item} />
-              ),
-            )}
-          </Box>
-        </Paper>
-      </Box>
-    </Box>
+        </IndicatorIcon>
+
+        <JobContent elevation={3}>
+          <JobTitle>{job.company}</JobTitle>
+
+          <JobInformations>
+            <JobOffice avatar={<Engineering />} label={job.name} />
+
+            <DateContainer>
+              <JobDate>
+                <CalendarMonth /> {formatDate(job.startDate)}
+              </JobDate>
+
+              <JobDate>
+                {job.isCurrent ? <Check /> : <CalendarMonth />}
+                {job.isCurrent ? 'Atual' : formatDate(job.endDate)}
+              </JobDate>
+            </DateContainer>
+          </JobInformations>
+
+          <JobDescription>
+            {job.description.length > 200
+              ? `${job.description.substring(0, 200)}...`
+              : job.description}
+          </JobDescription>
+
+          <Divider />
+
+          <TechsContainer>
+            {job.technologies.map((tech) => (
+              <TechItem key={tech.id} label={tech.name} />
+            ))}
+          </TechsContainer>
+        </JobContent>
+      </IndicatorContainer>
+    </JobContainer>
   );
 }

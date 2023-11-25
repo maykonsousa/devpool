@@ -23,7 +23,12 @@ const GET_JOBS_BY_USER = gql`
   }
 `;
 
-interface IJob {
+export interface ITech {
+  id: string;
+  name: string;
+}
+
+export interface IJob {
   userId: string;
   updatedAt: string;
   startDate: string;
@@ -33,10 +38,7 @@ interface IJob {
   description: string;
   endDate: string;
   company: string;
-  tecnologies: {
-    id: string;
-    name: string;
-  }[];
+  technologies: ITech[];
 }
 
 interface IVariables {
@@ -69,6 +71,7 @@ export const useGetJobsByUser = ({ userId, username }: IUseGetJobsByUser) => {
           username,
         },
       },
+      fetchPolicy: 'cache-and-network',
     },
   );
 
