@@ -6,11 +6,19 @@ import { Box, Skeleton, Typography, useTheme } from '@mui/material';
 import {
   Computer,
   EqualizerSharp,
+  Facebook,
   LinkedIn,
   LocationOn,
+  Twitter,
+  WhatsApp,
 } from '@mui/icons-material';
 import { useGetProfile } from '@/hooks';
-import { LinkedinShareButton } from 'react-share';
+import {
+  LinkedinShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from 'react-share';
 import { HeaderAvatar, HeaderContainer } from './Header.styles';
 
 interface HeaderProps {
@@ -24,6 +32,7 @@ export function Header({ username }: HeaderProps) {
   });
 
   const user = useMemo(() => data?.user, [data]);
+  const url = `https://devpoolbr.vercel.app/profile/${username}`;
 
   return (
     <HeaderContainer>
@@ -127,9 +136,34 @@ export function Header({ username }: HeaderProps) {
           </Box>
         )}
       </Box>
-      <LinkedinShareButton url="https://devpoolbr.vercel.app/profile/maykonsousa">
-        <LinkedIn />
-      </LinkedinShareButton>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+
+          [theme.breakpoints.down('md')]: {
+            alignItems: 'center',
+          },
+        }}
+      >
+        <Typography variant="body1">Compartilhar</Typography>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <LinkedinShareButton url={url}>
+            <LinkedIn fontSize="large" />
+          </LinkedinShareButton>
+          <FacebookShareButton url={url}>
+            <Facebook fontSize="large" />
+          </FacebookShareButton>
+          <TwitterShareButton url={url}>
+            <Twitter fontSize="large" />
+          </TwitterShareButton>
+          <WhatsappShareButton url={url}>
+            <WhatsApp fontSize="large" />
+          </WhatsappShareButton>
+        </Box>
+      </Box>
     </HeaderContainer>
   );
 }
