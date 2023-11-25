@@ -27,7 +27,7 @@ export async function generateMetadata(
     title,
     openGraph: {
       title,
-      images: [user?.avatar_url as string, ...previewsImages],
+      images: previewsImages,
       description,
     },
   };
