@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProfilePage } from '@/components/pages/Profile';
-import { Metadata, ResolvedMetadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
 import { getUserByUsernameService } from '@/app/api/services/getUserByUsername.service';
 
 interface ProfilePageProps {
@@ -11,7 +11,7 @@ interface ProfilePageProps {
 
 export async function generateMetadata(
   { params }: ProfilePageProps,
-  parent: ResolvedMetadata,
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { profileName } = params;
   const previewsImages = (await parent).openGraph?.images || [];
