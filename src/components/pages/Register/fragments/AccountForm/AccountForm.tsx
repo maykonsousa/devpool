@@ -18,6 +18,7 @@ import { states } from '@/mock/statesMock';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { creteDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
+import { TStates } from '@/mock/citiesMock';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,
@@ -231,7 +232,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
                     required
                   />
                   <CityInput
-                    UF={methods.watch('state')}
+                    UF={methods.watch('state') as TStates}
                     onChange={(e, value) =>
                       methods.setValue('city', value || '')
                     }

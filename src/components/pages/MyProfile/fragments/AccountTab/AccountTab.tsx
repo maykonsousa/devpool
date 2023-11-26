@@ -18,6 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { updateDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { states } from '@/mock/statesMock';
+import { TStates } from '@/mock/citiesMock';
 import {
   AccountTabContainer,
   ActionsContainer,
@@ -221,7 +222,7 @@ export function AccountTab() {
               />
               <CityInput
                 errorMessage={methods.formState.errors.city?.message || ''}
-                UF={methods.watch('state')}
+                UF={methods.watch('state') as TStates}
                 onChange={(e, value) => methods.setValue('city', value || '')}
                 value={methods.watch('city')}
               />
