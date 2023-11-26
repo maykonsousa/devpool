@@ -1,18 +1,13 @@
-import React from 'react';
-import { ContentCopy, Email, Phone } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  CardActions,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import React, { useMemo } from 'react';
+import { Email, Phone } from '@mui/icons-material';
+import { Box, Button, CardActions, Typography } from '@mui/material';
 import { SocialIcon } from '@/components/SocialIcon';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextInput } from '@/components/TextInput';
 import { Select } from '@/components/Select';
-import { useFeedback, useGetContacts, useSession } from '@/hooks';
+import { useFeedback, useGetContacts } from '@/hooks';
 import { IContacts } from '@/hooks/useGetContacts/useGetContacts';
+import { CopyIcon } from '@/components/CopyIcon';
 import {
   FormContainer,
   InformationCard,
@@ -24,16 +19,17 @@ import {
   Title,
 } from './TabContacts.styles';
 
-export function TabContacts() {
+interface TabContactsProps {
+  username: string;
+}
+
+export function TabContacts({ username }: TabContactsProps) {
   const formMethods = useForm();
   const { showMessage } = useFeedback();
-  const { user } = useSession();
+  const variables = useMemo(() => ({ input: { username } }), [username]);
+
   const { data } = useGetContacts({
-    variables: {
-      input: {
-        username: user?.username,
-      },
-    },
+    variables,
   });
 
   const contacts = data ? (data.contacts as IContacts) : ({} as IContacts);
@@ -61,10 +57,8 @@ export function TabContacts() {
               }}
             >
               <Email />
-              {user?.email}
-              <IconButton>
-                <ContentCopy />
-              </IconButton>
+              {contacts?.email}
+              <CopyIcon text={contacts?.email} />
             </Box>
             {contacts.cell_phone && (
               <Box
@@ -77,9 +71,7 @@ export function TabContacts() {
               >
                 <Phone />
                 {contacts.cell_phone}
-                <IconButton>
-                  <ContentCopy />
-                </IconButton>
+                <CopyIcon text={contacts.cell_phone} />
               </Box>
             )}
           </InformationCard>

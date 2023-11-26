@@ -34,12 +34,15 @@ export const getContactsService = async ({
 
     const contacts = await prisma.social.findFirst({
       where: {
-        userId,
+        userId: userExists.id,
       },
     });
 
     return {
-      contacts,
+      contacts: {
+        ...contacts,
+        email: userExists.email,
+      },
       status: 'success',
       message: 'Contacts found',
     };

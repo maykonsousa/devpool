@@ -6,28 +6,26 @@ const GET_CONTACTS = gql`
       status
       message
       contacts {
-        id
-        userId
         twitter_url
         personal_website
         linkedin_url
         instagram_url
         github_url
         cell_phone
+        email
       }
     }
   }
 `;
 
 export interface IContacts {
-  id: string;
-  userId: string;
   twitter_url: string;
   personal_website: string;
   linkedin_url: string;
   instagram_url: string;
   github_url: string;
   cell_phone: string;
+  email: string;
 }
 
 interface IVariables {

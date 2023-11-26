@@ -36,6 +36,7 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ profileName }: ProfilePageProps) {
+  console.log(profileName);
   const INITIALTAB: TabPanelProps = {
     label: 'Perfil',
     value: 'perfil',
@@ -76,7 +77,7 @@ export function ProfilePage({ profileName }: ProfilePageProps) {
       value: 'contatos',
       iconPosition: 'start',
       icon: <Person />,
-      component: <TabContacts />,
+      component: <TabContacts username={profileName} />,
     },
   ];
 

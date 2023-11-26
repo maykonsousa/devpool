@@ -1,0 +1,1 @@
+export { CopyIcon } from './CopyIcon';

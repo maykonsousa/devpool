@@ -350,6 +350,7 @@ export const typeDefs = `#graphql
   github_url: String
   personal_website: String
   cell_phone: String
+  email: String
   twitter_url: String
   createdAt: String 
   updatedAt: String      
