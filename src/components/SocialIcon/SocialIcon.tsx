@@ -18,9 +18,14 @@ interface ISocialIconProps {
     | 'cell_phone'
     | 'personal_website';
   url: string;
+  variant?: 'circular' | 'square' | 'rounded';
 }
 
-export function SocialIcon({ type, url }: ISocialIconProps) {
+export function SocialIcon({
+  type,
+  url,
+  variant = 'circular',
+}: ISocialIconProps) {
   const generateWhatsappLink = (cellNumber: string) => {
     const phone = cellNumber.replace(/\D/g, '');
     return `https://wa.me/55${phone}`;
@@ -29,6 +34,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
     linkedin_url: {
       icon: (
         <LinkedIn
+          fontSize="large"
           sx={{
             color: '#fff',
           }}
@@ -39,6 +45,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
     github_url: {
       icon: (
         <GitHub
+          fontSize="large"
           sx={{
             color: '#fff',
           }}
@@ -49,6 +56,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
     twitter_url: {
       icon: (
         <Twitter
+          fontSize="large"
           sx={{
             color: '#fff',
           }}
@@ -59,6 +67,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
     instagram_url: {
       icon: (
         <Instagram
+          fontSize="large"
           sx={{
             color: '#fff',
           }}
@@ -69,6 +78,7 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
     cell_phone: {
       icon: (
         <WhatsApp
+          fontSize="large"
           sx={{
             color: '#fff',
           }}
@@ -89,9 +99,15 @@ export function SocialIcon({ type, url }: ISocialIconProps) {
   };
   return (
     <Avatar
+      variant={variant}
       sx={{
-        bgcolor: socialIconEnum[type].bgColor,
-        color: '#fff',
+        'bgcolor': socialIconEnum[type].bgColor,
+        'color': '#fff',
+        'boxShadow': '0px 0px 10px rgba(0,0,0,0.5)',
+
+        '&:hover': {
+          boxShadow: '0px 0px 16px rgba(0,0,0,0.8)',
+        },
       }}
     >
       <Link

@@ -20,6 +20,7 @@ import { getRolesService } from '../services/getRoles.service';
 import { getTechsByUserService } from '../services/getTechsByUser.service';
 import { getUserByEmailService } from '../services/getUserByEmail.service';
 import { getUserByUsernameService } from '../services/getUserByUsername.service';
+import { sendMailService } from '../services/sendMail.Service';
 import { updateContactsService } from '../services/updateContacts.service';
 import { updateCourseService } from '../services/updateCourse.service';
 import { updateUserService } from '../services/updateUser.service';
@@ -50,7 +51,11 @@ import {
   IcreateUserInput,
   IgetUserByUsernameInput,
 } from '../types/UsersTypes';
-import { IGetContactsInput, IUpdateContactsInput } from '../types/contactsType';
+import {
+  IGetContactsInput,
+  ISendMailInput,
+  IUpdateContactsInput,
+} from '../types/contactsType';
 import { ICreateFeedbackInput } from '../types/feedbackTypes';
 
 export const resolvers = {
@@ -129,6 +134,8 @@ export const resolvers = {
     // CONTACTS
     updateContacts: async (_: any, args: IUpdateContactsInput) =>
       updateContactsService(args.input),
+    sendMail: async (_: any, args: ISendMailInput) =>
+      sendMailService(args.input),
 
     // FEEDBACK
     createFeedback: async (_: any, args: ICreateFeedbackInput) =>

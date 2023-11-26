@@ -16,6 +16,7 @@ import { Build, IntegrationInstructions, Person } from '@mui/icons-material';
 import {
   Cover,
   Header,
+  TabContacts,
   TabExperiences,
   TabProfile,
   TabProjects,
@@ -75,7 +76,7 @@ export function ProfilePage({ profileName }: ProfilePageProps) {
       value: 'contatos',
       iconPosition: 'start',
       icon: <Person />,
-      component: <div>Contatos</div>,
+      component: <TabContacts />,
     },
   ];
 

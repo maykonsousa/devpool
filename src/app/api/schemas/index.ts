@@ -380,6 +380,20 @@ export const typeDefs = `#graphql
     data: SocialInput!
   }
 
+  input SendMailInput {
+    name: String
+    subject: String
+    email: String
+    message: String
+    toName: String
+    toEmail: String
+  }
+
+  type SendMailPayload {
+    status: Status!
+    message: String!
+  }
+
   type UpdateContactsPayload {
     status: Status!
     message: String!
@@ -493,6 +507,8 @@ export const typeDefs = `#graphql
 
     ##CONTACTS
     updateContacts(input: UpdateContactsInput): UpdateContactsPayload!
+    sendMail(input: SendMailInput): SendMailPayload!
+
 
     ##FEEDBACK
     createFeedback(input: CreateFeedbackInput): CreateFeedbackPayload!

@@ -20,3 +20,14 @@ export interface IUpdateContactsInput {
     data: IContactsDataInput;
   };
 }
+
+export interface ISendMailInput {
+  input: {
+    name: string;
+    subject: string;
+    email: string;
+    message: string;
+    toName: string;
+    toEmail: string;
+  };
+}

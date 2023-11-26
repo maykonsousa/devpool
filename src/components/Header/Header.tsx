@@ -106,13 +106,7 @@ export function Header() {
               router.push('/');
             }}
           >
-            <Image
-              src="/logo.svg"
-              alt="logo"
-              width={200}
-              height={50}
-              priority
-            />
+            <Image src="/logo.svg" alt="logo" width={80} height={50} priority />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

@@ -19,7 +19,7 @@ const GET_CONTACTS = gql`
   }
 `;
 
-interface IContacts {
+export interface IContacts {
   id: string;
   userId: string;
   twitter_url: string;
