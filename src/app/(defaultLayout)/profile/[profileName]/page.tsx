@@ -21,7 +21,7 @@ export async function generateMetadata(
   const title = `Acesse o Perfil de ${profileName} no DevPool`;
   const description =
     user?.bio ||
-    `Acesse o perfil de ${profileName} no DevPool e veja seus projetos e informações de contato.`;
+    `Acesse o perfil de ${user?.name} no DevPool e veja seus projetos e informações de contato.`;
 
   return {
     title,
