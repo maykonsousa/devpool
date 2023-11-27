@@ -36,7 +36,6 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ profileName }: ProfilePageProps) {
-  console.log(profileName);
   const INITIALTAB: TabPanelProps = {
     label: 'Perfil',
     value: 'perfil',
