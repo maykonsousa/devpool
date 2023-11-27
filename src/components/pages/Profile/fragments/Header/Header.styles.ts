@@ -25,8 +25,8 @@ export const HeaderAvatar = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
+  width: 136px;
+  height: 136px;
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.primary.contrastText};
   border: 4px solid ${({ theme }) => theme.palette.primary.main};
@@ -36,7 +36,7 @@ export const HeaderAvatar = styled(Box)`
 
   @media (max-width: 900px) {
     margin-top: 0;
-    width: 80px;
-    height: 80px;
+    width: 94px;
+    height: 94px;
   }
 `;

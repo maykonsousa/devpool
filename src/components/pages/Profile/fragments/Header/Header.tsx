@@ -2,7 +2,13 @@
 
 import React, { useMemo } from 'react';
 import Image from 'next/image';
-import { Box, Skeleton, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Skeleton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   Computer,
   EqualizerSharp,
@@ -27,6 +33,7 @@ interface HeaderProps {
 
 export function Header({ username }: HeaderProps) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { data, loading } = useGetProfile({
     variables: { input: { username } },
   });
@@ -49,11 +56,10 @@ export function Header({ username }: HeaderProps) {
             src={user?.avatar_url as string}
             width={120}
             height={120}
-            loading="lazy"
             style={{
-              width: '100%',
-              height: '100%',
               borderRadius: '8px',
+              width: isMobile ? '80px' : '120px',
+              height: isMobile ? '80px' : '120px',
             }}
             alt="avatar"
           />
