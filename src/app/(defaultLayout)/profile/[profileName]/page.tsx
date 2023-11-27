@@ -18,7 +18,7 @@ export async function generateMetadata(
 
   const { user } = await getUserByUsernameService({ username: profileName });
 
-  const title = `DevPool - ${user?.name || profileName}`;
+  const title = `Acesse o Perfil de ${profileName} no DevPool`;
   const description =
     user?.bio ||
     `Acesse o perfil de ${profileName} no DevPool e veja seus projetos e informações de contato.`;
