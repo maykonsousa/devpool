@@ -37,7 +37,7 @@ export function TabProjects({ username }: TabProjectsProps) {
       return (
         <EmptyState
           type="empty"
-          message="Ainda não há projetos cadastrados para este uduário"
+          message="Ainda não há projetos cadastrados para este usuário"
         />
       );
     }
@@ -48,9 +48,10 @@ export function TabProjects({ username }: TabProjectsProps) {
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: loading
-          ? '1fr'
-          : 'repeat(auto-fill, minmax(300px, 1fr))',
+        gridTemplateColumns:
+          loading || !projects.length
+            ? '1fr'
+            : 'repeat(auto-fill, minmax(300px, 1fr))',
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
