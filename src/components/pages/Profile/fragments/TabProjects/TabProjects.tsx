@@ -48,9 +48,15 @@ export function TabProjects({ username }: TabProjectsProps) {
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gridGap: theme.spacing(2),
+        gridTemplateColumns: loading
+          ? '1fr'
+          : 'repeat(auto-fill, minmax(300px, 1fr))',
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: theme.spacing(2),
+        gap: theme.spacing(2),
+        width: '100%',
       }}
     >
       {projects.length

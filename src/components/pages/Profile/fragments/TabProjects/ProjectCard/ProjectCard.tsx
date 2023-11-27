@@ -47,7 +47,7 @@ export function ProjectCard(props: ProjectCardProps) {
         title={props?.name}
       />
       <CardMedia
-        sx={{ height: '200px' }}
+        sx={{ height: '200px', boxShadow: '0px 0px 8px 0px rgba(0,0,0,0.5)' }}
         image={props?.image_url}
         title={props?.name}
       />
@@ -57,11 +57,21 @@ export function ProjectCard(props: ProjectCardProps) {
           gap: '8px',
           display: 'flex',
           flexDirection: 'column',
+          flex: 1,
         }}
       >
-        <Typography variant="body2" color="text.secondary">
-          {props?.resume}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            flexDirection: 'column',
+            flex: 1,
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {props?.resume}
+          </Typography>
+        </Box>
         <Divider />
         <Box
           sx={{
