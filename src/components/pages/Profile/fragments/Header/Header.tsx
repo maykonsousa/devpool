@@ -39,7 +39,7 @@ export function Header({ username }: HeaderProps) {
   });
 
   const user = useMemo(() => data?.user, [data]);
-  const url = `https://devpoolbr.vercel.app/profile/${username}`;
+  const url = `https://www.devpoolbr.com.br/profile/${username}`;
 
   return (
     <HeaderContainer>
