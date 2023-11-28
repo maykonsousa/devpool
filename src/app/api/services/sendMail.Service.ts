@@ -54,7 +54,7 @@ export const sendMailService = async ({
                   <p style="font-size:14px;line-height:26px;margin:16px 0;font-weight:700;color:#666CFF">NOVA MENSAGEM</p>
                   <p style="font-size:14px;line-height:22px;margin:16px 0;color:#fff">Olá, ${toName}!</p>
                   <p style="font-size:14px;line-height:22px;margin:16px 0;color:#fff">Você recebeu uma mensagem diretamente no seu perfil na plataforma <a style="text-decoration:none; color:#666CFF; font-weight:bold;" href="https://www.devpoolbr.com.br">DEVPOOL</a></p>
-                  <p style="font-size:14px;line-height:22px;margin:16px 0;color:#fff">Para responder a mensagem, não responda diretamente aqui. Crie um novo email utilizando os daados do remetente.</p>
+                  <p style="font-size:14px;line-height:22px;margin:16px 0;color:#fff">Para responder a mensagem, não responda diretamente aqui. Crie um novo email utilizando os dados do remetente.</p>
                 </td>
               </tr>
             </tbody>
