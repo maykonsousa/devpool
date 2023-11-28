@@ -98,6 +98,8 @@ export const sendMailService = async ({
       message: 'mensagem  enviada com sucesso!',
     };
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     if (error instanceof AppError) {
       return {
         status: 'error',
