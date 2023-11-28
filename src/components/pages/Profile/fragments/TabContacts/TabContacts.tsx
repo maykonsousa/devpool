@@ -1,13 +1,21 @@
 import React, { useMemo } from 'react';
 import { Email, Phone } from '@mui/icons-material';
-import { Box, Button, CardActions, Typography } from '@mui/material';
+import { Box, Button, CardActions } from '@mui/material';
 import { SocialIcon } from '@/components/SocialIcon';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextInput } from '@/components/TextInput';
 import { Select } from '@/components/Select';
-import { useFeedback, useGetContacts } from '@/hooks';
+import {
+  useFeedback,
+  useGetContacts,
+  useGetUserByUsername,
+  useSendEmail,
+} from '@/hooks';
 import { IContacts } from '@/hooks/useGetContacts/useGetContacts';
 import { CopyIcon } from '@/components/CopyIcon';
+import { Loading } from '@/components/Loading';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { emailValidation } from '@/validations/formValidations/emailValidations';
 import {
   FormContainer,
   InformationCard,
@@ -23,23 +31,66 @@ interface TabContactsProps {
   username: string;
 }
 
+interface IFormInputs {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+const defaultValues: IFormInputs = {
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+};
+
 export function TabContacts({ username }: TabContactsProps) {
-  const formMethods = useForm();
+  const formMethods = useForm({
+    defaultValues,
+    resolver: zodResolver(emailValidation),
+  });
   const { showMessage } = useFeedback();
   const variables = useMemo(() => ({ input: { username } }), [username]);
+  const { data: userData } = useGetUserByUsername({
+    variables,
+  });
 
   const { data } = useGetContacts({
     variables,
   });
 
+  const { sendMail, loading } = useSendEmail({
+    variables: {
+      input: {
+        toName: userData?.name || '',
+        toEmail: userData?.email || '',
+        subject: formMethods.watch('subject'),
+        name: formMethods.watch('name'),
+        message: formMethods.watch('message'),
+        email: formMethods.watch('email'),
+      },
+    },
+  });
+
+  const handleSendEmail = formMethods.handleSubmit(async () => {
+    const { data: result } = await sendMail();
+    if (result?.sendMail?.status === 'success') {
+      showMessage({
+        message: 'Mensagem enviada com sucesso!',
+        type: 'success',
+      });
+      formMethods.reset();
+    } else {
+      showMessage({
+        message: 'Ocorreu um erro ao enviar a mensagem!',
+        type: 'error',
+      });
+    }
+  });
+
   const contacts = data ? (data.contacts as IContacts) : ({} as IContacts);
 
-  const handleSubmit = formMethods.handleSubmit(async () => {
-    showMessage({
-      message: 'O serviço de envio de mensagem ainda não está disponível!',
-      type: 'error',
-    });
-  });
   return (
     <TabContainer>
       <Title>Contatos & Redes sociais</Title>
@@ -129,57 +180,63 @@ export function TabContacts({ username }: TabContactsProps) {
             </Box>
           </InformationCard>
         </InformationsContainer>
-        <FormContainer>
-          <FormTitle>Enviar mensagem</FormTitle>
-          <Typography variant="caption" color="error.main">
-            O envio de mensagens ainda não está disponível!
-          </Typography>
-          <FormProvider {...formMethods}>
-            <TextInput
-              name="name"
-              label="Nome"
-              placeholder="Digite seu nome"
-              required
-            />
-            <TextInput
-              name="email"
-              label="E-mail"
-              placeholder="Digite seu e-mail"
-              required
-            />
-            <Select
-              name="subject"
-              label="Assunto"
-              placeholder="Selecione um assunto"
-              required
-              options={[
-                { value: '1', label: 'Processo seletivo' },
-                { value: '2', label: 'Elogios' },
-                { value: '3', label: 'Reportar' },
-              ]}
-            />
-            <TextInput
-              name="message"
-              label="Mensagem"
-              placeholder="Digite sua mensagem"
-              required
-              multiline
-              rows={4}
-            />
-          </FormProvider>
-          <CardActions>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Enviar
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => formMethods.reset()}
-            >
-              Limpar
-            </Button>
-          </CardActions>
-        </FormContainer>
+        {loading ? (
+          <Loading />
+        ) : (
+          <FormContainer>
+            <FormTitle>Enviar mensagem</FormTitle>
+
+            <FormProvider {...formMethods}>
+              <TextInput
+                name="name"
+                label="Nome"
+                placeholder="Digite seu nome"
+                required
+              />
+              <TextInput
+                name="email"
+                label="E-mail"
+                placeholder="Digite seu e-mail"
+                required
+              />
+              <Select
+                name="subject"
+                label="Assunto"
+                placeholder="Selecione um assunto"
+                required
+                options={[
+                  { value: 'Processo seletivo', label: 'Processo seletivo' },
+                  { value: 'Elogios', label: 'Elogios' },
+                  { value: 'FeedBack', label: 'Feedback' },
+                ]}
+              />
+              <TextInput
+                name="message"
+                label="Mensagem"
+                placeholder="Digite sua mensagem"
+                required
+                multiline
+                rows={4}
+              />
+            </FormProvider>
+            <CardActions>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSendEmail}
+              >
+                Enviar
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => formMethods.reset()}
+              >
+                Limpar
+              </Button>
+            </CardActions>
+          </FormContainer>
+        )}
       </Main>
     </TabContainer>
   );
