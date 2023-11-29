@@ -4,8 +4,8 @@ import React from 'react';
 import { useGetProfiles } from '@/hooks';
 import { Loading } from '@/components/Loading';
 import { EmptyState } from '@/components/EmptyState';
-import { Search } from '@mui/icons-material';
-import { FormControl, TextField, InputAdornment } from '@mui/material';
+import { Shuffle } from '@mui/icons-material';
+import { Box, Button } from '@mui/material';
 import { CardsContainer, PageContainer, Title } from './CommunityPage.styles';
 import { UserCard } from './fragments';
 
@@ -34,21 +34,14 @@ interface IUserData {
 }
 
 export function CommunityPage() {
-  const { data, loading, error } = useGetProfiles();
-  const [searchText, setSearchText] = React.useState<string>('');
-  const [filteredUsers, setFilteredUsers] = React.useState<IUserData[]>([]);
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
+  const { data, loading, error, refetch } = useGetProfiles();
+  const [isRefetching, setIsRefetching] = React.useState(false);
 
-  React.useEffect(() => {
-    if (data as IUserData[]) {
-      const filtered = data.filter((user: IUserData) =>
-        user.name.toLowerCase().startsWith(searchText.toLowerCase()),
-      );
-      setFilteredUsers(filtered);
-    }
-  }, [searchText, data]);
+  const handleRefetch = async () => {
+    setIsRefetching(true);
+    await refetch();
+    setIsRefetching(false);
+  };
 
   return (
     <PageContainer>
@@ -59,33 +52,29 @@ export function CommunityPage() {
           type="error"
         />
       )}
-      {loading ? (
+      {loading || isRefetching ? (
         <Loading />
       ) : (
         <>
-          <FormControl
-            fullWidth
+          <Box
             sx={{
-              marginBottom: '20px',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              paddingBottom: '1rem',
             }}
           >
-            <TextField
-              label="Pesquisar"
-              fullWidth
-              value={searchText}
-              onChange={handleSearch}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+            <Button
+              variant="contained"
+              onClick={handleRefetch}
+              startIcon={<Shuffle />}
+            >
+              Mostrar outros
+            </Button>
+          </Box>
           <CardsContainer>
-            {filteredUsers.length ? (
-              filteredUsers.map((user) => (
+            {data.length ? (
+              data.map((user: IUserData) => (
                 <UserCard key={user.id} user={user} />
               ))
             ) : (

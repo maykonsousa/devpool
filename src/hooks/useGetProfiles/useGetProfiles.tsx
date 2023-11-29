@@ -1,3 +1,4 @@
+import { shuffleArray } from '@/utils/shuffleArray';
 import { gql, useQuery } from '@apollo/client';
 
 const GET_PROFILES = gql`
@@ -5,7 +6,6 @@ const GET_PROFILES = gql`
     getAllUsers {
       users {
         username
-        updatedAt
         type
         state
         seniority
@@ -13,7 +13,6 @@ const GET_PROFILES = gql`
         name
         id
         email
-        createdAt
         cover_url
         city
         bio
@@ -32,12 +31,41 @@ const GET_PROFILES = gql`
     }
   }
 `;
+interface IUserData {
+  username: string;
+  type: string;
+  state: string;
+  seniority: string;
+  role: string;
+  name: string;
+  id: string;
+  email: string;
+  cover_url: string;
+  city: string;
+  bio: string;
+  avatar_url: string;
+  contacts: {
+    twitter_url: string;
+    linkedin_url: string;
+    personal_website: string;
+    instagram_url: string;
+    github_url: string;
+    cell_phone: string;
+  };
+}
 
 export const useGetProfiles = () => {
-  const { data, loading, error, refetch } = useQuery(GET_PROFILES);
+  const { data, loading, error, refetch } = useQuery(GET_PROFILES, {
+    fetchPolicy: 'no-cache',
+  });
+
+  const randonusers = shuffleArray<IUserData>(data?.getAllUsers?.users)?.slice(
+    0,
+    15,
+  );
 
   return {
-    data: data?.getAllUsers?.users,
+    data: randonusers,
     loading,
     error,
     refetch,
