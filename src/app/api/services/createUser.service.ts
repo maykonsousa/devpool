@@ -2,6 +2,7 @@ import { hash } from 'bcrypt';
 import { prisma } from '../database';
 import { IUserInput } from '../types/UsersTypes';
 import { AppError } from '../utils/appError';
+import { sendWelcomeMailService } from './sendWelcomeMail.Service';
 
 export const createUserService = async (user: IUserInput) => {
   try {
@@ -29,6 +30,10 @@ export const createUserService = async (user: IUserInput) => {
         userId: userCreated.id,
         github_url: `https://github.com/${userCreated.username}`,
       },
+    });
+    await sendWelcomeMailService({
+      name: userCreated?.name as string,
+      toEmail: userCreated.email,
     });
 
     return {
