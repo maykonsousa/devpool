@@ -1,5 +1,7 @@
 import { ICourseInputData } from '@/app/api/types/CousersTypes';
 import { gql, useMutation } from '@apollo/client';
+import { useSession } from 'next-auth/react';
+import { GET_PROFILE } from '../useGetProfile/useGetProfile';
 
 const UPDATE_COURSE = gql`
   mutation UpdateCourseUser($input: UpdateCourseInput) {
@@ -30,11 +32,22 @@ export const useUpdateCourse = ({
   onCompleted,
   onError,
 }: IUseUpdateCourse) => {
+  const { data: session } = useSession();
   const [updateCourse, { data, loading, error }] = useMutation(UPDATE_COURSE, {
     variables,
     onCompleted,
     onError,
-    refetchQueries: ['GetCoursesByUser'],
+    refetchQueries: [
+      'GetCoursesByUser',
+      {
+        query: GET_PROFILE,
+        variables: {
+          input: {
+            username: session?.user.name,
+          },
+        },
+      },
+    ],
   });
 
   return {

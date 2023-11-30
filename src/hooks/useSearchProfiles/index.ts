@@ -1,0 +1,1 @@
+export { useSearchProfiles } from './useSearchProfiles';

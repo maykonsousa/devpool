@@ -1,5 +1,7 @@
 import { JobInputData } from '@/app/api/types/JobTypes';
 import { gql, useMutation } from '@apollo/client';
+import { useSession } from 'next-auth/react';
+import { GET_PROFILE } from '../useGetProfile/useGetProfile';
 
 const CREATE_JOB = gql`
   mutation CreateJob($input: CreateJobInput!) {
@@ -38,13 +40,24 @@ export const useCreateJob = ({
   onError,
   variables,
 }: IUseCreateJob) => {
+  const { data: session } = useSession();
   const [createJob, { data, loading, error }] = useMutation<ICreateJobResult>(
     CREATE_JOB,
     {
       onCompleted,
       onError,
       variables,
-      refetchQueries: ['GetJobsByUser'],
+      refetchQueries: [
+        'GetJobsByUser',
+        {
+          query: GET_PROFILE,
+          variables: {
+            input: {
+              username: session?.user.name,
+            },
+          },
+        },
+      ],
     },
   );
 

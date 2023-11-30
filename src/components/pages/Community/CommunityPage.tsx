@@ -6,7 +6,12 @@ import { Loading } from '@/components/Loading';
 import { EmptyState } from '@/components/EmptyState';
 import { Shuffle } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
-import { CardsContainer, PageContainer, Title } from './CommunityPage.styles';
+import {
+  CardsContainer,
+  PageContainer,
+  Subtitle,
+  Title,
+} from './CommunityPage.styles';
 import { UserCard } from './fragments';
 
 interface IContacts {
@@ -45,7 +50,13 @@ export function CommunityPage() {
 
   return (
     <PageContainer>
-      <Title> Comunidade </Title>
+      <Box width="100%">
+        <Title> Comunidade </Title>
+        <Subtitle>
+          Lista aleatória de profissionais da nossa comunidade. Clique no botão
+          para renovar a lista
+        </Subtitle>
+      </Box>
       {!data && !loading && error && (
         <EmptyState
           message="Ocorreu um erro ao carregar os usuários."
@@ -60,7 +71,7 @@ export function CommunityPage() {
             sx={{
               width: '100%',
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'flex-start',
               paddingBottom: '1rem',
             }}
           >
@@ -69,7 +80,7 @@ export function CommunityPage() {
               onClick={handleRefetch}
               startIcon={<Shuffle />}
             >
-              Mostrar outros
+              Shuffle
             </Button>
           </Box>
           <CardsContainer>

@@ -11,7 +11,6 @@ import {
   useCreateProject,
   useFeedback,
   useGetAllTechnologies,
-  useGetProjectsByUser,
   useSession,
   useUpload,
 } from '@/hooks';
@@ -65,13 +64,7 @@ export function ProjectForm() {
   });
   const { user } = useSession();
   const { showMessage } = useFeedback();
-  const { refetch } = useGetProjectsByUser({
-    variables: {
-      input: {
-        userId: user?.id,
-      },
-    },
-  });
+
   const { url, openUpload, onResetAtavarOptions } = useUpload();
   const { onlyNames: technologiesOptions } = useGetAllTechnologies();
   const { createProject, loading } = useCreateProject({
@@ -146,7 +139,6 @@ export function ProjectForm() {
         message: 'Projeto criado com sucesso!',
         type: 'success',
       });
-      refetch();
       handleHideForm();
       onResetAtavarOptions();
     } else {

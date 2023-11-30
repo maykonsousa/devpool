@@ -1,7 +1,7 @@
 import { IProjects } from '@/app/api/types/ProjectTypes';
 import { gql, useQuery } from '@apollo/client';
 
-const GET_PROJECTS_BY_USER = gql`
+export const GET_PROJECTS_BY_USER = gql`
   query GetProjectsByUser($input: GetProjectsByUserInput!) {
     getProjectsByUser(input: $input) {
       projects {

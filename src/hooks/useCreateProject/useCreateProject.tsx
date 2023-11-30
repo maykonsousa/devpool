@@ -1,5 +1,7 @@
 import { IProjectInput } from '@/app/api/types/ProjectTypes';
 import { gql, useMutation } from '@apollo/client';
+import { useSession } from 'next-auth/react';
+import { GET_PROFILE } from '../useGetProfile/useGetProfile';
 
 const CREATE_PROJECT = gql`
   mutation CreateProject($input: CreateProjectInput!) {
@@ -33,6 +35,7 @@ export const useCreateProject = ({
   project: IProjectInput;
   technologies: string[];
 }) => {
+  const { data: session } = useSession();
   const [createProject, { data, loading, error }] = useMutation<
     ICreateProjectResult,
     IVariables
@@ -43,6 +46,17 @@ export const useCreateProject = ({
         technologies,
       },
     },
+    refetchQueries: [
+      'GetProjectsByUser',
+      {
+        query: GET_PROFILE,
+        variables: {
+          input: {
+            username: session?.user.name,
+          },
+        },
+      },
+    ],
   });
 
   return {

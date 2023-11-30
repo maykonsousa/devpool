@@ -20,6 +20,7 @@ import { getRolesService } from '../services/getRoles.service';
 import { getTechsByUserService } from '../services/getTechsByUser.service';
 import { getUserByEmailService } from '../services/getUserByEmail.service';
 import { getUserByUsernameService } from '../services/getUserByUsername.service';
+import { getUsersByFilterService } from '../services/getUsersByFilter.service';
 import { sendMailService } from '../services/sendMail.Service';
 import { updateContactsService } from '../services/updateContacts.service';
 import { updateCourseService } from '../services/updateCourse.service';
@@ -47,6 +48,7 @@ import {
   IDeleteUserInput,
   IGetProfileInput,
   IGetUserByEmailInput,
+  IGetUsersByFilterInput,
   IUpdateUserInput,
   IcreateUserInput,
   IgetUserByUsernameInput,
@@ -68,6 +70,9 @@ export const resolvers = {
       getProfileService(args.input),
     getUserByUsername: async (_: any, args: IgetUserByUsernameInput) =>
       getUserByUsernameService(args.input),
+    getusersByFilter: async (_: any, args: IGetUsersByFilterInput) => {
+      return getUsersByFilterService(args.input);
+    },
 
     // ROLES
     getRoles: async () => getRolesService(),

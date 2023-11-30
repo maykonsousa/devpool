@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 
-const GET_JOBS_BY_USER = gql`
+export const GET_JOBS_BY_USER = gql`
   query GetJobsByUser($input: GetJobsByUserInput!) {
     getJobsByUser(input: $input) {
       status

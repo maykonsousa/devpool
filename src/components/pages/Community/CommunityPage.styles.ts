@@ -25,9 +25,25 @@ export const Title = styled(Typography)`
   font-size: 2rem;
   margin: ${({ theme }) => theme.spacing(2, 0)};
   color: ${({ theme }) => theme.palette.text.primary};
+  width: 100%;
+  text-align: left;
 
   @media (max-width: 768px) {
     font-size: 1.25rem;
+    margin: ${({ theme }) => theme.spacing(1, 0)};
+  }
+`;
+
+export const Subtitle = styled(Typography)`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.typography.body1.fontSize};
+  margin: ${({ theme }) => theme.spacing(2, 0)};
+  color: ${({ theme }) => theme.palette.text.primary};
+  width: 100%;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
     margin: ${({ theme }) => theme.spacing(1, 0)};
   }
 `;

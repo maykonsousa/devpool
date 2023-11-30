@@ -1,4 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
+import { useSession } from 'next-auth/react';
+import { GET_PROFILE } from '../useGetProfile/useGetProfile';
 
 const UPDATE_USER = gql`
   mutation UpdateUser($input: UpdateUserInput!) {
@@ -33,11 +35,22 @@ interface IResult {
 }
 
 export const useUpdateUser = (variables: IVariables) => {
+  const { data: session } = useSession();
   const [updateUser, { data, loading, error }] = useMutation<
     IResult,
     IVariables
   >(UPDATE_USER, {
     variables,
+    refetchQueries: [
+      {
+        query: GET_PROFILE,
+        variables: {
+          input: {
+            username: session?.user.name,
+          },
+        },
+      },
+    ],
   });
 
   return {

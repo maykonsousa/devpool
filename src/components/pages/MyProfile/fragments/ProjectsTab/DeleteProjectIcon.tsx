@@ -1,11 +1,6 @@
 /* eslint-disable no-console */
 import { ConfirmationDialog } from '@/components/ConfimationDialog';
-import {
-  useDeleteProject,
-  useFeedback,
-  useGetProjectsByUser,
-  useSession,
-} from '@/hooks';
+import { useDeleteProject, useFeedback } from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -16,14 +11,7 @@ interface IDeleteProjectIconProps {
 
 export function DeleteProjectIcon({ projectId }: IDeleteProjectIconProps) {
   const { deleteProject, loading } = useDeleteProject(projectId);
-  const { user } = useSession();
-  const { refetch } = useGetProjectsByUser({
-    variables: {
-      input: {
-        userId: user?.id,
-      },
-    },
-  });
+
   const { showMessage } = useFeedback();
 
   const handleDeleteProject = useCallback(async () => {
@@ -34,7 +22,6 @@ export function DeleteProjectIcon({ projectId }: IDeleteProjectIconProps) {
         message: data.deleteProjectUser.message,
         type: data.deleteProjectUser.status,
       });
-      refetch();
     } else {
       showMessage({
         message:
@@ -43,7 +30,7 @@ export function DeleteProjectIcon({ projectId }: IDeleteProjectIconProps) {
         type: 'error',
       });
     }
-  }, [deleteProject, showMessage, refetch]);
+  }, [deleteProject, showMessage]);
   return (
     <ConfirmationDialog
       description="Tem certeza que deseja excluir esse projeto?"

@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 
-const GET_PROFILE = gql`
+export const GET_PROFILE = gql`
   query GetProfile($input: GetProfileInput!) {
     getProfile(input: $input) {
       user {

@@ -19,6 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { creteDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { TStates } from '@/mock/citiesMock';
+import { seniorityOptions } from '@/mock/generalMocks';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,
@@ -96,14 +97,6 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
   const { status } = useSession();
   const { showMessage } = useFeedback();
   const { data: roles } = useGetRoles();
-
-  const seniorityOptions = [
-    { value: 'estagiario', label: 'Estagiário' },
-    { value: 'junior', label: 'Júnior' },
-    { value: 'pleno', label: 'Pleno' },
-    { value: 'senior', label: 'Sênior' },
-    { value: 'trainee', label: 'Trainee' },
-  ];
 
   const isLogged = status === 'authenticated';
 

@@ -47,3 +47,14 @@ export interface IGetProfileInput {
     username: string;
   };
 }
+
+export interface IGetUsersByFilterInput {
+  input: {
+    filters: {
+      technologies: string[];
+      roles: string[];
+      states: string[];
+      seniorities: string[];
+    };
+  };
+}

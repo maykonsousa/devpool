@@ -1,8 +1,8 @@
-import { UnderConstruction } from '@/components/pages/UnderConstruction';
+import { SearchProfile } from '@/components/pages/SearchProfile';
 import React from 'react';
 
 function SearchProfilePage() {
-  return <UnderConstruction />;
+  return <SearchProfile />;
 }
 
 export default SearchProfilePage;

@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import { useSession } from '../useSession';
+import { GET_PROJECTS_BY_USER } from '../useGetProjectsByUser/useGetProjectsByUser';
 
 const DELETE_PROJECT = gql`
   mutation DeleteProjectUser($input: DeleteProjectInput!) {
@@ -36,6 +37,17 @@ export const useDeleteProject = (projectId: string) => {
         projectId,
       },
     },
+    refetchQueries: [
+      'GetProjectsByUser',
+      {
+        query: GET_PROJECTS_BY_USER,
+        variables: {
+          input: {
+            username: user?.username || '',
+          },
+        },
+      },
+    ],
   });
 
   return {

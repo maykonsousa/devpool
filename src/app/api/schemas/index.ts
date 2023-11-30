@@ -73,6 +73,23 @@ export const typeDefs = `#graphql
     state: String
   }
 
+  input Filters {
+    technologies: [String]
+    roles: [String]
+    states: [String]
+    seniorities: [String]
+  }
+
+  input GetUsersByFilterInput {
+    filters: Filters
+  }
+
+  type getUsersByFilterPayload {
+    users: [User!]
+    status: Status!
+    message: String!
+  }
+
   
 
   input UpdateUserInput {
@@ -461,6 +478,7 @@ export const typeDefs = `#graphql
     getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailPayload!
     getProfile(input: GetProfileInput!): getProfilePayload!
     getUserByUsername(input: GetUserByUsernameInput!): GetUserByUsernamePayload!
+    getusersByFilter(input: GetUsersByFilterInput): getUsersByFilterPayload!
 
     ##PROJECTS
     getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!

@@ -12,9 +12,15 @@ interface GridTableProps extends DataGridProps {
   rows: GridValidRowModel[];
   columns: GridColDef[];
   emptyMessage?: string;
+  rowsPerPage?: 5 | 10 | 20;
 }
 
-export function GridTable({ columns, rows, emptyMessage }: GridTableProps) {
+export function GridTable({
+  columns,
+  rows,
+  emptyMessage,
+  rowsPerPage = 5,
+}: GridTableProps) {
   const theme = useTheme();
   const headerBackgroundColor = theme.palette.background.paper;
 
@@ -45,7 +51,7 @@ export function GridTable({ columns, rows, emptyMessage }: GridTableProps) {
         pageSizeOptions={[5, 10, 20]}
         initialState={{
           pagination: {
-            paginationModel: { pageSize: 5 },
+            paginationModel: { pageSize: rowsPerPage },
           },
         }}
         localeText={customLocaleText}

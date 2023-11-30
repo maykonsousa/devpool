@@ -29,6 +29,7 @@ export function Header() {
   );
 
   const router = useRouter();
+  const path = usePathname();
   const { user, status } = useSession();
   const pathName = usePathname();
 
@@ -62,14 +63,17 @@ export function Header() {
     {
       label: 'Comunidade',
       onClick: () => router.push('/community'),
+      isActive: path === '/community',
     },
     {
       label: 'Buscar Perfis',
       onClick: () => router.push('/search-profiles'),
+      isActive: path === '/search-profiles',
     },
     {
       label: 'Vagas',
       onClick: () => router.push('/jobs'),
+      isActive: path === '/jobs',
     },
   ];
 
@@ -141,6 +145,9 @@ export function Header() {
               {pages.map((page) => (
                 <MenuItem
                   key={page.label}
+                  sx={{
+                    bgcolor: `${page.isActive ? 'primary.main' : 'inherit'}`,
+                  }}
                   onClick={() => {
                     page.onClick();
                     handleCloseNavMenu();
@@ -190,6 +197,10 @@ export function Header() {
                 }}
                 variant="text"
                 color="inherit"
+                sx={{
+                  borderBottom: `${page.isActive ? '2px solid' : 'none'}`,
+                  borderColor: 'primary.main',
+                }}
               >
                 {page.label}
               </Button>
