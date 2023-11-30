@@ -56,7 +56,7 @@ export function ProfilesTable({ filters }: IProfilesTableProps) {
     {
       field: 'seniority',
       headerName: 'Senioridade',
-      width: 200,
+      width: 150,
       renderCell: ({ row }) => {
         const seniority = seniorityOptions.find(
           (option) => option.value === row.seniority,
@@ -67,9 +67,13 @@ export function ProfilesTable({ filters }: IProfilesTableProps) {
     },
     {
       field: 'state',
-      headerName: 'Cidade/UF',
+      headerName: 'UF',
+      width: 80,
+    },
+    {
+      field: 'city',
+      headerName: 'Cidade',
       width: 200,
-      renderCell: ({ row }) => `${row.city}/${row.state}`,
     },
     {
       field: 'actions',
