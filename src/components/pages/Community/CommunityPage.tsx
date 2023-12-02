@@ -84,7 +84,7 @@ export function CommunityPage() {
             </Button>
           </Box>
           <CardsContainer>
-            {data.length ? (
+            {Array.isArray(data) && data.length ? (
               data.map((user: IUserData) => (
                 <UserCard key={user.id} user={user} />
               ))

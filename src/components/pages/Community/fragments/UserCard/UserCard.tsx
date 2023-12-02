@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { Computer, EqualizerSharp, LocationOn } from '@mui/icons-material';
+import { seniorityAbbreviations } from '@/mock/generalMocks';
 import {
   Bio,
   CardContainer,
@@ -67,20 +68,34 @@ export function UserCard({ user }: UserCardProps) {
         <MenuCard username={user.username} />
       </CardHeader>
 
-      <InfoContainer>
-        <Chip
-          avatar={!isMobile ? <Computer fontSize="small" /> : undefined}
-          label={user.role}
-        />
-        <Chip
-          avatar={!isMobile ? <EqualizerSharp fontSize="small" /> : undefined}
-          label={user.seniority}
-        />
-        <Chip
-          avatar={!isMobile ? <LocationOn fontSize="small" /> : undefined}
-          label={`${user.city}/${user.state}`}
-        />
-      </InfoContainer>
+      {isMobile ? (
+        <InfoContainer>
+          <Chip
+            avatar={<Computer fontSize="small" />}
+            label={`${user.role}/${
+              seniorityAbbreviations[
+                user.seniority as keyof typeof seniorityAbbreviations
+              ]
+            }`}
+          />
+          <Chip
+            avatar={<LocationOn fontSize="small" />}
+            label={`${user.city}/${user.state}`}
+          />
+        </InfoContainer>
+      ) : (
+        <InfoContainer>
+          <Chip avatar={<Computer fontSize="small" />} label={user.role} />
+          <Chip
+            avatar={<EqualizerSharp fontSize="small" />}
+            label={user.seniority}
+          />
+          <Chip
+            avatar={<LocationOn fontSize="small" />}
+            label={`${user.city}/${user.state}`}
+          />
+        </InfoContainer>
+      )}
 
       <CardContent>
         <Bio>{user.bio}</Bio>

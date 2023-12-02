@@ -7,10 +7,16 @@ export const CardContainer = styled(Card)`
   flex-direction: column;
   width: 100%;
   max-width: 450px;
-  height: 280px;
+  height: 300px;
   padding: 16px;
   gap: 16px;
   border-radius: 10px;
+
+  //mobile
+  @media (max-width: 900px) {
+    max-width: 100%;
+    height: 350px;
+  }
 `;
 
 export const CardHeader = styled(Box)`
@@ -24,6 +30,12 @@ export const InfoContainer = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 `;
 
 export const CardTitle = styled(Typography)`
@@ -42,8 +54,8 @@ export const Bio = styled(Typography)`
   -webkit-box-orient: vertical;
   white-space: pre-line;
 
-  @media (max-width: 768px) {
-    -webkit-line-clamp: 2;
+  @media (max-width: 900px) {
+    -webkit-line-clamp: 6;
   }
 `;
 
