@@ -54,6 +54,12 @@ export const JobInformations = styled(Box)`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
 `;
 
 export const JobDate = styled(Typography)`
@@ -83,6 +89,8 @@ export const TechsContainer = styled(Box)`
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const TechItem = styled(Chip)``;
