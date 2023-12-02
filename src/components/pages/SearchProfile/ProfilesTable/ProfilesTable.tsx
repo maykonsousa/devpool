@@ -1,8 +1,16 @@
 import { GridTable } from '@/components/GridTable';
 import { Loading } from '@/components/Loading';
 import { useSearchProfiles } from '@/hooks';
-import { seniorityOptions } from '@/mock/generalMocks';
-import { Avatar, Button, Link } from '@mui/material';
+import { seniorityAbbreviations, seniorityOptions } from '@/mock/generalMocks';
+import { Visibility } from '@mui/icons-material';
+import {
+  Avatar,
+  Button,
+  IconButton,
+  Link,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React from 'react';
 
@@ -18,6 +26,9 @@ interface IProfilesTableProps {
 }
 
 export function ProfilesTable({ filters }: IProfilesTableProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const { data, loading } = useSearchProfiles({
     variables: {
       input: {
@@ -28,7 +39,7 @@ export function ProfilesTable({ filters }: IProfilesTableProps) {
 
   const profiles = data?.users || [];
 
-  const columns: GridColDef[] = [
+  const desktopColumns: GridColDef[] = [
     {
       field: 'name',
       headerName: 'Nome',
@@ -47,6 +58,8 @@ export function ProfilesTable({ filters }: IProfilesTableProps) {
           <Avatar
             src={row.avatar_url}
             sx={{ width: 32, height: 32, marginRight: 1 }}
+            alt={row.name}
+            title={row.name}
           />
           {row.name}
         </Link>
@@ -91,9 +104,63 @@ export function ProfilesTable({ filters }: IProfilesTableProps) {
     },
   ];
 
+  const mobileColumns: GridColDef[] = [
+    {
+      field: 'name',
+      headerName: 'Nome',
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Link
+          href={`/profile/${row.username}`}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+          underline="none"
+          color="inherit"
+        >
+          <Avatar
+            src={row.avatar_url}
+            sx={{ width: 32, height: 32, marginRight: 1 }}
+            alt={row.name}
+            title={row.name}
+          />
+          {row.name.split(' ')[0]}
+        </Link>
+      ),
+    },
+    {
+      field: 'role',
+      headerName: 'Atuação',
+      width: 100,
+      renderCell: ({ row }) =>
+        `${row.role}/${
+          seniorityAbbreviations[
+            row.seniority as keyof typeof seniorityAbbreviations
+          ]
+        }`,
+    },
+    { field: 'state', headerName: 'UF', width: 50 },
+    {
+      field: 'actions',
+      headerName: 'Ações',
+      width: 80,
+      renderCell: ({ row }) => (
+        <IconButton href={`/profile/${row.username}`} color="primary">
+          <Visibility />
+        </IconButton>
+      ),
+    },
+  ];
+
   return loading ? (
     <Loading />
   ) : (
-    <GridTable columns={columns} rows={profiles} rowsPerPage={10} />
+    <GridTable
+      columns={isMobile ? mobileColumns : desktopColumns}
+      rows={profiles}
+      rowsPerPage={isMobile ? 5 : 10}
+    />
   );
 }

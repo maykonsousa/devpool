@@ -19,6 +19,12 @@ export const FilterContainer = styled(Box)`
   flex-direction: column;
   gap: 16px;
   position: relative;
+
+  //mobile
+  @media (max-width: 900px) {
+    max-width: 100%;
+    min-width: 100%;
+  }
 `;
 
 export const CloseButton = styled(IconButton)`

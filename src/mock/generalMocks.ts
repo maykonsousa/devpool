@@ -5,3 +5,11 @@ export const seniorityOptions = [
   { value: 'senior', label: 'Sênior' },
   { value: 'trainee', label: 'Trainee' },
 ];
+
+export const seniorityAbbreviations = {
+  estagiario: 'EST',
+  junior: 'JR',
+  pleno: 'PL',
+  senior: 'SR',
+  trainee: 'TR',
+};
