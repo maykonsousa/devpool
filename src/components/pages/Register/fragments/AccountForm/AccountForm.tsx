@@ -10,7 +10,6 @@ import { EmptyState } from '@components/EmptyState';
 import Image from 'next/image';
 import { useUpload } from '@hooks/useUpload';
 import { getGitHubUserByToken } from '@services/getGitHubUserByToken.service';
-import { parseCookies } from 'nookies';
 import { Select } from '@components/Select';
 import { useGetRoles } from '@hooks/useGetRoles';
 import { useSession } from '@hooks/useSession';
@@ -20,6 +19,7 @@ import { creteDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { TStates } from '@/mock/citiesMock';
 import { seniorityOptions } from '@/mock/generalMocks';
+import { useSearchParams } from 'next/navigation';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,
@@ -77,10 +77,11 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
     defaultValues: INITIAL_VALUES,
     resolver: zodResolver(creteDeveloperValidation),
   });
+  const params = useSearchParams();
 
   const avatar_url = methods.watch('avatar_url');
 
-  const acessToken = parseCookies().accessToken;
+  const acessToken = params.get('accessToken');
 
   const getGitHubUser = useCallback(async () => {
     if (acessToken) {
@@ -251,28 +252,28 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
             message="Etapa concluída. Continue para prosseguir com o cadastro"
           />
         )}
+        <ActionsContainer>
+          <Button
+            fullWidth
+            variant="outlined"
+            onClick={onPrevious}
+            color="primary"
+          >
+            Voltar
+          </Button>
+          <Button
+            fullWidth
+            disabled={isLoading}
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              onSubmit();
+            }}
+          >
+            Continuar
+          </Button>
+        </ActionsContainer>
       </StepContent>
-      <ActionsContainer>
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={onPrevious}
-          color="primary"
-        >
-          Voltar
-        </Button>
-        <Button
-          fullWidth
-          disabled={isLoading}
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            onSubmit();
-          }}
-        >
-          Continuar
-        </Button>
-      </ActionsContainer>
     </StepContainer>
   ) : null;
 }

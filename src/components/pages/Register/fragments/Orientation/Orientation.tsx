@@ -3,11 +3,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { LoginButton } from '@components/LoginButton';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
-import { parseCookies } from 'nookies';
 import {
   IGitHubUser,
   getGitHubUserByToken,
 } from '@services/getGitHubUserByToken.service';
+import { useSearchParams } from 'next/navigation';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,
@@ -25,15 +25,16 @@ export function Orientation({ isVisible, onNext }: IOrientationProps) {
   const [githubUser, setGithubUser] = useState<IGitHubUser | null>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const acessToken = parseCookies().accessToken;
+  const params = useSearchParams();
+
+  const accessToken = params.get('accessToken');
 
   const getGitHubUser = useCallback(async () => {
-    if (acessToken) {
-      const user = await getGitHubUserByToken(acessToken);
+    if (accessToken) {
+      const user = await getGitHubUserByToken(`${accessToken}`);
       setGithubUser(user);
     }
-    return null;
-  }, [acessToken]);
+  }, [accessToken]);
 
   const isAuthLoading = status === 'loading';
 
