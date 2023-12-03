@@ -64,7 +64,7 @@ export const options: NextAuthOptions = {
           return true;
         }
 
-        return `/auth/error?access_token=${account?.access_token}`;
+        return `/auth/register?userType=developer&accessToken=${account?.access_token}`;
       }
 
       return true;

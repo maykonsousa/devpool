@@ -27,6 +27,7 @@ export const ActionsContainer = styled(Box)`
   justify-content: space-between;
   width: 100%;
   max-width: 900px;
+  padding: 0 1rem;
   margin: 0 auto;
   gap: 2rem;
 `;
