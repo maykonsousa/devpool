@@ -22,7 +22,16 @@ export const creteDeveloperValidation = z
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Senhas não conferem',
     path: ['confirmPassword'],
-  });
+  })
+  .refine(
+    (data) => {
+      return /^[a-zA-Z\s]+$/.test(data.name);
+    },
+    {
+      message: 'O campo nome não pode conter números ou caracteres especiais',
+      path: ['name'],
+    },
+  );
 
 export const updateDeveloperValidation = z
   .object({
@@ -53,4 +62,13 @@ export const updateDeveloperValidation = z
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Senhas não conferem',
     path: ['confirmPassword'],
-  });
+  })
+  .refine(
+    (data) => {
+      return /^[a-zA-Z\s]+$/.test(data.name);
+    },
+    {
+      message: 'O campo nome não pode conter números ou caracteres especiais',
+      path: ['name'],
+    },
+  );

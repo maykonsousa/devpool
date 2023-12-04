@@ -20,6 +20,7 @@ import { CityInput } from '@/components/CityInput';
 import { TStates } from '@/mock/citiesMock';
 import { seniorityOptions } from '@/mock/generalMocks';
 import { useSearchParams } from 'next/navigation';
+import { formatName } from '@/utils';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,
@@ -86,7 +87,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
   const getGitHubUser = useCallback(async () => {
     if (acessToken) {
       const user = await getGitHubUserByToken(acessToken);
-      methods.setValue('name', user?.name || '');
+      methods.setValue('name', formatName(`${user?.name}`) || '');
       methods.setValue('username', user?.login || '');
       methods.setValue('email', user?.email || '');
       methods.setValue('avatar_url', user?.avatar_url || '');
@@ -112,7 +113,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
     error,
   } = useCreateUser({
     input: {
-      name: methods.watch('name'),
+      name: formatName(methods.watch('name')),
       email: methods.watch('email'),
       type: 'developer',
       username: methods.watch('username'),

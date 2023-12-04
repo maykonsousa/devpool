@@ -19,6 +19,7 @@ import { updateDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { states } from '@/mock/statesMock';
 import { TStates } from '@/mock/citiesMock';
+import { formatName } from '@/utils';
 import {
   AccountTabContainer,
   ActionsContainer,
@@ -85,7 +86,7 @@ export function AccountTab() {
     input: {
       id: user?.id || '',
       data: {
-        name: methods.watch('name'),
+        name: formatName(methods.watch('name')),
         password: methods.watch('password'),
         avatar_url: methods.watch('avatar_url'),
         bio: methods.watch('bio'),
