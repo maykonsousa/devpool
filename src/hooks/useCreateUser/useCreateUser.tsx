@@ -27,6 +27,7 @@ interface Ivariables {
     city: string;
     state: string;
     bio: string;
+    pcd: boolean;
   };
 }
 

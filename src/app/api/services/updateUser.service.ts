@@ -3,7 +3,7 @@ import { prisma } from '../database';
 import { AppError } from '../utils/appError';
 
 interface IAlterableData {
-  [key: string]: string | undefined;
+  [key: string]: string | undefined | boolean;
   name?: string;
   password?: string;
   avatar?: string;
@@ -12,6 +12,7 @@ interface IAlterableData {
   seniority?: string;
   city?: string;
   state?: string;
+  pcd?: boolean;
 }
 
 interface IUpdateUser {

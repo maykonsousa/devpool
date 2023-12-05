@@ -25,6 +25,7 @@ export function AutoComplete({
         id="multi-select-autocomplete"
         options={options}
         placeholder="Select a technology"
+        isOptionEqualToValue={(option, _value) => option === _value}
         value={value}
         {...rest}
         renderInput={(params) => (

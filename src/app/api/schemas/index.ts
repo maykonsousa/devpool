@@ -27,6 +27,7 @@ export const typeDefs = `#graphql
     username: String
     avatar_url: String
     cover_url: String
+    pcd: Boolean
     createdAt: String
     updatedAt: String
     contacts: Social
@@ -71,6 +72,7 @@ export const typeDefs = `#graphql
     seniority: String
     city: String
     state: String
+    pcd: Boolean
   }
 
   input Filters {
@@ -78,6 +80,7 @@ export const typeDefs = `#graphql
     roles: [String]
     states: [String]
     seniorities: [String]
+    pcd: Boolean
   }
 
   input GetUsersByFilterInput {
@@ -450,6 +453,7 @@ export const typeDefs = `#graphql
     city: String
     state: String
     bio: String
+    pcd: Boolean
     username: String
     avatar_url: String
     cover_url: String

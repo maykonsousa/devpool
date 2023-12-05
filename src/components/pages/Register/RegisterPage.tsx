@@ -19,7 +19,6 @@ import {
   AccountForm,
   FinishStep,
   Orientation,
-  RecruiterAccountForm,
   RecruiterOrientation,
   RecruiterSocialForm,
   SkillsForm,
@@ -194,11 +193,6 @@ export function RegisterPage() {
         />
         <RecruiterOrientation
           isVisible={activeStep?.name === 'recruiterOrientation'}
-          onNext={handleNextStep}
-          onPrevious={handleBackStep}
-        />
-        <RecruiterAccountForm
-          isVisible={activeStep?.name === 'recruiterAccount'}
           onNext={handleNextStep}
           onPrevious={handleBackStep}
         />

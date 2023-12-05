@@ -10,6 +10,7 @@ import {
   useTheme,
 } from '@mui/material';
 import {
+  Accessible,
   Computer,
   EqualizerSharp,
   Facebook,
@@ -73,9 +74,6 @@ export function Header({ username }: HeaderProps) {
           alignItems: 'flex-start',
           justifyContent: 'center',
           width: '100%',
-          [theme.breakpoints.down('md')]: {
-            alignItems: 'center',
-          },
         }}
       >
         {loading ? (
@@ -139,6 +137,22 @@ export function Header({ username }: HeaderProps) {
                 {user ? `${user?.city}/${user?.state}` : ''}
               </Typography>
             </Box>
+            {user?.pcd && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: 1,
+                  alignItems: 'center',
+                  [theme.breakpoints.down('md')]: {
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  },
+                }}
+              >
+                <Accessible />
+                <Typography variant="body1">PCD</Typography>
+              </Box>
+            )}
           </Box>
         )}
       </Box>
@@ -148,10 +162,6 @@ export function Header({ username }: HeaderProps) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-
-          [theme.breakpoints.down('md')]: {
-            alignItems: 'center',
-          },
         }}
       >
         <Typography variant="body1">Compartilhar</Typography>

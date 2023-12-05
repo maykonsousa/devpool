@@ -55,6 +55,7 @@ export interface IGetUsersByFilterInput {
       roles: string[];
       states: string[];
       seniorities: string[];
+      pcd: boolean;
     };
   };
 }

@@ -21,6 +21,7 @@ model User {
   state          String?
   avatar_url     String?
   cover_url      String?
+  pcd            Boolean?         @default(false)
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   Social         Social[]

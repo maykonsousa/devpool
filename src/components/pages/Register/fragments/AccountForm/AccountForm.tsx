@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Box, Button } from '@mui/material';
+import { Box, Button, FormHelperText } from '@mui/material';
 import React, { useCallback } from 'react';
 import { TextInput } from '@components/TextInput';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -21,6 +21,7 @@ import { TStates } from '@/mock/citiesMock';
 import { seniorityOptions } from '@/mock/generalMocks';
 import { useSearchParams } from 'next/navigation';
 import { formatName } from '@/utils';
+import { Checkbox } from '@/components/Checkbox';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,
@@ -74,6 +75,7 @@ const INITIAL_VALUES: IFormValues = {
 };
 
 export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
+  const [isPcd, setIsPcd] = React.useState(false);
   const methods = useForm<IFormValues>({
     defaultValues: INITIAL_VALUES,
     resolver: zodResolver(creteDeveloperValidation),
@@ -125,6 +127,7 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
       city: methods.watch('city'),
       state: methods.watch('state'),
       bio: methods.watch('bio'),
+      pcd: isPcd,
     },
   });
   const { url, openUpload } = useUpload();
@@ -235,6 +238,28 @@ export function AccountForm({ isVisible, onNext, onPrevious }: IAccountProps) {
                     errorMessage={methods.formState.errors.city?.message || ''}
                   />
                 </GridContainer>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    width: '100%',
+                  }}
+                >
+                  <Checkbox
+                    label="Deseja se declarar Pessoa com Deficiência(PCD)?"
+                    name="pcd"
+                    onClick={() => setIsPcd(!isPcd)}
+                    checked={isPcd}
+                  />
+                  {isPcd && (
+                    <FormHelperText>
+                      Essa informação estárá visivel no seu perfil e incluirá
+                      você na busca de PCDs para vagas exclusivas.
+                    </FormHelperText>
+                  )}
+                </Box>
                 <TextInput name="email" label="E-mail" />
                 <TextInput
                   name="bio"

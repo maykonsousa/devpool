@@ -5,6 +5,7 @@ interface IFilters {
   roles: string[];
   states: string[];
   seniorities: string[];
+  pcd: boolean;
 }
 
 interface IGetUsersByFilterService {
@@ -57,6 +58,13 @@ export const getUsersByFilterService = async ({
           seniority: {
             in: filters.seniorities,
           },
+        };
+      }
+
+      if (filters.pcd) {
+        queryFilters = {
+          ...queryFilters,
+          pcd: filters.pcd,
         };
       }
 

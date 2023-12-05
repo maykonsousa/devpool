@@ -66,6 +66,7 @@ export const getProfileService = async ({ username }: IGetProfileService) => {
       city: user.city,
       state: user.state,
       bio: user.bio,
+      pcd: user.pcd,
       username: user.username,
       avatar_url: user.avatar_url,
       cover_url: user.cover_url,

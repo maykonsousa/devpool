@@ -12,6 +12,7 @@ export const GET_PROFILE = gql`
         city
         state
         bio
+        pcd
         avatar_url
         cover_url
         technologies {
@@ -90,6 +91,7 @@ interface IUser {
   city: string;
   state: string;
   bio: string;
+  pcd: boolean;
   avatar_url: string;
   cover_url: string;
   technologies: ITechnology[];
