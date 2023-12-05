@@ -100,8 +100,17 @@ export const getUsersByFilterService = async ({
         message: 'Users found',
       };
     }
-    // Se nenhum filtro for fornecido, recuperar todos os usuários
     const users = await prisma.user.findMany({
+      where: {
+        Social: {
+          some: {
+            AND: [
+              { linkedin_url: { not: null } },
+              { github_url: { not: null } },
+            ],
+          },
+        },
+      },
       include: {
         Social: true,
         UserTechnology: true,
