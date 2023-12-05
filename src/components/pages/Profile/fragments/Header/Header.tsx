@@ -74,6 +74,10 @@ export function Header({ username }: HeaderProps) {
           alignItems: 'flex-start',
           justifyContent: 'center',
           width: '100%',
+          [theme.breakpoints.down('md')]: {
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
         }}
       >
         {loading ? (
@@ -89,6 +93,9 @@ export function Header({ username }: HeaderProps) {
               display: 'flex',
               gap: 4,
               alignItems: 'center',
+              [theme.breakpoints.down('md')]: {
+                display: 'none',
+              },
             }}
           >
             <Box
@@ -99,6 +106,7 @@ export function Header({ username }: HeaderProps) {
                 [theme.breakpoints.down('md')]: {
                   flexDirection: 'column',
                   alignItems: 'center',
+                  justifyContent: 'center',
                 },
               }}
             >
@@ -114,6 +122,7 @@ export function Header({ username }: HeaderProps) {
                 [theme.breakpoints.down('md')]: {
                   flexDirection: 'column',
                   alignItems: 'center',
+                  justifyContent: 'center',
                 },
               }}
             >
@@ -129,6 +138,7 @@ export function Header({ username }: HeaderProps) {
                 [theme.breakpoints.down('md')]: {
                   flexDirection: 'column',
                   alignItems: 'center',
+                  justifyContent: 'center',
                 },
               }}
             >
@@ -146,6 +156,7 @@ export function Header({ username }: HeaderProps) {
                   [theme.breakpoints.down('md')]: {
                     flexDirection: 'column',
                     alignItems: 'center',
+                    justifyContent: 'center',
                   },
                 }}
               >
