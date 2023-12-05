@@ -27,8 +27,8 @@ import {
 } from './ProfilesFilters.styles';
 
 interface IOnFilter {
-  field: 'roles' | 'seniorities' | 'states' | 'technologies';
-  value: string[];
+  field: 'roles' | 'seniorities' | 'states' | 'technologies' | 'pcd';
+  value: string[] | boolean | null;
 }
 
 interface IFIlters {
@@ -36,6 +36,7 @@ interface IFIlters {
   seniorities: string[] | null;
   states: string[] | null;
   technologies: string[] | null;
+  pcd: boolean | null;
 }
 
 interface IProfilesFiltersProps {
@@ -66,7 +67,8 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
     filters?.roles?.length ||
     filters?.seniorities?.length ||
     filters?.states?.length ||
-    filters?.technologies?.length;
+    filters?.technologies?.length ||
+    filters?.pcd;
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -97,6 +99,10 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
     onFilter({
       field: 'technologies',
       value: [],
+    });
+    onFilter({
+      field: 'pcd',
+      value: null,
     });
   };
 
@@ -224,6 +230,20 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
               Tecnologias
             </Button>
           </ButtonGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={filters?.pcd || false}
+                onChange={() => {
+                  onFilter({
+                    field: 'pcd',
+                    value: !filters?.pcd,
+                  });
+                }}
+              />
+            }
+            label="Apenas perfis PCDs"
+          />
           {showFilter === 'roles' && (
             <FormGroup
               sx={{

@@ -10,6 +10,7 @@ interface IFilters {
   seniorities: string[] | null;
   states: string[] | null;
   technologies: string[] | null;
+  pcd: boolean | null;
 }
 
 const InitialFilters = {
@@ -17,11 +18,12 @@ const InitialFilters = {
   seniorities: null,
   states: null,
   technologies: null,
+  pcd: null,
 };
 
 interface IHandleFilters {
-  field: 'roles' | 'seniorities' | 'states' | 'technologies';
-  value: string[];
+  field: 'roles' | 'seniorities' | 'states' | 'technologies' | 'pcd';
+  value: string[] | boolean | null;
 }
 
 export function SearchProfile() {
