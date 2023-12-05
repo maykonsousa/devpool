@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { prisma } from '../database';
 
 interface IFilters {
@@ -15,7 +16,29 @@ export const getUsersByFilterService = async ({
   filters,
 }: IGetUsersByFilterService) => {
   try {
-    let queryFilters = {};
+    let queryFilters: any = {
+      Social: {
+        some: {
+          AND: [{ linkedin_url: { not: null } }, { github_url: { not: null } }],
+        },
+      },
+    };
+    const orderBy: any = [
+      {
+        name: 'asc',
+      },
+    ];
+
+    const orderByTechs: any = [
+      {
+        UserTechnology: {
+          _count: 'desc',
+        },
+      },
+      {
+        name: 'asc',
+      },
+    ];
 
     if (filters) {
       if (filters.technologies && filters.technologies.length > 0) {
@@ -64,9 +87,7 @@ export const getUsersByFilterService = async ({
         where: {
           ...queryFilters,
         },
-        orderBy: {
-          name: 'asc',
-        },
+        orderBy: filters.technologies ? orderByTechs : orderBy,
         include: {
           Social: true,
           UserTechnology: true,
@@ -85,6 +106,7 @@ export const getUsersByFilterService = async ({
         Social: true,
         UserTechnology: true,
       },
+      orderBy,
     });
 
     return {

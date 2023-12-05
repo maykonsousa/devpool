@@ -95,6 +95,8 @@ export function ProfilesTable({ filters }: IProfilesTableProps) {
       renderCell: ({ row }) => (
         <Button
           href={`/profile/${row.username}`}
+          target="_blank"
+          rel="noopener noreferrer"
           variant="contained"
           color="primary"
         >
