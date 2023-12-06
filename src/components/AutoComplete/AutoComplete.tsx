@@ -10,6 +10,7 @@ interface IAutoCompleteProps {
   label: string;
   onChange: (event: React.SyntheticEvent, value: string[]) => void;
   limitTags?: number;
+  maxWidth?: number;
 }
 
 export function AutoComplete({
@@ -29,7 +30,7 @@ export function AutoComplete({
         value={value}
         {...rest}
         renderInput={(params) => (
-          <TextField {...params} label={label} variant="outlined" />
+          <TextField {...params} label={label} variant="outlined" multiline />
         )}
         ListboxProps={{
           style: {

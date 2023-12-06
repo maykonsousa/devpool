@@ -13,6 +13,7 @@ export const ActionButton = styled(Button)`
 export const FilterContainer = styled(Box)`
   width: 100%;
   min-width: 400px;
+  max-width: 600px;
   padding: 16px;
   display: flex;
   align-items: center;

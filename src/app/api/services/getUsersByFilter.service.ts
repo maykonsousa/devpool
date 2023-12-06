@@ -30,7 +30,7 @@ export const getUsersByFilterService = async ({
       },
     ];
 
-    const orderByTechs: any = [
+    const orderByTechnologiesMatchFilter: any = [
       {
         UserTechnology: {
           _count: 'desc',
@@ -95,15 +95,52 @@ export const getUsersByFilterService = async ({
         where: {
           ...queryFilters,
         },
-        orderBy: filters.technologies ? orderByTechs : orderBy,
+        orderBy:
+          filters?.technologies?.length > 0
+            ? orderByTechnologiesMatchFilter
+            : orderBy,
+
         include: {
           Social: true,
-          UserTechnology: true,
+          UserTechnology: {
+            include: {
+              Technology: true,
+            },
+          },
         },
       });
 
+      const usersFormatted = users.map((user) => {
+        const technologies = user.UserTechnology.map((userTechnology) => {
+          return userTechnology.Technology.name;
+        });
+
+        return {
+          ...user,
+          technologies,
+        };
+      });
+
+      const usersOrderedByTechnologiesMatchFilter = usersFormatted.sort(
+        (a, b) => {
+          const countA = a.UserTechnology.filter(
+            (tech) =>
+              filters?.technologies?.includes(tech.Technology.name) ?? false,
+          ).length;
+          const countB = b.UserTechnology.filter(
+            (tech) =>
+              filters?.technologies?.includes(tech.Technology.name) ?? false,
+          ).length;
+
+          return countB - countA;
+        },
+      );
+
       return {
-        users,
+        users:
+          filters?.technologies?.length > 0
+            ? usersOrderedByTechnologiesMatchFilter
+            : usersFormatted,
         status: 'success',
         message: 'Users found',
       };
