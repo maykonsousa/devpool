@@ -11,7 +11,7 @@ import {
   useSession,
 } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { languagesValidation } from '@/validations/formValidations/languagesValidation';
+import { languagesValidation } from '@/validations/languageFormValidations';
 import { GridContainer } from './LanguagesTab.styles';
 
 export interface IformValues {

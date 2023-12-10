@@ -19,7 +19,7 @@ import { CityInput } from '@/components/CityInput';
 import { states } from '@/mock/statesMock';
 import { TStates } from '@/mock/citiesMock';
 import { formatName } from '@/utils';
-import { updateDeveloperValidation } from '@/validations/formValidations/userFormValidation';
+import { updateDeveloperValidation } from '@/validations/userFormValidations';
 import {
   AccountTabContainer,
   ActionsContainer,

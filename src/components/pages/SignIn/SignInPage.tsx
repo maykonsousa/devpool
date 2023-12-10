@@ -15,7 +15,7 @@ import { LoginButton } from '@/components/LoginButton';
 import { useLogin } from '@/hooks';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { loginFormValidations } from '@/validations/formValidations/loginFormValidations';
+import { loginFormValidations } from '@/validations/loginFormValidations';
 import { SignInFormContainer, SignInPageContainer } from './SignIn.styles';
 
 interface IFormData {

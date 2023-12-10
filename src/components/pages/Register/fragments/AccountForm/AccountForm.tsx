@@ -21,7 +21,7 @@ import { seniorityOptions } from '@/mock/generalMocks';
 import { useSearchParams } from 'next/navigation';
 import { formatName } from '@/utils';
 import { Checkbox } from '@/components/Checkbox';
-import { creteDeveloperValidation } from '@/validations/formValidations/userFormValidation';
+import { creteDeveloperValidation } from '@/validations/userFormValidations';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,

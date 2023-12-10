@@ -20,7 +20,7 @@ import {
 import { AutoComplete } from '@/components/AutoComplete';
 import { Checkbox } from '@/components/Checkbox';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createJobValidation } from '@/validations/formValidations/jobsValidations';
+import { createJobValidation } from '@/validations/jobFormValidations';
 import { GridContainer } from './JobsTab.styles';
 
 interface IFormValues {

@@ -2,7 +2,7 @@ import { ICourseData } from '@/app/api/types/CousersTypes';
 import { Dialog } from '@/components/Dialog';
 import { TextInput } from '@/components/TextInput';
 import { useFeedback, useUpdateCourse } from '@/hooks';
-import { createCourseValidation } from '@/validations/formValidations/coursesValidations';
+import { createCourseValidation } from '@/validations/courseFormValidations';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Edit } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
