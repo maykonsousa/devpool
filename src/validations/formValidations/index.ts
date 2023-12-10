@@ -1,9 +1,10 @@
-export { createJobValidation } from './JobsValidations';
+export { createJobValidation } from './jobsValidations';
 export { loginFormValidations } from './loginFormValidations';
 export {
   creteDeveloperValidation,
   updateDeveloperValidation,
-} from './UserFormValidation';
+} from './userFormValidation';
 export { createProjectValidation } from './projectsValidations';
-export { createCourseValidation } from './CoursesValidations';
+export { createCourseValidation } from './coursesValidations';
 export { createFeedbackValidation } from './feedbackValidations';
+export { languagesValidation } from './languagesValidation';

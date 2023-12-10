@@ -29,6 +29,7 @@ model User {
   Course         Course[]
   UserTechnology UserTechnology[]
   Job            Job[]
+  UserLanguage   UserLanguage[]
 }
 
 model Social {
@@ -78,6 +79,13 @@ model Technology {
   JobTechnology     JobTechnology[]
 }
 
+model Language {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model ProjectTechnology {
   id           String     @id @default(uuid())
   projectId    String
@@ -106,6 +114,16 @@ model JobTechnology {
   updatedAt    DateTime   @updatedAt
   Job          Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
   Technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+}
+
+model UserLanguage {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  level     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Course {

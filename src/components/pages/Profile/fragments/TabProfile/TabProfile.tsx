@@ -4,11 +4,8 @@ import {
   Chip,
   Typography,
   useTheme,
-  LinearProgress,
-  Tooltip,
   AvatarGroup,
   Skeleton,
-  useMediaQuery,
 } from '@mui/material';
 import {
   Computer,
@@ -18,10 +15,9 @@ import {
 } from '@mui/icons-material';
 import { Card } from '@/components/Card';
 import { SocialIcon } from '@/components/SocialIcon';
-import { GridTable } from '@/components/GridTable';
 import { useGetProfile } from '@/hooks';
-import { GridColDef } from '@mui/x-data-grid';
 import { Container, Content, Sidebar } from './TabProfile.styles';
+import { CoursesCard } from '../CoursesCard/CoursesCard';
 
 interface InfoRowProps {
   icon: React.ReactElement;
@@ -83,73 +79,15 @@ export function TabProfile({ username }: ITabProfileProps) {
     },
   });
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const columnsDesktop: GridColDef[] = [
-    {
-      field: 'title',
-      headerName: 'Título',
-      minWidth: 100,
-      flex: 1,
-    },
-    {
-      field: 'school',
-      headerName: 'Instituição',
-      minWidth: 100,
-      flex: 1,
-    },
-    {
-      field: 'type',
-      headerName: 'Tipo',
-      width: 150,
-    },
-    {
-      field: 'progress',
-      headerName: 'Progresso',
-      minWidth: 50,
-      flex: 1,
-      renderCell: ({ row }) => (
-        <Tooltip title={`${row.progress}%`}>
-          <LinearProgress
-            sx={{ width: '100%', height: '10px' }}
-            color="primary"
-            variant="determinate"
-            value={row.progress}
-            content="teste"
-          />
-        </Tooltip>
-      ),
-    },
-  ];
-
-  const columnsMobile: GridColDef[] = [
-    {
-      field: 'title',
-      headerName: 'Título',
-      minWidth: 100,
-      flex: 1,
-    },
-    {
-      field: 'progress',
-      headerName: 'Progresso',
-      minWidth: 50,
-      flex: 1,
-      renderCell: ({ row }) => (
-        <Tooltip title={`${row.progress}%`}>
-          <LinearProgress
-            sx={{ width: '100%', height: '10px' }}
-            color="primary"
-            variant="determinate"
-            value={row.progress}
-            content="teste"
-          />
-        </Tooltip>
-      ),
-    },
-  ];
-
   const user = useMemo(() => data?.user, [data]);
+  const levelEnum = {
+    A1: 'Básico',
+    A2: 'Básico',
+    B1: 'Intermediário',
+    B2: 'Intermediário',
+    C1: 'Avançado',
+    C2: 'Avançado',
+  };
   return (
     <Container>
       <Sidebar>
@@ -182,7 +120,7 @@ export function TabProfile({ username }: ITabProfileProps) {
           )}
         </Card>
 
-        <Card title="tecnologias" direction="row">
+        <Card title="tecnologias" direction="row" sx={{ flex: 1 }}>
           {loading ? (
             <Skeleton variant="rectangular" width="100%" height={200} />
           ) : (
@@ -195,6 +133,26 @@ export function TabProfile({ username }: ITabProfileProps) {
             >
               {user?.technologies.map((tech) => (
                 <Chip label={tech.name} key={tech.id} />
+              ))}
+            </Box>
+          )}
+        </Card>
+        <Card title="idiomas" direction="row">
+          {loading ? (
+            <Skeleton variant="rectangular" width="100%" height={200} />
+          ) : (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1,
+              }}
+            >
+              {user?.languages.map((lang) => (
+                <Typography variant="body2" key={lang.id}>
+                  {lang.name} -{' '}
+                  {levelEnum[lang.level as keyof typeof levelEnum]}
+                </Typography>
               ))}
             </Box>
           )}
@@ -249,30 +207,7 @@ export function TabProfile({ username }: ITabProfileProps) {
             </Typography>
           )}
         </Card>
-
-        <Card
-          title="Cursos"
-          sx={{
-            flex: 1,
-          }}
-        >
-          {loading ? (
-            <Skeleton width="100%" height={400} />
-          ) : (
-            <GridTable
-              columns={isMobile ? columnsMobile : columnsDesktop}
-              rows={
-                user?.courses?.map((course) => ({
-                  id: course.id,
-                  type: course.type,
-                  title: course.name,
-                  school: course.school,
-                  progress: course.progress,
-                })) || []
-              }
-            />
-          )}
-        </Card>
+        <CoursesCard loading={loading} courses={user?.courses} />
       </Content>
     </Container>
   );

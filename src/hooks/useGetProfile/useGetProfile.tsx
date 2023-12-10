@@ -34,7 +34,13 @@ export const GET_PROFILE = gql`
           github_url
           cell_phone
         }
+        languages {
+          id
+          name
+          level
+        }
       }
+
       status
       message
     }
@@ -82,6 +88,12 @@ interface IContact {
   cell_phone: string;
 }
 
+interface ILanguage {
+  id: string;
+  name: string;
+  level: string;
+}
+
 interface IUser {
   id: string;
   name: string;
@@ -96,6 +108,7 @@ interface IUser {
   cover_url: string;
   technologies: ITechnology[];
   courses: ICourse[];
+  languages: ILanguage[];
   contacts: IContact;
 }
 

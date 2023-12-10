@@ -31,3 +31,6 @@ export { useGetProfile } from './useGetProfile';
 export { useGetProfiles } from './useGetProfiles';
 export { useCreateFeedback } from './useCreateFeedback';
 export { useSearchProfiles } from './useSearchProfiles';
+export { useGetAllLanguages } from './useGetAllLanguages';
+export { useCreateLanguage } from './useCreateLanguage';
+export { useGetLanguagesByUser } from './useGetLanguagesByUser';

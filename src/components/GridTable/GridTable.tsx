@@ -20,6 +20,7 @@ export function GridTable({
   rows,
   emptyMessage,
   rowsPerPage = 5,
+  loading,
 }: GridTableProps) {
   const theme = useTheme();
   const headerBackgroundColor = theme.palette.background.paper;
@@ -48,6 +49,7 @@ export function GridTable({
         disableColumnMenu
         disableColumnSelector
         pagination
+        loading={loading}
         pageSizeOptions={[5, 10, 20]}
         initialState={{
           pagination: {

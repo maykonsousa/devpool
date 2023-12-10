@@ -1,0 +1,1 @@
+export { useGetAllLanguages } from './useGetAllLanguages';

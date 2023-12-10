@@ -18,6 +18,7 @@ import {
   Person,
   School,
   Share,
+  Translate,
 } from '@mui/icons-material';
 import { PageContainer } from './SettingsPage.styles';
 import {
@@ -28,6 +29,7 @@ import {
   ProjectsTab,
   TechsTab,
 } from './fragments';
+import { LanguagesTab } from './fragments/LanguagesTab';
 
 interface TabPanelProps {
   label: string;
@@ -71,6 +73,13 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <School fontSize="large" />,
       component: <CoursesTab />,
+    },
+    {
+      label: 'Idiomas',
+      value: 'languages',
+      iconPosition: 'start',
+      icon: <Translate fontSize="large" />,
+      component: <LanguagesTab />,
     },
     {
       label: 'Experiências',

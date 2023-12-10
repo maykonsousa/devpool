@@ -17,6 +17,7 @@ export const getProfileService = async ({ username }: IGetProfileService) => {
         Job: true,
         Project: true,
         Social: true,
+        UserLanguage: true,
         UserTechnology: {
           include: {
             Technology: {
@@ -75,6 +76,7 @@ export const getProfileService = async ({ username }: IGetProfileService) => {
       projects: user.Project,
       technologies: user.UserTechnology.map((tech) => tech.Technology),
       contacts: user.Social[0],
+      languages: user.UserLanguage,
     };
 
     return {

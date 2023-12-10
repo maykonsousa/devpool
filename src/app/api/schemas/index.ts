@@ -443,6 +443,13 @@ export const typeDefs = `#graphql
     username: String!
   }
 
+  type Language {
+    id: String
+    name: String
+    level: String
+    userId: String
+  }
+
   type Profile {
     id: String
     name: String
@@ -464,6 +471,7 @@ export const typeDefs = `#graphql
     jobs: [Job!]
     courses: [Course!]
     contacts: Social
+    languages: [Language!]
   }
 
   type getProfilePayload {
@@ -471,6 +479,44 @@ export const typeDefs = `#graphql
     status: Status!
     message: String!
   }
+
+  ##LANGUAGES
+  input LanguageInput {
+    name: String
+    level: String
+    userId: String
+  }
+
+  
+
+  type LanguageCombobox {
+    id: String
+    name: String
+  }
+
+  type getAllLanguagesPayload {
+    languages: [LanguageCombobox!]
+    status: Status!
+    message: String!
+  }
+
+  type CreateLanguagePayload {
+    status: Status!
+    message: String!
+  }
+
+  input getLanguagesByUserInput {
+    userId: String
+    username: String
+  }
+
+  type getLanguagesByUserPayload {
+    languages: [Language!]
+    status: Status!
+    message: String!
+  }
+
+
 
 
 
@@ -505,6 +551,10 @@ export const typeDefs = `#graphql
     ##CONTACTS
     getContacts(input: GetContactsInput): GetContactsPayload!
 
+    ##LANGUAGES
+    getAllLanguages: getAllLanguagesPayload!
+    getLanguagesByUser(input: getLanguagesByUserInput): getLanguagesByUserPayload!
+
   }
   type Mutation {
     ##USERS
@@ -535,5 +585,8 @@ export const typeDefs = `#graphql
 
     ##FEEDBACK
     createFeedback(input: CreateFeedbackInput): CreateFeedbackPayload!
+
+    ##LANGUAGES
+    createLanguage(input: LanguageInput): CreateLanguagePayload!
   }
 `;
