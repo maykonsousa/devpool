@@ -15,7 +15,7 @@ import { IContacts } from '@/hooks/useGetContacts/useGetContacts';
 import { CopyIcon } from '@/components/CopyIcon';
 import { Loading } from '@/components/Loading';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { emailValidation } from '@/validations/formValidations/emailValidations';
+import { emailValidation } from '@/validations/emailFormValidations';
 import {
   FormContainer,
   InformationCard,
