@@ -19,9 +19,8 @@ import { Select } from '@/components/Select';
 
 import { Loading } from '@/components/Loading';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createProjectValidation } from '@/validations/formValidations';
-
 import { AutoComplete } from '@/components/AutoComplete';
+import { createProjectValidation } from '@/validations/formValidations/projectsValidations';
 import {
   AvatarSession,
   ImageContainer,

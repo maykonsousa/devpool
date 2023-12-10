@@ -15,13 +15,13 @@ import { useGetRoles } from '@hooks/useGetRoles';
 import { useSession } from '@hooks/useSession';
 import { states } from '@/mock/statesMock';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { creteDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { TStates } from '@/mock/citiesMock';
 import { seniorityOptions } from '@/mock/generalMocks';
 import { useSearchParams } from 'next/navigation';
 import { formatName } from '@/utils';
 import { Checkbox } from '@/components/Checkbox';
+import { creteDeveloperValidation } from '@/validations/formValidations/userFormValidation';
 import { IStepsBaseProps } from '../types';
 import {
   ActionsContainer,

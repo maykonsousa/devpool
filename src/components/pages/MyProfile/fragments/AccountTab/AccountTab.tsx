@@ -15,11 +15,11 @@ import { TextInput } from '@/components/TextInput';
 import { PassInput } from '@/components/PassInput';
 import { Select } from '@/components/Select';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { updateDeveloperValidation } from '@/validations/formValidations';
 import { CityInput } from '@/components/CityInput';
 import { states } from '@/mock/statesMock';
 import { TStates } from '@/mock/citiesMock';
 import { formatName } from '@/utils';
+import { updateDeveloperValidation } from '@/validations/formValidations/userFormValidation';
 import {
   AccountTabContainer,
   ActionsContainer,

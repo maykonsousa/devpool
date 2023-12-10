@@ -17,7 +17,7 @@ import {
   useSession,
 } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createCourseValidation } from '@/validations/formValidations';
+import { createCourseValidation } from '@/validations/formValidations/coursesValidations';
 import { GridContainer } from './CoursesTab.styles';
 
 export interface IformValues {

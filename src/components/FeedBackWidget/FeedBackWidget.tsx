@@ -15,7 +15,7 @@ import React, { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useCreateFeedback, useFeedback } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createFeedbackValidation } from '@/validations/formValidations';
+import { createFeedbackValidation } from '@/validations/formValidations/feedbackValidations';
 import { TextInput } from '../TextInput';
 import { Loading } from '../Loading';
 import {
