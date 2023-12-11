@@ -53,10 +53,6 @@ export const Bio = styled(Typography)`
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   white-space: pre-line;
-
-  @media (max-width: 900px) {
-    -webkit-line-clamp: 6;
-  }
 `;
 
 export const CardContent = styled(Box)`

@@ -59,7 +59,13 @@ export function UserCard({ user }: UserCardProps) {
   const { contacts } = user;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
+  const seniorityEnum = {
+    estagiario: 'Estagiário',
+    junior: 'Júnior',
+    pleno: 'Pleno',
+    senior: 'Sênior',
+    trainee: 'Trainee',
+  };
   return (
     <CardContainer elevation={8}>
       <CardHeader>
@@ -88,7 +94,7 @@ export function UserCard({ user }: UserCardProps) {
           <Chip avatar={<Computer fontSize="small" />} label={user.role} />
           <Chip
             avatar={<EqualizerSharp fontSize="small" />}
-            label={user.seniority}
+            label={seniorityEnum[user.seniority as keyof typeof seniorityEnum]}
           />
           <Chip
             avatar={<LocationOn fontSize="small" />}
