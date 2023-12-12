@@ -90,7 +90,7 @@ export function CoursesCard({ loading, courses }: ICoursesCardProps) {
     },
   ];
   return (
-    <Card title="Cursos" sx={{ height: '100%' }}>
+    <Card title="Cursos" sx={{ height: '100%', maxHeight: 500 }}>
       {loading ? (
         <Skeleton width="100%" height={400} />
       ) : (
