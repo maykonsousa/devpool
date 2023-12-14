@@ -72,6 +72,24 @@ export const RegisterButton = styled(Button)`
   height: 4rem;
   font-size: ${({ theme }) => theme.typography.h5.fontSize};
   font-weight: 700;
+  border-radius: 32px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    height: 3rem;
+  }
+`;
+
+export const SearchButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  height: 4rem;
+  font-size: ${({ theme }) => theme.typography.h5.fontSize};
+  font-weight: 700;
+  border-radius: 32px;
 
   @media (max-width: 768px) {
     max-width: 100%;

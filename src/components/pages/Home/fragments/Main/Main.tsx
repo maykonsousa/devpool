@@ -1,12 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import { useMediaQuery, useTheme } from '@mui/material';
+import { Search } from '@mui/icons-material';
 import {
   AsideContainer,
   HeroContainer,
   MainContainer,
   MainContent,
   RegisterButton,
+  SearchButton,
   Title,
 } from './Main.styles';
 
@@ -28,16 +30,17 @@ export function Main() {
             variant="contained"
             color="primary"
             href="/auth/register"
-            sx={{
-              width: '100%',
-              height: '4rem',
-              borderRadius: '2rem',
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-            }}
           >
             Fazer inscrição
           </RegisterButton>
+          <SearchButton
+            variant="outlined"
+            color="primary"
+            href="/search-profiles"
+          >
+            <Search fontSize="large" />
+            Buscar perfis
+          </SearchButton>
         </AsideContainer>
 
         <HeroContainer>
