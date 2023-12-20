@@ -24,3 +24,9 @@ O DevPool é uma aplicação fullstack baseada em NextJs utilizando
   - Material-UI
   - Emotion
 
+
+## DOCUMENTAÇÕES
+
+- [INICIANDO O PROJETO]()
+- [COMO CONTRIBUIR]()
+- [LISTA DE TAREFAS](/TODOLIST.md)
