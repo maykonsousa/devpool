@@ -6,7 +6,7 @@ import {
   useUpdateUser,
   useUpload,
 } from '@/hooks';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import Image from 'next/image';
@@ -20,6 +20,7 @@ import { states } from '@/mock/statesMock';
 import { TStates } from '@/mock/citiesMock';
 import { formatName } from '@/utils';
 import { updateDeveloperValidation } from '@/validations/userFormValidations';
+import { CameraAlt } from '@mui/icons-material';
 import {
   AccountTabContainer,
   ActionsContainer,
@@ -69,7 +70,9 @@ const seniorityOptions = [
 
 export function AccountTab() {
   const { user, loading, refetch } = useSession();
+  const theme = useTheme();
   const { url, openUpload, onResetAtavarOptions } = useUpload();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { data: roles } = useGetRoles();
   const { showMessage } = useFeedback();
 
@@ -175,7 +178,7 @@ export function AccountTab() {
                 sx={{ marginTop: '1rem' }}
                 onClick={openUpload}
               >
-                Alterar avatar
+                {isMobile ? <CameraAlt /> : 'Alterar avatar'}
               </Button>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 Tamanho máximo: 2mb
