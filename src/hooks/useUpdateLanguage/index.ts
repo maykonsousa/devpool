@@ -1,0 +1,1 @@
+export { useUpdateLanguage } from './useUpdateLanguage';
