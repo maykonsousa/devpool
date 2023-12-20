@@ -41,7 +41,7 @@ export function useDeleteJob({
     variables,
     onCompleted,
     onError,
-    refetchQueries: ['GetJobsByUser'],
+    refetchQueries: ['GetJobsByUser', 'GetProfile'],
   });
 
   return {

@@ -35,12 +35,16 @@ export function DeleteCourseIcon({ courseId, userId }: IDeleteCourseIconProps) {
     onCompleted,
     onError,
   });
+
+  const onDelete = async () => {
+    await deleteCourse();
+  };
   return (
     <ConfirmationDialog
       title="Excluir curso"
       description="Tem certeza que deseja excluir esse curso?"
       type="danger"
-      onConfirm={deleteCourse}
+      onConfirm={onDelete}
       loading={loading}
       elementAction={
         <IconButton>

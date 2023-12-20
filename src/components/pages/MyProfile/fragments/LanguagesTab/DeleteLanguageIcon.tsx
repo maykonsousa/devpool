@@ -1,8 +1,8 @@
 import { ConfirmationDialog } from '@/components/ConfimationDialog';
-import { useFeedback } from '@/hooks';
+import { useDeleteLanguage, useFeedback, useSession } from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface IDeleteLanguageIconProps {
   languageId: string;
@@ -14,18 +14,41 @@ export function DeleteLanguageIcon({
 }: IDeleteLanguageIconProps) {
   const { showMessage } = useFeedback();
 
+  const { user } = useSession();
+  const variables = useMemo(
+    () => ({
+      input: {
+        languageId,
+        userId: user?.id as string,
+      },
+    }),
+    [user?.id, languageId],
+  );
+  const { deleteLanguage, loading } = useDeleteLanguage(variables);
+
+  const onDelete = async () => {
+    const { data } = await deleteLanguage();
+    if (data?.deleteLanguage) {
+      showMessage({
+        message: data.deleteLanguage.message,
+        type: data.deleteLanguage.status as 'success' | 'error',
+      });
+    } else {
+      showMessage({
+        message:
+          'Ocorreu um erro ao deletar o idioma. Tente novamente mais tarde.',
+        type: 'error',
+      });
+    }
+  };
+
   return (
     <ConfirmationDialog
       title="Excluir Idioma"
       description="Tem certeza que deseja excluir esse Idioma?"
       type="danger"
-      onConfirm={() => {
-        showMessage({
-          message: 'Feature ainda não implementada!',
-          type: 'error',
-        });
-      }}
-      loading={false}
+      onConfirm={onDelete}
+      loading={loading}
       elementAction={
         <IconButton>
           <Delete />
