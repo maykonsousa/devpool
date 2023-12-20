@@ -198,18 +198,17 @@ export function TabProfile({ username }: ITabProfileProps) {
         </Card>
       </Sidebar>
       <Content>
-        <Card
-          title="sobre"
-          sx={{
-            height: '100%',
-            maxHeight: 300,
-            paddingBottom: 2,
-          }}
-        >
+        <Card title="sobre">
           {loading ? (
             <Skeleton variant="text" width="100%" height={80} />
           ) : (
-            <Typography variant="body1">{user?.bio}</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <Typography variant="body1">{user?.bio}</Typography>
+            </Box>
           )}
         </Card>
         <CoursesCard loading={loading} courses={user?.courses} />
