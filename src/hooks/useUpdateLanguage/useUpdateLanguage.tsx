@@ -30,7 +30,7 @@ export const useUpdateLanguage = (variables: IVariables) => {
     IVariables
   >(UPDATE_LANGUAGE, {
     variables,
-    refetchQueries: ['GetLanguagesByUser'],
+    refetchQueries: ['GetLanguagesByUser', 'GetProfile'],
   });
 
   return { updateLanguage, data, error, loading };

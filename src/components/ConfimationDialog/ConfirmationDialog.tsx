@@ -17,7 +17,7 @@ interface IConfirmationDialogProps {
   description: string;
   buttonLabel?: string;
   type: 'danger' | 'info';
-  onConfirm: () => void;
+  onConfirm: () => Promise<void>;
   onCancel?: () => void;
   loading?: boolean;
   elementAction?: React.ReactElement;
@@ -41,9 +41,9 @@ export function ConfirmationDialog({
     setOpen(false);
     if (onCancel) onCancel();
   };
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    await onConfirm();
     setOpen(false);
-    onConfirm();
   };
   return (
     <>

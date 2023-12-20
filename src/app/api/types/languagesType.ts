@@ -16,6 +16,13 @@ export interface IUpdateLanguageInput {
   };
 }
 
+export interface IDeleteLanguageInput {
+  input: {
+    languageId: string;
+    userId: string;
+  };
+}
+
 export interface IGetLanguagesByuserInput {
   input: {
     userId?: string;

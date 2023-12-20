@@ -493,6 +493,11 @@ export const typeDefs = `#graphql
     newLevel: String
   }
 
+  input DeleteLanguageInput {
+    languageId: String
+    userId: String
+  }
+
   
 
   type LanguageCombobox {
@@ -595,5 +600,6 @@ export const typeDefs = `#graphql
     ##LANGUAGES
     createLanguage(input: LanguageInput): CreateLanguagePayload!
     updateLanguage(input: UpdateLanguageInput): CreateLanguagePayload!
+    deleteLanguage(input: DeleteLanguageInput): CreateLanguagePayload!
   }
 `;
