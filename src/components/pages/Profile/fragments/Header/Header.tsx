@@ -48,8 +48,8 @@ export function Header({ username }: HeaderProps) {
         {loading ? (
           <Skeleton
             variant="rectangular"
-            width={120}
-            height={120}
+            width={isMobile ? '80px' : '120px'}
+            height={isMobile ? '80px' : '120px'}
             animation="wave"
           />
         ) : (
