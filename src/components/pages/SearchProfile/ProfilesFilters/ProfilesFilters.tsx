@@ -4,8 +4,12 @@ import {
   Checkbox,
   Chip,
   Drawer,
+  FormControl,
   FormControlLabel,
   FormGroup,
+  InputLabel,
+  MenuItem,
+  Select,
 } from '@mui/material';
 import React, { SyntheticEvent } from 'react';
 import {
@@ -14,7 +18,11 @@ import {
   Close,
   FilterList,
 } from '@mui/icons-material';
-import { useGetAllTechnologies, useGetRoles } from '@/hooks';
+import {
+  useGetAllLanguages,
+  useGetAllTechnologies,
+  useGetRoles,
+} from '@/hooks';
 import { seniorityOptions } from '@/mock/generalMocks';
 import { states } from '@/mock/statesMock';
 import { AutoComplete } from '@/components/AutoComplete';
@@ -27,8 +35,15 @@ import {
 } from './ProfilesFilters.styles';
 
 interface IOnFilter {
-  field: 'roles' | 'seniorities' | 'states' | 'technologies' | 'pcd';
-  value: string[] | boolean | null;
+  field:
+    | 'roles'
+    | 'seniorities'
+    | 'states'
+    | 'technologies'
+    | 'pcd'
+    | 'language'
+    | 'level';
+  value: string[] | boolean | string | null;
 }
 
 interface IFIlters {
@@ -37,6 +52,8 @@ interface IFIlters {
   states: string[] | null;
   technologies: string[] | null;
   pcd: boolean | null;
+  language: string | null;
+  level: string | null;
 }
 
 interface IProfilesFiltersProps {
@@ -50,6 +67,7 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
   const [showFilter, setShowFilter] = React.useState('');
 
   const { data: rolesList } = useGetRoles();
+  const { data: languagesList } = useGetAllLanguages();
   const { onlyNames } = useGetAllTechnologies();
   const technologiesOptions = onlyNames || [];
 
@@ -68,7 +86,18 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
     filters?.seniorities?.length ||
     filters?.states?.length ||
     filters?.technologies?.length ||
-    filters?.pcd;
+    filters?.pcd ||
+    filters?.language ||
+    filters?.level;
+
+  const levelOptions = [
+    { value: 'A1', label: 'A1 - Básico' },
+    { value: 'A2', label: 'A2 - Básico' },
+    { value: 'B1', label: 'B1 - Intermediário' },
+    { value: 'B2', label: 'B2 - Intermediário' },
+    { value: 'C1', label: 'C1 - Avançado' },
+    { value: 'C2', label: 'C2 - Avançado' },
+  ];
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -102,6 +131,14 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
     });
     onFilter({
       field: 'pcd',
+      value: null,
+    });
+    onFilter({
+      field: 'language',
+      value: null,
+    });
+    onFilter({
+      field: 'level',
       value: null,
     });
   };
@@ -164,6 +201,42 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
               }}
             />
           ))}
+          {filters?.pcd && (
+            <Chip
+              label="PCD"
+              key="pcd"
+              onDelete={() => {
+                onFilter({
+                  field: 'pcd',
+                  value: false,
+                });
+              }}
+            />
+          )}
+          {filters?.language && (
+            <Chip
+              label={filters?.language}
+              key={filters?.language}
+              onDelete={() => {
+                onFilter({
+                  field: 'language',
+                  value: null,
+                });
+              }}
+            />
+          )}
+          {filters?.level && (
+            <Chip
+              label={filters?.level}
+              key={filters?.level}
+              onDelete={() => {
+                onFilter({
+                  field: 'level',
+                  value: null,
+                });
+              }}
+            />
+          )}
         </Box>
       </Box>
 
@@ -215,6 +288,19 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
               Localização
             </Button>
             <Button
+              variant={showFilter === 'language' ? 'contained' : 'outlined'}
+              color={showFilter === 'language' ? 'primary' : 'info'}
+              onClick={() => handleShowFilter('language')}
+              fullWidth
+              endIcon={
+                showFilter === 'language' ? <ArrowDropUp /> : <ArrowDropDown />
+              }
+            >
+              Idioma
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button
               variant={showFilter === 'technologies' ? 'contained' : 'outlined'}
               color={showFilter === 'technologies' ? 'primary' : 'info'}
               onClick={() => handleShowFilter('technologies')}
@@ -230,20 +316,7 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
               Tecnologias
             </Button>
           </ButtonGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={filters?.pcd || false}
-                onChange={() => {
-                  onFilter({
-                    field: 'pcd',
-                    value: !filters?.pcd,
-                  });
-                }}
-              />
-            }
-            label="Apenas perfis PCDs"
-          />
+
           {showFilter === 'roles' && (
             <FormGroup
               sx={{
@@ -358,8 +431,84 @@ export function ProfilesFilters({ onFilter, filters }: IProfilesFiltersProps) {
               value={filters?.technologies || []}
               label="Tecnologias utilizadas"
               onChange={handleSelectChange}
+              color="info"
             />
           )}
+          {showFilter === 'language' && (
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '16px',
+              }}
+            >
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-standard-label" color="info">
+                  Idioma
+                </InputLabel>
+
+                <Select
+                  label="Idioma"
+                  color="info"
+                  onChange={(e) => {
+                    onFilter({
+                      field: 'language',
+                      value: e.target.value as string,
+                    });
+                  }}
+                >
+                  {languagesList?.languages?.map((language) => (
+                    <MenuItem key={language.id} value={language.name}>
+                      {language.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {filters?.language && (
+                <FormControl fullWidth>
+                  <InputLabel
+                    color="info"
+                    id="demo-simple-select-standard-label"
+                  >
+                    Nível
+                  </InputLabel>
+
+                  <Select
+                    color="info"
+                    label="Nível"
+                    onChange={(e) => {
+                      onFilter({
+                        field: 'level',
+                        value: e.target.value as string,
+                      });
+                    }}
+                  >
+                    {levelOptions?.map((level) => (
+                      <MenuItem key={level.value} value={level.value}>
+                        {level.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+            </Box>
+          )}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={filters?.pcd || false}
+                onChange={() => {
+                  onFilter({
+                    field: 'pcd',
+                    value: !filters?.pcd,
+                  });
+                }}
+              />
+            }
+            label="Apenas perfis PCDs"
+          />
           <Button
             variant={enabledReset ? 'contained' : 'outlined'}
             color="error"

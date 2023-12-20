@@ -19,6 +19,9 @@ interface IFilters {
   seniorities: string[] | null;
   states: string[] | null;
   technologies: string[] | null;
+  pcd: boolean | null;
+  level: string | null;
+  language: string | null;
 }
 
 interface IProfilesTableProps {

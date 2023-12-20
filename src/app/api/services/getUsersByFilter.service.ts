@@ -7,6 +7,8 @@ interface IFilters {
   states: string[];
   seniorities: string[];
   pcd: boolean;
+  language: string;
+  level: string;
 }
 
 interface IGetUsersByFilterService {
@@ -89,6 +91,29 @@ export const getUsersByFilterService = async ({
           ...queryFilters,
           pcd: filters.pcd,
         };
+      }
+
+      if (filters.language) {
+        if (filters.level) {
+          queryFilters = {
+            ...queryFilters,
+            UserLanguage: {
+              some: {
+                name: filters.language,
+                level: filters.level,
+              },
+            },
+          };
+        } else {
+          queryFilters = {
+            ...queryFilters,
+            UserLanguage: {
+              some: {
+                name: filters.language,
+              },
+            },
+          };
+        }
       }
 
       const users = await prisma.user.findMany({
