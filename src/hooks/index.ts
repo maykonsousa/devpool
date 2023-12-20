@@ -34,3 +34,4 @@ export { useSearchProfiles } from './useSearchProfiles';
 export { useGetAllLanguages } from './useGetAllLanguages';
 export { useCreateLanguage } from './useCreateLanguage';
 export { useGetLanguagesByUser } from './useGetLanguagesByUser';
+export { useUpdateLanguage } from './useUpdateLanguage';

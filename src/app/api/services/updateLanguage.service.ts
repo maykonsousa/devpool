@@ -13,8 +13,9 @@ export const UpdateLanguageService = async ({
   languageId,
 }: IUpdateLanguageProps) => {
   try {
-    if (!userId || !newLevel || languageId)
+    if (!userId || !newLevel || !languageId) {
       throw new AppError('Fields is required');
+    }
 
     const user = await prisma.user.findUnique({
       where: {

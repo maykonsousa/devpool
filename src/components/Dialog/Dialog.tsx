@@ -19,6 +19,7 @@ interface IDialogProps {
   elementAction: React.ReactElement;
   children: React.ReactNode;
   title: string;
+  disabled?: boolean;
   onConfirm?: () => Promise<void>;
   onDismiss?: () => void;
   loading?: boolean;
@@ -40,6 +41,7 @@ export function Dialog({
   onConfirm,
   onDismiss,
   loading,
+  disabled = false,
   confirmText = 'Confirmar',
   dismissText = 'Cancelar',
 }: IDialogProps) {
@@ -60,6 +62,7 @@ export function Dialog({
 
   const handleConfirm = async () => {
     await onConfirm?.();
+    handleClose();
   };
   return (
     <>
@@ -88,7 +91,12 @@ export function Dialog({
           <Button onClick={handleCancel} color="error" variant="outlined">
             {dismissText}
           </Button>
-          <Button onClick={handleConfirm} color="primary" variant="contained">
+          <Button
+            onClick={handleConfirm}
+            color="primary"
+            variant="contained"
+            disabled={disabled}
+          >
             {confirmText}
           </Button>
         </DialogActions>
