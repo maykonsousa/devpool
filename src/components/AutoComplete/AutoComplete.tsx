@@ -11,16 +11,18 @@ interface IAutoCompleteProps {
   onChange: (event: React.SyntheticEvent, value: string[]) => void;
   limitTags?: number;
   maxWidth?: number;
+  color?: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
 }
 
 export function AutoComplete({
   options,
   value,
   label,
+  color = 'primary',
   ...rest
 }: IAutoCompleteProps) {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth color="info">
       <Autocomplete
         multiple
         id="multi-select-autocomplete"
@@ -30,7 +32,13 @@ export function AutoComplete({
         value={value}
         {...rest}
         renderInput={(params) => (
-          <TextField {...params} label={label} variant="outlined" multiline />
+          <TextField
+            {...params}
+            label={label}
+            variant="outlined"
+            color={color}
+            multiline
+          />
         )}
         ListboxProps={{
           style: {

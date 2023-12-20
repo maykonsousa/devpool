@@ -81,6 +81,8 @@ export const typeDefs = `#graphql
     states: [String]
     seniorities: [String]
     pcd: Boolean
+    language: String
+    level: String
   }
 
   input GetUsersByFilterInput {
