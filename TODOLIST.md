@@ -11,7 +11,7 @@ Página dedicada a listar todas as atividades a serem implementadas na aplicaç�
  
 ## Novas features
 - [ ] Edição de projetos - Deve permitir a edição da descrição e título do projeto
-- [ ] Edição de idioma
+- [X] Edição de idioma
 - [ ] Exclusão de idioma
 - [ ] Edição de experiência
 - [ ] Inclusão do filtro de idiomas na busca de perfis
