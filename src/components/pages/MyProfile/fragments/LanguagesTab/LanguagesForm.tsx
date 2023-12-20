@@ -76,6 +76,7 @@ export function LanguagesForm() {
       message: data?.createLanguage.message || '',
       type: data?.createLanguage.status as 'success' | 'error',
     });
+    handleHideForm();
   });
 
   return !showForm ? (
@@ -117,7 +118,7 @@ export function LanguagesForm() {
             onClick={onSubmit}
             disabled={loading}
           >
-            {loading ? 'Salvando...' : 'Adicionar'}
+            Salvar
           </Button>
           <Button variant="outlined" color="secondary" onClick={handleHideForm}>
             Cancelar

@@ -25,6 +25,7 @@ export function Card({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
+        ...rest.sx,
       }}
       {...rest}
     >
@@ -43,8 +44,8 @@ export function Card({
           flexDirection: direction,
           alignItems: 'flex-start',
           justifyContent: direction === 'column' ? 'center' : 'flex-start',
-          gap: 1,
           flexWrap: 'wrap',
+
           width: '100%',
         }}
       >

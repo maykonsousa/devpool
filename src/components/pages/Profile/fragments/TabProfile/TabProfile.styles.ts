@@ -1,6 +1,6 @@
 'use client';
 
-import { styled, Box, Card } from '@mui/material';
+import { styled, Box } from '@mui/material';
 
 export const Container = styled(Box)`
   padding-top: ${({ theme }) => theme.spacing(2.5)};
@@ -11,7 +11,8 @@ export const Container = styled(Box)`
   width: 100%;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column-reverse;
   }
 `;
 
@@ -19,6 +20,7 @@ export const Sidebar = styled(Box)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 100%;
 `;
 
 export const Content = styled(Box)`
@@ -26,17 +28,5 @@ export const Content = styled(Box)`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-`;
-
-export const AboutCard = styled(Card)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-`;
-
-export const TechsCard = styled(Card)`
-  display: flex;
-  border-radius: 8px;
-  flex-direction: column;
+  height: 100%;
 `;

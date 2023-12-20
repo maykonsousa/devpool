@@ -68,12 +68,16 @@ export function LanguagesTable() {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            width: '100%',
             justifyContent: 'space-between',
+            width: '100%',
           }}
         >
           {row?.name}
-          <Box>
+          <Box
+            sx={{
+              display: 'flex',
+            }}
+          >
             <EditLanguageIcon language={row} />
             <DeleteLanguageIcon languageId={row?.id} />
           </Box>
