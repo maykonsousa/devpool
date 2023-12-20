@@ -44,8 +44,8 @@ interface IVariables {
       seniorities: string[] | null;
       states: string[] | null;
       technologies: string[] | null;
-      languages: string[] | null;
-      levels: string[] | null;
+      language: string | null;
+      level: string | null;
     };
   };
 }

@@ -11,6 +11,8 @@ interface IFilters {
   states: string[] | null;
   technologies: string[] | null;
   pcd: boolean | null;
+  level: string | null;
+  language: string | null;
 }
 
 const InitialFilters = {
@@ -19,11 +21,20 @@ const InitialFilters = {
   states: null,
   technologies: null,
   pcd: null,
+  level: null,
+  language: null,
 };
 
 interface IHandleFilters {
-  field: 'roles' | 'seniorities' | 'states' | 'technologies' | 'pcd';
-  value: string[] | boolean | null;
+  field:
+    | 'roles'
+    | 'seniorities'
+    | 'states'
+    | 'technologies'
+    | 'pcd'
+    | 'level'
+    | 'language';
+  value: string[] | boolean | string | null;
 }
 
 export function SearchProfile() {
