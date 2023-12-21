@@ -48,7 +48,7 @@ export function Orientation({ isVisible, onNext }: IOrientationProps) {
       return 'Agora basta clicar em Continuar para prosseguir com o cadastro';
     }
 
-    return 'Para começar, verificar se já não temos um cadastro seu em nossa plataforma. Para isso, basta clicar no botão abaixo e fazer login com sua conta do GitHub';
+    return 'Para se inscrever como desenvolvedor, clique no botão abaixo e faça login com o GitHub';
   }, [data, githubUser]);
 
   const title = useMemo(() => {
