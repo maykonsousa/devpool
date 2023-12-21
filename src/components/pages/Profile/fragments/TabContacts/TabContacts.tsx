@@ -5,12 +5,7 @@ import { SocialIcon } from '@/components/SocialIcon';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextInput } from '@/components/TextInput';
 import { Select } from '@/components/Select';
-import {
-  useFeedback,
-  useGetContacts,
-  useGetUserByUsername,
-  useSendEmail,
-} from '@/hooks';
+import { useFeedback, useGetContacts, useGetUser, useSendEmail } from '@/hooks';
 import { IContacts } from '@/hooks/useGetContacts/useGetContacts';
 import { CopyIcon } from '@/components/CopyIcon';
 import { Loading } from '@/components/Loading';
@@ -52,8 +47,8 @@ export function TabContacts({ username }: TabContactsProps) {
   });
   const { showMessage } = useFeedback();
   const variables = useMemo(() => ({ input: { username } }), [username]);
-  const { data: userData } = useGetUserByUsername({
-    variables,
+  const { data: userData } = useGetUser({
+    usernameVariables: variables,
   });
 
   const { data } = useGetContacts({

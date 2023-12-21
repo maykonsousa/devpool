@@ -24,7 +24,12 @@ interface IFormData {
 }
 
 export function SignInPage() {
-  const { handleCredentialsLogin, handleGithubLogin, loading } = useLogin();
+  const {
+    handleCredentialsLogin,
+    handleGithubLogin,
+    handleLinkedinLogin,
+    loading,
+  } = useLogin();
   const theme = useTheme();
   const { data: session } = useSession();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -103,6 +108,11 @@ export function SignInPage() {
               fullWidth
               typeCall="github"
               onClick={handleGithubLogin}
+            />
+            <LoginButton
+              fullWidth
+              typeCall="linkedin"
+              onClick={handleLinkedinLogin}
             />
           </FormProvider>
         )}

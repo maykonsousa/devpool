@@ -45,6 +45,10 @@ export const useLogin = () => {
     await signIn('github');
   };
 
+  const handleLinkedinLogin = async () => {
+    await signIn('linkedin');
+  };
+
   const handleCredentialsLogin = async ({
     username,
     password,
@@ -61,6 +65,7 @@ export const useLogin = () => {
   return {
     handleGithubLogin,
     handleCredentialsLogin,
+    handleLinkedinLogin,
     loading,
     error,
   };

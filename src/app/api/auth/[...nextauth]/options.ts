@@ -5,11 +5,30 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
+import LinkedInProvider from 'next-auth/providers/linkedin';
 import { authenticateService } from '../../services/authenticate.service';
 import { getUserByUsernameService } from '../../services/getUserByUsername.service';
+import { getUserByEmailService } from '../../services/getUserByEmail.service';
 
 export const options: NextAuthOptions = {
   providers: [
+    LinkedInProvider({
+      clientId: process.env.LINKEDIN_CLIENT_ID as string,
+      clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
+      authorization: { params: { scope: 'profile email openid' } },
+      issuer: 'https://www.linkedin.com',
+      jwks_endpoint: 'https://www.linkedin.com/oauth/openid/jwks',
+      async profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          firstname: profile.given_name,
+          lastname: profile.family_name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
@@ -65,6 +84,16 @@ export const options: NextAuthOptions = {
         }
 
         return `/auth/register?userType=developer&accessToken=${account?.access_token}`;
+      }
+
+      if (account?.provider === 'linkedin') {
+        const email = user?.email as string;
+        const { status } = await getUserByEmailService(email);
+        if (status === 'success') {
+          return true;
+        }
+
+        return `/auth/register?userType=recruiter&accessToken=${account?.access_token}`;
       }
 
       return true;

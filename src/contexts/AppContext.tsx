@@ -4,7 +4,7 @@
 
 'use client';
 
-import { useGetUserByUsername } from '@/hooks/useGetUserByUsername';
+import { useGetUser } from '@/hooks/useGetUser';
 import { useSession } from 'next-auth/react';
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -116,15 +116,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   );
   const { data: sessionData, status: sessionStatus } = useSession();
   const username = useMemo(() => sessionData?.user?.name, [sessionData]);
+  const email = useMemo(() => sessionData?.user?.email, [sessionData]);
 
   const {
     data: userData,
     loading: userLoading,
     refetch: refetchUserData,
-  } = useGetUserByUsername({
-    variables: {
+  } = useGetUser({
+    usernameVariables: {
       input: {
         username,
+      },
+    },
+    emailVariables: {
+      input: {
+        email,
       },
     },
   }) || null;
