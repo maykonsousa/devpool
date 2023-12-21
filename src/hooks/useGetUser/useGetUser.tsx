@@ -91,8 +91,8 @@ interface IResult {
 }
 
 interface IUseGetUser {
-  usernameVariables: IUsernameVariables;
-  emailVariables: IEmailVariables;
+  usernameVariables?: IUsernameVariables;
+  emailVariables?: IEmailVariables;
 }
 
 export const useGetUser = ({
@@ -106,7 +106,7 @@ export const useGetUser = ({
     refetch: userNameRefetch,
   } = useQuery<IResult, IUsernameVariables>(GET_USER_BY_USERNAME, {
     variables: usernameVariables,
-    skip: !usernameVariables.input.username,
+    skip: !usernameVariables?.input?.username,
   });
 
   const {
@@ -116,7 +116,7 @@ export const useGetUser = ({
     refetch: emailRefetch,
   } = useQuery(GET_USER_BY_EMAIL, {
     variables: emailVariables,
-    skip: !emailVariables.input.email,
+    skip: !emailVariables?.input?.email,
   });
 
   return {
