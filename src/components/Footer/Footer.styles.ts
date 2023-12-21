@@ -10,6 +10,10 @@ export const FooterContainer = styled(Box)`
   max-width: 1440px;
   margin: 0 auto;
 
+  @media (max-width: 1400px) {
+    padding: ${({ theme }) => theme.spacing(0, 2)};
+  }
+
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;

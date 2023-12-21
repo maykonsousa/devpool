@@ -18,4 +18,8 @@ export const Main = styled(Box)`
   height: 100%;
   flex: 1;
   width: 100%;
+
+  @media (max-width: 1400px) {
+    padding: 0 1rem;
+  }
 `;
