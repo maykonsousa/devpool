@@ -6,6 +6,7 @@ import {
   useTheme,
   AvatarGroup,
   Skeleton,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Computer,
@@ -71,6 +72,8 @@ interface ITabProfileProps {
   username: string;
 }
 export function TabProfile({ username }: ITabProfileProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { data, loading } = useGetProfile({
     variables: {
       input: {
@@ -198,7 +201,13 @@ export function TabProfile({ username }: ITabProfileProps) {
         </Card>
       </Sidebar>
       <Content>
-        <Card title="sobre">
+        <Card
+          title="sobre"
+          sx={{
+            height: '100%',
+            maxHeight: isMobile ? '100%' : '250px',
+          }}
+        >
           {loading ? (
             <Skeleton variant="text" width="100%" height={80} />
           ) : (
@@ -207,7 +216,9 @@ export function TabProfile({ username }: ITabProfileProps) {
                 display: 'flex',
               }}
             >
-              <Typography variant="body1">{user?.bio}</Typography>
+              <Typography variant="body1" whiteSpace="pre-line">
+                {user?.bio}
+              </Typography>
             </Box>
           )}
         </Card>
