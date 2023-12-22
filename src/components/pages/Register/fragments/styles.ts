@@ -39,7 +39,6 @@ export const StepContent = styled(Box)`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  flex: 1;
 `;
 
 export const StepSubtitle = styled(Typography)`

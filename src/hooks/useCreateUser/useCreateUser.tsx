@@ -19,6 +19,7 @@ interface Ivariables {
     email: string;
     type: UserType;
     username: string;
+    current_company?: string;
     avatar_url: string;
     cover_url: string;
     password: string;

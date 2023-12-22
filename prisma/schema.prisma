@@ -8,28 +8,29 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  type           String           @default("developer")
-  email          String           @unique
-  name           String?
-  password       String
-  username       String           @unique
-  bio            String?          @db.VarChar(4000)
-  role           String?
-  seniority      String?
-  city           String?
-  state          String?
-  avatar_url     String?
-  cover_url      String?
-  pcd            Boolean?         @default(false)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  Social         Social[]
-  Project        Project[]
-  Course         Course[]
-  UserTechnology UserTechnology[]
-  Job            Job[]
-  UserLanguage   UserLanguage[]
+  id              String           @id @default(uuid())
+  type            String           @default("developer")
+  email           String           @unique
+  name            String?
+  password        String
+  username        String           @unique
+  bio             String?          @db.VarChar(4000)
+  role            String?
+  seniority       String?
+  city            String?
+  state           String?
+  current_company String?
+  avatar_url      String?
+  cover_url       String?
+  pcd             Boolean?         @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  Social          Social[]
+  Project         Project[]
+  Course          Course[]
+  UserTechnology  UserTechnology[]
+  Job             Job[]
+  UserLanguage    UserLanguage[]
 }
 
 model Social {

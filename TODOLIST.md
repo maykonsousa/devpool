@@ -14,5 +14,19 @@ Página dedicada a listar todas as atividades a serem implementadas na aplicaç�
 - [X] Edição de idioma
 - [X] Exclusão de idioma
 - [ ] Edição de experiência
-- [ ] Inclusão do filtro de idiomas na busca de perfis
+- [X] Inclusão do filtro de idiomas na busca de perfis
+- [X] Permitir login atravez do Linkedin
+- [X] Implementar cadastro de recrutadores
+- [ ] Implementar o compartilhamento de vagas
+- [ ] Inclusão do filtro de cidades na busca de perfis
+- [ ] implementar página de gerenciamento Minhas Vagas
+- [ ] Implementar página de gerenciamento da vaga Unitária permitindo edição, exclusão, suspensão e também listar os perfis interessados na vaga
+- [ ] Implementar a funcionalidade de "Favoritar Perfil"
+- [ ] implementar a página Minha Rede exibindo os perfis favoritos do usuário
+
+
+
+
+
+
 

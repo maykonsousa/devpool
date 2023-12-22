@@ -20,6 +20,7 @@ import {
   Share,
   Translate,
 } from '@mui/icons-material';
+import { useSession } from '@/hooks';
 import { PageContainer } from './SettingsPage.styles';
 import {
   AccountTab,
@@ -37,12 +38,14 @@ interface TabPanelProps {
   iconPosition: 'start' | 'end';
   icon: React.ReactElement;
   component: React.ReactNode;
+  isVisible?: boolean;
 }
 
 const INITIALTAB: TabPanelProps = {
   label: 'Informações da Conta',
   value: 'account',
   iconPosition: 'start',
+  isVisible: false,
   icon: <Person />,
   component: <AccountTab />,
 };
@@ -50,6 +53,9 @@ const INITIALTAB: TabPanelProps = {
 export function SettingsPage() {
   const [currentTab, setCurrentTab] = React.useState<TabPanelProps>(INITIALTAB);
   const theme = useTheme();
+  const { user } = useSession();
+
+  const isDeveloper = !!user && user.type === 'developer';
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const tabs: TabPanelProps[] = [
@@ -59,6 +65,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <Person fontSize="large" />,
       component: <AccountTab />,
+      isVisible: true,
     },
     {
       label: 'Projetos',
@@ -66,6 +73,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <IntegrationInstructions fontSize="large" />,
       component: <ProjectsTab />,
+      isVisible: isDeveloper,
     },
     {
       label: 'Educação',
@@ -73,6 +81,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <School fontSize="large" />,
       component: <CoursesTab />,
+      isVisible: isDeveloper,
     },
     {
       label: 'Idiomas',
@@ -80,6 +89,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <Translate fontSize="large" />,
       component: <LanguagesTab />,
+      isVisible: isDeveloper,
     },
     {
       label: 'Experiências',
@@ -87,6 +97,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <Build fontSize="large" />,
       component: <JobsTab />,
+      isVisible: isDeveloper,
     },
     {
       label: 'Tecnologias',
@@ -94,6 +105,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <CodeOff fontSize="large" />,
       component: <TechsTab />,
+      isVisible: isDeveloper,
     },
     {
       label: 'Redes Sociais',
@@ -101,6 +113,7 @@ export function SettingsPage() {
       iconPosition: 'start',
       icon: <ConnectWithoutContact fontSize="large" />,
       component: <ContactsTab />,
+      isVisible: true,
     },
   ];
 
@@ -142,27 +155,30 @@ export function SettingsPage() {
           value={currentTab.value}
           sx={{ width: '100%', borderRight: 2, borderColor: 'divider' }}
         >
-          {tabs.map((tab) => (
-            <Tab
-              key={tab.value}
-              label={!isMobile ? tab.label : ''}
-              value={tab.value}
-              icon={tab.icon}
-              iconPosition="start"
-              sx={{
-                'textTransform': 'none',
-                'fontSize': '1.2rem',
-                'display': 'flex',
-                'alignItems': 'center',
-                'justifyContent': 'flex-start',
-                'width': '100%',
-                'fontWeight': 'bold',
-                '&:hover': {
-                  backgroundColor: 'background.paper',
-                },
-              }}
-            />
-          ))}
+          {tabs.map(
+            (tab) =>
+              tab.isVisible && (
+                <Tab
+                  key={tab.value}
+                  label={!isMobile ? tab.label : ''}
+                  value={tab.value}
+                  icon={tab.icon}
+                  iconPosition="start"
+                  sx={{
+                    'textTransform': 'none',
+                    'fontSize': '1.2rem',
+                    'display': 'flex',
+                    'alignItems': 'center',
+                    'justifyContent': 'flex-start',
+                    'width': '100%',
+                    'fontWeight': 'bold',
+                    '&:hover': {
+                      backgroundColor: 'background.paper',
+                    },
+                  }}
+                />
+              ),
+          )}
         </Tabs>
         <Box
           sx={{
