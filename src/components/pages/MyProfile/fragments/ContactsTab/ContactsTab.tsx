@@ -22,6 +22,7 @@ interface IFormValues {
 
 export function ContactsTab() {
   const { user } = useSession();
+  const isDeveloper = user && user.type === 'developer';
   const { data: getContactsData, loading: getLoading } = useGetContacts({
     variables: {
       input: {
@@ -93,21 +94,25 @@ export function ContactsTab() {
               label="Instagram"
               placeholder="https://www.instagram.com/seu-perfil/"
             />
-            <TextInput
-              name="github_url"
-              label="Github"
-              placeholder="https://github.com/seu-perfil/"
-            />
+            {isDeveloper && (
+              <TextInput
+                name="github_url"
+                label="Github"
+                placeholder="https://github.com/seu-perfil/"
+              />
+            )}
             <TextInput
               name="twitter_url"
               label="Twitter (X)"
               placeholder="https://twitter.com/seu-perfil/"
             />
-            <TextInput
-              name="personal_website"
-              label="Website"
-              placeholder="https://seu-site.com.br"
-            />
+            {isDeveloper && (
+              <TextInput
+                name="personal_website"
+                label="Website"
+                placeholder="https://seu-site.com.br"
+              />
+            )}
             <TextInput
               name="cell_phone"
               label="Celular"

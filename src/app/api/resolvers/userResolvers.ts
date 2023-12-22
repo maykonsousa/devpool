@@ -2,6 +2,7 @@
 import { createUserService } from '../services/createUser.service';
 import { deleteUserService } from '../services/deleteUser.service';
 import { getAllUsersService } from '../services/getAllUsers.service';
+import { getLinkedinUserByTokenService } from '../services/getLinkedinUserByToken.service';
 import { getProfileService } from '../services/getProfile.service';
 import { getUserByEmailService } from '../services/getUserByEmail.service';
 import { getUserByUsernameService } from '../services/getUserByUsername.service';
@@ -15,6 +16,7 @@ import {
   IGetUserByEmailInput,
   IGetUsersByFilterInput,
   IcreateUserInput,
+  IGetLinkedinUserInput,
 } from '../types/UsersTypes';
 
 export const userResolvers = {
@@ -29,6 +31,8 @@ export const userResolvers = {
     getusersByFilter: async (_: any, args: IGetUsersByFilterInput) => {
       return getUsersByFilterService(args.input);
     },
+    getLinkedinUserByToken: async (_: any, args: IGetLinkedinUserInput) =>
+      getLinkedinUserByTokenService(args.input),
   },
 
   Mutation: {

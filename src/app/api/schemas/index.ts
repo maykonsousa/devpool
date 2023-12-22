@@ -64,6 +64,7 @@ export const typeDefs = `#graphql
     email: String
     type: UserType
     username: String
+    current_company: String
     avatar_url: String
     cover_url: String
     password: String
@@ -113,6 +114,32 @@ export const typeDefs = `#graphql
   }
 
   type DeleteUserPayload {
+    status: Status!
+    message: String!
+  }
+
+  input GetLinkedinUserInput {
+    token: String!
+  }
+
+  type LinkedinLocale {
+    country: String
+    language: String
+  }
+
+  type LinkedinUser {
+    sub: String
+    name: String
+    given_name: String
+    family_name: String
+    picture: String
+    locale: LinkedinLocale
+    email: String
+    email_verified: Boolean
+  }
+
+  type GetLinkedinUserPayload {
+    linkedinUserData: LinkedinUser
     status: Status!
     message: String!
   }
@@ -542,6 +569,7 @@ export const typeDefs = `#graphql
     getProfile(input: GetProfileInput!): getProfilePayload!
     getUserByUsername(input: GetUserByUsernameInput!): GetUserByUsernamePayload!
     getusersByFilter(input: GetUsersByFilterInput): getUsersByFilterPayload!
+    getLinkedinUserByToken(input: GetLinkedinUserInput!): GetLinkedinUserPayload!
 
     ##PROJECTS
     getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!

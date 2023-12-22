@@ -25,12 +25,16 @@ export const createUserService = async (user: IUserInput) => {
       },
     });
 
-    await prisma.social.create({
-      data: {
-        userId: userCreated.id,
-        github_url: `https://github.com/${userCreated.username}`,
-      },
-    });
+    const isDeveloper = userCreated && userCreated.type === 'developer';
+
+    if (isDeveloper) {
+      await prisma.social.create({
+        data: {
+          userId: userCreated.id,
+          github_url: `https://github.com/${userCreated.username}`,
+        },
+      });
+    }
     await sendWelcomeMailService({
       name: userCreated?.name as string,
       toEmail: userCreated.email,

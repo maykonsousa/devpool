@@ -72,3 +72,30 @@ export const updateDeveloperValidation = z
       path: ['name'],
     },
   );
+
+export const creteRecruiterValidation = z
+  .object({
+    name: z.string().min(1, { message: 'Campo obrigatório' }),
+    email: z
+      .string()
+      .min(1, { message: 'Campo obrigatório' })
+      .email({ message: 'Email inválido' }),
+    password: z
+      .string()
+      .min(6, { message: 'Campo obrigatório (6 caracteres)' }),
+    confirmPassword: z.string().min(6, { message: 'Campo obrigatório' }),
+    current_company: z.string().min(1, { message: 'Campo obrigatório' }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Senhas não conferem',
+    path: ['confirmPassword'],
+  })
+  .refine(
+    (data) => {
+      return /^[a-zA-Z\s]+$/.test(data.name);
+    },
+    {
+      message: 'O campo nome não pode conter números ou caracteres especiais',
+      path: ['name'],
+    },
+  );

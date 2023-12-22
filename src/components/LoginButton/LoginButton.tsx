@@ -53,8 +53,7 @@ export function LoginButton({
       }}
       {...rest}
     >
-      {isLoading && <CircularProgress size={24} />}
-      {buttonEnum[typeCall].icon}
+      {isLoading ? <CircularProgress size={24} /> : buttonEnum[typeCall].icon}
       {buttonEnum[typeCall].label}
     </Button>
   );

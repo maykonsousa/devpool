@@ -3,6 +3,7 @@ export interface IUserInput {
   type: UserType;
   email: string;
   name: string;
+  current_company: string;
   password: string;
   username: string;
   avatar_url: string;
@@ -45,6 +46,12 @@ export interface IDeleteUserInput {
 export interface IGetProfileInput {
   input: {
     username: string;
+  };
+}
+
+export interface IGetLinkedinUserInput {
+  input: {
+    token: string;
   };
 }
 

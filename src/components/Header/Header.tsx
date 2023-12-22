@@ -32,6 +32,7 @@ export function Header() {
   const path = usePathname();
   const { user, status } = useSession();
   const pathName = usePathname();
+  const isDeveloper = !!user && user.type === 'developer';
 
   const logout = React.useCallback(async () => {
     await signOut();
@@ -44,7 +45,11 @@ export function Header() {
     {
       label: 'Ver Perfil',
       onClick: () => {
-        router.push(`/profile/${user?.username}`);
+        router.push(
+          isDeveloper
+            ? `/profile/${user?.username}`
+            : `/recruiters/${user?.id}`,
+        );
       },
     },
     {

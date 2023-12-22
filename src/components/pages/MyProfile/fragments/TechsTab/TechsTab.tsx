@@ -30,6 +30,8 @@ export function TechsTab() {
     },
   });
 
+  const isDeveloper = user && user.type === 'developer';
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
     const filtered = technologies?.filter((tech: ITechs) =>
@@ -62,53 +64,55 @@ export function TechsTab() {
     getAllTechs();
   }, [getAllTechs]);
   return (
-    <TabContainer>
-      <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: '1rem' }}>
-        Minhas tecnologias
-      </Typography>
-      <Typography variant="body1">
-        Adicione as tecnologias que você conhece e que podem ser relevantes para
-        o seu perfil profissional.
-      </Typography>
-      {loading ? (
-        <Loading />
-      ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-          }}
-        >
-          <FormControl fullWidth>
-            <TextField
-              label="Pesquisar"
-              fullWidth
-              value={seachText}
-              onChange={handleSearch}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
-          <GridContainer>
-            {fiteredTechs?.map((tech: { id: string; name: string }) => (
-              <TechCheckbox
-                key={tech.id}
-                techId={tech.id}
-                techName={tech.name}
-                userId={user?.id as string}
-                isChecked={isChecked(tech.id)}
-                reset={handleReset}
+    isDeveloper && (
+      <TabContainer>
+        <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: '1rem' }}>
+          Minhas tecnologias
+        </Typography>
+        <Typography variant="body1">
+          Adicione as tecnologias que você conhece e que podem ser relevantes
+          para o seu perfil profissional.
+        </Typography>
+        {loading ? (
+          <Loading />
+        ) : (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+            }}
+          >
+            <FormControl fullWidth>
+              <TextField
+                label="Pesquisar"
+                fullWidth
+                value={seachText}
+                onChange={handleSearch}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
               />
-            ))}
-          </GridContainer>
-        </Box>
-      )}
-    </TabContainer>
+            </FormControl>
+            <GridContainer>
+              {fiteredTechs?.map((tech: { id: string; name: string }) => (
+                <TechCheckbox
+                  key={tech.id}
+                  techId={tech.id}
+                  techName={tech.name}
+                  userId={user?.id as string}
+                  isChecked={isChecked(tech.id)}
+                  reset={handleReset}
+                />
+              ))}
+            </GridContainer>
+          </Box>
+        )}
+      </TabContainer>
+    )
   );
 }

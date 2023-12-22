@@ -5,6 +5,7 @@ const nextConfig = {
       'avatars.githubusercontent.com', 
       'images.pexels.com',
       'firebasestorage.googleapis.com',
+      'media.licdn.com',
     ],
   },
 }

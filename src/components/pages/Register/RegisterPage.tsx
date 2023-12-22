@@ -25,6 +25,7 @@ import {
   SocialForm,
 } from './fragments';
 import { ActionsContainer, StepTitle } from './fragments/styles';
+import { RecruiterAccountForm } from './fragments/RecruiterAccountForm/RecruiterAccountForm';
 
 interface ISteps {
   sequence: number;
@@ -58,13 +59,18 @@ const recruiterSteps: ISteps[] = [
   },
   {
     sequence: 1,
-    label: 'Inforções de usuário',
+    label: 'Informações de usuário',
     name: 'recruiterAccount',
   },
   {
     sequence: 2,
     label: 'Contatos',
     name: 'recruiterContacts',
+  },
+  {
+    sequence: 3,
+    label: 'Confirmação',
+    name: 'finishStep',
   },
 ];
 
@@ -193,6 +199,12 @@ export function RegisterPage() {
         />
         <RecruiterOrientation
           isVisible={activeStep?.name === 'recruiterOrientation'}
+          onNext={handleNextStep}
+          onPrevious={handleBackStep}
+        />
+
+        <RecruiterAccountForm
+          isVisible={activeStep?.name === 'recruiterAccount'}
           onNext={handleNextStep}
           onPrevious={handleBackStep}
         />
