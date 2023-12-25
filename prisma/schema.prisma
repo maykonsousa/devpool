@@ -71,13 +71,14 @@ model Project {
 }
 
 model Technology {
-  id                String              @id @default(uuid())
-  name              String              @unique
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  ProjectTechnology ProjectTechnology[]
-  UserTechnology    UserTechnology[]
-  JobTechnology     JobTechnology[]
+  id                 String               @id @default(uuid())
+  name               String               @unique
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  ProjectTechnology  ProjectTechnology[]
+  UserTechnology     UserTechnology[]
+  JobTechnology      JobTechnology[]
+  PositionTechnology PositionTechnology[]
 }
 
 model Language {
@@ -165,4 +166,35 @@ model Feedback {
   phone     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Position {
+  id                 String               @id @default(uuid())
+  role               String
+  seniority          String
+  company            String
+  model              String
+  type               String
+  state              String?
+  city               String?
+  language           String?
+  language_level     String?
+  url                String?
+  email              String?
+  userId             String
+  description        String
+  is_resposible      Boolean              @default(false)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  PositionTechnology PositionTechnology[]
+}
+
+model PositionTechnology {
+  id           String     @id @default(uuid())
+  positionId   String
+  technologyId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Position     Position   @relation(fields: [positionId], references: [id], onDelete: Cascade)
+  Technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
 }
