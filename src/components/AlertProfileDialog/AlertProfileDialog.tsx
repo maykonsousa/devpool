@@ -232,7 +232,7 @@ export function AlertProfileDialog() {
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)} color="info" variant="outlined">
-          Não ver novamente
+          Lembrar mais tarde
         </Button>
         <Button color="info" variant="contained" onClick={handleConfirm}>
           Completar Perfil
