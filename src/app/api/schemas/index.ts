@@ -409,6 +409,24 @@ export const typeDefs = `#graphql
     jobId: String!
   }
 
+  input UpdateJobInputData {
+    id: String
+    userId: String
+    name: String
+    company: String
+    description: String
+    startDate: String
+    endDate: String
+    isCurrent: Boolean
+    technologies: [String]
+  }
+
+
+
+  input UpdateJobInput {
+   data: UpdateJobInputData!
+  }
+
   type DeleteJobPayload {
     status: Status!
     message: String!
@@ -701,6 +719,7 @@ export const typeDefs = `#graphql
     ##JOBS
     createJob(input: CreateJobInput): CreateJobPayload!
     deleteJobUser(input: DeleteJobInput): DeleteJobPayload!
+    updateJobUser(input: UpdateJobInput): DeleteJobPayload!
 
     ##TECHNOLOGIES
     addOrRemoveTechnologyUser(input: AddOrRemoveTechnologyUserInput): AddOrRemoveTechnologyUserPayload!

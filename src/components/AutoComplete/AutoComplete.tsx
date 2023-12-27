@@ -18,7 +18,7 @@ export function AutoComplete({
   options,
   value,
   label,
-  color = 'primary',
+  color = 'info',
   ...rest
 }: IAutoCompleteProps) {
   return (

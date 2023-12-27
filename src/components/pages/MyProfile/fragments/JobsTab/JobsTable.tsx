@@ -7,6 +7,7 @@ import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
 import { DeleteJobDialog } from './deleteJobDialog';
+import { EditJobDialog } from './EditJobDialog';
 
 export function JobsTable() {
   const { user } = useSession();
@@ -44,9 +45,7 @@ export function JobsTable() {
       sortable: false,
       renderCell: ({ row }) => (
         <Box>
-          <IconButton>
-            <Edit />
-          </IconButton>
+          <EditJobDialog job={row} />
           <DeleteJobDialog jobId={row.id} userId={user?.id as string} />
         </Box>
       ),
