@@ -60,12 +60,23 @@ export const updateJobService = async ({ data }: IUpdateJobService) => {
         throw new AppError('Tecnologia não existe', 404);
       }
 
-      await prisma.jobTechnology.create({
-        data: {
-          jobId: job.id,
+      // create job technology only if not exists
+
+      const jobTechnologyExists = await prisma.jobTechnology.findFirst({
+        where: {
           technologyId: technologyExists.id,
+          jobId: job.id,
         },
       });
+
+      if (!jobTechnologyExists) {
+        await prisma.jobTechnology.create({
+          data: {
+            technologyId: technologyExists.id,
+            jobId: job.id,
+          },
+        });
+      }
     });
 
     return {

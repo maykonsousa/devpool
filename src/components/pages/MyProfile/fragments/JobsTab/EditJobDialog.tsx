@@ -135,6 +135,7 @@ export function EditJobDialog({ job }: IEditJobDialog) {
             flexDirection: 'column',
             gap: '1rem',
             width: '100%',
+            padding: '1rem 0',
           }}
         >
           <GridContainer>

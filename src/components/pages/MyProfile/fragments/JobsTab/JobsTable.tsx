@@ -6,7 +6,7 @@ import { Edit } from '@mui/icons-material';
 import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
-import { DeleteJobDialog } from './DeleteJobDialog';
+import { DeleteJobDialog } from './deleteJobDialog';
 import { EditJobDialog } from './EditJobDialog';
 
 export function JobsTable() {
