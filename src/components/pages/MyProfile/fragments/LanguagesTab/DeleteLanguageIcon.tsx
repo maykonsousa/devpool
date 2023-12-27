@@ -1,4 +1,4 @@
-import { ConfirmationDialog } from '@/components/ConfimationDialog';
+import { ConfirmationDialog } from '@/components/CopyIcon/ConfimationDialog';
 import { useDeleteLanguage, useFeedback, useSession } from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';

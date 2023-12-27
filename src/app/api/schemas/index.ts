@@ -25,11 +25,23 @@ export const typeDefs = `#graphql
     state: String
     bio: String
     username: String
+    current_company: String
     avatar_url: String
     cover_url: String
     pcd: Boolean
     createdAt: String
     updatedAt: String
+    contacts: Social
+  }
+
+  type Recruiter {
+    id: String
+    name: String
+    email: String
+    avatar_url: String
+    role: String
+    seniority: String
+    company: String
     contacts: Social
   }
 
@@ -47,8 +59,21 @@ export const typeDefs = `#graphql
     username: String!
   }
 
+
+
   type GetUserByUsernamePayload {
     user: User
+    status: String!
+    message: String! 
+  }
+
+  input GetRecruiterByIdInput {
+    id: String!
+    userId: String!
+  }
+
+  type GetRecruiterByIdPayload {
+    recruiter: Recruiter
     status: String!
     message: String! 
   }
@@ -630,6 +655,7 @@ export const typeDefs = `#graphql
     getUserByUsername(input: GetUserByUsernameInput!): GetUserByUsernamePayload!
     getusersByFilter(input: GetUsersByFilterInput): getUsersByFilterPayload!
     getLinkedinUserByToken(input: GetLinkedinUserInput!): GetLinkedinUserPayload!
+    getRecruiterById(input: GetRecruiterByIdInput!): GetRecruiterByIdPayload!
 
     ##PROJECTS
     getProjectsByUser(input: GetProjectsByUserInput!): getProjetsPayload!

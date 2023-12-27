@@ -13,6 +13,7 @@ const GET_USER_BY_USERNAME = gql`
         id
         bio
         role
+        current_company
         seniority
         city
         state
@@ -34,6 +35,7 @@ const GET_USER_BY_EMAIL = gql`
       status
       user {
         avatar_url
+        current_company
         bio
         city
         cover_url
@@ -74,6 +76,7 @@ interface IUser {
   bio: string;
   role: string;
   seniority: string;
+  current_company: string;
   city: string;
   state: string;
   email: string;

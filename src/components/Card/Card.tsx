@@ -45,7 +45,7 @@ export function Card({
           alignItems: 'flex-start',
           justifyContent: direction === 'column' ? 'center' : 'flex-start',
           flexWrap: 'wrap',
-
+          gap: '1rem',
           width: '100%',
         }}
       >

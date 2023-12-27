@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ConfirmationDialog } from '@/components/ConfimationDialog';
+import { ConfirmationDialog } from '@/components/CopyIcon/ConfimationDialog';
 import { useDeleteProject, useFeedback } from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';

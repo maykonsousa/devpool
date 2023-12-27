@@ -108,6 +108,7 @@ export function RecruiterAccountForm({
       name: formatName(methods.watch('name')),
       email: methods.watch('email'),
       type: 'recruiter',
+      current_company: methods.watch('current_company'),
       username: methods.watch('email'),
       avatar_url: methods.watch('avatar_url'),
       cover_url: methods.watch('cover_url'),

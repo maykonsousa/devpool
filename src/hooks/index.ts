@@ -38,3 +38,4 @@ export { useUpdateLanguage } from './useUpdateLanguage';
 export { useDeleteLanguage } from './useDeleteLanguage';
 export { useGetLinkedinUser } from './useGetLinkedinUser';
 export { useCreatePosition } from './useCreatePosition';
+export { useGetRecruiterProfile } from './useGetRecruiterProfile';

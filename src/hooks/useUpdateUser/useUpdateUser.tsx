@@ -23,6 +23,7 @@ export interface IVariables {
       seniority?: string;
       city?: string;
       state?: string;
+      current_company?: string;
     };
   };
 }

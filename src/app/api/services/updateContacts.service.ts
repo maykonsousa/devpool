@@ -31,15 +31,24 @@ export const updateContactsService = async ({
       },
     });
 
-    await prisma.social.update({
-      where: {
-        id: contacts?.id,
-      },
-      data: {
-        ...data,
-        userId,
-      },
-    });
+    if (!contacts) {
+      await prisma.social.create({
+        data: {
+          ...data,
+          userId,
+        },
+      });
+    } else {
+      await prisma.social.update({
+        where: {
+          id: contacts?.id,
+        },
+        data: {
+          ...data,
+          userId,
+        },
+      });
+    }
 
     return {
       status: 'success',
