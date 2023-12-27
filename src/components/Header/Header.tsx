@@ -19,6 +19,7 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import * as React from 'react';
 import { signOut } from 'next-auth/react';
+import { AlertProfileDialog } from '../AlertProfileDialog';
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -103,6 +104,7 @@ export function Header() {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'inherit' }}>
+      <AlertProfileDialog />
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box

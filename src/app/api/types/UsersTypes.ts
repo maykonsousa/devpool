@@ -55,6 +55,13 @@ export interface IGetLinkedinUserInput {
   };
 }
 
+export interface IGetRecruiterByIdInput {
+  input: {
+    id: string;
+    userId: string;
+  };
+}
+
 export interface IGetUsersByFilterInput {
   input: {
     filters: {

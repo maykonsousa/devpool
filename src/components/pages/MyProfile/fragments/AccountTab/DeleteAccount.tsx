@@ -1,4 +1,4 @@
-import { ConfirmationDialog } from '@/components/ConfimationDialog';
+import { ConfirmationDialog } from '@/components/CopyIcon/ConfimationDialog';
 import { useDeleteAccount, useFeedback, useSession } from '@/hooks';
 import React, { useCallback } from 'react';
 

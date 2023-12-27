@@ -10,7 +10,7 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
-import { Loading } from '../Loading';
+import { Loading } from '../../Loading';
 
 interface IConfirmationDialogProps {
   title: string;

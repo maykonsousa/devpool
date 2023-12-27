@@ -22,6 +22,7 @@ export const getUserByEmailService = async (email: string) => {
         cover_url: true,
         createdAt: true,
         updatedAt: true,
+        current_company: true,
       },
     });
 

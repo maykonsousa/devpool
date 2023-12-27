@@ -1,8 +1,16 @@
-import { UnderConstruction } from '@/components/pages/UnderConstruction';
+'use client';
+
+import { RecruiterProfilePage } from '@/components/pages';
 import React from 'react';
 
-const page = () => {
-  return <UnderConstruction />;
+interface IPagesProps {
+  params: {
+    id: string;
+  };
+}
+
+const page = ({ params }: IPagesProps) => {
+  return <RecruiterProfilePage id={params.id} />;
 };
 
 export default page;

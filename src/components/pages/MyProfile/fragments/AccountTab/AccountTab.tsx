@@ -19,7 +19,10 @@ import { CityInput } from '@/components/CityInput';
 import { states } from '@/mock/statesMock';
 import { TStates } from '@/mock/citiesMock';
 import { formatName } from '@/utils';
-import { updateDeveloperValidation } from '@/validations/userFormValidations';
+import {
+  updateDeveloperValidation,
+  updateRecruiterValidation,
+} from '@/validations/userFormValidations';
 import { CameraAlt } from '@mui/icons-material';
 import {
   AccountTabContainer,
@@ -36,6 +39,7 @@ interface IValues {
   name: string;
   email: string;
   password: string;
+  current_company: string;
   passwordConfirmation: string;
   username: string;
   avatar_url: string;
@@ -58,6 +62,7 @@ const INITIAL_VALUES: IValues = {
   seniority: '',
   city: '',
   state: '',
+  current_company: '',
 };
 
 const seniorityOptions = [
@@ -73,6 +78,7 @@ export function AccountTab() {
   const theme = useTheme();
   const { url, openUpload, onResetAtavarOptions } = useUpload();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isRecruiter = !!user && user.type === 'recruiter';
   const { data: roles } = useGetRoles();
   const { showMessage } = useFeedback();
 
@@ -82,7 +88,9 @@ export function AccountTab() {
   }));
   const methods = useForm<IValues>({
     defaultValues: INITIAL_VALUES,
-    resolver: zodResolver(updateDeveloperValidation),
+    resolver: zodResolver(
+      isRecruiter ? updateRecruiterValidation : updateDeveloperValidation,
+    ),
   });
 
   const variables: IVariables = {
@@ -97,6 +105,7 @@ export function AccountTab() {
         seniority: methods.watch('seniority'),
         city: methods.watch('city'),
         state: methods.watch('state'),
+        current_company: methods.watch('current_company'),
       },
     },
   };
@@ -186,8 +195,26 @@ export function AccountTab() {
             </AvatarActionContainer>
           </AvatarSession>
           <FormSession>
-            <TextInput name="name" label="Nome" placeholder="Nome" required />
+            {!isRecruiter && (
+              <TextInput name="name" label="Nome" placeholder="Nome" required />
+            )}
             <GridContainer>
+              {isRecruiter && (
+                <TextInput
+                  name="name"
+                  label="Nome"
+                  placeholder="Nome"
+                  required
+                />
+              )}
+              {isRecruiter && (
+                <TextInput
+                  name="current_company"
+                  label="Empresa"
+                  placeholder="Digite o nome da empresa"
+                  required
+                />
+              )}
               <Select
                 name="role"
                 label="Area de Atuação"

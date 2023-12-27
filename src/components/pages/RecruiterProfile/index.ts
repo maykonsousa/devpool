@@ -1,0 +1,1 @@
+export { RecruiterProfilePage } from './RecruiterProfilePage';

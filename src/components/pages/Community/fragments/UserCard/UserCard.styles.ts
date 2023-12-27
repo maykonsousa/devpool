@@ -7,7 +7,7 @@ export const CardContainer = styled(Card)`
   flex-direction: column;
   width: 100%;
   max-width: 450px;
-  height: 300px;
+  height: 350px;
   padding: 16px;
   gap: 16px;
   border-radius: 10px;
@@ -15,7 +15,7 @@ export const CardContainer = styled(Card)`
   //mobile
   @media (max-width: 900px) {
     max-width: 100%;
-    height: 350px;
+    height: max-content;
   }
 `;
 
@@ -56,7 +56,7 @@ export const Bio = styled(Typography)`
 `;
 
 export const CardContent = styled(Box)`
-  flex: 1;
+  height: 100%;
 `;
 
 export const CardFooter = styled(Box)`

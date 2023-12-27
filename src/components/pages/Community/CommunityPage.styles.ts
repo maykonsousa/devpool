@@ -69,7 +69,7 @@ export const CardsContainer = styled(Box)`
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     padding: 0 1rem;
     gap: 2rem;
   }
