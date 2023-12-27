@@ -38,7 +38,7 @@ export function AlertProfileDialog() {
   const hasJobs = jobsData?.jobs?.length ? 14 : 0;
 
   const handleOpen = useCallback(() => {
-    if (data?.user.type === 'developer' && completed < 100) {
+    if (data?.user?.type === 'developer' && completed < 100) {
       setOpen(true);
     }
   }, [data, completed]);
