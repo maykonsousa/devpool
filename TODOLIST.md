@@ -13,7 +13,7 @@ Página dedicada a listar todas as atividades a serem implementadas na aplicaç�
 - [ ] Edição de projetos - Deve permitir a edição da descrição e título do projeto
 - [X] Edição de idioma
 - [X] Exclusão de idioma
-- [ ] Edição de experiência
+- [X] Edição de experiência
 - [X] Inclusão do filtro de idiomas na busca de perfis
 - [X] Permitir login atravez do Linkedin
 - [X] Implementar cadastro de recrutadores
