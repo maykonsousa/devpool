@@ -76,7 +76,7 @@ export function AlertProfileDialog() {
   }, [handleOpen]);
   return (
     <Dialog open={open}>
-      <DialogTitle variant="h4">Seu Perfil ainda não está completo</DialogTitle>
+      <DialogTitle variant="h4">Seu perfil ainda não está completo</DialogTitle>
       <DialogContent
         sx={{
           display: 'flex',
