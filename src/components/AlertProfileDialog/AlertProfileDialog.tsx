@@ -31,11 +31,11 @@ export function AlertProfileDialog() {
     username: session?.user.name as string,
   });
   const hasSocialInfo = data?.user?.contacts?.linkedin_url ? 16 : 0;
-  const hasCourses = data?.user?.courses.length ? 14 : 0;
-  const hasLanguages = data?.user?.languages.length ? 14 : 0;
-  const hasTechnologies = data?.user?.technologies.length ? 14 : 0;
-  const hasProjects = ProjectsData?.projects.length ? 14 : 0;
-  const hasJobs = jobsData?.jobs.length ? 14 : 0;
+  const hasCourses = data?.user?.courses?.length ? 14 : 0;
+  const hasLanguages = data?.user?.languages?.length ? 14 : 0;
+  const hasTechnologies = data?.user?.technologies?.length ? 14 : 0;
+  const hasProjects = ProjectsData?.projects?.length ? 14 : 0;
+  const hasJobs = jobsData?.jobs?.length ? 14 : 0;
 
   const handleOpen = useCallback(() => {
     if (data?.user.type === 'developer' && completed < 100) {
