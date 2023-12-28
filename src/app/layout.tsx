@@ -11,6 +11,7 @@ import { FeedBackWidget } from '@components/FeedBackWidget';
 import { getServerSession } from 'next-auth';
 import { UploadDialog } from '@components/UploadDialog';
 import { Metadata } from 'next';
+import Head from 'next/head';
 import { PageContainer } from './layout.styles';
 
 export const metadata: Metadata = {
@@ -41,6 +42,9 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="pt-BR">
+      <Head>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <SessionProvider session={session}>
         <ApolloProvider>
           <ThemeProvider>

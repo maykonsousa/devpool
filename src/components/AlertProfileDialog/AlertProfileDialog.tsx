@@ -23,7 +23,7 @@ export function AlertProfileDialog() {
     variables: { input: { username: session?.user.name } },
   });
 
-  const { data: ProjectsData } = useGetProjectsByUser({
+  const { data: projectsData } = useGetProjectsByUser({
     variables: { input: { username: session?.user.name } },
   });
 
@@ -34,14 +34,16 @@ export function AlertProfileDialog() {
   const hasCourses = data?.user?.courses?.length ? 14 : 0;
   const hasLanguages = data?.user?.languages?.length ? 14 : 0;
   const hasTechnologies = data?.user?.technologies?.length ? 14 : 0;
-  const hasProjects = ProjectsData?.projects?.length ? 14 : 0;
+  const hasProjects = projectsData?.projects?.length ? 14 : 0;
   const hasJobs = jobsData?.jobs?.length ? 14 : 0;
 
   const handleOpen = useCallback(() => {
-    if (data?.user?.type === 'developer' && completed < 100) {
+    if (data?.user?.type === 'developer' && projectsData && completed < 100) {
       setOpen(true);
+    } else {
+      setOpen(false);
     }
-  }, [data, completed]);
+  }, [data, completed, projectsData]);
 
   const handleComplete = useCallback(() => {
     setCompleted(

@@ -2,5 +2,5 @@
 export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ['/community', '/settings', '/jobs'],
+  matcher: ['/community', '/settings', '/jobs', '/search-profiles'],
 };
