@@ -35,7 +35,7 @@ export const updateJobService = async ({ data }: IUpdateJobService) => {
       throw new AppError('Experiência profissional não encontrada', 404);
     }
 
-    const job = await prisma.job.update({
+    await prisma.job.update({
       where: { id: data.id },
       data: {
         startDate: data.startDate,
@@ -49,34 +49,28 @@ export const updateJobService = async ({ data }: IUpdateJobService) => {
 
     const technologiesInput: string[] = data.technologies || [];
 
-    technologiesInput.forEach(async (element) => {
-      const technologyExists = await prisma.technology.findFirst({
-        where: {
-          name: element,
+    const technologies = await prisma.technology.findMany({
+      where: {
+        name: {
+          in: technologiesInput,
         },
-      });
+      },
+    });
 
-      if (!technologyExists) {
-        throw new AppError('Tecnologia não existe', 404);
-      }
+    const technologiesIds = technologies.map((technology) => technology.id);
 
-      // create job technology only if not exists
+    await prisma.jobTechnology.deleteMany({
+      where: {
+        jobId: data.id,
+      },
+    });
 
-      const jobTechnologyExists = await prisma.jobTechnology.findFirst({
-        where: {
-          technologyId: technologyExists.id,
-          jobId: job.id,
-        },
-      });
-
-      if (!jobTechnologyExists) {
-        await prisma.jobTechnology.create({
-          data: {
-            technologyId: technologyExists.id,
-            jobId: job.id,
-          },
-        });
-      }
+    await prisma.jobTechnology.createMany({
+      data: technologiesIds.map((technologyId) => ({
+        jobId: data.id,
+        technologyId,
+      })),
+      skipDuplicates: true,
     });
 
     return {

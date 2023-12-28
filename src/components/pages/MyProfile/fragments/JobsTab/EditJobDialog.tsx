@@ -28,12 +28,12 @@ interface IJob {
   technologies: ITech[];
 }
 interface IFormValues {
-  company: string;
-  name: string;
-  startDate: Date;
-  endDate: Date | null;
-  isCurrent: boolean;
-  description: string;
+  company?: string;
+  name?: string;
+  startDate?: Date;
+  endDate?: Date;
+  isCurrent?: boolean;
+  description?: string;
 }
 
 const defaultValues: IFormValues = {
@@ -41,7 +41,7 @@ const defaultValues: IFormValues = {
   name: '',
   isCurrent: true,
   startDate: new Date(),
-  endDate: null,
+  endDate: undefined,
   description: '',
 };
 
@@ -62,7 +62,7 @@ export function EditJobDialog({ job }: IEditJobDialog) {
       company: job.company,
       name: job.name,
       startDate: new Date(+job.startDate),
-      endDate: job.endDate ? new Date(+job.endDate) : null,
+      endDate: job.endDate ? new Date(+job.endDate) : undefined,
       isCurrent: job.isCurrent,
       description: job.description,
     });
@@ -70,18 +70,42 @@ export function EditJobDialog({ job }: IEditJobDialog) {
     setTechnologies(job.technologies.map((tech) => tech.name));
   }, [job, formMethods]);
 
+  const oldTechnologies = job.technologies.map((tech) => tech.name);
+
+  const newTechnologies = technologies.filter(
+    (tech) => !oldTechnologies.includes(tech),
+  );
+
   const variables = {
     input: {
       data: {
-        company: formMethods.watch('company'),
-        description: formMethods.watch('description'),
-        endDate: formMethods.watch('endDate') || undefined,
+        company:
+          formMethods.watch('company') !== job.company
+            ? formMethods.watch('company')
+            : undefined,
+        description:
+          formMethods.watch('description') !== job.description
+            ? formMethods.watch('description')
+            : undefined,
+        endDate:
+          formMethods.watch('endDate') !== new Date(job.endDate)
+            ? formMethods.watch('endDate')
+            : undefined,
         id: job.id,
-        isCurrent: formMethods.watch('isCurrent'),
-        name: formMethods.watch('name'),
-        startDate: formMethods.watch('startDate'),
+        isCurrent:
+          formMethods.watch('isCurrent') !== job.isCurrent
+            ? formMethods.watch('isCurrent')
+            : undefined,
+        name:
+          formMethods.watch('name') !== job.name
+            ? formMethods.watch('name')
+            : undefined,
+        startDate:
+          formMethods.watch('startDate') !== new Date(job.startDate)
+            ? formMethods.watch('startDate')
+            : undefined,
         userId: job.userId,
-        technologies,
+        technologies: newTechnologies.length ? newTechnologies : undefined,
       },
     },
   };
