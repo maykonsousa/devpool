@@ -70,12 +70,6 @@ export function EditJobDialog({ job }: IEditJobDialog) {
     setTechnologies(job.technologies.map((tech) => tech.name));
   }, [job, formMethods]);
 
-  const oldTechnologies = job.technologies.map((tech) => tech.name);
-
-  const newTechnologies = technologies.filter(
-    (tech) => !oldTechnologies.includes(tech),
-  );
-
   const variables = {
     input: {
       data: {
@@ -105,7 +99,7 @@ export function EditJobDialog({ job }: IEditJobDialog) {
             ? formMethods.watch('startDate')
             : undefined,
         userId: job.userId,
-        technologies: newTechnologies.length ? newTechnologies : undefined,
+        technologies,
       },
     },
   };
