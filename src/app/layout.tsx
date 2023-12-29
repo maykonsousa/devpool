@@ -17,12 +17,14 @@ import { PageContainer } from './layout.styles';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_URL ?? ''),
   title: 'DevPool',
+  icons: ['/favicon.png'],
   description:
     'DevPool é uma plataforma para conectar desenvolvedores e empresas.',
   openGraph: {
     title: 'DevPool',
     description:
       'DevPool é uma plataforma para conectar desenvolvedores e empresas.',
+
     images: [
       {
         url: '/metadataImage.png',
@@ -43,7 +45,7 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <Head>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </Head>
       <SessionProvider session={session}>
         <ApolloProvider>
