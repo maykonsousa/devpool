@@ -45,6 +45,12 @@ export interface IDeleteCourseInput {
   };
 }
 
+export interface IGetCoursesByUserInput {
+  input: {
+    userId: string;
+  };
+}
+
 export interface IUpdateCourseInput {
   input: {
     courseId: string;

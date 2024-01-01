@@ -271,6 +271,17 @@ export const typeDefs = `#graphql
   
   }
 
+  input UpdateProjectInput {
+    projectId: String!
+    userId: String!
+    name: String
+    description: String
+    image_url: String
+    repo_url: String
+    deployed_url: String
+    technologies: [String]
+  }
+
 
   type CreateProjectPayload {
     status: Status!
@@ -710,6 +721,7 @@ export const typeDefs = `#graphql
     ##PROJECTS
     createProject(input:CreateProjectInput): CreateProjectPayload!
     deleteProjectUser(input: DeleteProjectInput): DeleteProjectPayload!
+    updateProjectUser(input: UpdateProjectInput): DeleteProjectPayload!
 
     ##COURSES
     createCourse(input: CreateCourseInput): CreateCoursePayload!

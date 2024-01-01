@@ -3,6 +3,7 @@ import { languageResolvers } from './languageResolvers';
 import { userResolvers } from './userResolvers';
 import { positionResolvers } from './positionResolvers';
 import { jobsResolvers } from './jobsResolvers';
+import { projectResolvers } from './projectResolvers';
 
 export const resolvers = {
   Query: {
@@ -11,6 +12,7 @@ export const resolvers = {
     ...userResolvers.Query,
     ...positionResolvers.Query,
     ...jobsResolvers.Query,
+    ...projectResolvers.Query,
   },
   Mutation: {
     ...allResolvers.Mutation,
@@ -18,5 +20,6 @@ export const resolvers = {
     ...userResolvers.Mutation,
     ...positionResolvers.Mutation,
     ...jobsResolvers.Mutation,
+    ...projectResolvers.Mutation,
   },
 };

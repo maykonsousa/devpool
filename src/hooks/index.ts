@@ -40,3 +40,4 @@ export { useGetLinkedinUser } from './useGetLinkedinUser';
 export { useCreatePosition } from './useCreatePosition';
 export { useGetRecruiterProfile } from './useGetRecruiterProfile';
 export { useUpdateJob } from './useUpdateJob';
+export { useUpdateProject } from './useUpdateProject';

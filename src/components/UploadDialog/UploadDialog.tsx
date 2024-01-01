@@ -124,6 +124,7 @@ export function UploadDialog() {
       aria-describedby="alert-dialog-slide-description"
       fullWidth
       sx={{
+        'zIndex': 9999,
         '& .MuiDialog-paper': {
           borderRadius: '8px',
           backgroundColor: theme.palette.background.default,

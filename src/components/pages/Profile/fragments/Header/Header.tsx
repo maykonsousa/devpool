@@ -26,6 +26,7 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'react-share';
+import { seniorityEnum } from '@/utils';
 import { HeaderAvatar, HeaderContainer } from './Header.styles';
 
 interface HeaderProps {
@@ -127,7 +128,9 @@ export function Header({ username }: HeaderProps) {
               }}
             >
               <EqualizerSharp />
-              <Typography variant="body1">{user?.seniority}</Typography>
+              <Typography variant="body1">
+                {seniorityEnum[user?.seniority as keyof typeof seniorityEnum]}
+              </Typography>
             </Box>
 
             <Box

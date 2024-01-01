@@ -46,6 +46,7 @@ export const useGetProjectsByUser = ({ variables }: IUseGetProjectsByUser) => {
     GET_PROJECTS_BY_USER,
     {
       variables,
+      fetchPolicy: 'network-only',
     },
   );
 

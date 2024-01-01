@@ -8,6 +8,7 @@ import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
 import { DeleteProjectIcon } from './DeleteProjectIcon';
+import { EditProjectDialog } from './EditProjectDialog';
 
 export function ProjectTable() {
   const { user } = useSession();
@@ -54,7 +55,12 @@ export function ProjectTable() {
     {
       field: 'actions',
       headerName: 'Ações',
-      renderCell: ({ row }) => <DeleteProjectIcon projectId={row?.id} />,
+      renderCell: ({ row }) => (
+        <Box>
+          <DeleteProjectIcon projectId={row?.id} />,
+          <EditProjectDialog project={row} />
+        </Box>
+      ),
     },
   ];
 
@@ -89,6 +95,16 @@ export function ProjectTable() {
               <Language />
             </IconButton>
           </Box>
+        </Box>
+      ),
+    },
+    {
+      field: 'actions',
+      headerName: 'Ações',
+      renderCell: ({ row }) => (
+        <Box>
+          <DeleteProjectIcon projectId={row?.id} />
+          <EditProjectDialog project={row} />
         </Box>
       ),
     },
