@@ -7,12 +7,10 @@ export interface IProjectInput {
   user_id: string;
   githubId: string;
 }
-
 interface ITecnology {
   id: string;
   name: string;
 }
-
 export interface IProjects {
   id: string;
   name: string;
@@ -45,5 +43,18 @@ export interface IDeleteProjectInput {
   input: {
     projectId: string;
     userId: string;
+  };
+}
+
+export interface IUpdateProjectInput {
+  input: {
+    projectId: string;
+    userId: string;
+    name?: string;
+    description?: string;
+    image_url?: string;
+    repo_url?: string;
+    deployed_url?: string;
+    technologies: string[];
   };
 }
