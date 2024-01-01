@@ -17,6 +17,7 @@ import {
 import { Card } from '@/components/Card';
 import { SocialIcon } from '@/components/SocialIcon';
 import { useGetProfile } from '@/hooks';
+import { seniorityEnum } from '@/utils';
 import { Container, Content, Sidebar } from './TabProfile.styles';
 import { CoursesCard } from '../CoursesCard/CoursesCard';
 
@@ -111,7 +112,9 @@ export function TabProfile({ username }: ITabProfileProps) {
               />
               <InFormationRow
                 label="Senioridade:"
-                value={user?.seniority}
+                value={
+                  seniorityEnum[user?.seniority as keyof typeof seniorityEnum]
+                }
                 icon={<EqualizerSharp />}
               />
               <InFormationRow
