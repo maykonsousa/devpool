@@ -1,6 +1,14 @@
 import { TextInput } from '@/components/TextInput';
-import { Add, Check } from '@mui/icons-material';
-import { Button, Card, Typography, CardActions, Box } from '@mui/material';
+import { Add, CameraAlt, Check } from '@mui/icons-material';
+import {
+  Button,
+  Card,
+  Typography,
+  CardActions,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
 import React, { SyntheticEvent, useCallback, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
@@ -63,6 +71,8 @@ export function ProjectForm() {
   });
   const { user } = useSession();
   const { showMessage } = useFeedback();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const { url, openUpload, onResetAtavarOptions } = useUpload();
   const { onlyNames: technologiesOptions } = useGetAllTechnologies();
@@ -133,6 +143,7 @@ export function ProjectForm() {
 
   const handleCreateProject = methods.handleSubmit(async () => {
     const { data } = await createProject();
+
     if (data?.createProject.status === 'success') {
       showMessage({
         message: 'Projeto criado com sucesso!',
@@ -209,7 +220,7 @@ export function ProjectForm() {
                 sx={{ marginTop: '1rem' }}
                 onClick={openUpload}
               >
-                Alterar imagem
+                {isMobile ? <CameraAlt /> : 'Alterar imagem'}
               </Button>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 Tamanho máximo: 2mb

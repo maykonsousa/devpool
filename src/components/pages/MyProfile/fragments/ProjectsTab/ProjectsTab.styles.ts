@@ -29,7 +29,7 @@ export const ImageContainer = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
+  width: 180px;
   height: 120px;
   position: relative;
   border-radius: 8px;
