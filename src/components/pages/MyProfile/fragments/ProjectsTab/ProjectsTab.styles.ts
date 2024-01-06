@@ -39,7 +39,7 @@ export const ImageContainer = styled(Box)`
 
   @media (max-width: 900px) {
     margin-top: 0;
-    width: 80px;
+    width: 120px;
     height: 80px;
   }
 `;
