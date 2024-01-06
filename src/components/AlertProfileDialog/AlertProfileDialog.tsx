@@ -96,7 +96,13 @@ export function AlertProfileDialog() {
   }, [handleOpen]);
   return (
     <Dialog open={open}>
-      <DialogTitle variant={isMobile ? 'h6' : 'h4'}>
+      <DialogTitle
+        variant={isMobile ? 'h6' : 'h4'}
+        sx={{
+          width: '100%',
+          textAlign: 'center',
+        }}
+      >
         Seu perfil ainda não está completo
       </DialogTitle>
       <DialogContent
