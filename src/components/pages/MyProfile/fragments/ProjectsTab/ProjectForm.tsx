@@ -223,7 +223,7 @@ export function ProjectForm() {
                 {isMobile ? <CameraAlt /> : 'Alterar imagem'}
               </Button>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                Tamanho máximo: 2mb
+                {isMobile ? 'Max: 2mb' : 'Tamanho máximo: 2mb'}
               </Typography>
             </AvatarActionContainer>
           </AvatarSession>
