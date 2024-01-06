@@ -9,6 +9,8 @@ import {
   DialogContent,
   DialogTitle,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import React, { useCallback } from 'react';
@@ -17,6 +19,8 @@ import { ProgressBar } from './ProgressBar';
 
 export function AlertProfileDialog() {
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { push } = useRouter();
   const [completed, setCompleted] = React.useState(14);
   const { data: session } = useSession();
@@ -100,7 +104,7 @@ export function AlertProfileDialog() {
           alignItems: 'center',
           flexDirection: 'column',
           minHeight: '200px',
-          minWidth: '500px',
+          minWidth: isMobile ? '100%' : '500px',
         }}
       >
         <Typography variant="h6">
@@ -111,8 +115,9 @@ export function AlertProfileDialog() {
         <Box
           sx={{
             display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: isMobile ? 'center' : 'space-between',
             width: '100%',
             paddingTop: '1rem',
           }}
