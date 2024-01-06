@@ -107,10 +107,12 @@ export function AlertProfileDialog() {
           minWidth: isMobile ? '100%' : '500px',
         }}
       >
-        <Typography variant="h6">
-          Quanto mais completo o seu perfil estiver, maiores as chances de você
-          ser encontrado por recrutadores.
-        </Typography>
+        {!isMobile && (
+          <Typography variant="h6">
+            Quanto mais completo o seu perfil estiver, maiores as chances de
+            você ser encontrado por recrutadores.
+          </Typography>
+        )}
 
         <Box
           sx={{
