@@ -5,6 +5,7 @@ Página dedicada a listar todas as atividades a serem implementadas na aplicaç�
 
 ## Bugs & Melhorias
 - [X] Senioridade no perfil do usuário está com letra minúscula e sem acento
+- [X] Alerta sobre perfil incompleto aparecendo muitas vezes
 - [ ] Tabela de cursos na área de perfil está quebrando quando tem 5 cursos ou mais
 - [ ] Edição de curso está mostrando inputs de texto na duração e progresso, o ideal seria selects para esses campos
 

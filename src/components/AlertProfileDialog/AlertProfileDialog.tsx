@@ -1,5 +1,6 @@
 import { useGetJobsByUser, useGetProfile, useGetProjectsByUser } from '@/hooks';
 import { CheckBox, DisabledByDefault } from '@mui/icons-material';
+import { parseCookies, setCookie } from 'nookies';
 import {
   Box,
   Button,
@@ -37,13 +38,26 @@ export function AlertProfileDialog() {
   const hasProjects = projectsData?.projects?.length ? 14 : 0;
   const hasJobs = jobsData?.jobs?.length ? 14 : 0;
 
+  const hasSeenAlert = parseCookies().hasSeenAlert === 'true';
+
+  const showAlert =
+    !hasSeenAlert && completed < 100 && data?.user?.type === 'developer';
+
   const handleOpen = useCallback(() => {
-    if (data?.user?.type === 'developer' && projectsData && completed < 100) {
+    if (showAlert) {
       setOpen(true);
     } else {
       setOpen(false);
     }
-  }, [data, completed, projectsData]);
+  }, [showAlert]);
+
+  const handleClose = () => {
+    setOpen(false);
+    setCookie(null, 'hasSeenAlert', 'true', {
+      maxAge: 60 * 60 * 24,
+      path: '/',
+    });
+  };
 
   const handleComplete = useCallback(() => {
     setCompleted(
@@ -233,7 +247,7 @@ export function AlertProfileDialog() {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)} color="info" variant="outlined">
+        <Button onClick={handleClose} color="info" variant="outlined">
           Lembrar mais tarde
         </Button>
         <Button color="info" variant="contained" onClick={handleConfirm}>
