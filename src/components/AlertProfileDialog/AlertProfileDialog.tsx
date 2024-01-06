@@ -115,9 +115,10 @@ export function AlertProfileDialog() {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
+            flexDirection: isMobile ? 'column-reverse' : 'row',
             alignItems: 'center',
             justifyContent: isMobile ? 'center' : 'space-between',
+            gap: isMobile ? '1rem' : '0.5rem',
             width: '100%',
             paddingTop: '1rem',
           }}
