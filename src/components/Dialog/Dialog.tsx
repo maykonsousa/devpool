@@ -13,6 +13,8 @@ import {
   Dialog as MuiDialog,
   Slide,
   SlideProps,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 interface IDialogProps {
@@ -46,6 +48,8 @@ export function Dialog({
   dismissText = 'Cancelar',
 }: IDialogProps) {
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleClose = () => {
     setOpen(false);
@@ -76,7 +80,7 @@ export function Dialog({
             alignItems: 'center',
             flexDirection: 'column',
             minHeight: '200px',
-            minWidth: '500px',
+            minWidth: isMobile ? '100%' : '500px',
           }}
         >
           {loading ? (
